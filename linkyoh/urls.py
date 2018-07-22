@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from django.conf.urls import url
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('linkyohapp.urls')),
+    # path('social/', social_django.urls, name='social'),
+    # path('auth/', django.contrib.auth.urls, name='auth'),
+    path('social/', include(('social_django.urls','social'), namespace='social')),
+    path('auth/', include(('django.contrib.auth.urls','auth'), namespace='auth')),
+
+
 ]
