@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Gig
+from .forms import GigForm
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
@@ -17,12 +20,20 @@ def gig_detail(request, id):
     return render(request, 'gig_detail.html', {"gig": gig})
 
 
+@login_required(login_url='/')
 def create_gig(request):
-    return render(request, 'create_gig.html',{})
+    if request.method  == "POST":
+        gig_form = GigForm(request.POST, request.FILES)
+        #print(gig_form.is_valid())
+        #print(gig_form.errors())
+    gig_form = GigForm()
+    return render(request, 'create_gig.html',{"gig_form": gig_form})
 
 
+@login_required(login_url='/')
 def my_gigs(request):
-    return render(request, 'my_gigs.html', {})
+    gigs = Gig.objects.filter(user=request.user)
+    return render(request, 'my_gigs.html', {"gigs": gigs})
 
 
 
