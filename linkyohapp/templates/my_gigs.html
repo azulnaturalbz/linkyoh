@@ -3,5 +3,26 @@
 
 
 {% block page %}
-    My Gigs
+    <h1 style="margin-bottom: 30px"> My Gigs</h1>
+    <div class="panel panel-default">
+    <table class="table table-bordered table-striped">
+        <thead class="bg-success">
+        <tr>
+            <th>Gig Title</th>
+            <th>Price ($)</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for gig in gigs %}
+            <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ gig.title }}</td>
+            <td>{{ gig.price }}</td>
+            <td>{% if gig.status %}Active {% else %} Disabled{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
 {% endblock %}
