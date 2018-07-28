@@ -16,3 +16,13 @@ def gig_detail(request, id):
         return redirect('/')
     return render(request, 'gig_detail.html', {"gig": gig})
 
+
+def create_gig(request):
+    return render(request, 'create_gig.html',{})
+
+
+def my_gigs(request):
+    return render(request, 'my_gigs.html', {})
+
+
+
