@@ -21,12 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u&h4&o%yw(og5s14fh6d%22c9re+4gdox)^0^981wd907vipp4'
+SECRET_KEY = credentials.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [credentials.ALLOWED_HOST,credentials.ALLOWED_HOST1,credentials.ALLOWED_HOST2,credentials.ALLOWED_HOST3]
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'registration',
+    'bootstrap4',
     'social_django',
     'linkyohapp.apps.LinkyohappConfig',
 
@@ -81,8 +83,12 @@ WSGI_APPLICATION = 'linkyoh.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': credentials.dbname,
+        'USER': credentials.dbuser,
+        'PASSWORD': credentials.dbpassword,
+        'HOST': credentials.dbhome,
+        'PORT': credentials.dbport,
     }
 }
 
@@ -135,13 +141,39 @@ STATICFILES_DIRS = [
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 
+# Social Auth - Facebook
 SOCIAL_AUTH_FACEBOOK_KEY = credentials.SOCIAL_AUTH_FACEBOOK_KEY
 SOCIAL_AUTH_FACEBOOK_SECRET = credentials.SOCIAL_AUTH_FACEBOOK_SECRET
-
+# Social Auth - Facebook
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend'
 )
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'linkyohapp.social_auth_pipeline.load_user',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
 LOGIN_REDIRECT_URL = '/'
 
+# Setup upload directory for gig model
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+
+
+# Email Settings
+EMAIL_BACKEND = credentials.EMAIL_BACKEND
+EMAIL_HOST = credentials.EMAIL_HOST
+EMAIL_HOST_USER = credentials.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = credentials.EMAIL_HOST_PASSWORD
+EMAIL_PORT = credentials.EMAIL_PORT
+EMAIL_USE_TLS = credentials.EMAIL_USE_TLS
+DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL

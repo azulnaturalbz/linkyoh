@@ -4,28 +4,118 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Linkyoh{% endblock %}</title>
-    <link rel="shortcut icon" href="{% static  'img/37117805_259982264784434_4328101817637404672_n.jpg'%}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/offcanvas.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ie10-viewport-bug-workaround.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jumbotron.css' %}">
+    {% block head %}{% endblock %}
+    <link rel="shortcut icon" href="{% static  'img/favicon.ico' %}">
 </head>
 <body>
-<header>
-    <p>Header</p>
-    {% if user and not user.is_anonymous %}
-        Hello {{ user.get_full_name|default:user.username }} !
-    {% else %}
-        I don't think we've met before
-    {% endif %}
-    <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login</a>
-    <a href="{% url 'auth:logout'  %}?next={{ request.path }}">Logout</a>
+<header class="card-header">
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><img
+                src="{% static 'img/logo.png' %}" alt="" height="23"></a>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active" hidden>
+                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Notifications</a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Switch account</a>
+                </li>
+                <li class="nav-item dropdown" hidden>
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Settings</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                {% if user and not user.is_anonymous %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" href="#" id="dropdown03"
+                           data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            <img src="{% if user.profile %}{{ user.profile.avatar }}{% else %} {% static 'img/avatar.png' %}{% endif %}" alt="" class="img-thumbnail" width="22"
+                                 height="22"> &nbsp;
+                            {{ user.get_full_name|default:user.username }} <span
+                                class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown03">
+                            <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="form-inline my-2 my-lg-0" role="search">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="nav-scroller bg-white box-shadow ">
+        <nav class="nav nav-underline ">
+            {#        <a class="nav-link active" href="#">Dashboard</a>#}
+            {#        <a class="nav-link" href="#">#}
+            {#          Friends#}
+            {#          <span class="badge badge-pill bg-light align-text-bottom">27</span>#}
+            {#        </a>#}
+            <a class="nav-link" href="#">Graphics & Design</a>
+            <a class="nav-link" href="#">Digital Marketing</a>
+            <a class="nav-link" href="#">Video & Animation</a>
+            <a class="nav-link" href="#">Music & Audio</a>
+            <a class="nav-link" href="#">Programming & Technology</a>
+            {#        <a class="nav-link" href="#">Link</a>#}
+            {#        <a class="nav-link" href="#">Link</a>#}
+        </nav>
+    </div>
 </header>
 
-<hr/>
-{% block page %}
-{% endblock %}
+<div id="body">
+    <div class="container">
+    {% block page %}
+    {% endblock %}
+    </div>
 
-<footer>
-    <p>footer updated</p>
+</div>
+
+
+<footer class="card-footer" id="footer">
+    <div class="container">
+        <span class="text-muted">Linkyoh &copy; {% now "Y" %}</span>
+    </div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/offcanvas.js' %}"></script>
+<script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+<script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>
