@@ -3,6 +3,7 @@
 
 
 {% block page %}
+    {{ error }}
     <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ gig_form }}
