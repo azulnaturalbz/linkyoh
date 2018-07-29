@@ -102,3 +102,15 @@ def create_purchase(request):
             print("Buy Gig Failed")
 
     return redirect('/')
+
+
+@login_required(login_url='/')
+def my_sellings(request):
+    purchases = Purchase.objects.filter(gig__user=request.user)
+    return render(request, 'my_sellings.html',{"purchases": purchases})
+
+
+@login_required(login_url='/')
+def my_buyings(request):
+    purchases = Purchase.objects.filter(buyer=request.user)
+    return render(request, 'my_buyings.html',{"purchases": purchases})

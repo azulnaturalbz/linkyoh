@@ -58,6 +58,8 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown03">
                             <a class="dropdown-item" href="{% url 'create_gig' %}">Create a gig</a>
                             <a class="dropdown-item" href="{% url 'my_gigs' %}">My Gigs</a>
+                            <a class="dropdown-item" href="{% url 'my_sellings' %}">My Sellings</a>
+                            <a class="dropdown-item" href="{% url 'my_buyings' %}">My Buyings</a>
                             <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
                             <a class="dropdown-item" href="{% url 'profile' user.username %}">My Profile</a>
                             <a class="dropdown-item" href="#">Action</a>
