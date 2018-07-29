@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Gig
+from .models import Gig, Profile
 from .forms import GigForm
 from django.contrib.auth.decorators import login_required
 
@@ -48,8 +48,6 @@ def edit_gig(request, id):
                     return redirect('my_gigs')
                 else:
                     error = "Data is not Valid"
-
-
             return render(request, 'edit_gig.html', {"gig":gig, "error":error})
         except Gig.DoesNotExist:
             return redirect('/')
@@ -61,4 +59,19 @@ def my_gigs(request):
     return render(request, 'my_gigs.html', {"gigs": gigs})
 
 
+@login_required(login_url='/')
+def profile(request, username):
 
+    if request.method == 'POST':
+        profile = Profile.objects.get(user=request.user)
+        profile.about = request.POST['about']
+        profile.slogan = request.POST['slogan']
+        profile.save()
+    else:
+        try:
+            profile = Profile.objects.get(user__username=username)
+        except Profile.DoesNotExist:
+            return redirect('/')
+
+    gigs = Gig.objects.filter(user=profile.user, status=True)
+    return render(request, 'profile.html', {"profile": profile, "gigs":gigs})
