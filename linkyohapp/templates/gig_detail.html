@@ -23,17 +23,30 @@
                 <div class="card-header">
                     <h4>Reviews</h4>
                 </div>
+                {% if show_post_review %}
+                    <div class="panel-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <textarea name="content" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
                 <ul class="list-group">
-                    {% for i in '123' %}
+                    {% for review in reviews %}
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-md-2">
                                     <img height="60" width="60" class="img-circle center-block"
-                                         src="{% static 'img/avatar.png' %}" alt="">
+                                         src="{{ review.user.profile.avatar }}" alt="">
                                 </div>
                                 <div class="col-md-10">
-                                    <h5>Cristian Silva</h5>
-                                    <p>Delta is Alpha</p>
+                                    <h5>{{ review.user.username }}</h5>
+                                    <p>{{ review.content }}</p>
                                 </div>
                             </div>
                         </li>
