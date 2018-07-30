@@ -4,6 +4,10 @@ from django.utils import timezone
 # Create your models here.
 
 
+def cover_upload_path(instance, filename):
+    return '/'.join(['gigs_img', str(instance.user), filename])
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.CharField(max_length=500)
@@ -27,7 +31,7 @@ class Gig(models.Model):
     category = models.CharField(max_length=2,choices=CATEGORY_CHOICES)
     description = models.CharField(max_length=1000)
     price = models.IntegerField(default=10)
-    photo = models.FileField(upload_to='gigs')
+    photo = models.FileField(upload_to=cover_upload_path, default='gigs_img/empty_cover.jpg')
     status = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     create_time = models.DateTimeField(default=timezone.now)

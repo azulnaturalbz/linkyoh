@@ -4,16 +4,16 @@
 
     <div class="row">
         <div class="col-md-8">
-            <div class="panel panel-default">
+            <div class="card card-default">
                 <div class="card-body">
                     <h3> {{ gig.title }}</h3>
                     <hr/>
-                    <img src="/media/{{ gig.photo }}" class="img-reponsive center-block" alt="">
+                    <img src="/media/{{ gig.photo }}" class="card-img" alt="">
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="card-header">
-                    <h4>About this plan</h4>
+                    <h4>About this Service/Offer</h4>
                 </div>
                 <div class="card-body">
                     <p>{{ gig.description }}</p>
@@ -42,12 +42,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="card-body">
+            <div class="card card-default">
+                <div class="panel-body">
                     <button type="button" class="btn btn-success btn-block">Order Now (${{ gig.price }})</button>
                 </div>
             </div>
-            <div class="panel panel-default">
+            <div class="card card-default">
                 <div class="card-body">
                     <img src="{% if user.profile %}{{ gig.user.profile.avatar }} {% else %} {% static 'img/avatar.png' %}{% endif %}" class="img-circle center-block" height="100" width="100">
                     <a href="{% url 'profile' gig.user.username %}"><h4 class="text-center">{{ gig.user.username }}</h4></a>

@@ -5,23 +5,62 @@
         <img class="card-img-top" src="{% static 'img/banner.gif' %}" alt="Card image cap">
     </div>
 
-    <div class="card-deck">
+    <div class="row">
         {% for gig in gigs %}
-            <div class="card col-md-4">
-                <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"
-                                                             alt="Card image cap"></a>
+{#            <div class="card col-md-4">#}
+{#                <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"#}
+{#                                                             alt="Card image cap"></a>#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">{{ gig.user.username }}</h5>#}
+{#                    <a href="{% url 'profile' gig.user.username %}"><h4 class="text-center">{{ gig.user.username }}</h4></a>#}
+{#                    <a href="{% url 'gig_detail' gig.id %}"><p class="card-text">This is a longer card with supporting#}
+{#                        text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}
+{#                    </a>#}
+{#                    <p class="card-text">#}
+{#                        <small class="text-muted">Last updated 3 mins ago</small>#}
+{#                    </p>#}
+{#                </div>#}
+{#            </div>#}
+
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                  <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}" alt="Card image cap"></a>
                 <div class="card-body">
-                    <h5 class="card-title">{{ gig.user.username }}</h5>
-                    <a href="{% url 'profile' gig.user.username %}"><h4 class="text-center">{{ gig.user.username }}</h4></a>
-                    <a href="{% url 'gig_detail' gig.id %}"><p class="card-text">This is a longer card with supporting
-                        text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </a>
-                    <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </p>
+                    <a href="{% url 'gig_detail' gig.id %}"><h4 class="card-title">{{ gig.title }}</h4></a>
+                    <a href="{% url 'profile' gig.user.username %}"><h5 class="card-title">{{ gig.user.username }}</h5></a>
+                  <p class="card-text">{{ gig.description | truncatechars:40 }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{% url 'gig_detail' gig.id %}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+{#                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>#}
+                    </div>
+                    <small class="text-muted">Updated at:{{ gig.create_time }}</small>
+                  </div>
                 </div>
+              </div>
             </div>
         {% endfor %}
 
     </div>
+    {% if gigs.has_other_pages %}
+  <ul class="pagination justify-content-center">
+    {% if gigs.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ gigs.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="page-item prev disabled"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+    {% for i in gigs.paginator.page_range %}
+      {% if gigs.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item" ><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if gigs.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ gigs.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item prev disabled"><span class="page-link">&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
 {% endblock %}

@@ -38,23 +38,27 @@
 
     <h3 class="text-uppercase" style="margin-top: 50px"><b>{{ profile.user.username }}'s gigs</b></h3>
     <div class="row">
+
         {% for gig in gigs %}
+
             <div class="col-md-3">
                 <div class="card">
-                    <a href="{% url 'gig_detail' gig.id %}">
-                        <img class="card-img-top" src="/media/{{ gig.photo }}" alt="">
-                    </a>
-                    <div class="caption">
-                        <p><a href="{% url 'gig_detail' gig.id %}">{{ gig.description }}</a></p>
-                        <p>
-                    <span>
-                    <a href="{% url 'profile' gig.user.username %}">{{ gig.user.username }}</a>
-                    </span>
-                            <b class="green pull-right">{{ gig.price }}</b>
-                        </p>
+                    <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"
+                                                                 alt="Card image cap"></a>
+                    <div class="card-body">
+                        <strong class="d-inline-block mb-2 text-primary">{{ gig.category }}</strong>
+                        <a href="{% url 'gig_detail' gig.id %}"><h5 class="card-title">{{ gig.title }}</h5></a>
+                        <p class="card-text">{{ gig.description | truncatechars:40 }}</p>
+                        <div class="mb-1 text-muted">${{ gig.price }}</div>
+                        <a href="{% url 'gig_detail' gig.id %}">View Details</a>
+                    </div>
+
+                    <div class="card-footer">
+                        <small class="text-muted">Updated at:{{ gig.create_time }}</small>
                     </div>
                 </div>
             </div>
         {% endfor %}
+
     </div>
 {% endblock %}

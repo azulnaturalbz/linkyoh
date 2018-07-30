@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Gig, Profile
 from .forms import GigForm
 from django.contrib.auth.decorators import login_required
@@ -7,7 +8,18 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    gigs = Gig.objects.filter(status=True)
+    gigs = Gig.objects.filter(status=True).order_by("create_time")
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(gigs, 6)
+
+    try:
+        gigs = paginator.page(page)
+    except PageNotAnInteger:
+        gigs = paginator.page(1)
+    except EmptyPage:
+        gigs = paginator.page(paginator.num_pages)
 
     return render(request,'home.html',{"gigs":gigs})
 
