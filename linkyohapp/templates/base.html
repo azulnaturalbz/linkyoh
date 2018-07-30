@@ -73,8 +73,8 @@
                     </li>
                 {% endif %}
             </ul>
-            <form class="form-inline my-2 my-lg-0" role="search">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0" role="search" method="get" action="/search/">
+                <input class="form-control mr-sm-2" name="title" type="text" placeholder="Search" aria-label="Search" >
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
@@ -87,11 +87,11 @@
             {#          Friends#}
             {#          <span class="badge badge-pill bg-light align-text-bottom">27</span>#}
             {#        </a>#}
-            <a class="nav-link" href="#">Graphics & Design</a>
-            <a class="nav-link" href="#">Digital Marketing</a>
-            <a class="nav-link" href="#">Video & Animation</a>
-            <a class="nav-link" href="#">Music & Audio</a>
-            <a class="nav-link" href="#">Programming & Technology</a>
+            <a class="nav-link" href="/category/graphics-design">Graphics & Design</a>
+            <a class="nav-link" href="/category/digital-marketing">Digital Marketing</a>
+            <a class="nav-link" href="/category/video-animation">Video & Animation</a>
+            <a class="nav-link" href="/category/music-audio">Music & Audio</a>
+            <a class="nav-link" href="/category/programming-tech">Programming & Technology</a>
             {#        <a class="nav-link" href="#">Link</a>#}
             {#        <a class="nav-link" href="#">Link</a>#}
         </nav>
