@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^create_gig/$', views.create_gig, name="create_gig"),
     url(r'^my_gigs/edit/(?P<id>[0-9]+)/$', views.edit_gig, name="edit_gig"),
     url(r'^profile/(?P<username>\w+)/$', views.profile, name='profile'),
+    path('ajax/load-state/', views.load_states, name='ajax_load_states'),
     path('ajax/load-location/', views.load_locations, name='ajax_load_locations'),
     path('ajax/load-category/', views.load_categories, name='ajax_load_category'),
     path('ajax/load-sub-category/', views.load_sub_categories, name='ajax_load_sub_category'),
