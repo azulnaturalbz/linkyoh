@@ -155,7 +155,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.auth_allowed',
-    'linkyohapp.social_auth_pipeline.load_user',
+    'linkyohapp.social_auth_pipeline.save_avatar',
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
