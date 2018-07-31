@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('linkyohapp.urls')),
-    path('social/', include(('social_django.urls','social'), namespace='social')),
+    path('', include(('social_django.urls','social'), namespace='social')),
     path('auth/', include(('django.contrib.auth.urls','auth'), namespace='auth')),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
