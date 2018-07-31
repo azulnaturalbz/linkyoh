@@ -11,6 +11,9 @@ from json import dumps
 
 # Create your views here.
 
+def load_states(request):
+    states = State.objects.all()
+    return render(request, 'state_dropdown_list_options.html', {'states': states})
 
 def load_locations(request):
     state_id = request.GET.get('state')
