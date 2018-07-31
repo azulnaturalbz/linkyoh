@@ -25,10 +25,10 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('linkyohapp.urls')),
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
-    url(r'^oauth/', include('social_django.urls', namespace='social')),
-    # path('oauth/', include(('social_django.urls','social'), namespace='social')),
-    # path('auth/', include(('django.contrib.auth.urls','auth'), namespace='auth')),
+    # url(r'^login/$', auth_views.login, name='login'),
+    # url(r'^logout/$', auth_views.logout, name='logout'),
+    # url(r'^oauth/', include('social_django.urls', namespace='social')),
+    path('social/', include(('social_django.urls','social'), namespace='social')),
+    path('auth/', include(('django.contrib.auth.urls','auth'), namespace='auth')),
 
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
