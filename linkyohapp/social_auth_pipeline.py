@@ -14,7 +14,7 @@ def save_avatar(backend, user, response, *args, **kwargs):
 
 def save_profile(backend, user, response, *args, **kwargs):
     if backend.name == 'facebook':
-        profile = user.Profile
+        profile = Profile.objects.get(user_id=user.id)
         if profile is None:
             profile = Profile(user_id=user.id)
         profile.avatar = 'http://graph.facebook.com/%s/picture?type=large' % response['id']
