@@ -78,20 +78,20 @@
         </div>
     </nav>
 
-    <div class="nav-scroller bg-white box-shadow ">
-        <nav class="nav nav-underline ">
-            {#        <a class="nav-link active" href="#">Dashboard</a>#}
-            {#        <a class="nav-link" href="#">#}
-            {#          Friends#}
-            {#          <span class="badge badge-pill bg-light align-text-bottom">27</span>#}
-            {#        </a>#}
-            <a class="nav-link" href="#">Graphics & Design</a>
-            <a class="nav-link" href="#">Digital Marketing</a>
-            <a class="nav-link" href="#">Video & Animation</a>
-            <a class="nav-link" href="#">Music & Audio</a>
-            <a class="nav-link" href="#">Programming & Technology</a>
-            {#        <a class="nav-link" href="#">Link</a>#}
-            {#        <a class="nav-link" href="#">Link</a>#}
+    <div class="nav-scroller bg-white box-shadow " id="catMenu" catMenu="{% url 'ajax_load_menu_category' %}">
+        <nav class="nav nav-underline" id="id_catNav">
+{#                    <a class="nav-link active" href="#">Dashboard</a>#}
+{#                    <a class="nav-link" href="#">#}
+{#                      Friends#}
+{#                      <span class="badge badge-pill bg-light align-text-bottom">27</span>#}
+{#                    </a>#}
+{#                    <a class="nav-link" href="#">Graphics & Design</a>#}
+{#                    <a class="nav-link" href="#">Digital Marketing</a>#}
+{#                    <a class="nav-link" href="#">Video & Animation</a>#}
+{#                    <a class="nav-link" href="#">Music & Audio</a>#}
+{#                    <a class="nav-link" href="#">Programming & Technology</a>#}
+{#                    <a class="nav-link" href="#">Link</a>#}
+{#                    <a class="nav-link" href="#">Link</a>#}
         </nav>
     </div>
 </header>
@@ -120,6 +120,23 @@
 <script src="{% static 'js/offcanvas.js' %}"></script>
 <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
 <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+        (function () {
+            var url = $("#catMenu").attr("catMenu");
+
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    $("#id_catNav").html(data);  // replace the contents of the city input with the data that came from the server
+                }
+            });
+        })();
+</script>
 {% block scripts %}{% endblock %}
 </body>
 </html>
