@@ -15,7 +15,8 @@ urlpatterns = [
     path('ajax/load-location/', views.load_locations, name='ajax_load_locations'),
     path('ajax/load-category/', views.load_categories, name='ajax_load_category'),
     path('ajax/load-sub-category/', views.load_sub_categories, name='ajax_load_sub_category'),
-
+    path('ajax/load-menu-category/', views.load_menu_categories, name='ajax_load_menu_category'),
+    url(r'^category/(?P<id>[0-9]+)/$', views.category_listings, name="category_listing"),
 
 ]
 

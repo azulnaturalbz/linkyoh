@@ -32,6 +32,28 @@ def load_sub_categories(request):
     return render(request, 'sub_category_dropdown_list_options.html', {'sub_categories': sub_categories})
 
 
+def load_menu_categories(request):
+    categories = Category.objects.all()
+    return render(request, 'category_menu_list_options.html', {'categories': categories})
+
+
+def category_listings(request,id):
+    category = Category.objects.get(pk=id)
+    gigs = Gig.objects.filter(status=True,category_id=id).order_by("-create_time")
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(gigs, 6)
+
+    try:
+        gigs = paginator.page(page)
+    except PageNotAnInteger:
+        gigs = paginator.page(1)
+    except EmptyPage:
+        gigs = paginator.page(paginator.num_pages)
+
+    return render(request, 'categories.html', {"gigs": gigs, "category":category})
+
 def home(request):
     gigs = Gig.objects.filter(status=True).order_by("-create_time")
 
