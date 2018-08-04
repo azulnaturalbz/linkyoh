@@ -11,6 +11,10 @@ def cover_upload_path(instance, filename):
     return '/'.join(['gigs_img', str(instance.user), filename])
 
 
+def banner_upload_path(instance, filename):
+    return '/'.join(['category_img', str(instance.category), filename])
+
+
 class Country(models.Model):
     country = models.CharField(max_length=20)
 
@@ -79,6 +83,7 @@ class Category(models.Model):
     short_category = models.CharField(max_length=8)
     description = models.CharField(max_length=1000,blank=True,null=True)
     create_time = models.DateTimeField(default=timezone.now)
+    photo = models.FileField(upload_to=banner_upload_path, default='category_img/linkyoh_banner_web.png')
 
     def __str__(self):
         return self.category
