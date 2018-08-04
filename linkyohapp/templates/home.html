@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <a href="{% url 'gig_detail' gig.id %}"><h4 class="card-title">{{ gig.title }}</h4></a>
                         <a href="{% url 'profile' gig.user.username %}"><h5
-                                class="card-title">{{ gig.user.username }}</h5></a>
+                                class="card-title">{{ gig.user.get_full_name|default:gig.user.username }}</h5></a>
                         <p class="card-text">{{ gig.description | truncatechars:40 }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">

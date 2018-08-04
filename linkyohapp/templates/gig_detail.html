@@ -50,7 +50,7 @@
             <div class="card card-default">
                 <div class="card-body">
                     <img src="{% if user.profile %}{{ gig.user.profile.avatar }} {% else %} {% static 'img/avatar.png' %}{% endif %}" class="img-circle center-block" height="100" width="100">
-                    <a href="{% url 'profile' gig.user.username %}"><h4 class="text-center">{{ gig.user.username }}</h4></a>
+                    <a href="{% url 'profile' gig.user.username %}"><h4 class="text-center">{{ gig.user.get_full_name|default:gig.user.username }}</h4></a>
 
                     <hr/>
                     <p>{{ gig.user.profile.about }}</p>
