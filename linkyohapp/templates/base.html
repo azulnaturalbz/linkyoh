@@ -15,14 +15,44 @@
 <body>
 <header class="card-header">
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="/"><img
-                src="{% static 'img/logo_ly.png' %}" alt="" height="23"> Linkyoh</a>
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <a class="navbar-brand" href="/"><img src="{% static 'img/logo_ly.png' %}" alt="" height="23"> Linkyoh</a>
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active" hidden>
+                    <a class="nav-link" href="#">Left</a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="//codeply.com">Codeply</a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <form class="form-inline my-2 my-lg-0" role="search">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </ul>
+    </div>
+    <div class="mx-auto order-0">
+        <a class="navbar-brand mx-auto" href="/">Linkyoh</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
+    </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Right</a>
+                </li>
+                <li class="nav-item" hidden>
+                    <a class="nav-link" href="#">Link</a>
+                </li>
                 <li class="nav-item active" hidden>
                     <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
                 </li>
@@ -34,6 +64,18 @@
                 </li>
                 <li class="nav-item" hidden>
                     <a class="nav-link" href="#">Switch account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'terms' %}">Terms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'privacy' %}">Privacy</a>
                 </li>
                 <li class="nav-item dropdown" hidden>
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
@@ -50,8 +92,6 @@
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
                             <img src="
-
-
                                     {% if user.profile %}{{ user.profile.avatar }}{% else %} {% static 'img/avatar.png' %}{% endif %}"
                                  alt="" class="img-thumbnail" width="22"
                                  height="22"> &nbsp;
@@ -60,11 +100,8 @@
                         <div class="dropdown-menu" aria-labelledby="dropdown03">
                             <a class="dropdown-item" href="{% url 'create_gig' %}">Create a gig</a>
                             <a class="dropdown-item" href="{% url 'my_gigs' %}">My Gigs</a>
-                            <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
                             <a class="dropdown-item" href="{% url 'profile' user.username %}">My Profile</a>
-                            {#                            <a class="dropdown-item" href="#">Action</a>#}
-                            {#                            <a class="dropdown-item" href="#">Another action</a>#}
-                            {#                            <a class="dropdown-item" href="#">Something else here</a>#}
+                            <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
                         </div>
                     </li>
                 {% else %}
@@ -74,10 +111,6 @@
                     </li>
                 {% endif %}
             </ul>
-            <form class="form-inline my-2 my-lg-0" role="search">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -95,12 +128,12 @@
     </nav>
 </header>
 
-<div id="body">
+<main id="body">
     <div class="container">
         {% block page %}
         {% endblock %}
     </div>
-</div>
+</main>
 
 
 <footer class="card-footer" id="footer">

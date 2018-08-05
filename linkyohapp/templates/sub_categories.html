@@ -2,9 +2,9 @@
 {% load staticfiles %}
 {% block page %}
     <div class="card mb-4">
-        <img class="card-img-top" src="/media/{{ category.photo }}" alt="Card image cap">
+        <img class="card-img-top" src="{% static 'img/linkyoh_banner_web.png' %}" alt="Card image cap">
     </div>
-    <h1><span class="badge badge-secondary">{{ category.category }}</span></h1>
+    <h1><span class="badge badge-secondary">{{ sub_category.category.category }} / {{ sub_category.subcategory }}</span></h1>
     <div class="row">
 
         {% for gig in gigs %}
@@ -22,13 +22,10 @@
                                 <a href="{% url 'gig_detail' gig.id %}">
                                     <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                                 </a>
-                                <a href="{% url 'sub_category_listing' gig.sub_category.id %}">
-                                    <button type="button"
-                                            class="btn btn-sm btn-outline-secondary">{{ gig.sub_category }}</button>
-                                </a>
+                                {#                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>#}
                             </div>
+                            <small class="text-muted">Updated at: {{ gig.create_time }}</small>
                         </div>
-                        <small class="text-muted">Updated at: {{ gig.create_time }}</small>
                     </div>
                 </div>
             </div>

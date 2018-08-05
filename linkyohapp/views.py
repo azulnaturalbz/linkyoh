@@ -54,6 +54,24 @@ def category_listings(request,id):
 
     return render(request, 'categories.html', {"gigs": gigs, "category":category})
 
+
+def sub_category_listings(request, id):
+    sub_category = SubCategory.objects.get(pk=id)
+    gigs = Gig.objects.filter(status=True,sub_category_id=id).order_by("-create_time")
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(gigs, 6)
+
+    try:
+        gigs = paginator.page(page)
+    except PageNotAnInteger:
+        gigs = paginator.page(1)
+    except EmptyPage:
+        gigs = paginator.page(paginator.num_pages)
+
+    return render(request, 'sub_categories.html', {"gigs": gigs, "sub_category":sub_category})
+
 def home(request):
     gigs = Gig.objects.filter(status=True).order_by("-create_time")
 
@@ -134,3 +152,11 @@ def profile(request, username):
 
     gigs = Gig.objects.filter(user=profile.user, status=True)
     return render(request, 'profile.html', {"profile": profile, "gigs": gigs})
+
+
+def terms(request):
+    return render(request,'terms.html')
+
+def privacy(request):
+    return render(request,'privacy.html')
+
