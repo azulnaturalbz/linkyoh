@@ -1,66 +1,99 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load bootstrap4 %}
 {% block page %}
-
     <div class="row">
-
         <div class="col-md-8">
+            <br>
             <h1><span class="badge badge-secondary">{{ gig.category.category }} / {{ gig.sub_category.subcategory }} / {{ gig.title }} </span></h1>
+            <br>
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">{{ gig.title }}</h3>
+              </div>
+              <img class="card-img-bottom" src="/media/{{ gig.photo }}" alt="{{ gig.title }}">
+            </div>
+            <br>
+            <div class="card text-center">
+                <div class="card-header">
+                    Service/Offer Details:
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ gig.title }}</h5>
+                    <p class="card-text">Description: {{ gig.description }}</p>
+                    <p class="card-text">($) : {{ gig.price }}</p>
+                    <p class="card-text">Contact Number : {{ gig.phone_number }}</p>
+                    <p class="card-text">Category : {{ gig.category }}</p>
+                    <p class="card-text">Subcategory: {{ gig.sub_category }}</p>
+                    <p class="card-text">District : {{ gig.state }}</p>
+                    <p class="card-text">Location: {{ gig.location.localType }} : {{ gig.location }}</p>
+                    <p class="card-text">Address 1: {{ gig.address_1 }}</p>
+                    <p class="card-text">Address 2: {{ gig.address_2 }}</p>
+                    <a href="#" class="btn btn-primary">Do something</a>
+                </div>
+                <div class="card-footer text-muted">
+                   {{ gig.create_time }}
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Write Review
+                </div>
+                <div class="card-body">
+                    {% if show_post_review %}
 
-            <div class="card card-default">
-                <div class="card-body">
-                    <h3> {{ gig.title }}</h3>
-                    <hr/>
-                    <img src="/media/{{ gig.photo }}" class="card-img" alt="">
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="card-header">
-                    <h4>About this Service/Offer</h4>
-                </div>
-                <div class="card-body">
-                    <p>{{ gig.description }}</p>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="card-header">
-                    <h4>Reviews</h4>
-                </div>
-                <ul class="list-group">
-                    {% for i in '123' %}
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <img height="60" width="60" class="img-circle center-block"
-                                         src="{% static 'img/avatar.png' %}" alt="">
+                            <form method="POST" action="{% url 'gig_detail' gig.pk %}">
+                                {% csrf_token %}
+                                {% bootstrap_form show_post_review show_label=False %}
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary float-right">POST</button>
                                 </div>
-                                <div class="col-md-10">
-                                    <h5>Cristian Silva</h5>
-                                    <p>Delta is Alpha</p>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+                            </form>
+                     {% else %}
+                        <blockquote class="blockquote mb-0">
+                            <p>Kindly login to post review.</p>
+
+                        </blockquote>
+                    {% endif %}
+                </div>
             </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Reviews
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        {% for review in reviews %}
+                        <p>{{ review.content }}</p>
+                        <footer class="blockquote-footer">Created at: {{ review.create_time }} <cite title="Source Title"> {{ review.user.get_full_name|default:review.user.username }}</cite></footer>
+                        {% endfor %}
+                    </blockquote>
+                </div>
+            </div>
+            <br>
         </div>
-        <div class="col-md-4">
-            <br>
-            <div class="card card-default">
-                <div class="panel-body">
-                    <a href="tel:{{ gig.phone_number }}"><button type="button" class="btn btn-success btn-block">Contact Now (${{ gig.price }})</button></a>
-                </div>
-            </div>
-            <br>
-            <div class="card card-default">
-                <div class="card-body">
-                    <img src="{% if user.profile %}{{ gig.user.profile.avatar }} {% else %} {% static 'img/avatar.png' %}{% endif %}" class="img-circle center-block" height="100" width="100">
-                    <a href="{% url 'profile' gig.user.username %}"><h4 class="text-center">{{ gig.user.get_full_name|default:gig.user.username }}</h4></a>
 
+        <div class="col-md-4">
+                        <br>
+        <a href="tel:{{ gig.phone_number }}">
+                        <button type="button" class="btn btn-success btn-block">Contact Now (${{ gig.price }})</button>
+                    </a>
+            <br>
+            <div class="card card-default">
+
+                <div class="card-body">
+                    <img src="
+                            {% if user.profile %}{{ gig.user.profile.avatar }} {% else %} {% static 'img/avatar.png' %}{% endif %}"
+                         class="img-circle center-block" height="100" width="100">
+                    <a href="{% url 'profile' gig.user.username %}"><h4
+                            class="text-center">{{ gig.user.get_full_name|default:gig.user.username }}</h4></a>
                     <hr/>
                     <p>{{ gig.user.profile.about }}</p>
                 </div>
             </div>
         </div>
+        <br>
     </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Gig, Profile, Location, State, Category, SubCategory
-from .forms import GigForm
+from .models import Gig, Profile, Location, State, Category, SubCategory, Review
+from .forms import GigForm,ReviewForm
 from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse, Http404
@@ -90,11 +90,36 @@ def home(request):
 
 
 def gig_detail(request, id):
+    if request.method == 'POST' and \
+            request.user.is_authenticated and \
+                    'content' in request.POST and \
+                    request.POST['content'].strip() != '':
+
+        # Review.objects.create(content=request.POST['content'],gig_id=id,user=request.user)
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            new_review = Review.objects.create(
+                user=request.user,
+                gig_id=id,
+                content=form.cleaned_data.get('content')
+            )
+
     try:
         gig = Gig.objects.get(id=id)
     except Gig.DoesNotExist:
         return redirect('/')
-    return render(request, 'gig_detail.html', {"gig": gig})
+
+    if request.user.is_authenticated:
+
+        reviewForm = ReviewForm()
+        show_post_review = reviewForm
+    else:
+        # show_post_review = Purchase.objects.filter(gig=gig,buyer=request.user).count() > 0
+        show_post_review = False
+
+    reviews = Review.objects.filter(gig=gig)
+
+    return render(request, 'gig_detail.html', {"gig": gig, "reviews":reviews, "show_post_review":show_post_review})
 
 
 @login_required(login_url='/')

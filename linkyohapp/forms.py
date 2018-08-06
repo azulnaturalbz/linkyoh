@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Gig, Location
+from .models import Gig, Location, Review
 
 
 class GigForm(ModelForm):
@@ -20,3 +20,9 @@ class GigForm(ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
             self.fields['location'].queryset = self.instance.state.location_set.order_by('local')
+
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['content']
