@@ -182,6 +182,12 @@ def profile(request, username):
 def terms(request):
     return render(request,'terms.html')
 
+
 def privacy(request):
     return render(request,'privacy.html')
+
+
+def search(request):
+    gigs = Gig.objects.filter(title__contains=request.GET['title'])
+    return render(request,'home.html',{"gigs":gigs})
 
