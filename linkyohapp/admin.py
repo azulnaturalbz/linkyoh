@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Gig, Country, State, Local, LocalType, Location, Category,SubCategory
+from .models import Profile, Gig, Country, State, Local, LocalType, Location, Category,SubCategory,Review
 
 
 # Register your models here.
@@ -47,4 +47,8 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(SubCategory)
 class ProfileAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
     pass
