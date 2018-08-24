@@ -4,7 +4,15 @@
     <div class="card mb-4">
         <img class="card-img-top" src="{% static 'img/linkyoh_banner_web.png' %}" alt="Card image cap">
     </div>
-    <h1><span class="badge badge-secondary">{{ sub_category.category.category }} / {{ sub_category.subcategory }}</span></h1>
+{#    <h1><span class="badge badge-secondary">{{ sub_category.category.category }} / {{ sub_category.subcategory }}</span></h1>#}
+    <br>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">{{ sub_category.category.category }}</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ sub_category.subcategory }}</a></li>
+          </ol>
+        </nav>
+    <br>
     <div class="row">
 
         {% for gig in gigs %}
