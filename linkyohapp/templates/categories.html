@@ -4,9 +4,14 @@
     <div class="card mb-4">
         <img class="card-img-top" src="/media/{{ category.photo }}" alt="Card image cap">
     </div>
-    <h1><span class="badge badge-secondary">{{ category.category }}</span></h1>
+    <br>
+     <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">{{ category.category }}</a></li>
+          </ol>
+        </nav>
+    <br>
     <div class="row">
-
         {% for gig in gigs %}
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">

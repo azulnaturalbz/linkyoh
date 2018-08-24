@@ -2,18 +2,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>{% block title %}Linkyoh{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
     <link rel="stylesheet" href="{% static 'css/offcanvas.css' %}">
-    <link rel="stylesheet" href="{% static 'css/ie10-viewport-bug-workaround.css' %}">
-    <link rel="stylesheet" href="{% static 'css/jumbotron.css' %}">
+    {#    <link rel="stylesheet" href="{% static 'css/ie10-viewport-bug-workaround.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'css/jumbotron.css' %}">#}
     {% block head %}{% endblock %}
     <link rel="shortcut icon" href="{% static  'img/favicon_ly.ico' %}">
 </head>
 <body>
-<header class="card-header">
+<header>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
         <a class="navbar-brand" href="/"><img src="{% static 'img/logo_ly.png' %}" alt="" height="23"></a>
         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -34,17 +37,15 @@
                     <a class="nav-link" href="#">Link</a>
                 </li>
                 <form class="form-inline my-2 my-lg-0" role="search" method="GET" action="/search/">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="title">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"
+                           name="title">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </ul>
-    </div>
-    <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="/">Linkyoh</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="/">Linkyoh</a>
+        </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" hidden>
@@ -92,13 +93,15 @@
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="false">
                             <img src="
+
+
                                     {% if user.profile %}{{ user.profile.avatar }}{% else %} {% static 'img/avatar.png' %}{% endif %}"
                                  alt="" class="img-thumbnail" width="22"
                                  height="22"> &nbsp;
                             {{ user.get_full_name|default:user.username }} <span
                                 class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown03">
-                            <a class="dropdown-item" href="{% url 'create_gig' %}">Create a gig</a>
+                            <a class="dropdown-item" href="{% url 'create_gig' %}">Create a Gig</a>
                             <a class="dropdown-item" href="{% url 'my_gigs' %}">My Gigs</a>
                             <a class="dropdown-item" href="{% url 'profile' user.username %}">My Profile</a>
                             <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
@@ -111,8 +114,13 @@
                     </li>
                 {% endif %}
             </ul>
+
         </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </nav>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,7 +135,7 @@
         </div>
     </nav>
 </header>
-
+<br>
 <main id="body">
     <div class="container">
         {% block page %}
@@ -141,18 +149,18 @@
         <span class="text-muted">Linkyoh &copy; {% now "Y" %}</span>
     </div>
 </footer>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-
+{#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"#}
+{#        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"#}
+{#        crossorigin="anonymous"></script>#}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/offcanvas.js' %}"></script>
-<script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-<script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+{#<script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>#}
+{#<script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>#}
+
 <script>
 
     (function () {
