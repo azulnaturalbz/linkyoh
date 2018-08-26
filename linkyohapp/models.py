@@ -131,10 +131,19 @@ class Gig(models.Model):
         return self.title
 
 
+class Rating(models.Model):
+    rating = models.PositiveIntegerField(default=0)
+    rating_description = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.rating_description
+
+
 class Review(models.Model):
     gig = models.ForeignKey(Gig, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=500)
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
     create_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

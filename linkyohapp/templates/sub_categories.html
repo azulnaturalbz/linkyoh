@@ -8,8 +8,8 @@
     <br>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">{{ sub_category.category.category }}</a></li>
-            <li class="breadcrumb-item"><a href="#">{{ sub_category.subcategory }}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'category_listing' sub_category.category.id %}">{{ sub_category.category.category }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'sub_category_listing' sub_category.id %}">{{ sub_category.subcategory }}</a></li>
           </ol>
         </nav>
     <br>
