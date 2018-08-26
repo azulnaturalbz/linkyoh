@@ -25,4 +25,4 @@ class GigForm(ModelForm):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['content']
+        fields = ['content','rating']
