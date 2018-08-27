@@ -6,18 +6,21 @@
         <div class="col-md-8">
             <br>
             <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'category_listing' gig.category.id %}">{{ gig.category.category }}</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'sub_category_listing' gig.sub_category.id  %}">{{ gig.sub_category.subcategory }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ gig.title }}</li>
-              </ol>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'category_listing' gig.category.id %}">{{ gig.category.category }}</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'sub_category_listing' gig.sub_category.id %}">{{ gig.sub_category.subcategory }}</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ gig.title }}</li>
+                </ol>
             </nav>
             <br>
             <div class="card">
-              <div class="card-body">
-                <h3 class="card-title">{{ gig.title }}</h3>
-              </div>
-              <img class="card-img-bottom" src="/media/{{ gig.photo }}" alt="{{ gig.title }}">
+                <div class="card-body">
+                    <h3 class="card-title">{{ gig.title }}</h3>
+                </div>
+                <img class="card-img-bottom" src="/media/{{ gig.photo }}" alt="{{ gig.title }}">
             </div>
             <br>
             <div class="card text-center">
@@ -35,11 +38,20 @@
                     <p class="card-text">Location: {{ gig.location.localType }} : {{ gig.location }}</p>
                     <p class="card-text">Address 1: {{ gig.address_1 }}</p>
                     <p class="card-text">Address 2: {{ gig.address_2 }}</p>
-                    <a href="#" class="btn btn-primary">Do something</a>
+                    {#                    <a href="#" class="btn btn-primary">Do something</a>#}
+                    {#                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.linkyoh.com{% url 'gig_detail' gig.id %}" class="btn btn-primary"  target="_blank">#}
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                       class="btn btn-primary" target="_blank">
+                        Share on Facebook
+                    </a>
                 </div>
                 <div class="card-footer text-muted">
-                   {{ gig.create_time }}
+                    <div id="like-section">
+                        {% include 'like_section.html' %}
+                    </div>
+                    {{ gig.create_time }}
                 </div>
+
             </div>
             <br>
             <div class="card">
@@ -49,14 +61,14 @@
                 <div class="card-body">
                     {% if show_post_review %}
 
-                            <form method="POST" action="{% url 'gig_detail' gig.pk %}">
-                                {% csrf_token %}
-                                {% bootstrap_form show_post_review show_label=False %}
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary float-right">POST</button>
-                                </div>
-                            </form>
-                     {% else %}
+                        <form method="POST" action="{% url 'gig_detail' gig.pk %}">
+                            {% csrf_token %}
+                            {% bootstrap_form show_post_review show_label=False %}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary float-right">POST</button>
+                            </div>
+                        </form>
+                    {% else %}
                         <blockquote class="blockquote mb-0">
                             <p>Kindly login to post review.</p>
 
@@ -72,9 +84,11 @@
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
                         {% for review in reviews %}
-                        <p>{{ review.rating.rating_description }}</p>
-                        <p>{{ review.content }}</p>
-                        <footer class="blockquote-footer">Created at: {{ review.create_time }} <cite title="Source Title"> {{ review.user.get_full_name|default:review.user.username }}</cite></footer>
+                            <p>{{ review.rating.rating_description }}</p>
+                            <p>{{ review.content }}</p>
+                            <footer class="blockquote-footer">Created at: {{ review.create_time }} <cite
+                                    title="Source Title"> {{ review.user.get_full_name|default:review.user.username }}</cite>
+                            </footer>
                         {% endfor %}
                     </blockquote>
                 </div>
@@ -83,15 +97,17 @@
         </div>
 
         <div class="col-md-4">
-                        <br>
-        <a href="tel:{{ gig.phone_number }}">
-                        <button type="button" class="btn btn-success btn-block">Contact Now (${{ gig.price }})</button>
-                    </a>
+            <br>
+            <a href="tel:{{ gig.phone_number }}">
+                <button type="button" class="btn btn-success btn-block">Contact Now (${{ gig.price }})</button>
+            </a>
             <br>
             <div class="card card-default">
 
                 <div class="card-body">
                     <img src="
+
+
                             {% if user.profile %}{{ gig.user.profile.avatar }} {% else %} {% static 'img/avatar.png' %}{% endif %}"
                          class="img-circle center-block" height="100" width="100">
                     <a href="{% url 'profile' gig.user.username %}"><h4

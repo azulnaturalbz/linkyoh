@@ -20,15 +20,16 @@ from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-
+from linkyohapp import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('linkyohapp.urls')),
-    # url(r'^login/$', auth_views.login, name='login'),
-    # url(r'^logout/$', auth_views.logout, name='logout'),
-    # url(r'^oauth/', include('social_django.urls', namespace='social')),
-    path('social/', include(('social_django.urls','social'), namespace='social')),
-    path('auth/', include(('django.contrib.auth.urls','auth'), namespace='auth')),
+                  path('admin/', admin.site.urls),
+                  path('', include('linkyohapp.urls')),
+                  # url(r'^login/$', auth_views.login, name='login'),
+                  # url(r'^logout/$', auth_views.logout, name='logout'),
+                  # url(r'^oauth/', include('social_django.urls', namespace='social')),
+                  path('social/', include(('social_django.urls', 'social'), namespace='social')),
+                  path('auth/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
+                  path('like/', views.like_gig, name="like_gig"),
 
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

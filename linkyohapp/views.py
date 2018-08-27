@@ -1,12 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Gig, Profile, Location, State, Category, SubCategory, Review
-from .forms import GigForm,ReviewForm
+from .forms import GigForm, ReviewForm
 from django.contrib.auth.decorators import login_required
-
-from django.http import HttpResponse, Http404
-from django.utils.encoding import smart_str
-from json import dumps
+from django.template.loader import render_to_string
 
 
 # Create your views here.
@@ -14,6 +12,7 @@ from json import dumps
 def load_states(request):
     states = State.objects.all()
     return render(request, 'state_dropdown_list_options.html', {'states': states})
+
 
 def load_locations(request):
     state_id = request.GET.get('state')
@@ -37,9 +36,9 @@ def load_menu_categories(request):
     return render(request, 'category_menu_list_options.html', {'categories': categories})
 
 
-def category_listings(request,id):
+def category_listings(request, id):
     category = Category.objects.get(pk=id)
-    gigs = Gig.objects.filter(status=True,category_id=id).order_by("-create_time")
+    gigs = Gig.objects.filter(status=True, category_id=id).order_by("-create_time")
 
     page = request.GET.get('page', 1)
 
@@ -52,12 +51,12 @@ def category_listings(request,id):
     except EmptyPage:
         gigs = paginator.page(paginator.num_pages)
 
-    return render(request, 'categories.html', {"gigs": gigs, "category":category})
+    return render(request, 'categories.html', {"gigs": gigs, "category": category})
 
 
 def sub_category_listings(request, id):
     sub_category = SubCategory.objects.get(pk=id)
-    gigs = Gig.objects.filter(status=True,sub_category_id=id).order_by("-create_time")
+    gigs = Gig.objects.filter(status=True, sub_category_id=id).order_by("-create_time")
 
     page = request.GET.get('page', 1)
 
@@ -70,7 +69,8 @@ def sub_category_listings(request, id):
     except EmptyPage:
         gigs = paginator.page(paginator.num_pages)
 
-    return render(request, 'sub_categories.html', {"gigs": gigs, "sub_category":sub_category})
+    return render(request, 'sub_categories.html', {"gigs": gigs, "sub_category": sub_category})
+
 
 def home(request):
     gigs = Gig.objects.filter(status=True).order_by("-create_time")
@@ -92,8 +92,8 @@ def home(request):
 def gig_detail(request, id):
     if request.method == 'POST' and \
             request.user.is_authenticated and \
-                    'content' in request.POST and \
-                    request.POST['content'].strip() != '':
+            'content' in request.POST and \
+            request.POST['content'].strip() != '':
 
         # Review.objects.create(content=request.POST['content'],gig_id=id,user=request.user)
         form = ReviewForm(request.POST)
@@ -106,6 +106,9 @@ def gig_detail(request, id):
 
     try:
         gig = Gig.objects.get(id=id)
+        is_liked = False
+        if gig.likes.filter(id=request.user.id).exists():
+            is_liked = True
     except Gig.DoesNotExist:
         return redirect('/')
 
@@ -119,7 +122,28 @@ def gig_detail(request, id):
 
     reviews = Review.objects.filter(gig=gig)
 
-    return render(request, 'gig_detail.html', {"gig": gig, "reviews":reviews, "show_post_review":show_post_review})
+    return render(request, 'gig_detail.html',
+                  {"gig": gig, "reviews": reviews, "show_post_review": show_post_review, 'is_liked': is_liked})
+
+
+def like_gig(request):
+    # post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    gig = get_object_or_404(Gig, id=request.POST.get('id'))
+    is_liked = False
+    if gig.likes.filter(id=request.user.id).exists():
+        gig.likes.remove(request.user)
+        is_liked = False
+    else:
+        gig.likes.add(request.user)
+        is_liked = True
+    context = {
+        'gig': gig,
+        'is_liked': is_liked,
+        'total_likes': gig.total_likes(),
+    }
+    if request.is_ajax():
+        html = render_to_string('like_section.html', context, request=request)
+        return JsonResponse({'form': html})
 
 
 @login_required(login_url='/')
@@ -180,14 +204,13 @@ def profile(request, username):
 
 
 def terms(request):
-    return render(request,'terms.html')
+    return render(request, 'terms.html')
 
 
 def privacy(request):
-    return render(request,'privacy.html')
+    return render(request, 'privacy.html')
 
 
 def search(request):
     gigs = Gig.objects.filter(title__contains=request.GET['title'])
-    return render(request,'home.html',{"gigs":gigs})
-
+    return render(request, 'home.html', {"gigs": gigs})

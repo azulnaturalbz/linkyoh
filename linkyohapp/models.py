@@ -60,13 +60,13 @@ class Location(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.CharField(max_length=500)
-    first_name = models.CharField(max_length=128,blank=True,null=True)
-    last_name = models.CharField(max_length=128,blank=True,null=True)
-    gender = models.CharField(max_length=8,blank=True,null=True)
-    email = models.CharField(max_length=128,blank=True,null=True)
-    link = models.CharField(max_length=500,blank=True,null=True)
-    locale = models.CharField(max_length=128,blank=True,null=True)
-    timezone = models.CharField(max_length=64,blank=True,null=True)
+    first_name = models.CharField(max_length=128, blank=True, null=True)
+    last_name = models.CharField(max_length=128, blank=True, null=True)
+    gender = models.CharField(max_length=8, blank=True, null=True)
+    email = models.CharField(max_length=128, blank=True, null=True)
+    link = models.CharField(max_length=500, blank=True, null=True)
+    locale = models.CharField(max_length=128, blank=True, null=True)
+    timezone = models.CharField(max_length=64, blank=True, null=True)
     about = models.CharField(max_length=1000)
     slogan = models.CharField(max_length=500)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{7,15}$',
@@ -81,7 +81,7 @@ class Profile(models.Model):
 class Category(models.Model):
     category = models.CharField(max_length=128)
     short_category = models.CharField(max_length=8)
-    description = models.CharField(max_length=1000,blank=True,null=True)
+    description = models.CharField(max_length=1000, blank=True, null=True)
     create_time = models.DateTimeField(default=timezone.now)
     photo = models.FileField(upload_to=banner_upload_path, default='category_img/linkyoh_banner_web.png')
 
@@ -92,8 +92,8 @@ class Category(models.Model):
 class SubCategory(models.Model):
     subcategory = models.CharField(max_length=128)
     sub_short_category = models.CharField(max_length=8)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE)
-    description = models.CharField(max_length=1000,blank=True,null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    description = models.CharField(max_length=1000, blank=True, null=True)
     create_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -126,9 +126,13 @@ class Gig(models.Model):
     status = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     create_time = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
 
     def __str__(self):
         return self.title
+
+    def total_likes(self):
+        return self.likes.count()
 
 
 class Rating(models.Model):
