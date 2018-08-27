@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% block title %}{{ sub_category.subcategory }} | {{ sub_category.category.category }} | Linkyoh{% endblock %}
 {% block page %}
     <div class="card mb-4">
         <img class="card-img-top" src="{% static 'img/linkyoh_banner_web.png' %}" alt="Card image cap">
@@ -19,7 +20,7 @@
             <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
                     <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"
-                                                                 alt="Card image cap"></a>
+                                                                 alt="{{ gig.title }}"></a>
                     <div class="card-body">
                         <a href="{% url 'gig_detail' gig.id %}"><h4 class="card-title">{{ gig.title }}</h4></a>
                         <a href="{% url 'profile' gig.user.username %}"><h5
