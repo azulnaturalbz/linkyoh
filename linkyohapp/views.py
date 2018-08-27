@@ -123,7 +123,7 @@ def gig_detail(request, id):
     reviews = Review.objects.filter(gig=gig)
 
     return render(request, 'gig_detail.html',
-                  {"gig": gig, "reviews": reviews, "show_post_review": show_post_review, 'is_liked': is_liked})
+                  {"gig": gig, "reviews": reviews, "show_post_review": show_post_review, 'is_liked': is_liked ,  'total_likes': gig.total_likes(),})
 
 
 def like_gig(request):
