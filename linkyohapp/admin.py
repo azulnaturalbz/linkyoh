@@ -11,42 +11,42 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 @admin.register(Gig)
-class ProfileAdmin(admin.ModelAdmin):
+class GigAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Country)
-class ProfileAdmin(admin.ModelAdmin):
+class CountryAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(State)
-class ProfileAdmin(admin.ModelAdmin):
+class StateAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Local)
-class ProfileAdmin(admin.ModelAdmin):
+class LocalAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(LocalType)
-class ProfileAdmin(admin.ModelAdmin):
+class LocalTypeAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Location)
-class ProfileAdmin(admin.ModelAdmin):
+class LocationAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(Category)
-class ProfileAdmin(admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
 @admin.register(SubCategory)
-class ProfileAdmin(admin.ModelAdmin):
+class SubCategoryAdmin(admin.ModelAdmin):
     pass
 
 
