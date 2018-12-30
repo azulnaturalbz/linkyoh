@@ -211,7 +211,7 @@ def terms(request):
 def privacy(request):
     return render(request, 'privacy.html')
 
-#.filter(title__contains=request.GET['title'])\
+
 def search(request):
     gigs = Gig.objects.filter(Q(title__icontains=request.GET['param']) |
                               Q(category__category__icontains=request.GET['param']) |
