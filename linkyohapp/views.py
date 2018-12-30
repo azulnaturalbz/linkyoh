@@ -167,11 +167,10 @@ def create_gig(request):
 @login_required(login_url='/')
 def edit_gig(request, id):
     try:
-        #gig = Gig.objects.get(id=id, user=request.user)
-        gig = GigForm(instance=Gig.objects.get(id=id))
+        gig = Gig.objects.get(id=id, user=request.user)
         error = ''
         if request.method == "POST":
-            gig_form = GigForm(request.POST, request.FILES, instance=Gig.objects.get(id=id))
+            gig_form = GigForm(request.POST, request.FILES, instance=gig)
             if gig_form.is_valid():
                 gig.save()
                 return redirect('my_gigs')
