@@ -213,5 +213,9 @@ def privacy(request):
 
 #.filter(title__contains=request.GET['title'])\
 def search(request):
-    gigs = Gig.objects.filter(Q(title__icontains=request.GET['title']) | Q(category__category__icontains=request.GET['title']) | Q(sub_category__subcategory__icontains=request.GET['title']) | Q(state__state__icontains=request.GET['title']))
+    gigs = Gig.objects.filter(Q(title__icontains=request.GET['param']) |
+                              Q(category__category__icontains=request.GET['param']) |
+                              Q(sub_category__subcategory__icontains=request.GET['param']) |
+                              Q(state__state__icontains=request.GET['param']) |
+                              Q(location__local__local__icontains=request.GET['param']))
     return render(request, 'home.html', {"gigs": gigs})
