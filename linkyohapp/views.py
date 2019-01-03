@@ -10,26 +10,60 @@ from django.template.loader import render_to_string
 
 # Create your views here.
 
-def load_states(request):
-    states = State.objects.all()
-    return render(request, 'state_dropdown_list_options.html', {'states': states})
+def load_states(request,sid=None):
+    if sid is not None:
+        selected_state = sid
+        states = State.objects.all()
+        return render(request, 'state_dropdown_list_options.html', {'states': states, 'selected_state': selected_state})
+    else:
+        states = State.objects.all()
+        return render(request, 'state_dropdown_list_options.html', {'states': states})
 
 
-def load_locations(request):
-    state_id = request.GET.get('state')
-    locations = Location.objects.filter(local__state__id=state_id).order_by('local')
-    return render(request, 'location_dropdown_list_options.html', {'locations': locations})
+def load_locations(request, sid=None, lid=None):
+    if sid is None and lid is None:
+        state_id = request.GET.get('state')
+        locations = Location.objects.filter(local__state__id=state_id).order_by('local')
+        return render(request, 'location_dropdown_list_options.html', {'locations': locations})
+
+    else:
+        state_id = request.GET.get('state')
+        locations = Location.objects.filter(local__state__id=state_id).order_by('local')
+        return render(request, 'location_dropdown_list_options.html', {'locations': locations})
 
 
-def load_categories(request):
-    categories = Category.objects.all()
-    return render(request, 'category_dropdown_list_options.html', {'categories': categories})
+def load_categories(request, catid=None):
+    if catid is not None:
+        selected_cat = catid
+        categories = Category.objects.all()
+        return render(request, 'category_dropdown_list_options.html', {'categories': categories, 'selected_cat': catid})
+    else:
+        categories = Category.objects.all()
+        return render(request, 'category_dropdown_list_options.html', {'categories': categories})
 
 
-def load_sub_categories(request):
-    category_id = request.GET.get('category')
-    sub_categories = SubCategory.objects.filter(category_id=category_id)
-    return render(request, 'sub_category_dropdown_list_options.html', {'sub_categories': sub_categories})
+def load_sub_categories(request, catid=None, subcatid=None):
+    # if catid and subcatid:
+    #     category_id = catid
+    #     subcatid = subcatid
+    #     sub_categories = SubCategory.objects.filter(category_id=category_id)
+    #     return render(request, 'sub_category_dropdown_list_options.html', {'sub_categories': sub_categories, 'selected_subcat': subcatid})
+    # elif catid:
+    #     category_id = catid
+    #     sub_categories = SubCategory.objects.filter(category_id=category_id)
+    #     return render(request, 'sub_category_dropdown_list_options.html',
+    #                   {'sub_categories': sub_categories})
+    # else:
+    if catid is None and subcatid is None:
+        category_id = request.GET.get('category')
+        sub_categories = SubCategory.objects.filter(category_id=category_id)
+        return render(request, 'sub_category_dropdown_list_options.html',
+                      {'sub_categories': sub_categories})
+    else:
+        category_id = request.GET.get('category')
+        sub_categories = SubCategory.objects.filter(category_id=category_id)
+        return render(request, 'sub_category_dropdown_list_options.html',
+                      {'sub_categories': sub_categories})
 
 
 def load_menu_categories(request):
@@ -124,7 +158,8 @@ def gig_detail(request, id):
     reviews = Review.objects.filter(gig=gig)
 
     return render(request, 'gig_detail.html',
-                  {"gig": gig, "reviews": reviews, "show_post_review": show_post_review, 'is_liked': is_liked ,  'total_likes': gig.total_likes(),})
+                  {"gig": gig, "reviews": reviews, "show_post_review": show_post_review, 'is_liked': is_liked,
+                   'total_likes': gig.total_likes(), })
 
 
 def like_gig(request):
@@ -176,7 +211,16 @@ def edit_gig(request, id):
                 return redirect('my_gigs')
             else:
                 error = "Data is not Valid"
-        return render(request, 'edit_gig.html', {"gig": gig, "error": error})
+        categories = Category.objects.all()
+        sub_categories = SubCategory.objects.filter(category_id=gig.category_id)
+        districts = State.objects.all()
+        locations = Location.objects.filter(local__state_id=gig.state_id)
+        return render(request, 'edit_gig.html',
+                      {"gig": gig, "error": error,
+                       'districts': districts,
+                       'locations': locations,
+                       'categories': categories,
+                       'sub_categories': sub_categories})
     except Gig.DoesNotExist:
         return redirect('/')
 

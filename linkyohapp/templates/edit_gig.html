@@ -4,18 +4,18 @@
 
 {% block page %}
     {% if error %}
-    <div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">
             &times;
         </span>
-    </button>
-    <strong>Warning !</strong> {{ error }}
-    </div>
+            </button>
+            <strong>Warning !</strong> {{ error }}
+        </div>
     {% endif %}
     <div class="panel panel-default">
-    <div class="body">
-        <form action="" class="form-horizontal" id="gigForm" method="post" enctype="multipart/form-data"
+        <div class="body">
+            <form action="" class="form-horizontal" id="gigForm" method="post" enctype="multipart/form-data"
                   data-locations-url="{% url 'ajax_load_locations' %}">
                 {% csrf_token %}
                 <div class="form-group">
@@ -24,19 +24,42 @@
                         <input class="form-control" type="text" value="{{ gig.title }}" id="title" name="title">
                     </div>
                 </div>
-                <div class="form-group" id="catForm" urlz="{% url 'ajax_load_category' %}">
+                <div class="form-group" id="catForm" urlz="{% url 'ajax_load_category' gig.category_id %}">
                     <label class="col-sm-2 control-label">CATEGORY</label>
                     <div class="col-sm-10">
-                        <select name="category" class="form-control" id="id_category" value="{{ gig.category_id }}">
-                        </select>
+                        {% if gig.category_id %}
+                            <select name="category" class="form-control" id="id_category" value="{{ gig.category_id }}">
+                                <option value="">---------</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.pk }}"
+                                            {% if category.pk == gig.category_id %}selected{% endif %}>{{ category.category }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <select name="category" class="form-control" id="id_category" value="{{ gig.category_id }}">
+                            </select>
+                        {% endif %}
+
                     </div>
                 </div>
-                <div class="form-group" id="subCatForm" urlz1="{% url 'ajax_load_sub_category' %}">
+                <div class="form-group" id="subCatForm"
+                     urlz1="{% url 'ajax_load_sub_category' gig.category_id gig.sub_category_id %}">
                     <label class="col-sm-2 control-label">SUB CATEGORY</label>
                     <div class="col-sm-10">
-                        <select name="sub_category" class="form-control" id="id_subcategory" value="{{ gig.sub_category }}">
+                        {% if gig.sub_category_id %}
+                            <select name="sub_category" class="form-control" id="id_subcategory" value="{{ gig.sub_category_id }}">
+                                <option value="">---------</option>
+                                {% for sub_category in sub_categories %}
+                                    <option value="{{ sub_category.pk }}"
+                                            {% if sub_category.pk == gig.sub_category_id %}selected{% endif %}>{{ sub_category.subcategory }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <select name="sub_category" class="form-control" id="id_subcategory"
+                                    value="{{ gig.sub_category_id }}">
 
-                        </select>
+                            </select>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,40 +77,66 @@
                 <div class="form-group">
                     <label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
                     <div class="col-10">
-                        <input class="form-control" type="tel" value="{{ gig.phone_number }}" id="phone_number" name="phone_number">
+                        <input class="form-control" type="tel" value="{{ gig.phone_number }}" id="phone_number"
+                               name="phone_number">
                     </div>
                 </div>
-                <div class="form-group" id="stateForm" urlz2="{% url 'ajax_load_states' %}">
+                <div class="form-group" id="stateForm" urlz2="{% url 'ajax_load_states' gig.state_id %}">
                     <label class="col-sm-2 control-label">STATE</label>
                     <div class="col-sm-10">
-                        <select name="state" class="form-control" id="id_state" value="{{ gig.state }}">
 
-                        </select>
+                        {% if gig.state_id %}
+                            <select name="state" class="form-control" id="id_state" value="{{ gig.state_id }}">
+                                <option value="">---------</option>
+                                {% for district in districts %}
+                                    <option value="{{ district.pk }}"
+                                            {% if district.pk == gig.state_id %}selected{% endif %}>{{ district.state }}</option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <select name="state" class="form-control" id="id_state" value="{{ gig.state_id }}">
+                            </select>
+                        {% endif %}
+
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group"  id="locationForm" urlz3="{% url 'ajax_load_locations' gig.state_id gig.location_id %}">
                     <label class="col-sm-2 control-label">LOCATION</label>
                     <div class="col-sm-10">
-                        <select name="location" class="form-control" id="id_location" value="{{ gig.location }}">
+                        {% if gig.location_id %}
+                        <select name="location" class="form-control" id="id_location" value="{{ gig.location_id }}">
+                        <option value="">---------</option>
+                        {% for location in locations %}
+                        <option value="{{ location.pk }}" {% if location.pk == gig.location_id %}selected{% endif %}>{{ location.local }}</option>
+                        {% endfor %}
+
                         </select>
+                        {% else %}
+
+
+                        <select name="location" class="form-control" id="id_location" value="{{ gig.location_id }}">
+                        </select>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="example-text-input" class="col-2 col-form-label">Street 1</label>
                     <div class="col-10">
-                        <input class="form-control" type="text"  id="address_1" name="address_1" value="{{ gig.address_1 }}">
+                        <input class="form-control" type="text" id="address_1" name="address_1"
+                               value="{{ gig.address_1 }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="example-text-input" class="col-2 col-form-label">Street 2</label>
                     <div class="col-10">
-                        <input class="form-control" type="text"  id="address_2" name="address_2" value="{{ gig.address_2 }}">
+                        <input class="form-control" type="text" id="address_2" name="address_2"
+                               value="{{ gig.address_2 }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">PHOTO</label>
                     <div class="col-sm-10">
-                         <small>currently : {{ gig.photo }} </small>
+                        <small>currently : {{ gig.photo }} </small>
                         <input type="file" class="form-control" name="photo">
                     </div>
                 </div>
@@ -95,8 +144,8 @@
                     <label class="col-sm-2 control-label">STATUS</label>
                     <div class="col-sm-10">
                         <select name="status" class="form-control">
-                             <option value="1" {% if gig.status %} selected {% endif %}>Active</option>
-                             <option value=""  {% if not gig.status %} selected {% endif %}>Disabled</option>
+                            <option value="1" {% if gig.status %} selected {% endif %}>Active</option>
+                            <option value=""  {% if not gig.status %} selected {% endif %}>Disabled</option>
                         </select>
                     </div>
                 </div>
@@ -107,7 +156,7 @@
                 </div>
 
             </form>
-    </div>
+        </div>
     </div>
 {% endblock %}
 {% block scripts %}
@@ -163,13 +212,13 @@
 
         $("#id_category").change(function () {
             var url = $("#subCatForm").attr("urlz1");  // get the url of the `load_cities` view
-
             var categoryId = $(this).val();  // get the selected country ID from the HTML input
 
             $.ajax({                       // initialize an AJAX request
                 url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
                 data: {
                     'category': categoryId       // add the country id to the GET parameters
+
                 },
                 success: function (data) {   // `data` is the return of the `load_cities` view function
                     $("#id_subcategory").html(data);  // replace the contents of the city input with the data that came from the server

@@ -1,4 +1,4 @@
 <option value="">---------</option>
 {% for state in states %}
-<option value="{{ state.pk }}">{{ state.state }}</option>
+<option value="{{ state.pk }}" {% if state.pk == selected_state %}selected{% endif %}>{{ state.state }}</option>
 {% endfor %}
