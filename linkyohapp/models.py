@@ -70,7 +70,8 @@ class Profile(models.Model):
     about = models.CharField(max_length=1000)
     slogan = models.CharField(max_length=500)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{7,15}$',
-                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+                                 message="Phone number must be entered in the "
+                                         "format: '+999999999'. Up to 15 digits allowed.")
     user_phone_number = models.CharField(validators=[phone_regex], max_length=17,
                                          blank=True)  # validators should be a list
 
@@ -101,23 +102,15 @@ class SubCategory(models.Model):
 
 
 class Gig(models.Model):
-    CATEGORY_CHOICES = (
-        ("GD", " Graphics & Design"),
-        ("DM", " Digital & Marketing"),
-        ("VA", " Video & Animation"),
-        ("MA", " Music & Audio"),
-        ("PT", " Programming & Tech"),
-    )
-
     title = models.CharField(max_length=500)
-    # category = models.CharField(max_length=2, choices=CATEGORY_CHOICES)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
     price = models.PositiveIntegerField(default=0)
     photo = models.FileField(upload_to=cover_upload_path, default='gigs_img/empty_cover.jpg')
     phone_regex = RegexValidator(regex=r'^\+?1?\d{7,15}$',
-                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+                                 message="Phone number must be entered in the "
+                                         "format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
     state = models.ForeignKey(State, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)

@@ -16,25 +16,25 @@
     <div class="panel panel-default">
         <div class="body">
             <form action="" class="form-horizontal" id="gigForm" method="post" enctype="multipart/form-data"
-                  data-locations-url="{% url 'ajax_load_locations' %}">
+                  >
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="example-text-input" class="col-2 col-form-label">GIG TITLE</label>
                     <div class="col-10">
-                        <input class="form-control" type="text" placeholder="Enter your listing title" id="title" name="title">
+                        <input class="form-control" type="text" placeholder="Enter your listing title" id="title" name="title" required>
                     </div>
                 </div>
                 <div class="form-group" id="catForm" urlz="{% url 'ajax_load_category' %}">
                     <label class="col-sm-2 control-label">CATEGORY</label>
                     <div class="col-sm-10">
-                        <select name="category" class="form-control" id="id_category">
+                        <select name="category" class="form-control" id="id_category" required>
                         </select>
                     </div>
                 </div>
                 <div class="form-group" id="subCatForm" urlz1="{% url 'ajax_load_sub_category' %}">
                     <label class="col-sm-2 control-label">SUB CATEGORY</label>
                     <div class="col-sm-10">
-                        <select name="sub_category" class="form-control" id="id_subcategory">
+                        <select name="sub_category" class="form-control" id="id_subcategory" required>
 
                         </select>
                     </div>
@@ -42,25 +42,25 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">DESCRIPTION</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" name="description" placeholder="Enter your service/listing description"></textarea>
+                        <textarea class="form-control" rows="5" name="description" placeholder="Enter your service/listing description" required></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">PRICE ($)</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" value="0" name="price">
+                        <input type="number" class="form-control" value="0" name="price" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
                     <div class="col-10">
-                        <input class="form-control" type="tel" placeholder="600000" id="phone_numer" name="phone_number">
+                        <input class="form-control" type="tel" placeholder="600 0000" id="phone_number" name="phone_number" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">STATE</label>
                     <div class="col-sm-10">
-                        <select name="state" class="form-control" id="id_state">
+                        <select name="state" class="form-control" id="id_state" required>
                             <option value="">---------</option>
                             {% for state in states %}
                                 <option value="{{ state.pk }}">{{ state.state }}</option>
@@ -68,17 +68,17 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="localForm" data-locations-url="{% url 'ajax_load_locations' %}">
                     <label class="col-sm-2 control-label">LOCATION</label>
                     <div class="col-sm-10">
-                        <select name="location" class="form-control" id="id_location">
+                        <select name="location" class="form-control" id="id_location" required>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="example-text-input" class="col-2 col-form-label">Street 1</label>
                     <div class="col-10">
-                        <input class="form-control" type="text"  placeholder="Enter your street address ,house number, etc" id="address_1" name="address_1">
+                        <input class="form-control" type="text"  placeholder="Enter your street address ,house number, etc" id="address_1" name="address_1" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -90,13 +90,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">PHOTO</label>
                     <div class="col-sm-10">
-                        <input type="file" class="form-control" name="photo">
+                        <input type="file" class="form-control" name="photo" >
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">STATUS</label>
                     <div class="col-sm-10">
-                        <select name="status" class="form-control">
+                        <select name="status" class="form-control" required>
                             <option value="1">Active</option>
                             <option value="0">Disabled</option>
                         </select>
@@ -116,7 +116,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         $("#id_state").change(function () {
-            var url = $("#gigForm").attr("data-locations-url");  // get the url of the `load_cities` view
+            var url = $("#localForm").attr("data-locations-url");  // get the url of the `load_cities` view
 
             var stateId = $(this).val();  // get the selected country ID from the HTML input
 

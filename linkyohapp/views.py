@@ -1,16 +1,17 @@
+from django.core.mail import BadHeaderError, EmailMessage
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Gig, Profile, Location, State, Category, SubCategory, Review
-from .forms import GigForm, ReviewForm
+from .forms import GigForm, ReviewForm, ContactForm
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 
 
 # Create your views here.
 
-def load_states(request,sid=None):
+def load_states(request, sid=None):
     if sid is not None:
         selected_state = sid
         states = State.objects.all()
@@ -246,6 +247,37 @@ def profile(request, username):
 
     gigs = Gig.objects.filter(user=profile.user, status=True)
     return render(request, 'profile.html', {"profile": profile, "gigs": gigs})
+
+
+def about(request):
+    return render(request, 'about.html')
+
+
+def contact(request):
+    if request.method == 'GET':
+        form = ContactForm()
+    else:
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact_name = form.cleaned_data['contact_name']
+            contact_email = form.cleaned_data['contact_email']
+            content = form.cleaned_data['content']
+            try:
+                email = EmailMessage(contact_name,
+                                     content,
+                                     contact_email,
+                                     ['csilva@silvatech.org'],
+                                     reply_to=[contact_email],
+                                     )
+                email.send()
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('thanks')
+    return render(request, 'contact.html', {'form': form})
+
+
+def thanks(request):
+    return render(request, 'thanks.html')
 
 
 def terms(request):

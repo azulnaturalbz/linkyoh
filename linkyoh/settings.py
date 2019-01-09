@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'social_django',
     'linkyohapp.apps.LinkyohappConfig',
+    'widget_tweaks',
 
 ]
 
