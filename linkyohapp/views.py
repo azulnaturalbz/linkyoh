@@ -1,12 +1,16 @@
+from django.contrib.auth.decorators import login_required
 from django.core.mail import BadHeaderError, EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
+
 from .models import Gig, Profile, Location, State, Category, SubCategory, Review
 from .forms import GigForm, ReviewForm, ContactForm
-from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
+
+import credentials.SEND_TO_EMAIL
+
 
 
 # Create your views here.
@@ -44,17 +48,6 @@ def load_categories(request, catid=None):
 
 
 def load_sub_categories(request, catid=None, subcatid=None):
-    # if catid and subcatid:
-    #     category_id = catid
-    #     subcatid = subcatid
-    #     sub_categories = SubCategory.objects.filter(category_id=category_id)
-    #     return render(request, 'sub_category_dropdown_list_options.html', {'sub_categories': sub_categories, 'selected_subcat': subcatid})
-    # elif catid:
-    #     category_id = catid
-    #     sub_categories = SubCategory.objects.filter(category_id=category_id)
-    #     return render(request, 'sub_category_dropdown_list_options.html',
-    #                   {'sub_categories': sub_categories})
-    # else:
     if catid is None and subcatid is None:
         category_id = request.GET.get('category')
         sub_categories = SubCategory.objects.filter(category_id=category_id)
@@ -259,15 +252,15 @@ def contact(request):
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
-            contact_name = form.cleaned_data['contact_name']
             contact_email = form.cleaned_data['contact_email']
+            content_subject = form.cleaned_data['content_subject']
             content = form.cleaned_data['content']
             try:
-                email = EmailMessage(contact_name,
-                                     content,
-                                     contact_email,
-                                     ['csilva@silvatech.org'],
+                email = EmailMessage(subject=content_subject,
+                                     body=content,
+                                     to=[credentials.SEND_TO_EMAIL],
                                      reply_to=[contact_email],
+                                     headers={'Content-Type': 'text/plain'}
                                      )
                 email.send()
             except BadHeaderError:

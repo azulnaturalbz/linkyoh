@@ -55,8 +55,8 @@ class ReviewForm(ModelForm):
 
 
 class ContactForm(forms.Form):
-    contact_name = forms.CharField(required=True, label="Name")
     contact_email = forms.EmailField(required=True, label="Email")
+    content_subject = forms.CharField(required=True, label="Subject")
     content = forms.CharField(
         required=True,
         widget=forms.Textarea,
