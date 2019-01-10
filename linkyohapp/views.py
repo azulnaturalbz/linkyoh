@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from .models import Gig, Profile, Location, State, Category, SubCategory, Review
 from .forms import GigForm, ReviewForm, ContactForm
 
-import credentials.SEND_TO_EMAIL
+import credentials
 
 
 
