@@ -3,8 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t csilva/linkyoh-app -f Dockerfile .
-  - gem install bundler
+  - docker build -t csilva/linkyoh-app 
 
 
 #script:
@@ -19,7 +18,7 @@ deploy:
   bucket_name: "elasticbeanstalk-us-west-2-323216669271"
   bucket_path: "linkyoh"
   on:
-    branch: localizing
+    branch: master
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
     secure: "$AWS_SECRET_KEY"
