@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t csilva/linkyoh-app -f Dockerfile .
+
+
+#script:
+#  - docker run csilva/docker-react npm run test -- --coverage
+
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "linkyoh"
+  env: "Linkyoh-env"
+  bucket_name: "elasticbeanstalk-us-west-2-323216669271"
+  bucket_path: "linkyoh"
+  on:
+    branch: localizing
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
