@@ -4,6 +4,7 @@ services:
 
 before_install:
   - docker build -t csilva/linkyoh-app -f Dockerfile .
+  - gem install bundler
 
 
 #script:
