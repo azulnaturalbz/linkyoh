@@ -17,11 +17,11 @@ COPY . /linkyoh/
 EXPOSE 8000
 STOPSIGNAL SIGINT
 ENTRYPOINT ["python", "manage.py"]
-CMD ["runserver", "127.0.0.1:8000"]
+CMD ["runserver", "0.0.0.0:8000"]
 
 
 
-FROM nginx
-EXPOSE 80
-COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /linkyoh /usr/share/nginx/html
+#FROM nginx
+#EXPOSE 80
+#COPY ./default.conf /etc/nginx/conf.d/default.conf
+#COPY --from=builder /linkyoh /usr/share/nginx/html
