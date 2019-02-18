@@ -91,6 +91,7 @@ DATABASES = {
         'PASSWORD': credentials.dbpassword,
         'HOST': credentials.dbhome,
         'PORT': credentials.dbport,
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
