@@ -8,7 +8,7 @@ from django.core.validators import RegexValidator
 
 
 def cover_upload_path(instance, filename):
-    return '/'.join(['gigs_img', str(instance.user), filename])
+    return '/'.join(['gigs_img', str(instance.id), filename])
 
 
 def banner_upload_path(instance, filename):
