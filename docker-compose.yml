@@ -6,6 +6,8 @@ services:
       context: .
     volumes:
       - .:/linkyoh
+      - static_volume:/linkyoh/static
+      - media_volume:/linkyoh/media
     command: >
       sh -c "python manage.py makemigrations && python manage.py migrate && exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     environment:
@@ -40,5 +42,13 @@ services:
     restart: always
     build:
       context: ./nginx
+    volumes:
+      - static_volume:/linkyoh/static
+      - media_volume:/linkyoh/media
     ports:
       - "80:80"
+
+
+volumes:
+  static_volume:
+  media_volume:
