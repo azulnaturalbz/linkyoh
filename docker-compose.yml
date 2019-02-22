@@ -33,6 +33,8 @@ services:
       - LYLYMERCHANT_ID
       - LYMERCHANT_PUBLIC
       - LYMERCHANT_PRIVATE
+    env_file:
+      - .env
 
   nginx:
     restart: always
