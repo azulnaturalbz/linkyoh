@@ -1,18 +1,42 @@
-version: '3.7'
+version: "3"
 
 services:
   web:
-    build: .
-    command: python /linkyoh/manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
     volumes:
       - .:/linkyoh
-#    ports:
-#      - 8000:8000
+    command: >
+      sh -c "python manage.py wait_for_db && python manage.py makemigrations && python manage.py migrate && exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    environment:
+      - LYDBUSER
+      - LYDB_PASSWORD
+      - LYDB_NAME
+      - LYDB_HOST
+      - LYDB_PORT
+      - LYEMAIL_BACKEND
+      - LYEMAIL_HOST
+      - LYEMAIL_HOST_USER
+      - LYEMAIL_HOST_PASSWORD
+      - LYEMAIL_PORT
+      - LYEMAIL_TLS
+      - LYEMAIL_SSL
+      - LYDEFAULT_EMAIL
+      - LYSEND_TO_EMAIL
+      - LYFB_KEY
+      - LYFB_SECRET
+      - LYAPP_SECRET
+      - LYAH0
+      - LYAH1
+      - LYAH2
+      - LYAH3
+      - LYLYMERCHANT_ID
+      - LYMERCHANT_PUBLIC
+      - LYMERCHANT_PRIVATE
 
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "3050:80"
+      - "80:80"
