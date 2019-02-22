@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED 1
 
 #Creating Operating Requirements
 RUN mkdir /linkyoh
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
 WORKDIR /linkyoh
 COPY . /linkyoh/
 
