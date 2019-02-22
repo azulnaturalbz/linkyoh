@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/linkyoh
     command: >
-      sh -c "python manage.py wait_for_db && python manage.py makemigrations && python manage.py migrate && exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+      sh -c "python manage.py makemigrations && python manage.py migrate && exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     environment:
       - LYDBUSER
       - LYDB_PASSWORD
