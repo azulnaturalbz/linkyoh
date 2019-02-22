@@ -2,17 +2,16 @@ FROM python:3-alpine
 # Set environment varibles
 MAINTAINER Silvatech
 
-ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
-#Installing Requirements
-COPY ./requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
 
 #Creating Operating Requirements
 RUN mkdir /linkyoh
 WORKDIR /linkyoh
 COPY . /linkyoh/
+
+#Installing Requirements
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
 
 #Creating User
 RUN adduser -D user
