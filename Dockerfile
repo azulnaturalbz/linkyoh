@@ -2,6 +2,7 @@ FROM python:3-alpine
 # Set environment varibles
 MAINTAINER Silvatech
 
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 #Creating Operating Requirements
