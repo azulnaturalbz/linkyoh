@@ -1,4 +1,4 @@
-FROM python:3-alpine
+FROM python:3.7-alpine
 # Set environment varibles
 MAINTAINER Silvatech
 
