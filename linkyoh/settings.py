@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'linkyoh.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': credentials.dbname,
-        'USER': credentials.dbuser,
-        'PASSWORD': credentials.dbpassword,
-        'HOST': credentials.dbhome,
-        'PORT': credentials.dbport,
+        'NAME': credentials.DBNAME,
+        'USER': credentials.DBUSER,
+        'PASSWORD': credentials.DBPASSWORD,
+        'HOST': credentials.DBHOME,
+        'PORT': credentials.DBPORT,
         'OPTIONS': {'sslmode': 'require'},
     }
 }
