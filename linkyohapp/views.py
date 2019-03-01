@@ -226,15 +226,15 @@ def my_gigs(request):
 
 
 @login_required(login_url='/')
-def profile(request, username):
+def profile(request, pid):
     if request.method == 'POST':
-        profile = Profile.objects.get(user=request.user)
+        profile = Profile.objects.get(user_id=request.user.id)
         profile.about = request.POST['about']
         profile.slogan = request.POST['slogan']
         profile.save()
     else:
         try:
-            profile = Profile.objects.get(user__username=username)
+            profile = Profile.objects.get(user_id=id)
         except Profile.DoesNotExist:
             return redirect('/')
 
