@@ -16,18 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
-from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
 from linkyohapp import views
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include('linkyohapp.urls')),
-                  # url(r'^login/$', auth_views.login, name='login'),
-                  # url(r'^logout/$', auth_views.logout, name='logout'),
-                  # url(r'^oauth/', include('social_django.urls', namespace='social')),
                   path('social/', include(('social_django.urls', 'social'), namespace='social')),
                   path('auth/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
                   path('like/', views.like_gig, name="like_gig"),
