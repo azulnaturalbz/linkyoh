@@ -234,7 +234,7 @@ def profile(request, pid):
         profile.save()
     else:
         try:
-            profile = Profile.objects.get(user_id=id)
+            profile = Profile.objects.get(user_id=pid)
         except Profile.DoesNotExist:
             return redirect('/')
 
