@@ -188,7 +188,7 @@ def create_gig(request):
             gig.save()
             return redirect('my_gigs')
         else:
-            error = "Data is not valid"
+            error = "Please check data, only png,jpg,and jpeg. Max size 24mb"
     gig_form = GigForm()
     return render(request, 'create_gig.html', {"error": error, "states": states})
 
