@@ -17,6 +17,7 @@ def cover_upload_path(instance, filename):
     else:
         # set filename as random string
         filename = '{}.{}'.format(uuid4().hex, ext)
+
     return '/'.join(['gigs_img', str(instance.id), filename])
 
 
