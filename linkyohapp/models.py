@@ -1,18 +1,29 @@
+import os
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import RegexValidator
+from uuid import uuid4
 
 
 # Create your models here.
 
 
 def cover_upload_path(instance, filename):
+    ext = filename.split('.')[-1]
+    # get filename
+    if instance.pk:
+        filename = '{}.{}'.format(instance.pk, ext)
+    else:
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
     return '/'.join(['gigs_img', str(instance.id), filename])
 
 
 def banner_upload_path(instance, filename):
     return '/'.join(['category_img', str(instance.category), filename])
+
+
 
 
 class Country(models.Model):
