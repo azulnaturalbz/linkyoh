@@ -25,11 +25,11 @@ COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
 #Creating User
-RUN adduser -D user
-USER user
+#RUN adduser -D user
+#USER user
 
-RUN chown -R user /linkyoh/media
-RUN chown -R user /linkyoh/static
+#RUN chown -R user /linkyoh/media
+#RUN chown -R user /linkyoh/static
 
 #Start Up Command
 CMD python manage.py makemigrations
