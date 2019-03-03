@@ -12,7 +12,6 @@ from .forms import GigForm, ReviewForm, ContactForm
 import credentials
 
 
-
 # Create your views here.
 
 def load_states(request, sid=None):
@@ -121,8 +120,8 @@ def home(request):
 def gig_detail(request, id):
     if request.method == 'POST' and \
             request.user.is_authenticated and \
-            'content' in request.POST and \
-            request.POST['content'].strip() != '':
+                    'content' in request.POST and \
+                    request.POST['content'].strip() != '':
 
         # Review.objects.create(content=request.POST['content'],gig_id=id,user=request.user)
         form = ReviewForm(request.POST)
@@ -188,7 +187,7 @@ def create_gig(request):
             gig.save()
             return redirect('my_gigs')
         else:
-            error = "Please check data, only png,jpg,and jpeg. Max size 24mb"
+            error = "Please check data, only png, jpg, jpeg and gif. Max size 24mb"
     gig_form = GigForm()
     return render(request, 'create_gig.html', {"error": error, "states": states})
 
@@ -242,10 +241,6 @@ def profile(request, pid):
     return render(request, 'profile.html', {"profile": profile, "gigs": gigs})
 
 
-def about(request):
-    return render(request, 'about.html')
-
-
 def contact(request):
     if request.method == 'GET':
         form = ContactForm()
@@ -269,8 +264,8 @@ def contact(request):
     return render(request, 'contact.html', {'form': form})
 
 
-def thanks(request):
-    return render(request, 'thanks.html')
+def about(request):
+    return render(request, 'about.html')
 
 
 def terms(request):
@@ -281,10 +276,15 @@ def privacy(request):
     return render(request, 'privacy.html')
 
 
+def thanks(request):
+    return render(request, 'thanks.html')
+
+
 def search(request):
-    gigs = Gig.objects.filter(Q(title__icontains=request.GET['param']) |
-                              Q(category__category__icontains=request.GET['param']) |
-                              Q(sub_category__subcategory__icontains=request.GET['param']) |
-                              Q(state__state__icontains=request.GET['param']) |
-                              Q(location__local__local__icontains=request.GET['param']))
+    gigs = Gig.objects.filter(
+        Q(title__icontains=request.GET['param']) |
+        Q(category__category__icontains=request.GET['param']) |
+        Q(sub_category__subcategory__icontains=request.GET['param']) |
+        Q(state__state__icontains=request.GET['param']) |
+        Q(location__local__local__icontains=request.GET['param']), status=True).order_by("-create_time")
     return render(request, 'home.html', {"gigs": gigs})
