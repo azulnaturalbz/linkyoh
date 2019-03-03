@@ -28,8 +28,8 @@ RUN pip install -r /requirements.txt
 RUN adduser -D user
 USER user
 
-RUN chown -R django /linkyoh/media
-RUN chown -R django /linkyoh/static
+RUN chown -R user /linkyoh/media
+RUN chown -R user /linkyoh/static
 
 #Start Up Command
 CMD python manage.py makemigrations
