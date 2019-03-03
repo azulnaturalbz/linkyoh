@@ -61,8 +61,9 @@ class GigForm(ModelForm):
             # photo_field = self.cleaned_data.get('photo')
             photo_file = io.BytesIO(photo.read())
 
+
             photon = Image.open(photo_file)
-            photon = photon.resize((160,300), photon.ANTIALIAS)
+            # photon = photon.resize((160,300), photon.ANTIALIAS)
 
             photo_file = io.BytesIO()
             photon.save(photo_file,optimize=True,quality=95)
