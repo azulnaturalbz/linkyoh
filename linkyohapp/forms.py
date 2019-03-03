@@ -57,18 +57,6 @@ class GigForm(ModelForm):
         photo = self.cleaned_data.get('photo')
         if not photo.name.endswith(".jpg") | photo.name.endswith(".jpeg") | photo.name.endswith(".png") | photo.name.endswith(".gif"):
             raise forms.ValidationError("Only .jpg image accepted")
-        else:
-            # photo_field = self.cleaned_data.get('photo')
-            photo_file = io.BytesIO(photo.read())
-
-
-            photon = Image.open(photo_file)
-            # photon = photon.resize((160,300), photon.ANTIALIAS)
-
-            photo_file = io.BytesIO()
-            photon.save(photo_file,optimize=True,quality=95)
-
-            photo.file = photo_file
         return photo
 
 
