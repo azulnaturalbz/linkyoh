@@ -72,14 +72,16 @@ class ReviewForm(ModelForm):
 
 
 class ContactForm(forms.ModelForm):
-    name = forms.CharField()
-    email = forms.EmailField(label='E-Mail')
-    phone = PhoneNumberField()
+    name = forms.CharField(help_text="John Doe")
+    email = forms.EmailField(label='E-Mail',help_text="example@example.com",)
+    phone = PhoneNumberField(help_text="+501655555")
     category = forms.ChoiceField(choices=[('question','Question'),('suggestions','Suggestions'),('complaints','Complaints'),('investor relations','Investor Relations')])
-    subject = forms.CharField(required=False)
-    body = forms.CharField(widget=forms.Textarea,label="Message")
+    subject = forms.CharField(required=False,help_text="Subject")
+    body = forms.CharField(widget=forms.Textarea,label="Message",help_text="Message")
 
     class Meta:
         model = Contact
         fields = {'name', 'email', 'phone', 'category', 'subject','body'}
+
+    field_order = ['name', 'email', 'phone','category','subject','body']
 
