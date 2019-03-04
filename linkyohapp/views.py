@@ -256,8 +256,9 @@ def contact(request):
             body = form.cleaned_data['body']
 
             contact_entry = Contact(name=name,email=email,phone=phone,category=category,subject=subject,body=body)
+            contact_entry.save()
 
-            return redirect('thanks')
+            redirect('thanks')
         else:
             error = "Please check the contact form once more, something doesn't look right."
     return render(request, 'contact.html', {'form': form})
