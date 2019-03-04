@@ -1,17 +1,8 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 {% block page %}
-    {% if error %}
-        <div class="alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">
-            &times;
-        </span>
-            </button>
-            <strong>Warning !</strong> {{ error }}
-        </div>
-    {% endif %}
-    {% load widget_tweaks %}
+
 
     <div class="container">
 
@@ -20,6 +11,16 @@
                 <h2>Contact Us</h2>
             </div>
         </div>
+        {% if error %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">
+            &times;
+        </span>
+                </button>
+                <strong>Warning !</strong> {{ error }}
+            </div>
+        {% endif %}
         <br>
 
         <form class="form-horizontal" role="form" action="." method="post">
