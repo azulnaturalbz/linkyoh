@@ -1,10 +1,10 @@
 import os
+from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import RegexValidator
-from uuid import uuid4
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 
@@ -157,3 +157,12 @@ class Review(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(models=255)
+    phone = PhoneNumberField(null=False, blank=False, unique=True)
+    category = models.CharField(max_length=100)
+    subject = models.CharField(max_length=32)
+    body = models.TextField()
