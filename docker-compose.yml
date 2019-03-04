@@ -39,7 +39,7 @@ services:
       - .env
 
   nginx:
-    restart: always
+#    restart: always
 #    build:
 #      context: ./nginx
     image: nginx:1.15-alpine

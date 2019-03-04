@@ -248,17 +248,9 @@ def contact(request):
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            category = form.cleaned_data['category']
-            subject = form.cleaned_data['subject']
-            body = form.cleaned_data['body']
-
-            contact_entry = Contact(name=name,email=email,phone=phone,category=category,subject=subject,body=body)
+            contact_entry = form.save(commit=False)
             contact_entry.save()
-
-            redirect('thanks')
+            return redirect(thanks)
         else:
             error = "Please check the contact form once more, something doesn't look right."
     return render(request, 'contact.html', {'form': form})
