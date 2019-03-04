@@ -5,8 +5,8 @@ from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
-
-from .models import Gig, Profile, Location, State, Category, SubCategory, Review
+from django.core.exceptions import ValidationError
+from .models import Gig, Profile, Location, State, Category, SubCategory, Review,Contact
 from .forms import GigForm, ReviewForm, ContactForm
 
 import credentials
@@ -247,19 +247,19 @@ def contact(request):
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
-            contact_email = form.cleaned_data['contact_email']
-            content_subject = form.cleaned_data['content_subject']
-            content = form.cleaned_data['content']
             try:
-                email = EmailMessage(subject=content_subject,
-                                     body=content,
-                                     to=[credentials.SEND_TO_EMAIL],
-                                     reply_to=[contact_email],
-                                     headers={'Content-Type': 'text/plain'}
-                                     )
-                email.send()
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
+                name = form.cleaned_data['name']
+                email = form.cleaned_data['email']
+                phone = form.cleaned_data['phone']
+                category = form.cleaned_data['category']
+                subject = form.cleaned_data['subject']
+                body = form.cleaned_data['body']
+
+                contact_entry = Contact(name=name,email=email,phone=phone,category=category,subject=subject,body=body)
+
+                contact_entry.save()
+            except ValidationError as e:
+                redirect('contact')
             return redirect('thanks')
     return render(request, 'contact.html', {'form': form})
 

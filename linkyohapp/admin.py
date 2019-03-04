@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Gig, Country, State, Local, LocalType, Location, Category,SubCategory,Review, Rating
+from .models import Profile, Gig, Country, State, Local, LocalType, Location, Category,SubCategory,Review, Rating,Contact
 
 
 # Register your models here.
@@ -59,3 +59,7 @@ class ReviewAdmin(admin.ModelAdmin):
 class RatingAdmin(admin.ModelAdmin):
     pass
 
+
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    pass
