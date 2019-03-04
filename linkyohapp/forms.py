@@ -71,7 +71,7 @@ class ReviewForm(ModelForm):
                            'rating']
 
 
-class ContactForm(forms.Form):
+class ContactForm(forms.ModelForm):
     name = forms.CharField()
     email = forms.EmailField(label='E-Mail')
     phone = PhoneNumberField()
