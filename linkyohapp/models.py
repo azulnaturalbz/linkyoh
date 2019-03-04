@@ -161,7 +161,7 @@ class Review(models.Model):
 
 class Contact(models.Model):
     name = models.CharField(max_length=100)
-    email = models.EmailField(models=255)
+    email = models.EmailField(max_length=70,blank=True, null= True, unique= True)
     phone = PhoneNumberField(null=False, blank=False, unique=True)
     category = models.CharField(max_length=100)
     subject = models.CharField(max_length=32)
