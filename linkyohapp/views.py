@@ -248,8 +248,7 @@ def contact(request):
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
-            contact_entry = form.save(commit=False)
-            contact_entry.save()
+            form.save()
             return redirect(thanks)
         else:
             error = "Please check the contact form once more, something doesn't look right."
