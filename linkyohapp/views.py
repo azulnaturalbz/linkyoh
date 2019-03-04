@@ -242,25 +242,24 @@ def profile(request, pid):
 
 
 def contact(request):
+    error = ''
     if request.method == 'GET':
         form = ContactForm()
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
-            try:
-                name = form.cleaned_data['name']
-                email = form.cleaned_data['email']
-                phone = form.cleaned_data['phone']
-                category = form.cleaned_data['category']
-                subject = form.cleaned_data['subject']
-                body = form.cleaned_data['body']
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['phone']
+            category = form.cleaned_data['category']
+            subject = form.cleaned_data['subject']
+            body = form.cleaned_data['body']
 
-                contact_entry = Contact(name=name,email=email,phone=phone,category=category,subject=subject,body=body)
+            contact_entry = Contact(name=name,email=email,phone=phone,category=category,subject=subject,body=body)
 
-                contact_entry.save()
-            except ValidationError as e:
-                redirect('contact')
             return redirect('thanks')
+        else:
+            error = "Please check the contact form once more, something doesn't look right."
     return render(request, 'contact.html', {'form': form})
 
 
