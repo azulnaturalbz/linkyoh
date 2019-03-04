@@ -38,11 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'registration',
     'bootstrap4',
+    'registration',
     'social_django',
-    'linkyohapp.apps.LinkyohappConfig',
     'widget_tweaks',
+    'phonenumber_field',
+    'linkyohapp.apps.LinkyohappConfig',
 
 ]
 
