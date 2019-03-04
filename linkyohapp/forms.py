@@ -2,6 +2,8 @@ import io
 from PIL import Image
 from django import forms
 from django.forms import ModelForm
+from phonenumber_field.formfields import PhoneNumberField
+
 from .models import Gig, Location, Review
 
 # Declaring Extensions that will be allowed to be uploaded(Not to be used yet)
@@ -73,11 +75,20 @@ class ReviewForm(ModelForm):
 # class SearchForm(forms.Form):
 #     search_form = forms.CharField()
 
+# class ContactForm(forms.Form):
+#     contact_email = forms.EmailField(required=True, label="Email")
+#     content_subject = forms.CharField(required=True, label="Subject")
+#     content = forms.CharField(
+#         required=True,
+#         widget=forms.Textarea,
+#         label="Message"
+#     )
+
+
 class ContactForm(forms.Form):
-    contact_email = forms.EmailField(required=True, label="Email")
-    content_subject = forms.CharField(required=True, label="Subject")
-    content = forms.CharField(
-        required=True,
-        widget=forms.Textarea,
-        label="Message"
-    )
+    name = forms.CharField()
+    email = forms.EmailField(label='E-Mail')
+    phone = PhoneNumberField()
+    category = forms.ChoiceField(choices=[('question','Question'),('suggestions','Suggestions'),('complaints','Complaints'),('investor relations','Investor Relations')])
+    subject = forms.CharField(required=False)
+    body = forms.CharField(widget=forms.Textarea)
