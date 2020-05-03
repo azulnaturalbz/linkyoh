@@ -1,7 +1,7 @@
 from django.urls import path
 from django.urls import include
 from django.conf.urls import url
-from .models import State, Location
+from .models import District, Location
 from linkyohapp import views
 
 urlpatterns = [

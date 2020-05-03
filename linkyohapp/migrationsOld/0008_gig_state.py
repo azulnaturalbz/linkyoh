@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='gig',
             name='state',
-            field=models.ForeignKey(default='1', on_delete=django.db.models.deletion.CASCADE, to='linkyohapp.State'),
+            field=models.ForeignKey(default='1', on_delete=django.db.models.deletion.CASCADE, to='linkyohapp.District'),
             preserve_default=False,
         ),
     ]

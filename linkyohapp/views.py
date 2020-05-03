@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http40
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
-from .models import Gig, Profile, Location, State, Category, SubCategory, Review,Contact
+from .models import Gig, Profile, Location, District, Category, SubCategory, Review,Contact
 from .forms import GigForm, ReviewForm, ContactForm
 
 import credentials
@@ -17,10 +17,10 @@ import credentials
 def load_states(request, sid=None):
     if sid is not None:
         selected_state = sid
-        states = State.objects.all()
+        states = District.objects.all()
         return render(request, 'state_dropdown_list_options.html', {'states': states, 'selected_state': selected_state})
     else:
-        states = State.objects.all()
+        states = District.objects.all()
         return render(request, 'state_dropdown_list_options.html', {'states': states})
 
 
@@ -178,7 +178,7 @@ def like_gig(request):
 @login_required(login_url='/')
 def create_gig(request):
     error = ''
-    states = State.objects.all()
+    states = District.objects.all()
     if request.method == "POST":
         gig_form = GigForm(request.POST, request.FILES)
         if gig_form.is_valid():
@@ -206,7 +206,7 @@ def edit_gig(request, id):
                 error = "Data is not Valid"
         categories = Category.objects.all()
         sub_categories = SubCategory.objects.filter(category_id=gig.category_id)
-        districts = State.objects.all()
+        districts = District.objects.all()
         locations = Location.objects.filter(local__state_id=gig.state_id)
         return render(request, 'edit_gig.html',
                       {"gig": gig, "error": error,
