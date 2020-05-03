@@ -26,7 +26,7 @@ class GigForm(ModelForm):
                   'phone_number',
                   'address_1',
                   'address_2',
-                  'state',
+                  'district',
                   'location']
         fields_required = ['title',
                            'category',

@@ -4,6 +4,31 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import RegexValidator
+
+import os
+from uuid import uuid4
+from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
+
+from django.core.exceptions import ValidationError
+from django.urls import reverse
+from django_extensions.db.fields import AutoSlugField
+from django.db.models import CharField
+from django.db.models import DateTimeField
+from django.db.models import DecimalField
+from django.db.models import PositiveIntegerField
+from django.db.models import TextField
+from django_extensions.db.fields import AutoSlugField
+from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import get_user_model
+from django.contrib.auth import models as auth_models
+from django.db import models as models
+from simple_history.models import HistoricalRecords
+from django_extensions.db import fields as extension_fields
+
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
@@ -25,48 +50,130 @@ def banner_upload_path(instance, filename):
     return '/'.join(['category_img', str(instance.category), filename])
 
 
-
-
 class Country(models.Model):
-    country = models.CharField(max_length=20)
+    # Fields
+    country_name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='country_name', blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ('-created',)
 
     def __str__(self):
-        return "%s " % (self.country)
+        return str(self.country_name)
+
+    def get_absolute_url(self):
+        return reverse('linkyohapp_country_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('linkyohapp_country_update', args=(self.slug,))
 
 
-class State(models.Model):
-    state = models.CharField(max_length=100)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    description = models.TextField(default='No Description')
+class District(models.Model):
+    # Fields
+    district_name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='district_name', blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    history = HistoricalRecords()
+
+    # Relationship Fields
+    country = models.ForeignKey(
+        'linkyohapp.Country',
+        on_delete=models.CASCADE, related_name="districts",
+    )
+
+    class Meta:
+        ordering = ('-created',)
 
     def __str__(self):
-        return "%s " % (self.state)
+        return str(self.district_name)
 
+    def get_absolute_url(self):
+        return reverse('linkyohapp_district_detail', args=(self.slug,))
 
-class Local(models.Model):
-    local = models.CharField(max_length=100)
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
-    description = models.TextField(default='No Description')
-
-    def __str__(self):
-        return "%s " % (self.local)
+    def get_update_url(self):
+        return reverse('linkyohapp_district_update', args=(self.slug,))
 
 
 class LocalType(models.Model):
-    local = models.CharField(max_length=100)
-    description = models.TextField(blank=True, null=True)
+    # Fields
+    local_type_name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='local_type_name', blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    history = HistoricalRecords()
+
+    class Meta:
+        ordering = ('-created',)
 
     def __str__(self):
-        return "%s " % (self.local)
+        return str(self.local_type_name)
+
+    def get_absolute_url(self):
+        return reverse('linkyohapp_localtype_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('linkyohapp_localtype_update', args=(self.slug,))
+
+class Local(models.Model):
+    # Fields
+    local_name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='local_name', blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    history = HistoricalRecords()
+
+    # Relationship Fields
+    local_district = models.ForeignKey(
+        'linkyohapp.District',
+        on_delete=models.CASCADE, related_name="locals",
+    )
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return str(self.local_name)
+
+    def get_absolute_url(self):
+        return reverse('linkyohapp_local_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('linkyohapp_local_update', args=(self.slug,))
 
 
 class Location(models.Model):
-    local = models.ForeignKey(Local, on_delete=models.CASCADE)
-    localType = models.ForeignKey(LocalType, on_delete=models.CASCADE)
-    description = models.TextField(blank=True, null=True)
+    # Fields
+    location_description = models.TextField(max_length=255, blank=True)
+    slug = extension_fields.AutoSlugField(populate_from='local', blank=True)
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+    history = HistoricalRecords()
+
+    # Relationship Fields
+    local = models.ForeignKey(
+        'linkyohapp.Local',
+        on_delete=models.CASCADE, related_name="locations",
+    )
+    local_type = models.ForeignKey(
+        'linkyohapp.LocalType',
+        on_delete=models.CASCADE, related_name="locations",
+    )
+
+    class Meta:
+        ordering = ('-created',)
 
     def __str__(self):
-        return "%s " % (self.local)
+        return str(self.local)
+
+    def get_absolute_url(self):
+        return reverse('linkyohapp_location_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('linkyohapp_location_update', args=(self.slug,))
 
 
 class Profile(models.Model):
@@ -124,7 +231,7 @@ class Gig(models.Model):
                                  message="Phone number must be entered in the "
                                          "format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # validators should be a list
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    district = models.ForeignKey(District, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     address_1 = models.CharField(max_length=128)
     address_2 = models.CharField(max_length=128, blank=True)
