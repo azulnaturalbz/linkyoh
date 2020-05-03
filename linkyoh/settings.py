@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = credentials.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = credentials.DEBUG
 
 ALLOWED_HOSTS = [credentials.ALLOWED_HOST,credentials.ALLOWED_HOST1,credentials.ALLOWED_HOST2,credentials.ALLOWED_HOST3]
 
@@ -92,7 +92,7 @@ DATABASES = {
         'PASSWORD': credentials.DBPASSWORD,
         'HOST': credentials.DBHOME,
         'PORT': credentials.DBPORT,
-        'OPTIONS': {'sslmode': 'require'},
+        'OPTIONS': {'sslmode': credentials.SSL},
     }
 }
 
@@ -145,14 +145,43 @@ STATICFILES_DIRS = [
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 
-# Social Auth - Facebook
-SOCIAL_AUTH_FACEBOOK_KEY = credentials.SOCIAL_AUTH_FACEBOOK_KEY
-SOCIAL_AUTH_FACEBOOK_SECRET = credentials.SOCIAL_AUTH_FACEBOOK_SECRET
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/'
+
+# Setup upload directory for gig model
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Social Auth - Facebook
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend'
 )
+
+
+# Email Settings
+EMAIL_BACKEND = credentials.EMAIL_BACKEND
+EMAIL_HOST = credentials.EMAIL_HOST
+EMAIL_HOST_USER = credentials.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = credentials.EMAIL_HOST_PASSWORD
+EMAIL_PORT = credentials.EMAIL_PORT
+EMAIL_USE_TLS = credentials.EMAIL_USE_TLS
+DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL
+#EMAIL_USE_SSL = credentials.EMAIL_USE_SSL
+
+
+# Social Auth - Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = credentials.SOCIAL_AUTH_FACEBOOK_KEY
+SOCIAL_AUTH_FACEBOOK_SECRET = credentials.SOCIAL_AUTH_FACEBOOK_SECRET
+
+
+# Define SOCIAL_AUTH_FACEBOOK_SCOPE to get extra permissions from facebook. Email is not sent by default, to get it, you must request the email permission:
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, email, first_name, last_name, gender, birthday'
+}
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -166,26 +195,9 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
-# LOGIN_URL = 'login'
-# LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 
-# Setup upload directory for gig model
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
-
-
-# Email Settings
-EMAIL_BACKEND = credentials.EMAIL_BACKEND
-EMAIL_HOST = credentials.EMAIL_HOST
-EMAIL_HOST_USER = credentials.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = credentials.EMAIL_HOST_PASSWORD
-EMAIL_PORT = credentials.EMAIL_PORT
-EMAIL_USE_TLS = credentials.EMAIL_USE_TLS
-DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL
-#EMAIL_USE_SSL = credentials.EMAIL_USE_SSL
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+LOGOUT_REDIRECT_URL = '/'
