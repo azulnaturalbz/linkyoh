@@ -1,27 +1,31 @@
 
 import os
 
-DBUSER = os.environ['LYDBUSER']
-DBPASSWORD = os.environ['LYDB_PASSWORD']
-DBNAME = os.environ['LYDB_NAME']
-DBHOME = os.environ['LYDB_HOST']
-DBPORT = os.environ['LYDB_PORT']
-EMAIL_BACKEND = os.environ['LYEMAIL_BACKEND']
-EMAIL_HOST = os.environ['LYEMAIL_HOST']
-EMAIL_HOST_USER = os.environ['LYEMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = os.environ['LYEMAIL_HOST_PASSWORD']
-EMAIL_PORT = os.environ['LYEMAIL_PORT']
-EMAIL_USE_TLS = os.environ['LYEMAIL_TLS']
-EMAIL_USE_SSL =os.environ['LYEMAIL_SSL']
-DEFAULT_FROM_EMAIL = os.environ['LYDEFAULT_EMAIL']
-SEND_TO_EMAIL = os.environ['LYSEND_TO_EMAIL']
-SOCIAL_AUTH_FACEBOOK_KEY = os.environ['LYFB_KEY']
-SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['LYFB_SECRET']
-SECRET_KEY = os.environ['LYAPP_SECRET']
-ALLOWED_HOST = os.environ['LYAH0']
-ALLOWED_HOST1 = os.environ['LYAH1']
-ALLOWED_HOST2 = os.environ['LYAH2']
-ALLOWED_HOST3 = os.environ['LYAH3']
-MERCHANT_ID = os.environ['LYLYMERCHANT_ID']
-PUBLIC_KEY = os.environ['LYMERCHANT_PUBLIC']
-PRIVATE_KEY = os.environ['LYMERCHANT_PRIVATE']
+DEBUG = True
+SSL = 'disable'
+DBUSER = 'linkyoh_admin'
+DBPASSWORD = 'LinkyohAdmin&2020'
+DBNAME = 'linkyoh'
+DBHOME = '127.0.0.1'
+DBPORT = '5432'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST_USER = 'info@silvatech.org'
+EMAIL_HOST_PASSWORD = 'Password&2017'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = 'True'
+EMAIL_USE_SSL = 'False'
+DEFAULT_FROM_EMAIL = 'info@silvatech.org'
+SEND_TO_EMAIL = 'csilva@silvatech.org'
+SOCIAL_AUTH_FACEBOOK_KEY = '291951854886581'
+SOCIAL_AUTH_FACEBOOK_SECRET = '074feadd16018bd380ff0ff53746e0b8'
+SECRET_KEY = 'i_s%zsbkep-vfy=9t=wy2pi0&3gya0_4a(6y)#!4k*kty$q5@d'
+ALLOWED_HOST = 'localhost'
+ALLOWED_HOST1 = '127.0.0.0.1'
+ALLOWED_HOST2 = 'client'
+ALLOWED_HOST3 = 'linkyoh.silvatech.org'
+MERCHANT_ID = 'ty996djw5934qcrv'
+PUBLIC_KEY = '9btwgv3nxzts5s3j'
+PRIVATE_KEY = 'a87d8909808d0a92c6fcbd9cf25fc446YB'
+STRIPE_API_KEY = 'sk_test_NiISwjYWzPlEZd921euSH5qE'
+
