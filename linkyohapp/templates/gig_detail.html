@@ -39,8 +39,6 @@
                     <p class="card-text">Location: {{ gig.location.localType }} : {{ gig.location }}</p>
                     <p class="card-text">Address 1: {{ gig.address_1 }}</p>
                     <p class="card-text">Address 2: {{ gig.address_2 }}</p>
-                    {#                    <a href="#" class="btn btn-primary">Do something</a>#}
-                    {#                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.linkyoh.com{% url 'gig_detail' gig.id %}" class="btn btn-primary"  target="_blank">#}
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
                        class="btn btn-primary" target="_blank">
                         Share on Facebook
