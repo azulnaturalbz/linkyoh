@@ -59,7 +59,7 @@ class GigForm(ModelForm):
 
     # Function Below makes sure that the image is only jpg , jpeg ,png or gif.
     def clean_photo(self):
-        if self.cleaned_data.get('photo'):
+        if len(self.cleaned_data.get('photo'))> 0 :
             photo = self.cleaned_data.get('photo')
             if not photo.name.endswith(".jpg") | photo.name.endswith(".jpeg") | photo.name.endswith(
                     ".png") | photo.name.endswith(".gif"):
