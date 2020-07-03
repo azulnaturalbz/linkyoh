@@ -161,7 +161,7 @@
     <script>
 
         (function () {
-            var url = $("#stateForm").attr("urlz2");
+            var url = $("#districtForm").attr("urlz2");
 
             $.ajax({                       // initialize an AJAX request
                 url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
@@ -169,7 +169,7 @@
                     // add the country id to the GET parameters
                 },
                 success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $("#id_state").html(data);  // replace the contents of the city input with the data that came from the server
+                    $("#id_district").html(data);  // replace the contents of the city input with the data that came from the server
                 }
             });
         })();
@@ -177,7 +177,7 @@
         $("#id_district").change(function () {
             var url = $("#gigForm").attr("data-locations-url");  // get the url of the `load_cities` view
 
-            var stateId = $(this).val();  // get the selected country ID from the HTML input
+            var districtId = $(this).val();  // get the selected country ID from the HTML input
 
             $.ajax({                       // initialize an AJAX request
                 url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
