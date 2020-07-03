@@ -103,12 +103,12 @@
                             <a class="dropdown-item" href="{% url 'create_gig' %}">Create a Gig</a>
                             <a class="dropdown-item" href="{% url 'my_gigs' %}">My Gigs</a>
                             <a class="dropdown-item" href="{% url 'profile' user.id %}">My Profile</a>
-                            <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+                            <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.build_absolute_uri }}">Logout</a>
                         </div>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">
+                        <a class="nav-link" href="{% url 'social:begin' 'facebook' %}?next={{ request.build_absolute_uri }}">
                             Login with Facebook</a>
                     </li>
                 {% endif %}
@@ -145,9 +145,7 @@
         <span class="text-muted">Linkyoh &copy; {% now "Y" %}</span>
     </div>
 </footer>
-{#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"#}
-{#        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"#}
-{#        crossorigin="anonymous"></script>#}
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

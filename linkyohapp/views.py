@@ -14,25 +14,25 @@ import credentials
 
 # Create your views here.
 
-def load_states(request, sid=None):
-    if sid is not None:
-        selected_state = sid
-        states = District.objects.all()
-        return render(request, 'state_dropdown_list_options.html', {'states': states, 'selected_state': selected_state})
+def load_districts(request, did=None):
+    if did is not None:
+        selected_district = did
+        districts = District.objects.all()
+        return render(request, 'district_dropdown_list_options.html', {'districts': districts, 'selected_state': selected_district})
     else:
-        states = District.objects.all()
-        return render(request, 'state_dropdown_list_options.html', {'states': states})
+        districts = District.objects.all()
+        return render(request, 'district_dropdown_list_options.html', {'districts': districts})
 
 
-def load_locations(request, sid=None, lid=None):
-    if sid is None and lid is None:
-        state_id = request.GET.get('state')
-        locations = Location.objects.filter(local__state__id=state_id).order_by('local')
+def load_locations(request, did=None, lid=None):
+    if did is None and lid is None:
+        district_id = request.GET.get('district')
+        locations = Location.objects.filter(local__local_district=district_id).order_by('local')
         return render(request, 'location_dropdown_list_options.html', {'locations': locations})
 
     else:
-        state_id = request.GET.get('state')
-        locations = Location.objects.filter(local__state__id=state_id).order_by('local')
+        district_id = request.GET.get('district')
+        locations = Location.objects.filter(local__local_district=district_id).order_by('local')
         return render(request, 'location_dropdown_list_options.html', {'locations': locations})
 
 
@@ -178,7 +178,7 @@ def like_gig(request):
 @login_required(login_url='/')
 def create_gig(request):
     error = ''
-    states = District.objects.all()
+    districts = District.objects.all()
     if request.method == "POST":
         gig_form = GigForm(request.POST, request.FILES)
         if gig_form.is_valid():
@@ -189,7 +189,7 @@ def create_gig(request):
         else:
             error = "Please check data, only png, jpg, jpeg and gif. Max size 24mb"
     gig_form = GigForm()
-    return render(request, 'create_gig.html', {"error": error, "states": states})
+    return render(request, 'create_gig.html', {"error": error, "districts": districts})
 
 
 @login_required(login_url='/')
@@ -207,7 +207,7 @@ def edit_gig(request, id):
         categories = Category.objects.all()
         sub_categories = SubCategory.objects.filter(category_id=gig.category_id)
         districts = District.objects.all()
-        locations = Location.objects.filter(local__state_id=gig.state_id)
+        locations = Location.objects.filter(local__local_district=gig.district_id)
         return render(request, 'edit_gig.html',
                       {"gig": gig, "error": error,
                        'districts': districts,
@@ -276,6 +276,6 @@ def search(request):
         Q(title__icontains=request.GET['param']) |
         Q(category__category__icontains=request.GET['param']) |
         Q(sub_category__subcategory__icontains=request.GET['param']) |
-        Q(state__state__icontains=request.GET['param']) |
-        Q(location__local__local__icontains=request.GET['param']), status=True).order_by("-create_time")
+        Q(district__district_name__icontains=request.GET['param']) |
+        Q(location__local__local_name__icontains=request.GET['param']), status=True).order_by("-create_time")
     return render(request, 'home.html', {"gigs": gigs})
