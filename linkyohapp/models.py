@@ -3,7 +3,7 @@ from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.core.validators import RegexValidator
+
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
@@ -22,6 +22,7 @@ from django.db import models as models
 from simple_history.models import HistoricalRecords
 from django_extensions.db import fields as extension_fields
 
+from django.core.validators import RegexValidator
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
@@ -110,6 +111,7 @@ class LocalType(models.Model):
 
     def get_update_url(self):
         return reverse('linkyohapp_localtype_update', args=(self.slug,))
+
 
 class Local(models.Model):
     # Fields

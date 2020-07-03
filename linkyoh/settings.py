@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4',
-    'registration',
-    'social_django',
     'widget_tweaks',
     'phonenumber_field',
+    'bootstrap4',
+    'rest_framework',
+    'oauth2_provider',
+    'social_django',
+    'rest_framework_social_oauth2',
     'linkyohapp.apps.LinkyohappConfig',
 
 ]
@@ -71,8 +73,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                 'social_django.context_processors.backends',
-                 'social_django.context_processors.login_redirect',
+                'django.template.context_processors.media',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -143,33 +146,21 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 
-# LOGIN_URL = 'login'
-# LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = '/'
 
 # Setup upload directory for gig model
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 # Social Auth - Facebook
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.facebook.FacebookOAuth2',
-    'django.contrib.auth.backends.ModelBackend'
+   'social_core.backends.facebook.FacebookOAuth2',
+   # 'rest_framework_social_oauth2.backends.DjangoOAuth2',
+   'django.contrib.auth.backends.ModelBackend',
 )
-
-
-# Email Settings
-EMAIL_BACKEND = credentials.EMAIL_BACKEND
-EMAIL_HOST = credentials.EMAIL_HOST
-EMAIL_HOST_USER = credentials.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = credentials.EMAIL_HOST_PASSWORD
-EMAIL_PORT = credentials.EMAIL_PORT
-EMAIL_USE_TLS = credentials.EMAIL_USE_TLS
-DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL
-#EMAIL_USE_SSL = credentials.EMAIL_USE_SSL
 
 
 # Social Auth - Facebook
@@ -182,6 +173,7 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email, first_name, last_name, gender, birthday'
 }
+
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -197,7 +189,22 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
-
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# Email Settings
+EMAIL_BACKEND = credentials.EMAIL_BACKEND
+EMAIL_HOST = credentials.EMAIL_HOST
+EMAIL_HOST_USER = credentials.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = credentials.EMAIL_HOST_PASSWORD
+EMAIL_PORT = credentials.EMAIL_PORT
+EMAIL_USE_TLS = credentials.EMAIL_USE_TLS
+DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL
+#EMAIL_USE_SSL = credentials.EMAIL_USE_SSL
+
+
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SOCIAL_AUTH_REDIRECT_IS_HTTPS = True

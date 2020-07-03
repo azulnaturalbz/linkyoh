@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Profile, Gig, Country, District, Local, LocalType, Location, Category,SubCategory,Review, Rating, \
-    Contact
+from .models import Profile, Gig, Country, District, Local, LocalType, Location, Category,SubCategory,Review, Rating,Contact
 
 
 # Register your models here.
+
+
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     pass
@@ -20,7 +21,7 @@ class CountryAdmin(admin.ModelAdmin):
 
 
 @admin.register(District)
-class StateAdmin(admin.ModelAdmin):
+class DistrictAdmin(admin.ModelAdmin):
     pass
 
 

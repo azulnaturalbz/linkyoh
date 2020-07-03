@@ -81,26 +81,26 @@
                                name="phone_number" required>
                     </div>
                 </div>
-                <div class="form-group" id="stateForm" urlz2="{% url 'ajax_load_states' gig.state_id %}">
-                    <label class="col-sm-2 control-label">STATE</label>
+                <div class="form-group" id="districtForm" urlz2="{% url 'ajax_load_states' gig.district_id %}">
+                    <label class="col-sm-2 control-label">DISTRICT</label>
                     <div class="col-sm-10">
 
                         {% if gig.state_id %}
-                            <select name="state" class="form-control" id="id_state" value="{{ gig.state_id }}" required>
+                            <select name="district" class="form-control" id="id_district" value="{{ gig.district_id }}" required>
                                 <option value="">---------</option>
                                 {% for district in districts %}
                                     <option value="{{ district.pk }}"
-                                            {% if district.pk == gig.state_id %}selected{% endif %}>{{ district.state }}</option>
+                                            {% if district.pk == gig.district_id %}selected{% endif %}>{{ district.district_name }}</option>
                                 {% endfor %}
                             </select>
                         {% else %}
-                            <select name="state" class="form-control" id="id_state" value="{{ gig.state_id }}" required>
+                            <select name="district" class="form-control" id="id_district" value="{{ gig.district_id }}" required>
                             </select>
                         {% endif %}
 
                     </div>
                 </div>
-                <div class="form-group"  id="locationForm" urlz3="{% url 'ajax_load_locations' gig.state_id gig.location_id %}">
+                <div class="form-group"  id="locationForm" urlz3="{% url 'ajax_load_locations' gig.district_id gig.location_id %}">
                     <label class="col-sm-2 control-label">LOCATION</label>
                     <div class="col-sm-10">
                         {% if gig.location_id %}
@@ -174,7 +174,7 @@
             });
         })();
 
-        $("#id_state").change(function () {
+        $("#id_district").change(function () {
             var url = $("#gigForm").attr("data-locations-url");  // get the url of the `load_cities` view
 
             var stateId = $(this).val();  // get the selected country ID from the HTML input
@@ -182,7 +182,7 @@
             $.ajax({                       // initialize an AJAX request
                 url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
                 data: {
-                    'state': stateId       // add the country id to the GET parameters
+                    'district': districtId       // add the country id to the GET parameters
                 },
                 success: function (data) {   // `data` is the return of the `load_cities` view function
                     $("#id_location").html(data);  // replace the contents of the city input with the data that came from the server

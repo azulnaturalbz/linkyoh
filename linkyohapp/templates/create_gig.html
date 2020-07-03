@@ -56,12 +56,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">STATE</label>
+                    <label class="col-sm-2 control-label">DISTRICT</label>
                     <div class="col-sm-10">
-                        <select name="state" class="form-control" id="id_state" required>
+                        <select name="district" class="form-control" id="id_district" required>
                             <option value="">---------</option>
-                            {% for state in states %}
-                                <option value="{{ state.pk }}">{{ state.state }}</option>
+                            {% for district in districts %}
+                                <option value="{{ district.pk }}">{{ district.district_name }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -113,15 +113,15 @@
 {% block scripts %}
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-        $("#id_state").change(function () {
+        $("#id_district").change(function () {
             var url = $("#localForm").attr("data-locations-url");  // get the url of the `load_cities` view
 
-            var stateId = $(this).val();  // get the selected country ID from the HTML input
+            var districtId = $(this).val();  // get the selected country ID from the HTML input
 
             $.ajax({                       // initialize an AJAX request
                 url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
                 data: {
-                    'state': stateId       // add the country id to the GET parameters
+                    'district': districtId       // add the country id to the GET parameters
                 },
                 success: function (data) {   // `data` is the return of the `load_cities` view function
                     $("#id_location").html(data);  // replace the contents of the city input with the data that came from the server
