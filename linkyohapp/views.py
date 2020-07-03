@@ -129,6 +129,7 @@ def gig_detail(request, id):
             new_review = Review.objects.create(
                 user=request.user,
                 gig_id=id,
+                rating_id=form.cleaned_data.get('rating'),
                 content=form.cleaned_data.get('content')
             )
 
