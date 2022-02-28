@@ -103,7 +103,7 @@
                             <a class="dropdown-item" href="{% url 'create_gig' %}">Create a Gig</a>
                             <a class="dropdown-item" href="{% url 'my_gigs' %}">My Gigs</a>
                             <a class="dropdown-item" href="{% url 'profile' user.id %}">My Profile</a>
-                            <a class="dropdown-item" href="{% url 'auth:logout' %}?next={{ request.build_absolute_uri }}">Logout</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>
                     </li>
                 {% else %}
