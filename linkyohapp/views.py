@@ -6,10 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http40
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
-from .models import Gig, Profile, Location, District, Category, SubCategory, Review,Contact
-from .forms import GigForm, ReviewForm, ContactForm
-
-import credentials
+from .models import Gig, Profile, Location, District, Category, SubCategory, Review
+from .forms import GigForm, ReviewForm, ContactForm, UserRegistrationForm
 
 
 # Create your views here.
@@ -280,3 +278,22 @@ def search(request):
         Q(district__district_name__icontains=request.GET['param']) |
         Q(location__local__local_name__icontains=request.GET['param']), status=True).order_by("-create_time")
     return render(request, 'home.html', {"gigs": gigs})
+
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # Create a new user object but avoid saving it yet
+            new_user = user_form.save(commit=False)
+            # Set the chosen password
+            new_user.set_password(
+                user_form.cleaned_data['password']
+            )
+            new_user.save()
+            profile = Profile(user_id=new_user.id)
+            profile.save()
+            return render(request, 'account/register_done.html', context={'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'account/register.html', context={'user_form': user_form})

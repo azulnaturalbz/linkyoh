@@ -23,8 +23,6 @@ from linkyohapp import views
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include('linkyohapp.urls')),
-                  path('social/', include(('social_django.urls', 'social'), namespace='social')),
-                  path('auth/', include(('django.contrib.auth.urls', 'auth'), namespace='auth')),
                   path('like/', views.like_gig, name="like_gig"),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -108,8 +108,12 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'social:begin' 'facebook' %}?next={{ request.build_absolute_uri }}">
-                            Login with Facebook</a>
+                        <a class="nav-link" href="{% url 'login'  %}">
+                            Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register'  %}">
+                            Register</a>
                     </li>
                 {% endif %}
             </ul>
