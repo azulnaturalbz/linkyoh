@@ -82,25 +82,18 @@ WSGI_APPLICATION = 'linkyoh.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': credentials.DBNAME,
+        'USER': credentials.DBUSER,
+        'PASSWORD': credentials.DBPASSWORD,
+        'HOST': credentials.DBHOME,
+        'PORT': credentials.DBPORT,
+        'OPTIONS': {'sslmode': credentials.SSL},
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': credentials.DBNAME,
-            'USER': credentials.DBUSER,
-            'PASSWORD': credentials.DBPASSWORD,
-            'HOST': credentials.DBHOME,
-            'PORT': credentials.DBPORT,
-            'OPTIONS': {'sslmode': credentials.SSL},
-        }
-    }
+}
 
 
 # Password validation
