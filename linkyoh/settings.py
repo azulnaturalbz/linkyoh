@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'bootstrap4',
     'rest_framework',
-
-
 ]
 
 MIDDLEWARE = [
@@ -142,14 +140,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
-
 
 # Setup upload directory for gig model
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
 
 # Email Settings
 
@@ -163,10 +158,8 @@ DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL
 
 #EMAIL_USE_SSL = credentials.EMAIL_USE_SSL
 
-
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
-
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'

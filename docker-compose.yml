@@ -39,9 +39,9 @@ services:
       - .env
 
   nginx:
-#    restart: always
-#    build:
-#      context: ./nginx
+    restart: always
+    build:
+      context: ./nginx
     image: nginx:1.15-alpine
     volumes:
       - ./nginx/nginx:/etc/nginx/conf.d

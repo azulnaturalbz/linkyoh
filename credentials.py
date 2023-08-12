@@ -1,5 +1,5 @@
-
 import os
+
 DEBUG = os.environ['LYDEBUG']
 SSL = os.environ['LYSSL']
 DBUSER = os.environ['LYDBUSER']
