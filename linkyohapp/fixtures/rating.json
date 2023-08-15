@@ -1,1 +1,42 @@
-[]
+[
+    {
+        "model": "linkyohapp.rating",
+        "pk": 1,
+        "fields": {
+            "rating": 1,
+            "rating_description": "⭐"
+        }
+    },
+    {
+        "model": "linkyohapp.rating",
+        "pk": 2,
+        "fields": {
+            "rating": 2,
+            "rating_description": "⭐⭐"
+        }
+    },
+    {
+        "model": "linkyohapp.rating",
+        "pk": 3,
+        "fields": {
+            "rating": 3,
+            "rating_description": "⭐⭐⭐"
+        }
+    },
+    {
+        "model": "linkyohapp.rating",
+        "pk": 4,
+        "fields": {
+            "rating": 4,
+            "rating_description": "⭐⭐⭐⭐"
+        }
+    },
+    {
+        "model": "linkyohapp.rating",
+        "pk": 5,
+        "fields": {
+            "rating": 5,
+            "rating_description": "⭐⭐⭐⭐⭐"
+        }
+    }
+]
