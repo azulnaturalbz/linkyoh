@@ -1,6 +1,6 @@
 import os
 
-DEBUG = os.environ['LYDEBUG']
+DEBUG = os.environ['LYDEBUG'] == 'True'
 SSL = os.environ['LYSSL']
 DBUSER = os.environ['LYDBUSER']
 DBPASSWORD = os.environ['LYDB_PASSWORD']
