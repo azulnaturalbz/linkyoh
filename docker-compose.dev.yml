@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  web:
+    restart: always
+    build:
+      context: .
+    volumes:
+      - .:/linkyoh
+      - static_volume:/linkyoh/static
+      - media_volume:/linkyoh/media
+    command: >
+      sh -c "python manage.py makemigrations && python manage.py migrate && exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    environment:
+      - LYDEBUG=${LYDEBUG}
+      - LYDBUSER=${LYDBUSER}
+      - LYDB_PASSWORD=${LYDB_PASSWORD}
+      - LYDB_NAME=${LYDB_NAME}
+      - LYDB_HOST=${LYDB_HOST}
+      - LYDB_PORT=${LYDB_PORT}
+      - LYEMAIL_BACKEND=${LYEMAIL_BACKEND}
+      - LYEMAIL_HOST=${LYEMAIL_HOST}
+      - LYEMAIL_HOST_USER=${LYEMAIL_HOST_USER}
+      - LYEMAIL_HOST_PASSWORD=${LYEMAIL_HOST_PASSWORD}
+      - LYEMAIL_PORT=${LYEMAIL_PORT}
+      - LYEMAIL_TLS=${LYEMAIL_TLS}
+      - LYEMAIL_SSL=${LYEMAIL_SSL}
+      - LYDEFAULT_EMAIL=${LYDEFAULT_EMAIL}
+      - LYSEND_TO_EMAIL=${LYSEND_TO_EMAIL}
+      - LYFB_KEY=${LYFB_KEY}
+      - LYFB_SECRET=${LYFB_SECRET}
+      - LYAPP_SECRET=${LYAPP_SECRET}
+      - LYAH0=${LYAH0}
+      - LYAH1=${LYAH1}
+      - LYAH2=${LYAH2}
+      - LYAH3=${LYAH3}
+      - LYLYMERCHANT_ID=${LYLYMERCHANT_ID}
+      - LYMERCHANT_PUBLIC=${LYMERCHANT_PUBLIC}
+      - LYMERCHANT_PRIVATE=${LYMERCHANT_PRIVATE}
+    env_file:
+      - .env
+
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+    image: nginx:1.15-alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d  # Point to development nginx config
+      - static_volume:/linkyoh/static
+      - media_volume:/linkyoh/media
+    ports:
+      - "80:80"
+
+volumes:
+  static_volume:
+  media_volume:
