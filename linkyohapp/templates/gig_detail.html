@@ -2,6 +2,15 @@
 {% load static %}
 {% load bootstrap4 %}
 {% block title %}{{ gig.title }} | Linkyoh{% endblock %}
+
+{% block head %}
+    <meta property="og:title" content="{{ gig.title }}" />
+    <meta property="og:description" content="{{ gig.description }}" />
+    <meta property="og:image" content="{{ request.build_absolute_uri(gig.photo.url) }}" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type" content="website" />
+{% endblock %}
+
 {% block page %}
     <div class="row">
         <div class="col-md-8">
