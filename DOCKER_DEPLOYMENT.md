@@ -60,6 +60,8 @@ bash init-letsencrypt-template.sh
 
 When using the application-only deployment, SSL termination should be handled by your external load balancer or reverse proxy (e.g., Apache). Make sure to configure your proxy to forward requests to the application on port 8000.
 
+For detailed instructions on configuring Apache as a reverse proxy for the Linkyoh application, see [APACHE_CONFIGURATION.md](APACHE_CONFIGURATION.md).
+
 ## Environment Variables
 
 All deployment options use the same environment variables for application configuration. These can be set in a `.env` file or passed directly to the docker-compose command.
