@@ -226,3 +226,11 @@ dmypy.json
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm+all,python
 credentials.py
+
+# Ignore all certbot conf and archives
+nginx/certbot/conf/*
+nginx/certbot/www/*
+
+# But allow these special config files inside certbot/conf
+!nginx/certbot/conf/options-ssl-nginx.conf
+!nginx/certbot/conf/ssl-dhparams.pem

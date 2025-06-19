@@ -1,16 +1,18 @@
-version: "3"
-
+version: "3.3"
 services:
   web:
-    restart: always
     build:
       context: .
+    container_name: linkyoh_web
+    restart: always
     volumes:
       - .:/linkyoh
       - static_volume:/linkyoh/static
       - media_volume:/linkyoh/media
     command: >
-      sh -c "python manage.py makemigrations && python manage.py migrate && exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     environment:
       - LYDEBUG=${LYDEBUG}
       - LYDBUSER=${LYDBUSER}
@@ -41,28 +43,43 @@ services:
       - .env
 
   nginx:
-    restart: always
-    build:
+    build: 
       context: ./nginx
-    image: nginx:1.15-alpine
+    container_name: linkyoh_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
       - ./nginx/nginx:/etc/nginx/conf.d
       - ./nginx/certbot/conf:/etc/letsencrypt
       - ./nginx/certbot/www:/var/www/certbot
       - static_volume:/linkyoh/static
       - media_volume:/linkyoh/media
-    ports:
-      - "80:80"
-      - "443:443"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    # The following command: reloads Nginx every 6 hours in background, 
+    # then runs nginx in the foreground:
+    command: >
+      sh -c "while :; do
+               sleep 6h && nginx -s reload;
+             done & 
+             nginx -g 'daemon off;'"
 
   certbot:
-    image: certbot/certbot
+    image: certbot/certbot:latest
+    container_name: linkyoh_certbot
+    restart: always
     volumes:
       - ./nginx/certbot/conf:/etc/letsencrypt
       - ./nginx/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
+    # Renew every 12 hours; reload Nginx if a cert is actually renewed
+    entrypoint: >
+      sh -c "trap exit TERM;
+             while :; do
+               certbot renew --webroot -w /var/www/certbot --quiet --agree-tos && 
+               echo 'Reloading nginx...' &&
+               nginx -s reload 2>/dev/null || true;
+               sleep 12h;
+             done;"
 
 volumes:
   static_volume:
