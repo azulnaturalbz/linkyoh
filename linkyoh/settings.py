@@ -29,6 +29,13 @@ DEBUG = credentials.DEBUG
 ALLOWED_HOSTS = [credentials.ALLOWED_HOST,credentials.ALLOWED_HOST1,credentials.ALLOWED_HOST2,credentials.ALLOWED_HOST3]
 
 
+# Also add localhost and 127.0.0.1 for local development
+if '127.0.0.1' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('127.0.0.1')
+if 'localhost' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('localhost')
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -54,6 +61,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Add whitenoise for serving static files in app mode
+if credentials.DEPLOYMENT_MODE == 'app':
+    # Insert WhiteNoiseMiddleware right after SecurityMiddleware
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'linkyoh.urls'
 
@@ -131,19 +144,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
-TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+# Configure static and media files based on deployment mode
+if credentials.DEPLOYMENT_MODE == 'dev':
+    # Development mode - use local directories
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+elif credentials.DEPLOYMENT_MODE == 'app':
+    # App-only mode - Django needs to serve static files directly
+    # Use absolute paths for app mode since we're mapping to host paths
+    STATIC_ROOT = '/linkyoh/static'
+    MEDIA_ROOT = '/linkyoh/media'
+else:  # 'standalone' or any other value
+    # Standalone mode with Nginx - use Docker volumes
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Setup upload directory for gig model
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
+
+# Media URL is the same for all deployment modes
 MEDIA_URL = '/media/'
 
 # Email Settings

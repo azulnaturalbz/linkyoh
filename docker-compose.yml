@@ -7,8 +7,8 @@ services:
     restart: always
     volumes:
       - .:/linkyoh
-      - static_volume:/linkyoh/static
-      - media_volume:/linkyoh/media
+      - /srv/static/linkyoh:/linkyoh/static:rw      # ← host path
+      - /srv/static/linkyoh/media:/linkyoh/media:rw # ← host path
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&

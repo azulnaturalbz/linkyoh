@@ -40,6 +40,8 @@ Use `docker-compose.app.yml` when deploying behind a load balancer or reverse pr
 docker-compose -f docker-compose.app.yml up -d
 ```
 
+The application automatically detects and adds the server's IP address to Django's `ALLOWED_HOSTS` setting. This allows direct access to the application via the server's IP address and port (e.g., `192.168.1.156:8000`) without getting an "Invalid HTTP_HOST header" error.
+
 ## SSL Certificate Management
 
 ### For Standalone Deployment
@@ -65,6 +67,51 @@ For detailed instructions on configuring Apache as a reverse proxy for the Linky
 ## Environment Variables
 
 All deployment options use the same environment variables for application configuration. These can be set in a `.env` file or passed directly to the docker-compose command.
+
+### Deployment Mode
+
+The application now uses a `LYDEPLOYMENT_MODE` environment variable to automatically configure settings based on the deployment scenario:
+
+- `dev`: Development mode with Nginx serving static files
+- `standalone`: Production mode with Nginx and SSL
+- `app`: Application-only mode where Django serves static files directly
+
+This environment variable is automatically set in each docker-compose file, but you can override it if needed:
+
+```bash
+# Example: Force app mode in development
+LYDEPLOYMENT_MODE=app docker-compose -f docker-compose.dev.yml up
+```
+
+### Static and Media Files
+
+The application handles static and media files differently based on the deployment mode:
+
+- In `dev` and `standalone` modes, Nginx serves static and media files
+- In `app` mode, Django serves static files using WhiteNoise middleware
+
+#### Host Paths for Static and Media Files
+
+In `app` mode, the application uses host paths for static and media files:
+
+```yaml
+volumes:
+  - /srv/static/linkyoh:/linkyoh/static:rw      # ← host path
+  - /srv/static/linkyoh/media:/linkyoh/media:rw # ← host path
+```
+
+Make sure these directories exist on your host machine and have the correct permissions:
+
+```bash
+# Create directories if they don't exist
+mkdir -p /srv/static/linkyoh/media
+
+# Set correct permissions
+chmod -R 755 /srv/static/linkyoh
+chown -R $(whoami):$(whoami) /srv/static/linkyoh
+```
+
+When using `app` mode, the application automatically runs `collectstatic` during startup to ensure all static files are collected into the static directory.
 
 ## Troubleshooting
 

@@ -7,11 +7,15 @@ services:
       context: .
     volumes:
       - .:/linkyoh
-      - static_volume:/linkyoh/static
-      - media_volume:/linkyoh/media
+      - /srv/static/linkyoh:/linkyoh/static:rw      # ← host path
+      - /srv/static/linkyoh/media:/linkyoh/media:rw # ← host path
     command: >
-      sh -c "python manage.py makemigrations && python manage.py migrate && exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+      sh -c "python manage.py makemigrations && 
+             python manage.py migrate && 
+             python manage.py collectstatic --noinput &&
+             exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     environment:
+      - LYDEPLOYMENT_MODE=app
       - LYDEBUG=${LYDEBUG}
       - LYDBUSER=${LYDBUSER}
       - LYDB_PASSWORD=${LYDB_PASSWORD}
@@ -42,6 +46,3 @@ services:
     ports:
       - "8000:8000"  # Expose the application port directly
 
-volumes:
-  static_volume:
-  media_volume:

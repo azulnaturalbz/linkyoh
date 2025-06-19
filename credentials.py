@@ -1,5 +1,8 @@
 import os
 
+# Get deployment mode with a default of 'standalone'
+DEPLOYMENT_MODE = os.environ.get('LYDEPLOYMENT_MODE', 'standalone')
+
 DEBUG = os.environ['LYDEBUG'] == 'True'
 SSL = os.environ['LYSSL']
 DBUSER = os.environ['LYDBUSER']
