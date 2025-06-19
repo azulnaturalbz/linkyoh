@@ -1,0 +1,52 @@
+upstream client {
+	server web:8000;
+}
+
+server {
+	listen 80;
+	server_name ${DOMAIN_NAME};
+	client_max_body_size 25M;
+
+	location / {
+		return 301 https://$host$request_uri;
+	}
+
+	location /static/ {
+        alias /linkyoh/static/;
+    }
+
+    location /media/ {
+        alias /linkyoh/media/;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name ${DOMAIN_NAME};
+    client_max_body_size 25M;
+
+    location / {
+        proxy_pass http://client;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Protocol $scheme;
+    }
+
+    location /static/ {
+        alias /linkyoh/static/;
+    }
+
+    location /media/ {
+        alias /linkyoh/media/;
+    }
+
+    ssl_certificate /etc/letsencrypt/live/${DOMAIN_NAME}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${DOMAIN_NAME}/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
