@@ -165,36 +165,6 @@ For better performance, you can configure Apache to serve static and media files
 
 #### Step 1: Share Static and Media Files
 
-You need to make the static and media files accessible to the Apache server. Options include:
-
-- **NFS Mount**: Mount the static and media directories from the Django server to the Apache server
-  ```bash
-  # On the Django server
-  apt-get install nfs-kernel-server
-  echo "/srv/static/linkyoh *(ro,sync,no_subtree_check)" >> /etc/exports
-  echo "/srv/static/linkyoh/media *(rw,sync,no_subtree_check)" >> /etc/exports
-  exportfs -a
-
-  # On the Apache server
-  apt-get install nfs-common
-  mkdir -p /mnt/linkyoh/static /mnt/linkyoh/media
-  mount 192.168.1.156:/srv/static/linkyoh /mnt/linkyoh/static
-  mount 192.168.1.156:/srv/static/linkyoh/media /mnt/linkyoh/media
-  ```
-
-- **rsync**: Periodically sync files from the Django server to the Apache server
-  ```bash
-  # Create a script on the Apache server
-  cat > /usr/local/bin/sync-linkyoh-assets.sh << 'EOF'
-  #!/bin/bash
-  rsync -avz --delete 192.168.1.156:/srv/static/linkyoh/ /var/www/linkyoh/static/
-  rsync -avz --delete 192.168.1.156:/srv/static/linkyoh/media/ /var/www/linkyoh/media/
-  EOF
-  chmod +x /usr/local/bin/sync-linkyoh-assets.sh
-
-  # Add to crontab to run every 5 minutes
-  (crontab -l 2>/dev/null; echo "*/5 * * * * /usr/local/bin/sync-linkyoh-assets.sh") | crontab -
-  ```
 
 #### Step 2: Update Apache Configuration
 
@@ -211,10 +181,10 @@ Update your Apache configuration to serve static and media files directly:
     ProxyAddHeaders On
 
     # Serve static and media files directly
-    Alias /static/ /mnt/linkyoh/static/
+    Alias /static/ /mnt/linkyoh/
     Alias /media/ /mnt/linkyoh/media/
 
-    <Directory /mnt/linkyoh/static>
+    <Directory /mnt/linkyoh>
         Require all granted
     </Directory>
 
@@ -248,10 +218,10 @@ Update your Apache configuration to serve static and media files directly:
     ProxyAddHeaders On
 
     # Serve static and media files directly
-    Alias /static/ /mnt/linkyoh/static/
+    Alias /static/ /mnt/linkyoh/
     Alias /media/ /mnt/linkyoh/media/
 
-    <Directory /mnt/linkyoh/static>
+    <Directory /mnt/linkyoh>
         Require all granted
     </Directory>
 
