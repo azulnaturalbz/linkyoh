@@ -7,129 +7,134 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>{% block title %}Linkyoh{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- Bootstrap 5 for modern styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom styles -->
     <link rel="stylesheet" href="{% static 'css/offcanvas.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <!-- HTMX for modern, dynamic interfaces -->
+    <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+    <!-- Alpine.js for interactive UI components -->
+    <script defer src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"></script>
+    <!-- Custom styles -->
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 5rem;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .card {
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-success {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        footer {
+            margin-top: 2rem;
+            padding: 1.5rem 0;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+        }
+    </style>
     {% block head %}{% endblock %}
     <link rel="shortcut icon" href="{% static  'img/favicon_ly.ico' %}">
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="/"><img src="{% static 'img/logo_ly.png' %}" alt="" height="23"></a>
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active" hidden>
-                    <a class="nav-link" href="#">Left</a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <form class="form-inline my-2 my-lg-0" role="search" method="GET" action="/search/">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"
-                           name="param">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </ul>
-        </div>
-        <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto" href="/">Linkyoh</a>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Right</a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item active" hidden>
-                    <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Notifications</a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
-                <li class="nav-item" hidden>
-                    <a class="nav-link" href="#">Switch account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'terms' %}">Terms</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'privacy' %}">Privacy</a>
-                </li>
-                <li class="nav-item dropdown" hidden>
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">Settings</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                {% if user and not user.is_anonymous %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" href="#" id="dropdown03"
-                           data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-                            <img src="{% if user.profile %}{{ user.profile.avatar }}{% else %}
-                                {% static 'img/avatar.png' %}{% endif %}"
-                                 alt="" class="img-thumbnail" width="22"
-                                 height="22"> &nbsp;
-                            {{ user.get_full_name|default:user.username }} <span
-                                class="caret"></span></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown03">
-                            <a class="dropdown-item" href="{% url 'create_gig' %}">Create a Gig</a>
-                            <a class="dropdown-item" href="{% url 'my_gigs' %}">My Gigs</a>
-                            <a class="dropdown-item" href="{% url 'profile' user.id %}">My Profile</a>
-                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                        </div>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login'  %}">
-                            Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register'  %}">
-                            Register</a>
-                    </li>
-                {% endif %}
-            </ul>
+    <!-- Main navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'img/logo_ly.png' %}" alt="Linkyoh Logo" height="30" class="d-inline-block align-text-top me-2">
+                Linkyoh
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <!-- Search form -->
+                <form class="d-flex ms-auto me-auto" role="search" method="GET" action="{% url 'search' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search gigs..." aria-label="Search" name="param">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+
+                <!-- Right navigation links -->
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                    </li>
+
+                    {% if user and not user.is_anonymous %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="{% if user.profile.avatar %}{{ user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+                                     alt="User Avatar" class="rounded-circle me-1" width="24" height="24">
+                                <span>{{ user.get_full_name|default:user.username }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="{% url 'create_gig' %}"><i class="fas fa-plus-circle me-2"></i>Create a Gig</a></li>
+                                <li><a class="dropdown-item" href="{% url 'my_gigs' %}"><i class="fas fa-list me-2"></i>My Gigs</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-sm btn-primary text-white ms-2" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-            <span class="navbar-toggler-icon"></span>
-        </button>
     </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div id="catMenu" catMenu="{% url 'ajax_load_menu_category' %}">
+    <!-- Categories navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm" style="margin-top: 56px;">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#categoriesNav"
+                    aria-controls="categoriesNav" aria-expanded="false" aria-label="Toggle categories">
+                <span class="navbar-toggler-icon"></span>
+                <span class="ms-2">Categories</span>
+            </button>
+            <div class="collapse navbar-collapse" id="categoriesNav">
+                <div hx-get="{% url 'ajax_load_menu_category' %}" hx-trigger="load" hx-target="#id_catNav">
                     <ul class="navbar-nav" id="id_catNav">
+                        <li class="nav-item placeholder-glow">
+                            <span class="placeholder col-4"></span>
+                        </li>
                     </ul>
+                </div>
             </div>
         </div>
     </nav>
@@ -141,56 +146,55 @@
         {% endblock %}
     </div>
 </main>
-<footer class="card-footer" id="footer">
+<footer class="bg-dark text-light py-4 mt-5">
     <div class="container">
-        <span class="text-muted">Linkyoh &copy; {% now "Y" %}</span>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>Linkyoh</h5>
+                <p class="text-muted">Find local services and gigs in Belize.</p>
+                <p class="small text-muted">&copy; {% now "Y" %} Linkyoh. All rights reserved.</p>
+            </div>
+            <div class="col-md-2 mb-3">
+                <h6>Company</h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a href="{% url 'about' %}" class="nav-link p-0 text-muted">About Us</a></li>
+                    <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link p-0 text-muted">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 mb-3">
+                <h6>Legal</h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a href="{% url 'terms' %}" class="nav-link p-0 text-muted">Terms</a></li>
+                    <li class="nav-item"><a href="{% url 'privacy' %}" class="nav-link p-0 text-muted">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h6>Connect with us</h6>
+                <div class="d-flex gap-3 mt-2">
+                    <a href="#" class="text-muted"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="text-muted"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-muted"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-muted"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+<!-- Bootstrap 5 Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
         crossorigin="anonymous"></script>
-<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+<!-- jQuery is still needed for some legacy components -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+        crossorigin="anonymous"></script>
+
+<!-- Custom scripts -->
 <script src="{% static 'js/offcanvas.js' %}"></script>
-{#<script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>#}
-{#<script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>#}
 
-<script>
-    (function () {
-        var url = $("#catMenu").attr("catMenu");
-
-        $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-            data: {
-                // add the country id to the GET parameters
-            },
-            success: function (data) {   // `data` is the return of the `load_cities` view function
-                $("#id_catNav").html(data);  // replace the contents of the city input with the data that came from the server
-            }
-        });
-    })();
-</script>
-<script type="text/javascript">
-
-    $(document).on('click', '#like', function(event){
-          event.preventDefault();
-          var pk = $(this).attr('value');
-          $.ajax({
-            type: 'POST',
-            url: '{% url "like_gig" %}',
-            data: {'id':pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-            dataType: 'json',
-            success: function(response){
-              $('#like-section').html(response['form'])
-              console.log($('#like-section').html(response['form']));
-            },
-            error: function(rs, e){
-              console.log(rs.responseText);
-            },
-          });
-        });
-</script>
+<!-- The like functionality is now handled by htmx and Alpine.js -->
 {% block scripts %}{% endblock %}
 </body>
 </html>

@@ -1,13 +1,16 @@
-{{ total_likes }} Like{{ total_likes|pluralize }}
-{% if request.user.is_authenticated %}
-    <form action="{% url 'like_gig' %}" method="post">
-        {% csrf_token %}
-        {% if is_liked %}
-            <button type="submit" id="like" name="gig_id" value="{{ gig.id }}" class="btn btn-danger"><i
-                    class="fas fa-thumbs-up"></i>Unlike</button>
-        {% else %}
-            <button type="submit" id="like" name="post_id" value="{{ gig.id }}" class="btn btn-primary"><i
-                    class="far fa-thumbs-up"></i>Like</button>
-        {% endif %}
-    </form>
-{% endif %}
+<div x-data="{ liked: {% if is_liked %}true{% else %}false{% endif %}, likes: {{ total_likes }} }">
+    <span x-text="likes + ' Like' + (likes !== 1 ? 's' : '')"></span>
+    {% if request.user.is_authenticated %}
+        <button 
+            hx-post="{% url 'like_gig' %}"
+            hx-trigger="click"
+            hx-vals='{"id": "{{ gig.id }}"}'
+            hx-swap="outerHTML"
+            hx-target="#like-section"
+            x-bind:class="liked ? 'btn btn-danger' : 'btn btn-primary'"
+            class="btn">
+            <i x-bind:class="liked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up'"></i>
+            <span x-text="liked ? 'Unlike' : 'Like'"></span>
+        </button>
+    {% endif %}
+</div>

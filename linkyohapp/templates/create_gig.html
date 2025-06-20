@@ -22,18 +22,24 @@
                         <input class="form-control" type="text" placeholder="Enter your listing title" id="title" name="title" required>
                     </div>
                 </div>
-                <div class="form-group" id="catForm" urlz="{% url 'ajax_load_category' %}">
+                <div class="form-group">
                     <label class="col-sm-2 control-label">CATEGORY</label>
                     <div class="col-sm-10">
-                        <select name="category" class="form-control" id="id_category" required>
+                        <select name="category" class="form-control" id="id_category" required
+                                hx-get="{% url 'ajax_load_category' %}"
+                                hx-trigger="load"
+                                hx-target="#id_category">
                         </select>
                     </div>
                 </div>
-                <div class="form-group" id="subCatForm" urlz1="{% url 'ajax_load_sub_category' %}">
+                <div class="form-group">
                     <label class="col-sm-2 control-label">SUB CATEGORY</label>
                     <div class="col-sm-10">
-                        <select name="sub_category" class="form-control" id="id_subcategory" required>
-
+                        <select name="sub_category" class="form-control" id="id_subcategory" required
+                                hx-get="{% url 'ajax_load_sub_category' %}"
+                                hx-trigger="load, #id_category:change"
+                                hx-target="#id_subcategory"
+                                hx-include="#id_category">
                         </select>
                     </div>
                 </div>
@@ -66,10 +72,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group" id="localForm" data-locations-url="{% url 'ajax_load_locations' %}">
+                <div class="form-group">
                     <label class="col-sm-2 control-label">LOCATION</label>
                     <div class="col-sm-10">
-                        <select name="location" class="form-control" id="id_location" required>
+                        <select name="location" class="form-control" id="id_location" required
+                                hx-get="{% url 'ajax_load_locations' %}"
+                                hx-trigger="#id_district:change"
+                                hx-target="#id_location"
+                                hx-include="#id_district">
                         </select>
                     </div>
                 </div>
@@ -111,57 +121,5 @@
     </div>
 {% endblock %}
 {% block scripts %}
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-        $("#id_district").change(function () {
-            var url = $("#localForm").attr("data-locations-url");  // get the url of the `load_cities` view
-
-            var districtId = $(this).val();  // get the selected country ID from the HTML input
-
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'district': districtId       // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $("#id_location").html(data);  // replace the contents of the city input with the data that came from the server
-                }
-            });
-
-        });
-    </script>
-    <script>
-
-        (function () {
-            var url = $("#catForm").attr("urlz");
-
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $("#id_category").html(data);  // replace the contents of the city input with the data that came from the server
-                }
-            });
-        })();
-
-        $("#id_category").change(function () {
-            var url = $("#subCatForm").attr("urlz1");  // get the url of the `load_cities` view
-
-            var categoryId = $(this).val();  // get the selected country ID from the HTML input
-
-            $.ajax({                       // initialize an AJAX request
-                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                data: {
-                    'category': categoryId       // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    $("#id_subcategory").html(data);  // replace the contents of the city input with the data that came from the server
-                }
-            });
-
-        });
-    </script>
-
+    <!-- All dynamic loading is now handled by htmx -->
 {% endblock %}
