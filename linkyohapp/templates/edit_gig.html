@@ -14,29 +14,53 @@
             <h4 class="mb-0">Edit Gig: {{ gig.title }}</h4>
         </div>
         <div class="card-body">
-            <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data">
+            <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
+                currentTab: 'basic',
+                tabs: ['basic', 'images', 'contacts', 'locations'],
+                get currentTabIndex() { return this.tabs.indexOf(this.currentTab) },
+                get isFirstTab() { return this.currentTabIndex === 0 },
+                get isLastTab() { return this.currentTabIndex === this.tabs.length - 1 },
+                nextTab() {
+                    if (!this.isLastTab) {
+                        this.currentTab = this.tabs[this.currentTabIndex + 1];
+                    }
+                },
+                prevTab() {
+                    if (!this.isFirstTab) {
+                        this.currentTab = this.tabs[this.currentTabIndex - 1];
+                    }
+                }
+            }">
                 {% csrf_token %}
 
                 <!-- Tabs for different sections -->
                 <ul class="nav nav-tabs mb-4" id="gigFormTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic Info</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab" 
+                            @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic" 
+                            :aria-selected="currentTab === 'basic'">Basic Info</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">Images</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab" 
+                            @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images" 
+                            :aria-selected="currentTab === 'images'">Images</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="contacts-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contact Info</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'contacts' }" id="contacts-tab" 
+                            @click.prevent="currentTab = 'contacts'" type="button" role="tab" aria-controls="contacts" 
+                            :aria-selected="currentTab === 'contacts'">Contact Info</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="locations-tab" data-bs-toggle="tab" data-bs-target="#locations" type="button" role="tab" aria-controls="locations" aria-selected="false">Service Areas</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'locations' }" id="locations-tab" 
+                            @click.prevent="currentTab = 'locations'" type="button" role="tab" aria-controls="locations" 
+                            :aria-selected="currentTab === 'locations'">Service Areas</button>
                     </li>
                 </ul>
 
                 <!-- Tab content -->
                 <div class="tab-content" id="gigFormTabsContent">
                     <!-- Basic Info Tab -->
-                    <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'basic' }" id="basic" role="tabpanel" aria-labelledby="basic-tab">
                         <div class="row mb-3">
                             <label for="title" class="col-sm-2 col-form-label">Gig Title</label>
                             <div class="col-sm-10">
@@ -51,7 +75,9 @@
                                 <select name="category" class="form-control" id="id_category" required
                                         hx-get="{% url 'ajax_load_category' gig.category_id %}"
                                         hx-trigger="load"
-                                        hx-target="#id_category">
+                                        hx-target="#id_category"
+                                        hx-vals='{"category": "{{ gig.category_id|default_if_none:"" }}"}'
+                                        hx-swap="innerHTML">
                                 </select>
                             </div>
                         </div>
@@ -60,10 +86,12 @@
                             <label class="col-sm-2 col-form-label">Sub Category</label>
                             <div class="col-sm-10">
                                 <select name="sub_category" class="form-control" id="id_subcategory" required
-                                        hx-get="{% url 'ajax_load_sub_category' gig.category_id gig.sub_category_id %}"
-                                        hx-trigger="load, #id_category:change"
+                                        hx-get="{% url 'ajax_load_sub_category' %}"
+                                        hx-trigger="load, change from:#id_category"
                                         hx-target="#id_subcategory"
-                                        hx-include="#id_category">
+                                        hx-include="#id_category"
+                                        {% if gig.sub_category_id %} hx-vars='{"subcategory": "{{ gig.sub_category_id|default_if_none:"" }}", "category": "{{  gig.category_id|default_if_none:""  }}" }' {% endif %}
+                                        hx-swap="innerHTML">
                                 </select>
                             </div>
                         </div>
@@ -98,7 +126,9 @@
                                 <select name="district" class="form-control" id="id_district" required
                                         hx-get="{% url 'ajax_load_states' gig.district_id %}"
                                         hx-trigger="load"
-                                        hx-target="#id_district">
+                                        hx-target="#id_district"
+                                        hx-vals='{"district": "{{ gig.district_id|default_if_none:"" }}"}'
+                                        hx-swap="innerHTML">
                                 </select>
                             </div>
                         </div>
@@ -111,7 +141,8 @@
                                         hx-trigger="load, #id_district:change"
                                         hx-target="#id_location"
                                         hx-include="#id_district"
-                                        hx-params="*">
+                                        {% if gig.location_id %} hx-vars='{"location": "{{ gig.location_id|default_if_none:"" }}", "district": "{{ gig.district_id|default_if_none:"" }}"}' {% endif %}
+                                        hx-swap="innerHTML">
                                 </select>
                             </div>
                         </div>
@@ -156,7 +187,7 @@
                     </div>
 
                     <!-- Images Tab -->
-                    <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'images' }" id="images" role="tabpanel" aria-labelledby="images-tab">
                         <div class="card mb-4">
                             <div class="card-header bg-light">
                                 <h5 class="mb-0">Additional Images</h5>
@@ -220,7 +251,7 @@
                     </div>
 
                     <!-- Contacts Tab -->
-                    <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'contacts' }" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
                         <div class="card mb-4">
                             <div class="card-header bg-light">
                                 <h5 class="mb-0">Additional Contact Numbers</h5>
@@ -288,7 +319,7 @@
                     </div>
 
                     <!-- Service Areas Tab -->
-                    <div class="tab-pane fade" id="locations" role="tabpanel" aria-labelledby="locations-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'locations' }" id="locations" role="tabpanel" aria-labelledby="locations-tab">
                         <div class="card mb-4">
                             <div class="card-header bg-light">
                                 <h5 class="mb-0">Additional Service Areas</h5>
@@ -312,7 +343,8 @@
                                                             hx-get="{% url 'ajax_load_locations' %}"
                                                             hx-trigger="load, #{{ form.district.auto_id }}:change"
                                                             hx-target="#{{ form.location.auto_id }}"
-                                                            hx-include="#{{ form.district.auto_id }}">
+                                                            hx-include="#{{ form.district.auto_id }}"
+                                                            hx-swap="innerHTML">
                                                         <option value="">---------</option>
                                                         {% if form.instance.pk and form.instance.location %}
                                                             <option value="{{ form.instance.location.pk }}" selected>{{ form.instance.location.local }}</option>
@@ -365,9 +397,9 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-secondary" id="prev-tab">Previous</button>
-                    <button type="button" class="btn btn-primary" id="next-tab">Next</button>
-                    <button type="submit" class="btn btn-success" id="submit-btn" style="display: none;">Update Gig</button>
+                    <button type="button" class="btn btn-secondary" id="prev-tab" @click="prevTab()" x-show="!isFirstTab">Previous</button>
+                    <button type="button" class="btn btn-primary" id="next-tab" @click="nextTab()" x-show="!isLastTab">Next</button>
+                    <button type="submit" class="btn btn-success" id="submit-btn" x-show="isLastTab">Update Gig</button>
                 </div>
             </form>
         </div>
@@ -375,47 +407,9 @@
 {% endblock %}
 
 {% block scripts %}
+    <!-- Alpine.js and HTMX handle most of the dynamic functionality -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Tab navigation
-            const tabs = ['basic', 'images', 'contacts', 'locations'];
-            let currentTabIndex = 0;
-
-            const prevBtn = document.getElementById('prev-tab');
-            const nextBtn = document.getElementById('next-tab');
-            const submitBtn = document.getElementById('submit-btn');
-
-            function updateButtons() {
-                prevBtn.style.display = currentTabIndex === 0 ? 'none' : 'block';
-                nextBtn.style.display = currentTabIndex === tabs.length - 1 ? 'none' : 'block';
-                submitBtn.style.display = currentTabIndex === tabs.length - 1 ? 'block' : 'none';
-            }
-
-            updateButtons();
-
-            prevBtn.addEventListener('click', function() {
-                if (currentTabIndex > 0) {
-                    currentTabIndex--;
-                    document.querySelector(`#gigFormTabs button[data-bs-target="#${tabs[currentTabIndex]}"]`).click();
-                    updateButtons();
-                }
-            });
-
-            nextBtn.addEventListener('click', function() {
-                if (currentTabIndex < tabs.length - 1) {
-                    currentTabIndex++;
-                    document.querySelector(`#gigFormTabs button[data-bs-target="#${tabs[currentTabIndex]}"]`).click();
-                    updateButtons();
-                }
-            });
-
-            document.querySelectorAll('#gigFormTabs button').forEach((tab, index) => {
-                tab.addEventListener('shown.bs.tab', function() {
-                    currentTabIndex = index;
-                    updateButtons();
-                });
-            });
-
             // Formset handling
             const addImageBtn = document.getElementById('add-image');
             const imageFormset = document.getElementById('image-formset');
@@ -465,22 +459,33 @@
 
                     // Remove image preview if it exists
                     const imagePreview = newForm.querySelector('.img-thumbnail');
-                    if (imagePreview) {
+                    if (imagePreview && imagePreview.parentElement) {
                         imagePreview.parentElement.remove();
                     }
 
                     formset.appendChild(newForm);
                     totalForms.value = forms.length + 1;
 
-                    // HTMX will handle dynamic loading of locations
+                    // Initialize HTMX for new district/location selects in service areas
+                    if (prefix === 'service_areas') {
+                        const newDistrict = newForm.querySelector('select[name*="district"]');
+                        const newLocation = newForm.querySelector('select[name*="location"]');
+
+                        if (newDistrict && newLocation) {
+                            // Set up HTMX for the new location dropdown
+                            newLocation.setAttribute('hx-get', '{% url "ajax_load_locations" %}');
+                            newLocation.setAttribute('hx-trigger', `load, #${newDistrict.id}:change`);
+                            newLocation.setAttribute('hx-target', `#${newLocation.id}`);
+                            newLocation.setAttribute('hx-include', `#${newDistrict.id}`);
+                            newLocation.setAttribute('hx-swap', 'innerHTML');
+                        }
+                    }
                 });
             }
 
             setupFormsetButtons(addImageBtn, imageFormset, 'images');
             setupFormsetButtons(addContactBtn, contactFormset, 'contacts');
             setupFormsetButtons(addServiceAreaBtn, serviceAreaFormset, 'service_areas');
-
-            // HTMX will handle dynamic loading of locations for all service area forms
         });
     </script>
 {% endblock %}

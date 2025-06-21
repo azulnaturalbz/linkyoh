@@ -197,17 +197,6 @@ GigServiceAreaFormSet = inlineformset_factory(
     extra=1, can_delete=True, max_num=5
 )
 
-    # Function Below makes sure that the image is only jpg , jpeg ,png or gif.
-    # def clean_photo(self):
-    #     if self.cleaned_data.get('photo') != "":
-    #         photo = self.cleaned_data.get('photo')
-    #         if not photo.name.endswith(".jpg") | photo.name.endswith(".jpeg") | photo.name.endswith(".png") | photo.name.endswith(".gif"):
-    #             raise forms.ValidationError("Only .jpg image accepted")
-    #         return photo
-    #     else:
-    #         pass
-
-
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
