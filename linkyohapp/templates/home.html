@@ -187,7 +187,7 @@
                                 <div class="col-md-4">
                                     <select class="form-select" name="subcategory" id="id_subcategory"
                                             hx-get="{% url 'ajax_load_sub_category' %}"
-                                            hx-trigger="load, #id_category:change"
+                                            hx-trigger="load, change from:#id_category"
                                             hx-target="#id_subcategory"
                                             hx-include="#id_category">
                                         <option value="">All Subcategories</option>
@@ -201,18 +201,6 @@
                                         <option value="">All Districts</option>
                                     </select>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <select class="form-select" name="location" id="id_location"
-                                            hx-get="{% url 'ajax_load_locations' %}"
-                                            hx-trigger="load, #id_district:change"
-                                            hx-target="#id_location"
-                                            hx-include="#id_district"
-                                            hx-params="*">
-                                        <option value="">All Locations</option>
-                                    </select>
-                                </div>
-
                                 <!-- Search Button -->
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary w-100">

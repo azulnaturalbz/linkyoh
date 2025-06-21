@@ -169,7 +169,7 @@
                                 <div class="col-md-2">
                                     <select class="form-select" name="location" id="id_location"
                                             hx-get="{% url 'ajax_load_locations' %}{% if selected_district %}?district={{ selected_district }}{% if selected_location %}&location={{ selected_location }}{% endif %}{% endif %}"
-                                            hx-trigger="load, #id_district:change"
+                                            hx-trigger="load, change from:#id_district"
                                             hx-target="#id_location"
                                             hx-include="#id_district"
                                             hx-params="*">
