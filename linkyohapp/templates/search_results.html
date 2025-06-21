@@ -243,7 +243,31 @@
                             {% endif %}
                         </div>
 
-                        <form method="GET" action="{% url 'search' %}" id="filterForm">
+                        <form method="GET" action="{% url 'search' %}" id="filterForm" x-data="{ 
+                            clearCategory() { 
+                                document.getElementById('categorySelect').value = ''; 
+                                document.getElementById('subcategorySelect').value = ''; 
+                                this.$refs.filterForm.submit(); 
+                            },
+                            clearSubcategory() { 
+                                document.getElementById('subcategorySelect').value = ''; 
+                                this.$refs.filterForm.submit(); 
+                            },
+                            clearDistrict() { 
+                                document.getElementById('districtSelect').value = ''; 
+                                document.getElementById('locationSelect').value = ''; 
+                                this.$refs.filterForm.submit(); 
+                            },
+                            clearLocation() { 
+                                document.getElementById('locationSelect').value = ''; 
+                                this.$refs.filterForm.submit(); 
+                            },
+                            clearPrice() { 
+                                document.getElementById('min_price').value = ''; 
+                                document.getElementById('max_price').value = ''; 
+                                this.$refs.filterForm.submit(); 
+                            }
+                        }" x-ref="filterForm">
                             <!-- Keep the original search query if it exists -->
                             {% if search_query %}
                                 <input type="hidden" name="param" value="{{ search_query }}">
@@ -270,7 +294,7 @@
                                 <label class="form-label fw-medium">
                                     Category
                                     {% if selected_category %}
-                                        <a href="#" onclick="document.getElementById('categorySelect').value=''; document.getElementById('subcategorySelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear category filter">
+                                        <a href="#" @click.prevent="clearCategory" class="float-end text-decoration-none" title="Clear category filter">
                                             <small><i class="fas fa-times"></i></small>
                                         </a>
                                     {% endif %}
@@ -288,14 +312,14 @@
                                 <label class="form-label fw-medium">
                                     Subcategory
                                     {% if selected_subcategory %}
-                                        <a href="#" onclick="document.getElementById('subcategorySelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear subcategory filter">
+                                        <a href="#" @click.prevent="clearSubcategory" class="float-end text-decoration-none" title="Clear subcategory filter">
                                             <small><i class="fas fa-times"></i></small>
                                         </a>
                                     {% endif %}
                                 </label>
                                 <select class="form-select" name="subcategory" id="subcategorySelect"
                                         hx-get="{% url 'ajax_load_sub_category' %}{% if selected_category %}?category={{ selected_category }}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% endif %}"
-                                        hx-trigger="load, #categorySelect:change"
+                                        hx-trigger="load,change from:#categorySelect"
                                         hx-target="#subcategorySelect"
                                         hx-include="#categorySelect">
                                     <option value="">All Subcategories</option>
@@ -307,7 +331,7 @@
                                 <label class="form-label fw-medium">
                                     District
                                     {% if selected_district %}
-                                        <a href="#" onclick="document.getElementById('districtSelect').value=''; document.getElementById('locationSelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear district filter">
+                                        <a href="#" @click.prevent="clearDistrict" class="float-end text-decoration-none" title="Clear district filter">
                                             <small><i class="fas fa-times"></i></small>
                                         </a>
                                     {% endif %}
@@ -325,14 +349,14 @@
                                 <label class="form-label fw-medium">
                                     Location
                                     {% if selected_location %}
-                                        <a href="#" onclick="document.getElementById('locationSelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear location filter">
+                                        <a href="#" @click.prevent="clearLocation" class="float-end text-decoration-none" title="Clear location filter">
                                             <small><i class="fas fa-times"></i></small>
                                         </a>
                                     {% endif %}
                                 </label>
                                 <select class="form-select" name="location" id="locationSelect"
                                         hx-get="{% url 'ajax_load_locations' %}{% if selected_district %}?district={{ selected_district }}{% if selected_location %}&location={{ selected_location }}{% endif %}{% endif %}"
-                                        hx-trigger="load, #districtSelect:change"
+                                        hx-trigger="load, change from:#districtSelect"
                                         hx-target="#locationSelect"
                                         hx-include="#districtSelect"
                                         hx-params="*">
@@ -345,7 +369,7 @@
                                 <label class="form-label fw-medium">
                                     Price Range
                                     {% if min_price or max_price %}
-                                        <a href="#" onclick="document.getElementById('min_price').value=''; document.getElementById('max_price').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear price filter">
+                                        <a href="#" @click.prevent="clearPrice" class="float-end text-decoration-none" title="Clear price filter">
                                             <small><i class="fas fa-times"></i></small>
                                         </a>
                                     {% endif %}
