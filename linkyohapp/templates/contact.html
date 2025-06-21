@@ -1,63 +1,389 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load widget_tweaks %}
+
+{% block head %}
+<style>
+    /* Contact page specific styles */
+    .hero-contact {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 4rem 0;
+        margin-bottom: 3rem;
+        border-radius: 0.5rem;
+    }
+    
+    .contact-info-card {
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        height: 100%;
+        transition: transform 0.3s;
+    }
+    
+    .contact-info-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .contact-info-card .card-body {
+        padding: 1.5rem;
+    }
+    
+    .contact-info-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+    
+    .form-card {
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .form-card .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .form-card .card-body {
+        padding: 2rem;
+    }
+    
+    .form-label {
+        font-weight: 500;
+    }
+    
+    .form-text {
+        color: #6c757d;
+    }
+    
+    .map-container {
+        height: 300px;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        transition: background-color 0.3s;
+    }
+    
+    .social-links a:hover {
+        background-color: var(--dark-color);
+    }
+    
+    /* Form validation styles */
+    .form-control.is-invalid {
+        border-color: #dc3545;
+        padding-right: calc(1.5em + 0.75rem);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
+    
+    .invalid-feedback {
+        display: block;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #dc3545;
+    }
+</style>
+{% endblock %}
+
 {% block page %}
+<!-- Hero Section -->
+<section class="hero-contact">
+    <div class="container text-center">
+        <h1 class="display-4 mb-3">Contact Us</h1>
+        <p class="lead mb-0">We'd love to hear from you! Whether you have a question about our services,</p>
+        <p class="lead mb-4">need help with your account, or want to provide feedback, we're here to help.</p>
+    </div>
+</section>
 
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-offset-3 col-md-6">
-                <h2>Contact Us</h2>
-            </div>
-        </div>
-        {% if error %}
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">
-            &times;
-        </span>
-                </button>
-                <strong>Warning !</strong> {{ error }}
-            </div>
-        {% endif %}
-        <br>
-
-        <form class="form-horizontal" role="form" action="." method="post">
-        {% csrf_token %}
-            {% for field in form %}
-                {% if field.errors %}
-                    <div class="form-group has-error">
-                        <label class="col-md-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
-                        <div class="col-md-6">
-                            {{ field|attr:"class:form-control" }}
-                            <span class="help-block">
-                                {% for error in  field.errors %}{{ error }}{% endfor %}
-                            </span>
+<div class="container mb-5">
+    <div class="row">
+        <!-- Contact Information -->
+        <div class="col-lg-4 mb-4">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="contact-info-card">
+                        <div class="card-body text-center">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h4>Our Location</h4>
+                            <p class="mb-0">Belize City, Belize</p>
+                            <p>Central America</p>
                         </div>
                     </div>
-                {% else %}
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
-                        <div class="col-md-6">
-                            {{ field|attr:"class:form-control" }}
-                            {% if field.help_text %}
-                                <p class="help-block"><small>{{ field.help_text }}</small></p>
-                            {% endif %}
+                </div>
+                
+                <div class="col-md-6 col-lg-12 mb-4">
+                    <div class="contact-info-card">
+                        <div class="card-body text-center">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h4>Email Us</h4>
+                            <p class="mb-0">
+                                <a href="mailto:info@linkyoh.com" class="text-decoration-none">info@linkyoh.com</a>
+                            </p>
                         </div>
                     </div>
-                {% endif %}
-            {% endfor %}
-
-            <div class="form-group">
-                <div class="col-md-offset-3 col-md-6">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                
+                <div class="col-md-6 col-lg-12 mb-4">
+                    <div class="contact-info-card">
+                        <div class="card-body text-center">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <h4>Call Us</h4>
+                            <p class="mb-0">
+                                <a href="tel:+5016550000" class="text-decoration-none">+501 655 0000</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <div class="contact-info-card">
+                        <div class="card-body text-center">
+                            <div class="contact-info-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <h4>Follow Us</h4>
+                            <div class="social-links justify-content-center">
+                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-        </form>
-
+        </div>
+        
+        <!-- Contact Form -->
+        <div class="col-lg-8">
+            <div class="form-card">
+                <div class="card-header">
+                    <h3 class="mb-0">Send Us a Message</h3>
+                </div>
+                <div class="card-body">
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error!</strong> {{ error }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    
+                    <p class="text-muted mb-4">Please fill out the form below and we'll get back to you as soon as possible.</p>
+                    
+                    <form method="post" action="." class="needs-validation">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <!-- Name Field -->
+                            <div class="col-md-6 mb-3">
+                                <label for="id_name" class="form-label">Name</label>
+                                {{ form.name|add_class:"form-control"|attr:"placeholder:Your full name" }}
+                                {% if form.name.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.name.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if form.name.help_text %}
+                                    <small class="form-text text-muted">{{ form.name.help_text }}</small>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Email Field -->
+                            <div class="col-md-6 mb-3">
+                                <label for="id_email" class="form-label">Email</label>
+                                {{ form.email|add_class:"form-control"|attr:"placeholder:Your email address" }}
+                                {% if form.email.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if form.email.help_text %}
+                                    <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- Phone Field -->
+                            <div class="col-md-6 mb-3">
+                                <label for="id_phone" class="form-label">Phone</label>
+                                {{ form.phone|add_class:"form-control"|attr:"placeholder:Your phone number" }}
+                                {% if form.phone.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.phone.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                                {% if form.phone.help_text %}
+                                    <small class="form-text text-muted">{{ form.phone.help_text }}</small>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Category Field -->
+                            <div class="col-md-6 mb-3">
+                                <label for="id_category" class="form-label">Inquiry Type</label>
+                                {{ form.category|add_class:"form-select" }}
+                                {% if form.category.errors %}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.category.errors %}{{ error }}{% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Subject Field -->
+                        <div class="mb-3">
+                            <label for="id_subject" class="form-label">Subject</label>
+                            {{ form.subject|add_class:"form-control"|attr:"placeholder:What is your message about?" }}
+                            {% if form.subject.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.subject.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if form.subject.help_text %}
+                                <small class="form-text text-muted">{{ form.subject.help_text }}</small>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Message Field -->
+                        <div class="mb-4">
+                            <label for="id_body" class="form-label">Message</label>
+                            {{ form.body|add_class:"form-control"|attr:"placeholder:Please provide details about your inquiry..."|attr:"rows:5" }}
+                            {% if form.body.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.body.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if form.body.help_text %}
+                                <small class="form-text text-muted">{{ form.body.help_text }}</small>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <!-- Map Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">Find Us</h3>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121685.72611979285!2d-88.26237259023703!3d17.50494445646533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5c5b3b1a2d5b79%3A0x1b699055a2c6e4c8!2sBelize%20City%2C%20Belize!5e0!3m2!1sen!2sus!4v1650000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FAQ Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">Frequently Asked Questions</h3>
+            <div class="accordion" id="contactFAQ">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            How quickly will I receive a response?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#contactFAQ">
+                        <div class="accordion-body">
+                            We strive to respond to all inquiries within 24-48 hours during business days. For urgent matters, please call us directly.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            I'm having trouble with my account. What should I do?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#contactFAQ">
+                        <div class="accordion-body">
+                            For account-related issues, please select "Question" in the inquiry type dropdown and provide details about the problem you're experiencing. Our support team will assist you as soon as possible.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            How can I become a service provider on Linkyoh?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#contactFAQ">
+                        <div class="accordion-body">
+                            Becoming a service provider is easy! Simply <a href="{% url 'register' %}">register</a> for an account, then click on "Create a Gig" in your profile menu to list your services.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
+
 {% block scripts %}
+<script>
+    // Add validation classes to form fields
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form.needs-validation');
+        
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            form.classList.add('was-validated');
+        });
+        
+        // Add invalid class to fields with errors
+        document.querySelectorAll('.invalid-feedback').forEach(function(feedback) {
+            if (feedback.textContent.trim() !== '') {
+                feedback.previousElementSibling.classList.add('is-invalid');
+            }
+        });
+    });
+</script>
 {% endblock %}

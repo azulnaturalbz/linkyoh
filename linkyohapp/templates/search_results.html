@@ -1,0 +1,503 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search Results | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .search-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+
+    .search-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .gig-card {
+        height: 100%;
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gig-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .gig-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .section-title {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        z-index: 10;
+    }
+
+    .price-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        z-index: 10;
+    }
+
+    .search-filters {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .filter-title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .filter-section {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--gray-200);
+        padding-bottom: 1.5rem;
+    }
+
+    .filter-section:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .price-inputs {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .price-inputs .form-control {
+        flex: 1;
+    }
+
+    .filter-badge {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 1rem;
+        margin-left: 0.5rem;
+    }
+
+    .mobile-filter-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        border: none;
+        font-size: 1.25rem;
+    }
+
+    @media (max-width: 991px) {
+        .search-filters {
+            margin-bottom: 1rem;
+        }
+
+        .search-filters.collapse:not(.show) {
+            display: none;
+        }
+    }
+
+    .search-result-count {
+        font-weight: 500;
+        color: var(--gray-600);
+        margin-bottom: 1.5rem;
+    }
+
+    .no-results {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 3rem;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .no-results-icon {
+        font-size: 4rem;
+        color: var(--gray-400);
+        margin-bottom: 1.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+    <!-- Search Header -->
+    <div class="search-header text-center">
+        <div class="container">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+            {% if has_search %}
+                <h1 class="display-5 mb-2">Search Results</h1>
+                <p class="lead mb-0">Results for: "{{ search_query }}"</p>
+            {% else %}
+                <h1 class="display-5 mb-2">Find Services</h1>
+                <p class="lead mb-0">Browse all services or use filters to narrow your search</p>
+            {% endif %}
+
+            <!-- Enhanced Search Form in Header -->
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8">
+                    <div class="card shadow border-0">
+                        <div class="card-body p-3">
+                            <form method="GET" action="{% url 'search' %}" class="row g-2">
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="fas fa-search text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control border-start-0" 
+                                               placeholder="What service are you looking for?" 
+                                               name="param" 
+                                               value="{{ search_query }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-search me-2"></i>Search
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="container">
+        <div class="row">
+            <!-- Filter Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <!-- Mobile Filter Toggle Button (visible only on small screens) -->
+                <button class="d-lg-none mobile-filter-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#searchFilters" aria-expanded="false" aria-controls="searchFilters">
+                    <i class="fas fa-filter"></i>
+                </button>
+
+                <!-- Search Filters -->
+                <div class="collapse d-lg-block" id="searchFilters">
+                    <div class="search-filters">
+                        <div class="filter-title">
+                            <span><i class="fas fa-filter me-2"></i>Filters</span>
+                            {% if has_filters or has_search %}
+                                <a href="{% url 'search' %}" class="btn btn-sm btn-outline-secondary">Clear All</a>
+                            {% endif %}
+                        </div>
+
+                        <form method="GET" action="{% url 'search' %}" id="filterForm">
+                            <!-- Keep the original search query if it exists -->
+                            {% if search_query %}
+                                <input type="hidden" name="param" value="{{ search_query }}">
+                            {% endif %}
+
+                            <!-- Quick Search (only shown if no search query) -->
+                            {% if not has_search %}
+                            <div class="filter-section">
+                                <label class="form-label fw-medium">Quick Search</label>
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="fas fa-search text-primary"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" 
+                                           placeholder="Search term..." 
+                                           name="param" 
+                                           value="{{ search_query }}">
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <!-- Category Filter -->
+                            <div class="filter-section">
+                                <label class="form-label fw-medium">
+                                    Category
+                                    {% if selected_category %}
+                                        <a href="#" onclick="document.getElementById('categorySelect').value=''; document.getElementById('subcategorySelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear category filter">
+                                            <small><i class="fas fa-times"></i></small>
+                                        </a>
+                                    {% endif %}
+                                </label>
+                                <select class="form-select" name="category" id="categorySelect" 
+                                        hx-get="{% url 'ajax_load_category' %}{% if selected_category %}?category={{ selected_category }}{% endif %}"
+                                        hx-trigger="load"
+                                        hx-target="#categorySelect">
+                                    <option value="">All Categories</option>
+                                </select>
+                            </div>
+
+                            <!-- Subcategory Filter -->
+                            <div class="filter-section">
+                                <label class="form-label fw-medium">
+                                    Subcategory
+                                    {% if selected_subcategory %}
+                                        <a href="#" onclick="document.getElementById('subcategorySelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear subcategory filter">
+                                            <small><i class="fas fa-times"></i></small>
+                                        </a>
+                                    {% endif %}
+                                </label>
+                                <select class="form-select" name="subcategory" id="subcategorySelect"
+                                        hx-get="{% url 'ajax_load_sub_category' %}{% if selected_category %}?category={{ selected_category }}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% endif %}"
+                                        hx-trigger="load, #categorySelect:change"
+                                        hx-target="#subcategorySelect"
+                                        hx-include="#categorySelect">
+                                    <option value="">All Subcategories</option>
+                                </select>
+                            </div>
+
+                            <!-- District Filter -->
+                            <div class="filter-section">
+                                <label class="form-label fw-medium">
+                                    District
+                                    {% if selected_district %}
+                                        <a href="#" onclick="document.getElementById('districtSelect').value=''; document.getElementById('locationSelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear district filter">
+                                            <small><i class="fas fa-times"></i></small>
+                                        </a>
+                                    {% endif %}
+                                </label>
+                                <select class="form-select" name="district" id="districtSelect" 
+                                        hx-get="{% url 'ajax_load_states' %}{% if selected_district %}?district={{ selected_district }}{% endif %}"
+                                        hx-trigger="load"
+                                        hx-target="#districtSelect">
+                                    <option value="">All Districts</option>
+                                </select>
+                            </div>
+
+                            <!-- Location Filter -->
+                            <div class="filter-section">
+                                <label class="form-label fw-medium">
+                                    Location
+                                    {% if selected_location %}
+                                        <a href="#" onclick="document.getElementById('locationSelect').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear location filter">
+                                            <small><i class="fas fa-times"></i></small>
+                                        </a>
+                                    {% endif %}
+                                </label>
+                                <select class="form-select" name="location" id="locationSelect"
+                                        hx-get="{% url 'ajax_load_locations' %}{% if selected_district %}?district={{ selected_district }}{% if selected_location %}&location={{ selected_location }}{% endif %}{% endif %}"
+                                        hx-trigger="load, #districtSelect:change"
+                                        hx-target="#locationSelect"
+                                        hx-include="#districtSelect"
+                                        hx-params="*">
+                                    <option value="">All Locations</option>
+                                </select>
+                            </div>
+
+                            <!-- Price Range Filter -->
+                            <div class="filter-section">
+                                <label class="form-label fw-medium">
+                                    Price Range
+                                    {% if min_price or max_price %}
+                                        <a href="#" onclick="document.getElementById('min_price').value=''; document.getElementById('max_price').value=''; document.getElementById('filterForm').submit(); return false;" class="float-end text-decoration-none" title="Clear price filter">
+                                            <small><i class="fas fa-times"></i></small>
+                                        </a>
+                                    {% endif %}
+                                </label>
+                                <div class="price-inputs">
+                                    <input type="number" class="form-control" id="min_price" name="min_price" placeholder="Min" value="{{ min_price|default:'' }}" min="0">
+                                    <span>-</span>
+                                    <input type="number" class="form-control" id="max_price" name="max_price" placeholder="Max" value="{{ max_price|default:'' }}" min="0">
+                                </div>
+                            </div>
+
+                            <!-- Apply Filters Button -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-filter me-2"></i>Apply Filters
+                                </button>
+                                {% if has_filters %}
+                                    <a href="{% if has_search %}{% url 'search' %}?param={{ search_query }}{% else %}{% url 'search' %}{% endif %}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-times me-2"></i>Clear Filters
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Results Count -->
+                <div class="search-result-count d-flex justify-content-between align-items-center">
+                    <div>
+                        {% if has_search or has_filters %}
+                            <span class="fw-bold">{{ total_count }}</span> result{% if total_count != 1 %}s{% endif %}
+                            {% if has_search %}
+                                for "<span class="text-primary">{{ search_query }}</span>"
+                            {% endif %}
+                            {% if has_filters %}
+                                <span class="badge bg-info text-dark ms-2">Filtered</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="fw-bold">{{ total_count }}</span> services available
+                        {% endif %}
+                    </div>
+                    {% if total_count > 0 %}
+                    <div>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-secondary active">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if gigs %}
+                    <div class="row">
+                        {% for gig in gigs %}
+                            <div class="col-md-4 col-sm-6 mb-4">
+                                {% include 'includes/_gig_card.html' with show_price=True %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-results">
+                        <div class="no-results-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        {% if has_search %}
+                            <h3 class="mb-3">No results found</h3>
+                            <p class="text-muted mb-4">We couldn't find any services matching "{{ search_query }}"{% if has_filters %} with the selected filters{% endif %}</p>
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="card bg-light border-0">
+                                        <div class="card-body">
+                                            <h5 class="mb-3">Suggestions:</h5>
+                                            <ul class="mb-0 text-start">
+                                                <li>Check your spelling</li>
+                                                <li>Try more general keywords</li>
+                                                <li>Try different keywords</li>
+                                                {% if has_filters %}
+                                                    <li>Remove some filters to broaden your search</li>
+                                                    <li><a href="{% url 'search' %}?param={{ search_query }}">Clear all filters</a></li>
+                                                {% endif %}
+                                                <li>Browse categories instead</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif has_filters %}
+                            <h3 class="mb-3">No services match your filters</h3>
+                            <p class="text-muted mb-4">Try adjusting your filters to see more results</p>
+                            <a href="{% url 'search' %}" class="btn btn-primary mt-2">
+                                <i class="fas fa-filter me-2"></i>Clear All Filters
+                            </a>
+                        {% else %}
+                            <h3 class="mb-3">No services available</h3>
+                            <p class="text-muted mb-4">There are currently no services listed. Please check back later.</p>
+                        {% endif %}
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-4">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </a>
+                    </div>
+                {% endif %}
+
+                <!-- Pagination -->
+                {% if gigs.has_other_pages %}
+                    <nav aria-label="Page navigation" class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            {% if gigs.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if search_query %}param={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}{% if selected_location %}&location={{ selected_location }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}&page={{ gigs.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                                </li>
+                            {% endif %}
+
+                            {% for i in gigs.paginator.page_range %}
+                                {% if gigs.number == i %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ i }}</span>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?{% if search_query %}param={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}{% if selected_location %}&location={{ selected_location }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}&page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if gigs.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% if search_query %}param={{ search_query }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}{% if selected_location %}&location={{ selected_location }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}&page={{ gigs.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link" aria-hidden="true">&raquo;</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

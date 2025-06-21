@@ -1,6 +1,118 @@
 {% extends "base.html" %}
-{% block title %}Welcome{% endblock %}
+{% load static %}
+
+{% block title %}Welcome to Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .success-container {
+        max-width: 800px;
+        margin: 3rem auto;
+        text-align: center;
+    }
+
+    .success-card {
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .success-icon {
+        font-size: 5rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .next-steps {
+        background-color: var(--gray-100);
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: left;
+    }
+
+    .step-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+
+    .step-number {
+        background-color: var(--primary-color);
+        color: white;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        .success-card {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block page %}
-    <h1>Welcome {{ new_user.first_name }}!</h1>
-    <p>Your account has been successfully created. Now you can <a href="{% url "login" %}">log in</a>.</p>
+<div class="success-container">
+    <div class="success-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+
+        <h1 class="display-5 mb-3">Welcome to Linkyoh, {{ new_user.first_name|default:new_user.username }}!</h1>
+        <p class="lead mb-4">Your account has been successfully created. You're now part of Belize's premier service marketplace.</p>
+
+        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-4">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 gap-3">
+                <i class="fas fa-sign-in-alt me-2"></i>Log In Now
+            </a>
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg px-4">
+                <i class="fas fa-home me-2"></i>Explore Linkyoh
+            </a>
+        </div>
+
+        <div class="alert alert-info d-flex align-items-center" role="alert">
+            <i class="fas fa-info-circle me-3 fs-4"></i>
+            <div>
+                A confirmation email has been sent to your email address. Please check your inbox to verify your account.
+            </div>
+        </div>
+    </div>
+
+    <div class="next-steps">
+        <h3 class="mb-4">What's Next?</h3>
+
+        <div class="step-item">
+            <div class="step-number">1</div>
+            <div>
+                <h5>Complete Your Profile</h5>
+                <p class="mb-0">Add a profile picture, your contact information, and a brief description about yourself or your business.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">2</div>
+            <div>
+                <h5>Create Your First Gig</h5>
+                <p class="mb-0">Showcase your services by creating a detailed gig listing with photos, pricing, and service areas.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">3</div>
+            <div>
+                <h5>Connect With Customers</h5>
+                <p class="mb-0">Start receiving inquiries and building your reputation through reviews and ratings.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

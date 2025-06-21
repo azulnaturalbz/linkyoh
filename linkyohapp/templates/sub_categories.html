@@ -1,45 +1,185 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{ sub_category.subcategory }} | {{ sub_category.category.category }} | Linkyoh{% endblock %}
-{% block page %}
-    <div class="card mb-4">
-        <img class="card-img-top" src="{% static 'img/linkyoh_banner_web.png' %}" alt="Card image cap">
-    </div>
-{#    <h1><span class="badge badge-secondary">{{ sub_category.category.category }} / {{ sub_category.subcategory }}</span></h1>#}
-    <br>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'category_listing' sub_category.category.id %}">{{ sub_category.category.category }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'sub_category_listing' sub_category.id %}">{{ sub_category.subcategory }}</a></li>
-          </ol>
-        </nav>
-    <br>
-    <div class="row">
 
-        {% for gig in gigs %}
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"
-                                                                 alt="{{ gig.title }}"></a>
-                    <div class="card-body">
-                        <a href="{% url 'gig_detail' gig.id %}"><h4 class="card-title">{{ gig.title }}</h4></a>
-                        <a href="{% url 'profile' gig.user.id %}"><h5
-                                class="card-title">{{ gig.user.get_full_name|default:gig.user.username }}</h5></a>
-                        <p class="card-text">{{ gig.description | truncatechars:40 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{% url 'gig_detail' gig.id %}">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </a>
-                                {#                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>#}
-                            </div>
-                            <small class="text-muted">Updated at: {{ gig.create_time }}</small>
+{% block head %}
+<style>
+    .subcategory-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('{{ sub_category.category.get_photo_url }}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+
+    .category-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .gig-card {
+        height: 100%;
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gig-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .gig-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .gig-card .card-body {
+        padding: 1.25rem;
+    }
+
+    .gig-card .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .gig-card .provider-name {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .gig-card .provider-name img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        z-index: 10;
+    }
+
+    .price-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        z-index: 10;
+    }
+
+    .section-title {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+    <!-- Subcategory Header -->
+    <div class="subcategory-header text-center">
+        <div class="container">
+            <div class="category-icon">
+                {% if sub_category.category.category == "Auto" %}
+                    <i class="fas fa-car"></i>
+                {% elif sub_category.category.category == "Health" %}
+                    <i class="fas fa-heartbeat"></i>
+                {% elif sub_category.category.category == "House" %}
+                    <i class="fas fa-home"></i>
+                {% elif sub_category.category.category == "Housing & Construction" %}
+                    <i class="fas fa-hammer"></i>
+                {% elif sub_category.category.category == "Pets" %}
+                    <i class="fas fa-paw"></i>
+                {% elif sub_category.category.category == "Services" %}
+                    <i class="fas fa-concierge-bell"></i>
+                {% else %}
+                    <i class="fas fa-tag"></i>
+                {% endif %}
+            </div>
+            <h1 class="display-4">{{ sub_category.subcategory }}</h1>
+            <p class="lead">{{ sub_category.category.category }} services in Belize</p>
+
+            <!-- Mini Search Form -->
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8">
+                    <div class="card shadow border-0">
+                        <div class="card-body p-3">
+                            <form method="GET" action="{% url 'search' %}" class="row g-2">
+                                <input type="hidden" name="category" value="{{ sub_category.category.id }}">
+                                <input type="hidden" name="subcategory" value="{{ sub_category.id }}">
+
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="fas fa-search text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control border-start-0" 
+                                               placeholder="Search in {{ sub_category.subcategory }}..." 
+                                               name="param">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-search me-2"></i>Search
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+    </div>
 
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'category_listing' sub_category.category.id %}">{{ sub_category.category.category }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ sub_category.subcategory }}</li>
+        </ol>
+    </nav>
+
+    <!-- Gigs Section -->
+    <h2 class="section-title">{{ sub_category.subcategory }} Services</h2>
+    <div class="row">
+        {% for gig in gigs %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                {% include 'includes/_gig_card.html' with show_price=True %}
+            </div>
+        {% endfor %}
     </div>
     {% if gigs.has_other_pages %}
         <ul class="pagination justify-content-center">

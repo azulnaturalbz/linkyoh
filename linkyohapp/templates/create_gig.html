@@ -3,123 +3,455 @@
 {% block page %}
     {% if error %}
         <div class="alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">
-            &times;
-        </span>
-            </button>
-            <strong>Warning !</strong> {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <strong>Warning!</strong> {{ error }}
         </div>
     {% endif %}
-    <div class="panel panel-default">
-        <div class="body">
-            <form action="" class="form-horizontal" id="gigForm" method="post" enctype="multipart/form-data"
-                  >
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Create a New Gig</h4>
+        </div>
+        <div class="card-body">
+            <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="example-text-input" class="col-2 col-form-label">GIG TITLE</label>
-                    <div class="col-10">
-                        <input class="form-control" type="text" placeholder="Enter your listing title" id="title" name="title" required>
+
+                <!-- Tabs for different sections -->
+                <ul class="nav nav-tabs mb-4" id="gigFormTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">Basic Info</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="images-tab" data-bs-toggle="tab" data-bs-target="#images" type="button" role="tab" aria-controls="images" aria-selected="false">Images</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contacts-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contact Info</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="locations-tab" data-bs-toggle="tab" data-bs-target="#locations" type="button" role="tab" aria-controls="locations" aria-selected="false">Service Areas</button>
+                    </li>
+                </ul>
+
+                <!-- Tab content -->
+                <div class="tab-content" id="gigFormTabsContent">
+                    <!-- Basic Info Tab -->
+                    <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                        <div class="row mb-3">
+                            <label for="title" class="col-sm-2 col-form-label">Gig Title</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder="Enter your listing title" id="title" name="title" required>
+                                <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max 500 characters)</small>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <select name="category" class="form-control" id="id_category" required
+                                        hx-get="{% url 'ajax_load_category' %}"
+                                        hx-trigger="load"
+                                        hx-target="#id_category">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Sub Category</label>
+                            <div class="col-sm-10">
+                                <select name="sub_category" class="form-control" id="id_subcategory" required
+                                        hx-get="{% url 'ajax_load_sub_category' %}"
+                                        hx-trigger="load, #id_category:change"
+                                        hx-target="#id_subcategory"
+                                        hx-include="#id_category">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" name="description" placeholder="Enter your service/listing description" required></textarea>
+                                <small class="form-text text-muted">Describe your service in detail (max 1000 characters)</small>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Price ($)</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" value="0" name="price" required>
+                                <small class="form-text text-muted">Enter your price in dollars</small>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Main Phone</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="tel" placeholder="+5016550000" id="phone_number" name="phone_number" required>
+                                <small class="form-text text-muted">Enter your primary phone number in international format</small>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">District</label>
+                            <div class="col-sm-10">
+                                <select name="district" class="form-control" id="id_district" required
+                                        hx-get="{% url 'ajax_load_states' %}"
+                                        hx-trigger="load"
+                                        hx-target="#id_district">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Location</label>
+                            <div class="col-sm-10">
+                                <select name="location" class="form-control" id="id_location" required
+                                        hx-get="{% url 'ajax_load_locations' %}"
+                                        hx-trigger="load, #id_district:change"
+                                        hx-target="#id_location"
+                                        hx-include="#id_district"
+                                        hx-params="*">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Address 1</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder="Enter your street address, house number, etc" id="address_1" name="address_1" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Address 2</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" placeholder="Enter your secondary street address (optional)" id="address_2" name="address_2">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Main Photo</label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" name="photo" accept="image/*">
+                                <small class="form-text text-muted">Upload a main image for your gig (jpg, jpeg, png, gif only)</small>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Status</label>
+                            <div class="col-sm-10">
+                                <select name="status" class="form-control" required>
+                                    <option value="1">Active</option>
+                                    <option value="0">Disabled</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">CATEGORY</label>
-                    <div class="col-sm-10">
-                        <select name="category" class="form-control" id="id_category" required
-                                hx-get="{% url 'ajax_load_category' %}"
-                                hx-trigger="load"
-                                hx-target="#id_category">
-                        </select>
+
+                    <!-- Images Tab -->
+                    <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Additional Images</h5>
+                                <small class="text-muted">Add up to 10 additional images for your gig</small>
+                            </div>
+                            <div class="card-body">
+                                {{ image_formset.management_form }}
+                                <div id="image-formset">
+                                    {% for form in image_formset %}
+                                        <div class="image-form mb-4 p-3 border rounded">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form.image.label_tag }}
+                                                    {{ form.image }}
+                                                    <small class="form-text text-muted">{{ form.image.help_text }}</small>
+                                                    {{ form.image.errors }}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ form.caption.label_tag }}
+                                                    {{ form.caption }}
+                                                    <small class="form-text text-muted">{{ form.caption.help_text }}</small>
+                                                    {{ form.caption.errors }}
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        {{ form.is_primary }}
+                                                        {{ form.is_primary.label_tag }}
+                                                        <small class="form-text text-muted d-block">{{ form.is_primary.help_text }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{ form.order.label_tag }}
+                                                    {{ form.order }}
+                                                    <small class="form-text text-muted">{{ form.order.help_text }}</small>
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-end">
+                                                    {% if form.instance.pk %}
+                                                        {{ form.DELETE.label_tag }}
+                                                        {{ form.DELETE }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {{ form.id }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <button type="button" class="btn btn-outline-primary" id="add-image">Add Another Image</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">SUB CATEGORY</label>
-                    <div class="col-sm-10">
-                        <select name="sub_category" class="form-control" id="id_subcategory" required
-                                hx-get="{% url 'ajax_load_sub_category' %}"
-                                hx-trigger="load, #id_category:change"
-                                hx-target="#id_subcategory"
-                                hx-include="#id_category">
-                        </select>
+
+                    <!-- Contacts Tab -->
+                    <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Additional Contact Numbers</h5>
+                                <small class="text-muted">Add up to 5 additional contact numbers for your gig</small>
+                            </div>
+                            <div class="card-body">
+                                {{ contact_formset.management_form }}
+                                <div id="contact-formset">
+                                    {% for form in contact_formset %}
+                                        <div class="contact-form mb-4 p-3 border rounded">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form.phone_number.label_tag }}
+                                                    {{ form.phone_number }}
+                                                    <small class="form-text text-muted">{{ form.phone_number.help_text }}</small>
+                                                    {{ form.phone_number.errors }}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ form.description.label_tag }}
+                                                    {{ form.description }}
+                                                    <small class="form-text text-muted">{{ form.description.help_text }}</small>
+                                                    {{ form.description.errors }}
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        {{ form.is_whatsapp }}
+                                                        {{ form.is_whatsapp.label_tag }}
+                                                        <small class="form-text text-muted d-block">{{ form.is_whatsapp.help_text }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        {{ form.is_primary }}
+                                                        {{ form.is_primary.label_tag }}
+                                                        <small class="form-text text-muted d-block">{{ form.is_primary.help_text }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{ form.order.label_tag }}
+                                                    {{ form.order }}
+                                                    <small class="form-text text-muted">{{ form.order.help_text }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    {% if form.instance.pk %}
+                                                        {{ form.DELETE.label_tag }}
+                                                        {{ form.DELETE }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {{ form.id }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <button type="button" class="btn btn-outline-primary" id="add-contact">Add Another Contact</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">DESCRIPTION</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" name="description" placeholder="Enter your service/listing description" required></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">PRICE ($)</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" value="0" name="price" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
-                    <div class="col-10">
-                        <input class="form-control" type="tel" placeholder="600 0000" id="phone_number" name="phone_number" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">DISTRICT</label>
-                    <div class="col-sm-10">
-                        <select name="district" class="form-control" id="id_district" required>
-                            <option value="">---------</option>
-                            {% for district in districts %}
-                                <option value="{{ district.pk }}">{{ district.district_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">LOCATION</label>
-                    <div class="col-sm-10">
-                        <select name="location" class="form-control" id="id_location" required
-                                hx-get="{% url 'ajax_load_locations' %}"
-                                hx-trigger="#id_district:change"
-                                hx-target="#id_location"
-                                hx-include="#id_district">
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="example-text-input" class="col-2 col-form-label">Street 1</label>
-                    <div class="col-10">
-                        <input class="form-control" type="text"  placeholder="Enter your street address ,house number, etc" id="address_1" name="address_1" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="example-text-input" class="col-2 col-form-label">Street 2</label>
-                    <div class="col-10">
-                        <input class="form-control" type="text" placeholder="Enter your secondary street address" id="address_2" name="address_2">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">PHOTO</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" name="photo" accept="image/*"  title="" >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">STATUS</label>
-                    <div class="col-sm-10">
-                        <select name="status" class="form-control" required>
-                            <option value="1">Active</option>
-                            <option value="0">Disabled</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">Publish Gig</button>
+
+                    <!-- Service Areas Tab -->
+                    <div class="tab-pane fade" id="locations" role="tabpanel" aria-labelledby="locations-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Additional Service Areas</h5>
+                                <small class="text-muted">Add up to 5 additional service areas for your gig</small>
+                            </div>
+                            <div class="card-body">
+                                {{ service_area_formset.management_form }}
+                                <div id="service-area-formset">
+                                    {% for form in service_area_formset %}
+                                        <div class="service-area-form mb-4 p-3 border rounded">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form.district.label_tag }}
+                                                    {{ form.district }}
+                                                    <small class="form-text text-muted">{{ form.district.help_text }}</small>
+                                                    {{ form.district.errors }}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ form.location.label_tag }}
+                                                    <select name="{{ form.location.html_name }}" id="{{ form.location.auto_id }}" class="form-control"
+                                                            hx-get="{% url 'ajax_load_locations' %}"
+                                                            hx-trigger="load, #{{ form.district.auto_id }}:change"
+                                                            hx-target="#{{ form.location.auto_id }}"
+                                                            hx-include="#{{ form.district.auto_id }}">
+                                                        <option value="">---------</option>
+                                                        {% if form.instance.pk and form.instance.location %}
+                                                            <option value="{{ form.instance.location.pk }}" selected>{{ form.instance.location.local }}</option>
+                                                        {% endif %}
+                                                    </select>
+                                                    <small class="form-text text-muted">{{ form.location.help_text }}</small>
+                                                    {{ form.location.errors }}
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md-4">
+                                                    {{ form.description.label_tag }}
+                                                    {{ form.description }}
+                                                    <small class="form-text text-muted">{{ form.description.help_text }}</small>
+                                                    {{ form.description.errors }}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        {{ form.is_primary }}
+                                                        {{ form.is_primary.label_tag }}
+                                                        <small class="form-text text-muted d-block">{{ form.is_primary.help_text }}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{ form.order.label_tag }}
+                                                    {{ form.order }}
+                                                    <small class="form-text text-muted">{{ form.order.help_text }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    {% if form.instance.pk %}
+                                                        {{ form.DELETE.label_tag }}
+                                                        {{ form.DELETE }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {{ form.id }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <button type="button" class="btn btn-outline-primary" id="add-service-area">Add Another Service Area</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" class="btn btn-secondary" id="prev-tab">Previous</button>
+                    <button type="button" class="btn btn-primary" id="next-tab">Next</button>
+                    <button type="submit" class="btn btn-success" id="submit-btn" style="display: none;">Publish Gig</button>
+                </div>
             </form>
         </div>
     </div>
 {% endblock %}
+
 {% block scripts %}
     <!-- All dynamic loading is now handled by htmx -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab navigation
+            const tabs = ['basic', 'images', 'contacts', 'locations'];
+            let currentTabIndex = 0;
+
+            const prevBtn = document.getElementById('prev-tab');
+            const nextBtn = document.getElementById('next-tab');
+            const submitBtn = document.getElementById('submit-btn');
+
+            function updateButtons() {
+                prevBtn.style.display = currentTabIndex === 0 ? 'none' : 'block';
+                nextBtn.style.display = currentTabIndex === tabs.length - 1 ? 'none' : 'block';
+                submitBtn.style.display = currentTabIndex === tabs.length - 1 ? 'block' : 'none';
+            }
+
+            updateButtons();
+
+            prevBtn.addEventListener('click', function() {
+                if (currentTabIndex > 0) {
+                    currentTabIndex--;
+                    document.querySelector(`#gigFormTabs button[data-bs-target="#${tabs[currentTabIndex]}"]`).click();
+                    updateButtons();
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                if (currentTabIndex < tabs.length - 1) {
+                    currentTabIndex++;
+                    document.querySelector(`#gigFormTabs button[data-bs-target="#${tabs[currentTabIndex]}"]`).click();
+                    updateButtons();
+                }
+            });
+
+            document.querySelectorAll('#gigFormTabs button').forEach((tab, index) => {
+                tab.addEventListener('shown.bs.tab', function() {
+                    currentTabIndex = index;
+                    updateButtons();
+                });
+            });
+
+            // Formset handling
+            const addImageBtn = document.getElementById('add-image');
+            const imageFormset = document.getElementById('image-formset');
+            const imageFormsetPrefix = 'images';
+
+            const addContactBtn = document.getElementById('add-contact');
+            const contactFormset = document.getElementById('contact-formset');
+            const contactFormsetPrefix = 'contacts';
+
+            const addServiceAreaBtn = document.getElementById('add-service-area');
+            const serviceAreaFormset = document.getElementById('service-area-formset');
+            const serviceAreaFormsetPrefix = 'service_areas';
+
+            function setupFormsetButtons(addBtn, formset, prefix) {
+                if (!addBtn) return;
+
+                addBtn.addEventListener('click', function() {
+                    const forms = formset.querySelectorAll(`.${prefix.replace('_', '-')}-form`);
+                    const totalForms = document.querySelector(`#id_${prefix}-TOTAL_FORMS`);
+
+                    const newForm = forms[0].cloneNode(true);
+                    newForm.innerHTML = newForm.innerHTML.replace(
+                        new RegExp(`${prefix}-0-`, 'g'), 
+                        `${prefix}-${forms.length}-`
+                    );
+
+                    // Clear input values
+                    newForm.querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio])').forEach(input => {
+                        input.value = '';
+                    });
+
+                    // Uncheck checkboxes
+                    newForm.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+
+                    // Reset selects
+                    newForm.querySelectorAll('select').forEach(select => {
+                        select.selectedIndex = 0;
+                    });
+
+                    // Remove DELETE field if it exists
+                    const deleteField = newForm.querySelector('.delete-field');
+                    if (deleteField) {
+                        deleteField.remove();
+                    }
+
+                    formset.appendChild(newForm);
+                    totalForms.value = forms.length + 1;
+
+                    // HTMX will handle dynamic loading of locations
+                });
+            }
+
+            setupFormsetButtons(addImageBtn, imageFormset, 'images');
+            setupFormsetButtons(addContactBtn, contactFormset, 'contacts');
+            setupFormsetButtons(addServiceAreaBtn, serviceAreaFormset, 'service_areas');
+
+            // HTMX will handle dynamic loading of locations for all service area forms
+        });
+    </script>
 {% endblock %}

@@ -23,6 +23,10 @@ urlpatterns = [
     path('ajax/load-sub-category/<int:catid>/', views.load_sub_categories, name="ajax_load_sub_category"),
     path('ajax/load-sub-category/<int:catid>/<int:subcatid>/', views.load_sub_categories, name="ajax_load_sub_category"),
     path('ajax/load-menu-category/', views.load_menu_categories, name="ajax_load_menu_category"),
+
+    # AJAX endpoints for search filters
+    path('ajax/subcategories/', views.ajax_load_subcategories, name="ajax_load_subcategories"),
+    path('ajax/locations/', views.ajax_load_locations, name="ajax_load_locations_search"),
     path('like-gig/', views.like_gig, name="like_gig"),
 
     # Category and search

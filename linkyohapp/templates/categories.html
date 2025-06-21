@@ -1,50 +1,290 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{ category.category }} | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .category-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('{{ category.get_photo_url }}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+
+    .category-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .gig-card {
+        height: 100%;
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gig-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .gig-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .gig-card .card-body {
+        padding: 1.25rem;
+    }
+
+    .gig-card .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .gig-card .provider-name {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .gig-card .provider-name img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        z-index: 10;
+    }
+
+    .price-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        z-index: 10;
+    }
+
+    .section-title {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+</style>
+{% endblock %}
+
 {% block page %}
-    <div class="card mb-4">
-        <img class="card-img-top" src="/media/{{ category.photo }}" alt="Card image cap">
-    </div>
-    <br>
-     <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'category_listing' category.id  %}">{{ category.category }}</a></li>
-          </ol>
-        </nav>
-    <br>
-    <div class="row">
-        {% for gig in gigs %}
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"
-                                                                 alt="{{ gig.title }}"></a>
-                    <div class="card-body">
-                        <a href="{% url 'gig_detail' gig.id %}"><h4 class="card-title">{{ gig.title }}</h4></a>
-                        <a href="{% url 'profile' gig.user.id %}"><h5
-                                class="card-title">{{ gig.user.get_full_name|default:gig.user.username }}</h5></a>
-                        <p class="card-text">{{ gig.description | truncatechars:40 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{% url 'gig_detail' gig.id %}">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </a>
-                                <a href="{% url 'sub_category_listing' gig.sub_category.id %}">
-                                    <button type="button"
-                                            class="btn btn-sm btn-outline-secondary">{{ gig.sub_category }}</button>
-                                </a>
-                            </div>
+    <!-- Category Header -->
+    <div class="category-header text-center">
+        <div class="container">
+            <div class="category-icon">
+                {% if category.category == "Auto" %}
+                    <i class="fas fa-car"></i>
+                {% elif category.category == "Health" %}
+                    <i class="fas fa-heartbeat"></i>
+                {% elif category.category == "House" %}
+                    <i class="fas fa-home"></i>
+                {% elif category.category == "Housing & Construction" %}
+                    <i class="fas fa-hammer"></i>
+                {% elif category.category == "Pets" %}
+                    <i class="fas fa-paw"></i>
+                {% elif category.category == "Services" %}
+                    <i class="fas fa-concierge-bell"></i>
+                {% else %}
+                    <i class="fas fa-tag"></i>
+                {% endif %}
+            </div>
+            <h1 class="display-4">{{ category.category }}</h1>
+            <p class="lead">Find the best {{ category.category }} services in Belize</p>
+
+            <!-- Enhanced Search Form -->
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-10">
+                    <div class="card shadow border-0">
+                        <div class="card-body p-3">
+                            <form method="GET" class="row g-2">
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="fas fa-search text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control border-start-0" 
+                                               placeholder="Search in {{ category.category }}..." 
+                                               name="param"
+                                               value="{{ search_query }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <select class="form-select" name="subcategory" id="id_subcategory"
+                                            hx-get="{% url 'ajax_load_sub_category' category.id %}{% if selected_subcategory %}?subcategory={{ selected_subcategory }}{% endif %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_subcategory">
+                                        <option value="">All Subcategories</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <select class="form-select" name="district" id="id_district"
+                                            hx-get="{% url 'ajax_load_states' %}{% if selected_district %}?district={{ selected_district }}{% endif %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_district">
+                                        <option value="">All Districts</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <select class="form-select" name="location" id="id_location"
+                                            hx-get="{% url 'ajax_load_locations' %}{% if selected_district %}?district={{ selected_district }}{% if selected_location %}&location={{ selected_location }}{% endif %}{% endif %}"
+                                            hx-trigger="load, #id_district:change"
+                                            hx-target="#id_location"
+                                            hx-include="#id_district"
+                                            hx-params="*">
+                                        <option value="">All Locations</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-primary flex-grow-1">
+                                            <i class="fas fa-search me-2"></i>Search
+                                        </button>
+                                        {% if has_filters or has_search %}
+                                        <a href="{% url 'category_listing' category.id %}" class="btn btn-outline-secondary">
+                                            <i class="fas fa-times"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <small class="text-muted">Updated at: {{ gig.create_time }}</small>
                     </div>
                 </div>
             </div>
-        {% endfor %}
-
+        </div>
     </div>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ category.category }}</li>
+        </ol>
+    </nav>
+
+    <!-- Search Results Indicator -->
+    {% if has_search or has_filters %}
+    <div class="alert alert-info mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-0">
+                    <i class="fas fa-search me-2"></i>
+                    {% if total_count == 0 %}
+                        No results found
+                    {% else %}
+                        Found {{ total_count }} result{% if total_count != 1 %}s{% endif %}
+                    {% endif %}
+                </h5>
+                <p class="mb-0 small">
+                    {% if has_search %}
+                        Search for: "{{ search_query }}"
+                    {% endif %}
+                    {% if has_filters %}
+                        {% if selected_subcategory %}
+                            {% for sub_category in category.subcategory_set.all %}
+                                {% if sub_category.id|stringformat:"s" == selected_subcategory %}
+                                    <span class="badge bg-secondary">Subcategory: {{ sub_category.subcategory }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if selected_district %}
+                            <span class="badge bg-secondary">District filter applied</span>
+                        {% endif %}
+                        {% if selected_location %}
+                            <span class="badge bg-secondary">Location filter applied</span>
+                        {% endif %}
+                    {% endif %}
+                </p>
+            </div>
+            <a href="{% url 'category_listing' category.id %}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-times me-1"></i>Clear Search
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Gigs Section -->
+    <h2 class="section-title">
+        {% if has_search or has_filters %}
+            Search Results in {{ category.category }}
+        {% else %}
+            {{ category.category }} Services
+        {% endif %}
+    </h2>
+
+    {% if gigs %}
+    <div class="row">
+        {% for gig in gigs %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                {% include 'includes/_gig_card.html' with show_price=True %}
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        <h5><i class="fas fa-exclamation-triangle me-2"></i>No services found</h5>
+        <p>
+            {% if has_search %}
+                No services matching "{{ search_query }}" were found in this category.
+                Try using different search terms or removing some filters.
+            {% elif has_filters %}
+                No services match the selected filters in this category.
+                Try broadening your search by removing some filters.
+            {% else %}
+                There are currently no services listed in this category.
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
     {% if gigs.has_other_pages %}
         <ul class="pagination justify-content-center">
             {% if gigs.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{ gigs.previous_page_number }}">&laquo;</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="?{% if search_query %}param={{ search_query }}{% endif %}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}{% if selected_location %}&location={{ selected_location }}{% endif %}&page={{ gigs.previous_page_number }}">&laquo;</a>
+                </li>
             {% else %}
                 <li class="page-item prev disabled"><span class="page-link">&laquo;</span></li>
             {% endif %}
@@ -53,11 +293,15 @@
                     <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
                     </li>
                 {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?{% if search_query %}param={{ search_query }}{% endif %}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}{% if selected_location %}&location={{ selected_location }}{% endif %}&page={{ i }}">{{ i }}</a>
+                    </li>
                 {% endif %}
             {% endfor %}
             {% if gigs.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ gigs.next_page_number }}">&raquo;</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="?{% if search_query %}param={{ search_query }}{% endif %}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}{% if selected_location %}&location={{ selected_location }}{% endif %}&page={{ gigs.next_page_number }}">&raquo;</a>
+                </li>
             {% else %}
                 <li class="page-item prev disabled"><span class="page-link">&raquo;</span></li>
             {% endif %}

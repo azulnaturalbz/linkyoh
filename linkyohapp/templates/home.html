@@ -1,58 +1,444 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block head %}
+<style>
+    .hero-section {
+        background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 4rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .category-card {
+        height: 100%;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .category-card img {
+        height: 160px;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+    .category-card:hover img {
+        transform: scale(1.05);
+    }
+
+    .category-card .category-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        padding: 1rem;
+        color: white;
+    }
+
+    .featured-gig-card {
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .featured-gig-card .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        z-index: 10;
+    }
+
+    .price-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        z-index: 10;
+    }
+
+    .gig-card {
+        height: 100%;
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gig-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .gig-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .gig-card .card-body {
+        padding: 1.25rem;
+    }
+
+    .gig-card .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .gig-card .provider-name {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .gig-card .provider-name img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+
+    .section-title {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+
+    .review-card {
+        border-left: 3px solid var(--primary-color);
+        padding-left: 1rem;
+    }
+
+    .review-card .review-content {
+        font-style: italic;
+        color: #6c757d;
+    }
+
+    .review-card .reviewer {
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
 {% block page %}
-    <div class="card mb-4">
-        <img class="card-img-top" src="{% static 'img/linkyoh_banner_web.png' %}" alt="Card image cap">
-    </div>
-    <div class="row">
-        {% for gig in gigs %}
-            <div class="col-md-4">
-                <div class="card mb-4 box-shadow">
-                    <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"
-                                                                 alt="Card image cap"></a>
-                    <div class="card-body">
-                        <a href="{% url 'gig_detail' gig.id %}"><h4 class="card-title">{{ gig.title }}</h4></a>
-                        <a href="{% url 'profile' gig.user.id %}"><h5
-                                class="card-title">{{ gig.user.get_full_name|default:gig.user.username }}</h5></a>
-                        <p class="card-text">{{ gig.description | truncatechars:40 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <a href="{% url 'gig_detail' gig.id %}">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                </a>
-                                <a href="{% url 'category_listing' gig.category.id %}">
-                                    <button type="button"
-                                            class="btn btn-sm btn-outline-secondary">{{ gig.category }}</button>
-                                </a>
-                            </div>
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">Find Local Services in Belize</h1>
+            <p class="lead mb-4">Connect with trusted service providers from painters to carpenters to computer repair specialists</p>
+
+            <!-- Enhanced Search Form -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-8">
+                    <div class="card shadow border-0">
+                        <div class="card-body p-4">
+                            <form method="GET" action="{% url 'search' %}" class="row g-3">
+                                <!-- Text Search -->
+                                <div class="col-12">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="fas fa-search text-primary"></i>
+                                        </span>
+                                        <input type="text" class="form-control border-start-0" placeholder="What service are you looking for?" name="param">
+                                    </div>
+                                </div>
+
+                                <!-- Category, Subcategory, and District Filters -->
+                                <div class="col-md-4">
+                                    <select class="form-select" name="category" id="id_category"
+                                            hx-get="{% url 'ajax_load_category' %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_category">
+                                        <option value="">All Categories</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" name="subcategory" id="id_subcategory"
+                                            hx-get="{% url 'ajax_load_sub_category' %}"
+                                            hx-trigger="load, #id_category:change"
+                                            hx-target="#id_subcategory"
+                                            hx-include="#id_category">
+                                        <option value="">All Subcategories</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" name="district" id="id_district"
+                                            hx-get="{% url 'ajax_load_states' %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_district">
+                                        <option value="">All Districts</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <select class="form-select" name="location" id="id_location"
+                                            hx-get="{% url 'ajax_load_locations' %}"
+                                            hx-trigger="load, #id_district:change"
+                                            hx-target="#id_location"
+                                            hx-include="#id_district"
+                                            hx-params="*">
+                                        <option value="">All Locations</option>
+                                    </select>
+                                </div>
+
+                                <!-- Search Button -->
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-search me-2"></i>Find Services
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <small class="text-muted">Updated at: {{ gig.create_time }}</small>
                     </div>
                 </div>
             </div>
-        {% endfor %}
 
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Join Now</a>
+                <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">Learn More</a>
+            </div>
+        </div>
     </div>
-    {% if gigs.has_other_pages %}
-        <ul class="pagination justify-content-center">
-            {% if gigs.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{ gigs.previous_page_number }}">&laquo;</a></li>
-            {% else %}
-                <li class="page-item prev disabled"><span class="page-link">&laquo;</span></li>
-            {% endif %}
-            {% for i in gigs.paginator.page_range %}
-                {% if gigs.number == i %}
-                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
-                    </li>
-                {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                {% endif %}
+
+    <!-- Featured Gigs Section -->
+    {% if featured_gigs %}
+    <section class="mb-5">
+        <h2 class="section-title">Featured Services</h2>
+        <div class="row">
+            {% for gig in featured_gigs %}
+                <div class="col-md-4 mb-4">
+                    <div class="card featured-gig-card">
+                        <span class="featured-badge"><i class="fas fa-star me-1"></i> Featured</span>
+                        <span class="price-badge">${{ gig.price }}</span>
+                        <a href="{% url 'gig_detail' gig.id %}">
+                            <img src="{{ gig.get_photo_url }}" class="card-img-top" alt="{{ gig.title }}">
+                        </a>
+                        <div class="card-body">
+                            <a href="{% url 'gig_detail' gig.id %}" class="text-decoration-none text-dark">
+                                <h5 class="card-title">{{ gig.title }}</h5>
+                            </a>
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                     alt="Provider" class="rounded-circle me-2" width="30" height="30">
+                                <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
+                                    {{ gig.user.get_full_name|default:gig.user.username }}
+                                </a>
+                            </div>
+                            <p class="card-text">{{ gig.description | truncatechars:80 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-secondary me-2">{{ gig.category }}</span>
+                                    <span class="badge bg-light text-dark">{{ gig.sub_category }}</span>
+                                </div>
+                                <small class="text-muted"><i class="fas fa-heart text-danger me-1"></i> {{ gig.total_likes }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-            {% if gigs.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ gigs.next_page_number }}">&raquo;</a></li>
-            {% else %}
-                <li class="page-item prev disabled"><span class="page-link">&raquo;</span></li>
-            {% endif %}
-        </ul>
+        </div>
+    </section>
     {% endif %}
+
+    <!-- Popular Categories Section -->
+    {% if popular_categories %}
+    <section class="mb-5">
+        <h2 class="section-title">Popular Categories</h2>
+        <div class="row">
+            {% for category in popular_categories %}
+                <div class="col-md-2 col-sm-4 col-6 mb-4">
+                    <a href="{% url 'category_listing' category.id %}" class="text-decoration-none">
+                        <div class="card category-card">
+                            <img src="{{ category.get_photo_url }}" class="card-img" alt="{{ category.category }}">
+                            <div class="category-overlay">
+                                <h6 class="mb-0">{{ category.category }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- How It Works Section -->
+    <section class="mb-5 bg-light p-4 rounded">
+        <h2 class="section-title">How Linkyoh Works</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-3">
+                <div class="p-3">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h4>Find Services</h4>
+                    <p>Search for services by category or location to find the perfect provider for your needs.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Read Reviews</h4>
+                    <p>Check ratings and reviews from real customers to make informed decisions.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3">
+                    <div class="display-4 text-primary mb-3">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4>Connect Directly</h4>
+                    <p>Contact service providers directly through phone or WhatsApp to discuss your needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Reviews Section -->
+    {% if recent_reviews %}
+    <section class="mb-5">
+        <h2 class="section-title">Recent Reviews</h2>
+        <div class="row">
+            {% for review in recent_reviews %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="review-card">
+                                <p class="review-content">{{ review.content|truncatechars:120 }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{% if review.user.profile and review.user.profile.avatar %}{{ review.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                             alt="Reviewer" class="rounded-circle me-2" width="24" height="24">
+                                        <span class="reviewer">{{ review.user.get_full_name|default:review.user.username }}</span>
+                                    </div>
+                                    <span class="badge bg-warning text-dark">{{ review.rating.rating_description }}</span>
+                                </div>
+                                <div class="mt-2">
+                                    <a href="{% url 'gig_detail' review.gig.id %}" class="text-decoration-none">
+                                        <small class="text-muted">Review for: {{ review.gig.title|truncatechars:30 }}</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Latest Gigs Section -->
+    <section>
+        <h2 class="section-title">Latest Services</h2>
+        <div class="row">
+            {% for gig in gigs %}
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card gig-card h-100">
+                        <a href="{% url 'gig_detail' gig.id %}">
+                            <img src="{{ gig.get_photo_url }}" class="card-img-top" alt="{{ gig.title }}">
+                        </a>
+                        <div class="card-body">
+                            <a href="{% url 'gig_detail' gig.id %}" class="text-decoration-none text-dark">
+                                <h5 class="card-title">{{ gig.title }}</h5>
+                            </a>
+                            <div class="provider-name">
+                                <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                     alt="Provider">
+                                <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
+                                    {{ gig.user.get_full_name|default:gig.user.username }}
+                                </a>
+                            </div>
+                            <p class="card-text">{{ gig.description | truncatechars:60 }}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="badge bg-success">${{ gig.price }}</span>
+                                <a href="{% url 'category_listing' gig.category.id %}" class="badge bg-light text-dark text-decoration-none">
+                                    {{ gig.category }}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+                            <small class="text-muted"><i class="far fa-clock me-1"></i> {{ gig.create_time|date:"M d, Y" }}</small>
+                            <a href="{% url 'gig_detail' gig.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if gigs.has_other_pages %}
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    {% if gigs.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ gigs.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link" aria-hidden="true">&laquo;</span>
+                        </li>
+                    {% endif %}
+
+                    {% for i in gigs.paginator.page_range %}
+                        {% if gigs.number == i %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ i }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if gigs.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ gigs.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link" aria-hidden="true">&raquo;</span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </section>
 {% endblock %}

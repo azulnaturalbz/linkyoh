@@ -1,55 +1,364 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block page %}
-          <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Linkyoh !</h1>
-          <p>With the power of almost 400,000 people that need to find services on a daily basis
-              Linkyoh is there to help you find the best recommended and highest quality service providers near you. </p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-        </div>
-      </div>
-    <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Collecting Experience</h2>
-            <p> From automotive specialists ranging to health professionals. With the power in numbers,
-                we could help determine the best service provider and get the organic feed back that will help
-                future clients, and customers find the perfect services providers.  </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
 
-            <h2>Investors</h2>
-            <p> If you’re a business partner or investor who sees the potential in the project and would love to get involved, please feel free to get in touch !</p>
-            <p><a class="btn btn-secondary" href="mailto:csilva@silvatech.bz" role="button">csilva@silvatech.bz &raquo;</a></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <h2>How we do it</h2>
-            <p> Linkyoh relies on its member's experience, reviews and likes that aren’t submitted anonymously.
-                Linkyoh members’ information is always kept secure and confidential on Linkyoh.
-                Reviews are made available to companies and persons who have been reviews.
-                Since there are always two sides to every story, companies can respond to reviews,
-                helping to make sure that members get all the information they need to make a hiring
-                or contracting decision.
-                Additionally, members can only report Linkyoh quality of service once every six months,
-                ensuring no one can favor one service provider over another.  </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <h2>Our Results</h2>
-            <p>Finally, all reviews submitted by members go through a team of Linkyoh collaborators who look for any
-                discrepancies or red flags that may affect the hiring or contracting of service providers.
-                Any companies that are caught reporting on their own services,  will be reprimanded and those reviews,
-                likes and reports are removed from Linkyoh promptly.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-        </div>
-        <hr>
-      </div> <!-- /container -->
+{% block head %}
+<style>
+    /* About page specific styles */
+    .hero-about {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 6rem 0;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+    
+    .hero-about h1 {
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-about p {
+        font-size: 1.25rem;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+    }
+    
+    .section-title {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+    
+    .feature-box {
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        margin-bottom: 2rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        background-color: white;
+    }
+    
+    .feature-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+    }
+    
+    .stats-section {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 4rem 0;
+        margin: 3rem 0;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .stat-label {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .team-member {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .team-member img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        border: 5px solid #f8f9fa;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .testimonial {
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+    
+    .testimonial::before {
+        content: '\201C';
+        font-size: 5rem;
+        position: absolute;
+        top: -1rem;
+        left: 1rem;
+        color: rgba(0,0,0,0.1);
+        font-family: serif;
+    }
+    
+    .testimonial-content {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+    
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+    }
+    
+    .testimonial-author img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+    
+    .cta-section {
+        background-color: #f8f9fa;
+        padding: 4rem 0;
+        text-align: center;
+        margin: 3rem 0 0;
+        border-radius: 0.5rem;
+    }
+    
+    .cta-section h2 {
+        margin-bottom: 1.5rem;
+    }
+    
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .process-step {
+        display: flex;
+        margin-bottom: 2rem;
+    }
+    
+    .step-number {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-right: 1.5rem;
+    }
+    
+    .step-content {
+        flex-grow: 1;
+    }
+    
+    .step-content h3 {
+        margin-bottom: 0.75rem;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-about {
+            padding: 4rem 0;
+        }
+        
+        .hero-about h1 {
+            font-size: 2.5rem;
+        }
+        
+        .hero-about p {
+            font-size: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+        }
+    }
+</style>
 {% endblock %}
+
+{% block page %}
+<!-- Hero Section -->
+<section class="hero-about">
+    <div class="container text-center">
+        <h1 class="display-3">Connecting Belize's Service Providers</h1>
+        <p class="lead">Linkyoh is the premier platform for finding and connecting with trusted local service providers across Belize. From painters to carpenters, from auto mechanics to health professionals - we're building a community of quality service providers.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Join Our Community</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="container mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="lead">To connect the people of Belize with the best local service providers through a transparent, community-driven platform.</p>
+            <p>With a population of nearly 400,000 people seeking services daily, Linkyoh bridges the gap between service providers and customers. We're creating a trusted ecosystem where quality work is recognized and rewarded.</p>
+            <p>Whether you're looking for home repairs, automotive services, healthcare professionals, or any other service, Linkyoh helps you find verified providers with real reviews from real customers.</p>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <img src="{% static 'img/linkyoh_banner_web.png' %}" alt="Linkyoh Mission" class="img-fluid rounded shadow-lg" style="max-height: 300px;">
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="container mb-5">
+    <h2 class="section-title text-center mb-4">Why Choose Linkyoh</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Verified Reviews</h3>
+                <p>All reviews come from real users who have used the services. We verify and moderate all feedback to ensure authenticity.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Easy Discovery</h3>
+                <p>Find services by category, location, or specific needs. Our platform makes it simple to discover the right provider for your requirements.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box">
+                <div class="feature-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Direct Connection</h3>
+                <p>Connect directly with service providers through phone, WhatsApp, or our messaging system. No middlemen or extra fees.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <span class="stat-number">400K+</span>
+                    <span class="stat-label">Potential Users</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Service Categories</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Districts Covered</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Service Access</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="container mb-5">
+    <h2 class="section-title">How Linkyoh Works</h2>
+    
+    <div class="process-step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h3>Collecting Experiences</h3>
+            <p>From automotive specialists to health professionals, we gather authentic experiences from users. With the power of numbers, we help determine the best service providers through organic feedback that helps future clients find perfect matches.</p>
+        </div>
+    </div>
+    
+    <div class="process-step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h3>Transparent Reviews</h3>
+            <p>Linkyoh relies on member experiences, reviews, and likes that aren't submitted anonymously. Member information is kept secure and confidential. Reviews are made available to companies who have been reviewed, and they can respond to ensure both sides of every story are heard.</p>
+        </div>
+    </div>
+    
+    <div class="process-step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h3>Quality Control</h3>
+            <p>All reviews submitted by members go through our team of Linkyoh collaborators who look for discrepancies or red flags. Companies caught reporting on their own services are reprimanded, and those reviews are promptly removed. Members can only report on service quality once every six months to prevent favoritism.</p>
+        </div>
+    </div>
+</section>
+
+<!-- For Investors Section -->
+<section class="container mb-5">
+    <div class="row">
+        <div class="col-md-6 order-md-2">
+            <h2 class="section-title">For Investors</h2>
+            <p class="lead">Join us in revolutionizing how services are discovered in Belize.</p>
+            <p>If you're a business partner or investor who sees the potential in our platform and would love to get involved, we'd be excited to hear from you. Linkyoh is positioned to become the go-to marketplace for services in Belize, with opportunities for expansion throughout the Caribbean and Central America.</p>
+            <p>Our platform addresses a real need in the market, connecting service providers with customers in a transparent, efficient way that benefits the entire community.</p>
+            <a href="mailto:csilva@silvatech.bz" class="btn btn-primary">
+                <i class="fas fa-envelope me-2"></i>Contact for Investment Opportunities
+            </a>
+        </div>
+        <div class="col-md-6 order-md-1 d-flex align-items-center justify-content-center">
+            <img src="{% static 'img/banner.gif' %}" alt="Investment Opportunity" class="img-fluid rounded shadow-lg" style="max-height: 300px;">
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Join the Linkyoh Community?</h2>
+        <p class="lead mb-4">Whether you're a service provider looking to grow your business or a customer seeking quality services, Linkyoh is here to help.</p>
+        <div class="cta-buttons">
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Sign Up Now</a>
+            <a href="{% url 'home' %}" class="btn btn-success btn-lg">Browse Services</a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-secondary btn-lg">Contact Us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 {% block scripts %}
+<!-- Any additional scripts can go here -->
 {% endblock %}

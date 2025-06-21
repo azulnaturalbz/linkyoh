@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.mail import BadHeaderError, EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -9,56 +9,95 @@ from django.core.exceptions import ValidationError
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.db import transaction
 
-from .models import Gig, Profile, Location, District, Category, SubCategory, Review
-from .forms import GigForm, ReviewForm, ContactForm, UserRegistrationForm
+from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea
+from .forms import (
+    GigForm, ReviewForm, ContactForm, UserRegistrationForm,
+    GigImageFormSet, GigContactFormSet, GigServiceAreaFormSet
+)
 
 
 # Create your views here.
 
 def load_districts(request, did=None):
-    if did is not None:
-        selected_district = did
-        districts = District.objects.all()
-        return render(request, 'district_dropdown_list_options.html', {'districts': districts, 'selected_state': selected_district})
-    else:
-        districts = District.objects.all()
-        return render(request, 'district_dropdown_list_options.html', {'districts': districts})
+    """HTMX view to load districts"""
+    districts = District.objects.all()
+    selected_district = did if did is not None else None
+
+    return render(request, 'district_dropdown_list_options.html', {
+        'districts': districts, 
+        'selected_district': selected_district
+    })
 
 
 def load_locations(request, did=None, lid=None):
-    if did is None and lid is None:
-        district_id = request.GET.get('district')
-        locations = Location.objects.filter(local__local_district=district_id).order_by('local')
-        return render(request, 'location_dropdown_list_options.html', {'locations': locations})
+    """HTMX view to load locations based on selected district"""
+    district_id = request.GET.get('district') or did
+    selected_location = request.GET.get('location') or lid
 
-    else:
-        district_id = request.GET.get('district')
+    locations = []
+    if district_id:
         locations = Location.objects.filter(local__local_district=district_id).order_by('local')
-        return render(request, 'location_dropdown_list_options.html', {'locations': locations})
+
+    return render(request, 'location_dropdown_list_options.html', {
+        'locations': locations,
+        'selected_location': selected_location
+    })
+
+def ajax_load_locations(request):
+    """HTMX view to load locations based on selected district"""
+    district_id = request.GET.get('district', '')
+    selected_location = request.GET.get('location', None)
+    locations = []
+
+    if district_id:
+        locations = Location.objects.filter(local__local_district=district_id).order_by('local')
+
+    return render(request, 'ajax_location_options.html', {
+        'locations': locations,
+        'selected_location': selected_location
+    })
 
 
 def load_categories(request, catid=None):
-    if catid is not None:
-        selected_cat = catid
-        categories = Category.objects.all()
-        return render(request, 'category_dropdown_list_options.html', {'categories': categories, 'selected_cat': catid})
-    else:
-        categories = Category.objects.all()
-        return render(request, 'category_dropdown_list_options.html', {'categories': categories})
+    """HTMX view to load categories"""
+    categories = Category.objects.all()
+    selected_cat = catid if catid is not None else None
+
+    return render(request, 'category_dropdown_list_options.html', {
+        'categories': categories, 
+        'selected_cat': selected_cat
+    })
 
 
 def load_sub_categories(request, catid=None, subcatid=None):
-    if catid is None and subcatid is None:
-        category_id = request.GET.get('category')
+    """HTMX view to load subcategories based on selected category"""
+    category_id = request.GET.get('category') or catid
+    selected_subcategory = subcatid
+
+    sub_categories = []
+    if category_id:
         sub_categories = SubCategory.objects.filter(category_id=category_id)
-        return render(request, 'sub_category_dropdown_list_options.html',
-                      {'sub_categories': sub_categories})
-    else:
-        category_id = request.GET.get('category')
-        sub_categories = SubCategory.objects.filter(category_id=category_id)
-        return render(request, 'sub_category_dropdown_list_options.html',
-                      {'sub_categories': sub_categories})
+
+    return render(request, 'sub_category_dropdown_list_options.html', {
+        'sub_categories': sub_categories,
+        'selected_subcategory': selected_subcategory
+    })
+
+def ajax_load_subcategories(request):
+    """HTMX view to load subcategories based on selected category"""
+    category_id = request.GET.get('category', '')
+    selected_subcategory = request.GET.get('subcategory', None)
+    subcategories = []
+
+    if category_id:
+        subcategories = SubCategory.objects.filter(category_id=category_id)
+
+    return render(request, 'ajax_subcategory_options.html', {
+        'subcategories': subcategories,
+        'selected_subcategory': selected_subcategory
+    })
 
 
 def load_menu_categories(request):
@@ -73,17 +112,67 @@ class CategoryListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
+        # Get search parameters
+        search_query = self.request.GET.get('param', '')
+        subcategory_id = self.request.GET.get('subcategory', '')
+        district_id = self.request.GET.get('district', '')
+        location_id = self.request.GET.get('location', '')
+
+        # Start with base query - always show active gigs in this category
+        base_query = Q(status=True, category_id=self.kwargs['id'])
+
+        # Add text search if provided
+        if search_query:
+            base_query &= (
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(sub_category__subcategory__icontains=search_query) |
+                Q(district__district_name__icontains=search_query) |
+                Q(location__local__local_name__icontains=search_query)
+            )
+
+        # Apply subcategory filter if provided
+        if subcategory_id:
+            base_query &= Q(sub_category_id=subcategory_id)
+
+        # Apply district filter if provided
+        if district_id:
+            base_query &= Q(district_id=district_id)
+
+        # Apply location filter if provided
+        if location_id:
+            base_query &= Q(location_id=location_id)
+
         # Optimize query by prefetching related objects
-        return Gig.objects.filter(status=True, category_id=self.kwargs['id']).select_related(
-            'user', 'category', 'sub_category'
+        return Gig.objects.filter(base_query).select_related(
+            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
         ).order_by("-create_time")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         # Cache the category to avoid additional query
         if not hasattr(self, '_category'):
             self._category = Category.objects.get(pk=self.kwargs['id'])
         context['category'] = self._category
+
+        # Add search parameters to context
+        context['search_query'] = self.request.GET.get('param', '')
+        context['selected_subcategory'] = self.request.GET.get('subcategory', '')
+        context['selected_district'] = self.request.GET.get('district', '')
+        context['selected_location'] = self.request.GET.get('location', '')
+
+        # Check if any filters are applied
+        context['has_filters'] = bool(
+            context['selected_subcategory'] or 
+            context['selected_district'] or 
+            context['selected_location']
+        )
+        context['has_search'] = bool(context['search_query'])
+
+        # Get total count of results
+        context['total_count'] = self.get_queryset().count()
+
         return context
 
 # Keep the function-based view as a wrapper for backward compatibility
@@ -130,6 +219,31 @@ class HomeView(ListView):
             'user', 'category', 'sub_category'
         ).order_by("-create_time")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Add popular categories (those with the most gigs)
+        categories_with_count = Category.objects.annotate(
+            gig_count=Count('gig')
+        ).order_by('-gig_count')
+        context['popular_categories'] = categories_with_count[:6]
+
+        # Add featured gigs (those with the most likes)
+        featured_gigs = Gig.objects.filter(status=True).select_related(
+            'user', 'category', 'sub_category', 'user__profile'
+        ).prefetch_related('likes').annotate(
+            like_count=Count('likes')
+        ).order_by('-like_count')[:3]
+        context['featured_gigs'] = featured_gigs
+
+        # Add recent reviews
+        recent_reviews = Review.objects.select_related(
+            'user', 'gig', 'rating', 'user__profile'
+        ).order_by('-create_time')[:3]
+        context['recent_reviews'] = recent_reviews
+
+        return context
+
 # Keep the function-based view as a wrapper for backward compatibility
 def home(request):
     view = HomeView.as_view()
@@ -145,8 +259,9 @@ class GigDetailView(DetailView):
     def get_queryset(self):
         # Optimize query by prefetching related objects
         return Gig.objects.select_related(
-            'user', 'category', 'sub_category', 'district', 'location'
-        ).prefetch_related('likes')
+            'user', 'category', 'sub_category', 'district', 'location', 
+            'user__profile'  # Add profile to reduce queries
+        ).prefetch_related('likes', 'images', 'contacts', 'service_areas')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -164,9 +279,24 @@ class GigDetailView(DetailView):
             context['show_post_review'] = False
 
         # Get reviews for this gig with related user and rating
-        context['reviews'] = Review.objects.filter(gig=gig).select_related('user', 'rating')
+        context['reviews'] = Review.objects.filter(gig=gig).select_related('user', 'rating', 'user__profile')
         context['is_liked'] = is_liked
         context['total_likes'] = gig.total_likes()
+
+        # Add additional images, contacts, and service areas
+        context['additional_images'] = gig.images.all().order_by('order', 'created')
+        context['contacts'] = gig.contacts.all().order_by('order', 'id')
+        context['service_areas'] = gig.service_areas.all().order_by('order', 'id')
+
+        # Add related gigs (same category, excluding this one)
+        context['related_gigs'] = Gig.objects.filter(
+            category=gig.category, 
+            status=True
+        ).exclude(
+            id=gig.id
+        ).select_related(
+            'category', 'sub_category'
+        ).order_by('-create_time')[:5]
 
         return context
 
@@ -227,14 +357,43 @@ class CreateGigView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('my_gigs')
     login_url = '/'
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['districts'] = District.objects.all()
+
+        if self.request.POST:
+            context['image_formset'] = GigImageFormSet(self.request.POST, self.request.FILES)
+            context['contact_formset'] = GigContactFormSet(self.request.POST)
+            context['service_area_formset'] = GigServiceAreaFormSet(self.request.POST)
+        else:
+            context['image_formset'] = GigImageFormSet()
+            context['contact_formset'] = GigContactFormSet()
+            context['service_area_formset'] = GigServiceAreaFormSet()
+
         return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        contact_formset = context['contact_formset']
+        service_area_formset = context['service_area_formset']
+
+        with transaction.atomic():
+            form.instance.user = self.request.user
+            self.object = form.save()
+
+            if image_formset.is_valid():
+                image_formset.instance = self.object
+                image_formset.save()
+
+            if contact_formset.is_valid():
+                contact_formset.instance = self.object
+                contact_formset.save()
+
+            if service_area_formset.is_valid():
+                service_area_formset.instance = self.object
+                service_area_formset.save()
+
+        return super().form_valid(form)
 
 # Keep the function-based view as a wrapper for backward compatibility
 @login_required(login_url='/')
@@ -258,11 +417,52 @@ class EditGigView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         gig = self.get_object()
-        context['districts'] = District.objects.all()
-        context['locations'] = Location.objects.filter(local__local_district=gig.district_id)
-        context['categories'] = Category.objects.all()
-        context['sub_categories'] = SubCategory.objects.filter(category_id=gig.category_id)
+
+        if self.request.POST:
+            context['image_formset'] = GigImageFormSet(
+                self.request.POST, self.request.FILES, instance=gig
+            )
+            context['contact_formset'] = GigContactFormSet(
+                self.request.POST, instance=gig
+            )
+            context['service_area_formset'] = GigServiceAreaFormSet(
+                self.request.POST, instance=gig
+            )
+        else:
+            context['image_formset'] = GigImageFormSet(instance=gig)
+            context['contact_formset'] = GigContactFormSet(instance=gig)
+            context['service_area_formset'] = GigServiceAreaFormSet(instance=gig)
+
         return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+        contact_formset = context['contact_formset']
+        service_area_formset = context['service_area_formset']
+
+        with transaction.atomic():
+            self.object = form.save()
+
+            if image_formset.is_valid():
+                image_formset.instance = self.object
+                image_formset.save()
+            else:
+                return self.form_invalid(form)
+
+            if contact_formset.is_valid():
+                contact_formset.instance = self.object
+                contact_formset.save()
+            else:
+                return self.form_invalid(form)
+
+            if service_area_formset.is_valid():
+                service_area_formset.instance = self.object
+                service_area_formset.save()
+            else:
+                return self.form_invalid(form)
+
+        return super().form_valid(form)
 
 # Keep the function-based view as a wrapper for backward compatibility
 @login_required(login_url='/')
@@ -340,13 +540,106 @@ def thanks(request):
 
 
 def search(request):
-    gigs = Gig.objects.filter(
-        Q(title__icontains=request.GET['param']) |
-        Q(category__category__icontains=request.GET['param']) |
-        Q(sub_category__subcategory__icontains=request.GET['param']) |
-        Q(district__district_name__icontains=request.GET['param']) |
-        Q(location__local__local_name__icontains=request.GET['param']), status=True).order_by("-create_time")
-    return render(request, 'home.html', {"gigs": gigs})
+    """
+    Advanced search view that can be visited with or without parameters.
+    Provides extensive filtering options and intuitive UI.
+    """
+    # Get search parameters
+    search_query = request.GET.get('param', '')
+    category_id = request.GET.get('category', '')
+    subcategory_id = request.GET.get('subcategory', '')
+    district_id = request.GET.get('district', '')
+    location_id = request.GET.get('location', '')
+    min_price = request.GET.get('min_price', '')
+    max_price = request.GET.get('max_price', '')
+
+    # Start with base query - always show active gigs
+    base_query = Q(status=True)
+
+    # Add text search if provided
+    if search_query:
+        base_query &= (
+            Q(title__icontains=search_query) |
+            Q(description__icontains=search_query) |
+            Q(category__category__icontains=search_query) |
+            Q(sub_category__subcategory__icontains=search_query) |
+            Q(district__district_name__icontains=search_query) |
+            Q(location__local__local_name__icontains=search_query)
+        )
+
+    # Apply category filter if provided
+    if category_id:
+        base_query &= Q(category_id=category_id)
+
+    # Apply subcategory filter if provided
+    if subcategory_id:
+        base_query &= Q(sub_category_id=subcategory_id)
+
+    # Apply district filter if provided
+    if district_id:
+        base_query &= Q(district_id=district_id)
+
+    # Apply location filter if provided
+    if location_id:
+        base_query &= Q(location_id=location_id)
+
+    # Apply price range filters if provided
+    if min_price:
+        try:
+            min_price_value = int(min_price)
+            base_query &= Q(price__gte=min_price_value)
+        except ValueError:
+            # Invalid min_price, ignore this filter
+            min_price = ''
+
+    if max_price:
+        try:
+            max_price_value = int(max_price)
+            base_query &= Q(price__lte=max_price_value)
+        except ValueError:
+            # Invalid max_price, ignore this filter
+            max_price = ''
+
+    # Execute the query
+    gigs = Gig.objects.filter(base_query).select_related(
+        'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
+    ).order_by("-create_time")
+
+    # Get total count before pagination
+    total_count = gigs.count()
+
+    # Paginate results
+    paginator = Paginator(gigs, 9)  # Show 9 gigs per page
+    page = request.GET.get('page')
+    try:
+        gigs = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page
+        gigs = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, deliver last page of results
+        gigs = paginator.page(paginator.num_pages)
+
+    # Check if any filters are applied
+    has_filters = bool(category_id or subcategory_id or district_id or location_id or min_price or max_price)
+    has_search = bool(search_query)
+
+    # Prepare context
+    context = {
+        "gigs": gigs,
+        "search_query": search_query,
+        "selected_category": category_id,
+        "selected_subcategory": subcategory_id,
+        "selected_district": district_id,
+        "selected_location": location_id,
+        "min_price": min_price,
+        "max_price": max_price,
+        "has_filters": has_filters,
+        "has_search": has_search,
+        "total_count": total_count
+    }
+
+    return render(request, 'search_results.html', context)
 
 
 def register(request):

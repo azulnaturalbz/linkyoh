@@ -1,136 +1,299 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Privacy Policy{% endblock %}
+{% block title %}Privacy Policy | Linkyoh{% endblock %}
+{% block head %}
+<style>
+    .privacy-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .privacy-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .privacy-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{% static "img/linkyoh_banner_web.png" %}') center/cover;
+        opacity: 0.1;
+        z-index: 0;
+    }
+
+    .privacy-header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .privacy-section {
+        background-color: white;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .privacy-section h3 {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--gray-200);
+        padding-bottom: 0.75rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .privacy-section p, .privacy-section ul li {
+        color: var(--gray-700);
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    .privacy-section ul {
+        padding-left: 1.5rem;
+    }
+
+    .privacy-section ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    .privacy-footer {
+        background-color: var(--gray-100);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .privacy-footer .contact-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .privacy-footer .contact-icon {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-right: 1rem;
+    }
+
+    .privacy-nav {
+        position: sticky;
+        top: 120px;
+        background-color: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .privacy-nav-title {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .privacy-nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .privacy-nav-list li {
+        margin-bottom: 0.75rem;
+    }
+
+    .privacy-nav-list a {
+        color: var(--gray-700);
+        text-decoration: none;
+        display: block;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        transition: all 0.2s;
+    }
+
+    .privacy-nav-list a:hover {
+        background-color: var(--gray-100);
+        color: var(--primary-color);
+    }
+
+    .privacy-nav-list a.active {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .trust-badge {
+        display: flex;
+        align-items: center;
+        background-color: rgba(46, 204, 113, 0.1);
+        border-left: 4px solid var(--secondary-color);
+        padding: 1rem;
+        border-radius: 0.25rem;
+        margin: 1.5rem 0;
+    }
+
+    .trust-badge-icon {
+        font-size: 2rem;
+        color: var(--secondary-color);
+        margin-right: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .privacy-nav {
+            position: relative;
+            top: 0;
+            margin-bottom: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block page %}
-    <h2>Privacy Policy</h2>
-<p>
-    This privacy policy discloses the privacy practices for
-    <a href="https://www.linkyoh.com">
-      https://www.linkyoh.com
-    </a>.
-    This privacy policy applies solely to information collected by this web
-    site. It will notify you of the following:
-  </p>
-  <ul>
-    <li>
-      What personally identifiable information is collected from you through
-      the web site, how it is used and with whom it may be shared.
-    </li>
-    <li>
-      What choices are available to you regarding the use of your data.
-    </li>
-    <li>
-      The security procedures in place to protect the misuse of your information.
-    </li>
-    <li>How you can correct any inaccuracies in the information.</li>
-  </ul>
+<div class="privacy-container">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Header Section -->
+            <div class="privacy-header">
+                <div class="privacy-header-content">
+                    <h1 class="display-5 mb-3">Privacy Policy</h1>
+                    <p class="lead mb-0">Last updated: September 10th, 2024</p>
+                </div>
+            </div>
 
-  <hr/>
+            <!-- Introduction Section -->
+            <div class="privacy-section" id="introduction">
+                <h3>Introduction</h3>
+                <p>This privacy policy discloses the privacy practices for <a href="https://www.linkyoh.com">https://www.linkyoh.com</a>. This privacy policy applies solely to information collected by this website. It will notify you of the following:</p>
 
-  <h3>Information collection, use, and sharing</h3>
-  <p>
-    We are the sole owners of the information collected on this site. We
-    only have access to/collect information that you voluntarily give us via
-    email or other direct contact from you. We will not sell or rent this
-    information to anyone.
-  </p>
-  <p>
-    We will use your information to respond to you, regarding the reason you
-    contacted us. We will not share your information with any third party
-    outside of our organization, other than as necessary to fulfill your
-    request, e.g. to process a credit card.
-  </p>
-  <p>
-    Unless you ask us not to, we may contact you via email in the future to
-    tell you about specials, new products or services, or changes to this
-    privacy policy.
-  </p>
+                <ul>
+                    <li>What personally identifiable information is collected from you through the website, how it is used and with whom it may be shared.</li>
+                    <li>What choices are available to you regarding the use of your data.</li>
+                    <li>The security procedures in place to protect the misuse of your information.</li>
+                    <li>How you can correct any inaccuracies in the information.</li>
+                </ul>
 
-  <hr/>
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Your Data is Protected</h5>
+                        <p class="mb-0">We are committed to protecting your privacy and handling your data in an open and transparent manner.</p>
+                    </div>
+                </div>
+            </div>
 
-  <h3>Your access to and control over information</h3>
-  <p>
-    You may opt out of any future contacts from us at any time. You can do the
-    following at any time by contacting us via the email address or phone
-    number given on our website:
-  </p>
-  <ul>
-    <li>See what data we have about you, if any.</li>
-    <li>Change/correct any data we have about you.</li>
-    <li>Have us delete any data we have about you.</li>
-    <li>Express any concern you have about our use of your data.</li>
-  </ul>
+            <!-- Information Collection Section -->
+            <div class="privacy-section" id="information-collection">
+                <h3>Information Collection, Use, and Sharing</h3>
+                <p>We are the sole owners of the information collected on this site. We only have access to/collect information that you voluntarily give us via email or other direct contact from you. We will not sell or rent this information to anyone.</p>
 
-  <hr/>
+                <p>We will use your information to respond to you, regarding the reason you contacted us. We will not share your information with any third party outside of our organization, other than as necessary to fulfill your request, e.g. to process a credit card.</p>
 
-  <h3>Security</h3>
-  <p>
-    We take precautions to protect your information. When you submit sensitive
-    information via the website, your information is protected both online and
-    offline.
-  </p>
-  <p>
-    Wherever we collect sensitive information (such as credit card data),
-    that information is encrypted and transmitted to us in a secure way.
-    You can verify this by looking for a closed lock icon at the bottom of your
-    web browser, or looking for "https" at the beginning of the address of
-    the web page.
-  </p>
-  <p>
-    While we use encryption to protect sensitive information transmitted
-    online, we also protect your information offline. Only employees who
-    need the information to perform a specific job (for example, billing or
-    customer service) are granted access to personally identifiable information.
-    The computers/servers in which we store personally identifiable information
-    are kept in a secure environment.
-  </p>
+                <p>Unless you ask us not to, we may contact you via email in the future to tell you about specials, new products or services, or changes to this privacy policy.</p>
+            </div>
 
-  <hr/>
+            <!-- User Control Section -->
+            <div class="privacy-section" id="user-control">
+                <h3>Your Access to and Control Over Information</h3>
+                <p>You may opt out of any future contacts from us at any time. You can do the following at any time by contacting us via the email address or phone number given on our website:</p>
 
-  <h3>Cookies</h3>
-  <p>
-    We use "cookies" on this site. A cookie is a piece of data stored on a
-    site visitor's hard drive to help us improve your access to our site
-    and identify repeat visitors to our site. For instance, when we use a
-    cookie to identify you, you would not have to log in with a password more
-    than once, thereby saving time while on our site. Cookies can also enable us
-    to track and target the interests of our users to enhance the experience
-    on our site. Usage of a cookie is in no way linked to any personally
-    identifiable information on our site.
-  </p>
-  <p>
-    If you do not want to be tracked by Google Analytics you may opt-out using
-    <a target="_blank" href="https://tools.google.com/dlpage/gaoptout/">
-      Google&#39;s official opt-out browser add-on
-    </a>.
-  </p>
+                <ul>
+                    <li>See what data we have about you, if any.</li>
+                    <li>Change/correct any data we have about you.</li>
+                    <li>Have us delete any data we have about you.</li>
+                    <li>Express any concern you have about our use of your data.</li>
+                </ul>
+            </div>
 
-  <hr/>
+            <!-- Security Section -->
+            <div class="privacy-section" id="security">
+                <h3>Security</h3>
+                <p>We take precautions to protect your information. When you submit sensitive information via the website, your information is protected both online and offline.</p>
 
-  <h3>Links</h3>
-  <p>
-    This web site contains links to other sites. Please be aware that we are
-    not responsible for the content or privacy practices of such other sites.
+                <p>Wherever we collect sensitive information (such as credit card data), that information is encrypted and transmitted to us in a secure way. You can verify this by looking for a closed lock icon at the bottom of your web browser, or looking for "https" at the beginning of the address of the web page.</p>
 
-    We encourage our users to be aware when they leave our site and to read
-    the privacy statements of any other site that collects personally
-    identifiable information.
-  </p>
+                <p>While we use encryption to protect sensitive information transmitted online, we also protect your information offline. Only employees who need the information to perform a specific job (for example, billing or customer service) are granted access to personally identifiable information. The computers/servers in which we store personally identifiable information are kept in a secure environment.</p>
+            </div>
 
-  <hr/>
+            <!-- Cookies Section -->
+            <div class="privacy-section" id="cookies">
+                <h3>Cookies</h3>
+                <p>We use "cookies" on this site. A cookie is a piece of data stored on a site visitor's hard drive to help us improve your access to our site and identify repeat visitors to our site. For instance, when we use a cookie to identify you, you would not have to log in with a password more than once, thereby saving time while on our site. Cookies can also enable us to track and target the interests of our users to enhance the experience on our site. Usage of a cookie is in no way linked to any personally identifiable information on our site.</p>
 
-  <h3>Updates</h3>
-  <p>
-    Our privacy policy may change from time to time and all updates will be
-    posted on this page.
-  </p>
+                <p>If you do not want to be tracked by Google Analytics you may opt-out using <a target="_blank" href="https://tools.google.com/dlpage/gaoptout/">Google's official opt-out browser add-on</a>.</p>
+            </div>
 
-  <p>
-    If you feel that we are not abiding by this privacy policy, you should
-    contact us immediately via telephone at 501-672-3021 or via email.
-  </p>
+            <!-- Links Section -->
+            <div class="privacy-section" id="links">
+                <h3>Links</h3>
+                <p>This web site contains links to other sites. Please be aware that we are not responsible for the content or privacy practices of such other sites.</p>
 
-  <small class="text-muted">Last updated September 10th 2024</small>
+                <p>We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.</p>
+            </div>
+
+            <!-- Updates Section -->
+            <div class="privacy-section" id="updates">
+                <h3>Updates</h3>
+                <p>Our privacy policy may change from time to time and all updates will be posted on this page.</p>
+
+                <p>If you feel that we are not abiding by this privacy policy, you should contact us immediately via telephone at 501-672-3021 or via email.</p>
+            </div>
+
+            <!-- Privacy Footer -->
+            <div class="privacy-footer">
+                <div class="d-flex align-items-center">
+                    <small class="text-muted">Last updated: September 10th, 2024</small>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 small">Questions? <a href="{% url 'contact' %}">Contact us</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar - Navigation -->
+        <div class="col-lg-4">
+            <div class="privacy-nav">
+                <h4 class="privacy-nav-title">Table of Contents</h4>
+                <ul class="privacy-nav-list">
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#information-collection">Information Collection</a></li>
+                    <li><a href="#user-control">User Control</a></li>
+                    <li><a href="#security">Security</a></li>
+                    <li><a href="#cookies">Cookies</a></li>
+                    <li><a href="#links">Links</a></li>
+                    <li><a href="#updates">Updates</a></li>
+                </ul>
+
+                <div class="trust-badge mt-4">
+                    <div class="trust-badge-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Your Data is Protected</h5>
+                        <p class="mb-0">Read our <a href="{% url 'terms' %}">Terms of Service</a> to understand how we protect your rights.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block scripts %}
 {% endblock %}

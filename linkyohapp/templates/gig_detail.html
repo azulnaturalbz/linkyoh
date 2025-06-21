@@ -8,123 +8,290 @@
     <meta property="og:description" content="{{ gig.description }}" />
     <meta property="og:url" content="{{ request.build_absolute_uri }}" />
     <meta property="og:type" content="website" />
+    <style>
+        .carousel-item img {
+            object-fit: cover;
+            height: 400px;
+            width: 100%;
+        }
+        .contact-badge {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .service-area-badge {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .whatsapp-badge {
+            background-color: #25D366;
+            color: white;
+        }
+    </style>
 {% endblock %}
 
 {% block page %}
     <div class="row">
         <div class="col-md-8">
-            <br>
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb" class="mt-3">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a
-                            href="{% url 'category_listing' gig.category.id %}">{{ gig.category.category }}</a></li>
-                    <li class="breadcrumb-item"><a
-                            href="{% url 'sub_category_listing' gig.sub_category.id %}">{{ gig.sub_category.subcategory }}</a>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'category_listing' gig.category.id %}">{{ gig.category.category }}</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'sub_category_listing' gig.sub_category.id %}">{{ gig.sub_category.subcategory }}</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">{{ gig.title }}</li>
                 </ol>
             </nav>
-            <br>
-            <div class="card">
+
+            <!-- Image Carousel -->
+            <div class="card mb-4">
                 <div class="card-body">
-                    <h3 class="card-title">{{ gig.title }}</h3>
-                </div>
-                <img class="card-img-bottom" src="/media/{{ gig.photo }}" alt="{{ gig.title }}">
-            </div>
-            <br>
-            <div class="card text-center">
-                <div class="card-header">
-                    Service/Offer Details:
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ gig.title }}</h5>
-                    <p class="card-text">Description: {{ gig.description }}</p>
-                    <p class="card-text">($) : {{ gig.price }}</p>
-                    <p class="card-text">Contact Number : {{ gig.phone_number }}</p>
-                    <p class="card-text">Category : {{ gig.category }}</p>
-                    <p class="card-text">Subcategory: {{ gig.sub_category }}</p>
-                    <p class="card-text">District : {{ gig.district }}</p>
-                    <p class="card-text">Location: {{ gig.location.localType }} : {{ gig.location }}</p>
-                    <p class="card-text">Address 1: {{ gig.address_1 }}</p>
-                    <p class="card-text">Address 2: {{ gig.address_2 }}</p>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
-                       class="btn btn-primary" target="_blank">
-                        Share on Facebook
-                    </a>
-                </div>
-                <div class="card-footer text-muted">
-                    <div id="like-section">
-                        {% include 'like_section.html' %}
-                    </div>
-                    {{ gig.create_time }}
+                    <h2 class="card-title">{{ gig.title }}</h2>
+                    <p class="text-muted">
+                        <i class="fas fa-calendar-alt me-1"></i> Posted: {{ gig.create_time|date:"F j, Y" }}
+                    </p>
                 </div>
 
-            </div>
-            <br>
-            <div class="card">
-                <div class="card-header">
-                    Write Review
-                </div>
-                <div class="card-body">
-                    {% if show_post_review %}
-
-                        <form method="POST" action="{% url 'gig_detail' gig.pk %}">
-                            {% csrf_token %}
-                            {% bootstrap_form show_post_review show_label=False %}
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary float-right">POST</button>
+                {% if additional_images %}
+                    <div id="gigImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#gigImagesCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Main image"></button>
+                            {% for image in additional_images %}
+                                <button type="button" data-bs-target="#gigImagesCarousel" data-bs-slide-to="{{ forloop.counter }}" aria-label="Image {{ forloop.counter }}"></button>
+                            {% endfor %}
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ gig.get_photo_url }}" class="d-block w-100" alt="{{ gig.title }}">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Main Image</h5>
+                                </div>
                             </div>
-                        </form>
-                    {% else %}
-                        <blockquote class="blockquote mb-0">
-                            <p>Kindly login to post review.</p>
+                            {% for image in additional_images %}
+                                <div class="carousel-item">
+                                    <img src="{{ image.get_image_url }}" class="d-block w-100" alt="{{ image.caption|default:gig.title }}">
+                                    {% if image.caption %}
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>{{ image.caption }}</h5>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#gigImagesCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#gigImagesCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <img class="card-img-bottom" src="{{ gig.get_photo_url }}" alt="{{ gig.title }}">
+                {% endif %}
+            </div>
 
-                        </blockquote>
+            <!-- Service Details -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Service Details</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>Description</h5>
+                            <p>{{ gig.description }}</p>
+
+                            <h5 class="mt-4">Price</h5>
+                            <p class="fs-4 fw-bold text-success">${{ gig.price }}</p>
+
+                            <h5 class="mt-4">Category</h5>
+                            <p>
+                                <span class="badge bg-secondary">{{ gig.category }}</span>
+                                <span class="badge bg-info">{{ gig.sub_category }}</span>
+                            </p>
+
+                            <h5 class="mt-4">Location</h5>
+                            <p>
+                                <i class="fas fa-map-marker-alt me-1"></i> 
+                                {{ gig.district }} - {{ gig.location }}
+                            </p>
+                            <p>
+                                <strong>Address:</strong><br>
+                                {{ gig.address_1 }}
+                                {% if gig.address_2 %}<br>{{ gig.address_2 }}{% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-grid gap-2">
+                                <a href="tel:{{ gig.phone_number }}" class="btn btn-success btn-lg">
+                                    <i class="fas fa-phone-alt me-2"></i> Call Now
+                                </a>
+
+                                {% if gig.phone_number %}
+                                    <a href="https://wa.me/{{ gig.phone_number|cut:'+' }}" class="btn btn-outline-success btn-lg" target="_blank">
+                                        <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                                    </a>
+                                {% endif %}
+
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                                   class="btn btn-outline-primary btn-lg" target="_blank">
+                                    <i class="fab fa-facebook-f me-2"></i> Share
+                                </a>
+                            </div>
+
+                            <div id="like-section" class="mt-3 text-center">
+                                {% include 'like_section.html' %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Contact Numbers -->
+                    {% if contacts %}
+                        <div class="mt-4">
+                            <h5>Additional Contact Numbers</h5>
+                            <div class="d-flex flex-wrap">
+                                {% for contact in contacts %}
+                                    <div class="contact-badge">
+                                        {% if contact.is_whatsapp %}
+                                            <a href="https://wa.me/{{ contact.phone_number|cut:'+' }}" class="badge bg-success text-decoration-none" target="_blank">
+                                                <i class="fab fa-whatsapp me-1"></i> {{ contact.phone_number }}
+                                                {% if contact.description %} ({{ contact.description }}){% endif %}
+                                            </a>
+                                        {% else %}
+                                            <a href="tel:{{ contact.phone_number }}" class="badge bg-secondary text-decoration-none">
+                                                <i class="fas fa-phone-alt me-1"></i> {{ contact.phone_number }}
+                                                {% if contact.description %} ({{ contact.description }}){% endif %}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Additional Service Areas -->
+                    {% if service_areas %}
+                        <div class="mt-4">
+                            <h5>Additional Service Areas</h5>
+                            <div class="d-flex flex-wrap">
+                                {% for area in service_areas %}
+                                    <span class="badge bg-info service-area-badge">
+                                        <i class="fas fa-map-marker-alt me-1"></i> 
+                                        {{ area.district }} - {{ area.location }}
+                                        {% if area.description %} ({{ area.description }}){% endif %}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
             </div>
-            <br>
-            <div class="card">
-                <div class="card-header">
-                    Reviews
+
+            <!-- Reviews Section -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Reviews</h4>
+                    <span class="badge bg-light text-dark">{{ reviews|length }} Review{{ reviews|length|pluralize }}</span>
                 </div>
                 <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        {% for review in reviews %}
-                            <p>{{ review.rating.rating_description }}</p>
-                            <p>{{ review.content }}</p>
-                            <footer class="blockquote-footer">Created at: {{ review.create_time }} <cite
-                                    title="Source Title"> {{ review.user.get_full_name|default:review.user.username }}</cite>
-                            </footer>
-                        {% endfor %}
-                    </blockquote>
+                    {% if show_post_review %}
+                        <div class="mb-4">
+                            <h5>Write a Review</h5>
+                            <form method="POST" action="{% url 'gig_detail' gig.pk %}">
+                                {% csrf_token %}
+                                {% bootstrap_form show_post_review %}
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-paper-plane me-1"></i> Post Review
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <hr>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i> Please <a href="{% url 'login' %}">login</a> to post a review.
+                        </div>
+                    {% endif %}
+
+                    {% if reviews %}
+                        <div class="reviews-list">
+                            {% for review in reviews %}
+                                <div class="review-item mb-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <img src="{% if review.user.profile.avatar %}{{ review.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                             class="rounded-circle me-2" width="40" height="40" alt="User avatar">
+                                        <div>
+                                            <h6 class="mb-0">{{ review.user.get_full_name|default:review.user.username }}</h6>
+                                            <small class="text-muted">{{ review.create_time|date:"F j, Y" }}</small>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="badge bg-warning text-dark">{{ review.rating.rating_description }}</span>
+                                    </div>
+                                    <p class="mb-0">{{ review.content }}</p>
+                                </div>
+                                {% if not forloop.last %}<hr>{% endif %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <p class="text-muted mb-0">No reviews yet. Be the first to review!</p>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
-            <br>
         </div>
 
         <div class="col-md-4">
-            <br>
-            <a href="tel:{{ gig.phone_number }}">
-                <button type="button" class="btn btn-success btn-block">Contact Now (${{ gig.price }})</button>
-            </a>
-            <br>
-            <div class="card card-default">
-
-                <div class="card-body">
-                    <img src="
-
-
-                            {% if user.profile %}{{ gig.user.profile.avatar }} {% else %} {% static 'img/avatar.png' %}{% endif %}"
-                         class="img-circle center-block" height="100" width="100">
-                    <a href="{% url 'profile' gig.user.id %}"><h4
-                            class="text-center">{{ gig.user.get_full_name|default:gig.user.username }}</h4></a>
-                    <hr/>
+            <!-- Provider Info -->
+            <div class="card mb-4 mt-3">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Service Provider</h5>
+                </div>
+                <div class="card-body text-center">
+                    <img src="{% if gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+                         class="rounded-circle mb-3" height="100" width="100" alt="Provider avatar">
+                    <h5>
+                        <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none">
+                            {{ gig.user.get_full_name|default:gig.user.username }}
+                        </a>
+                    </h5>
+                    <p class="text-muted">
+                        <i class="fas fa-user-clock me-1"></i> Member since {{ gig.user.date_joined|date:"F Y" }}
+                    </p>
+                    <hr>
                     <p>{{ gig.user.profile.about }}</p>
+                    {% if gig.user.profile.slogan %}
+                        <p class="fst-italic">"{{ gig.user.profile.slogan }}"</p>
+                    {% endif %}
                 </div>
             </div>
-            <br>
+
+            <!-- Related Gigs -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Similar Services</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for related_gig in related_gigs|slice:":5" %}
+                        <a href="{% url 'gig_detail' related_gig.id %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">{{ related_gig.title|truncatechars:40 }}</h6>
+                                <small>${{ related_gig.price }}</small>
+                            </div>
+                            <small class="text-muted">{{ related_gig.sub_category }}</small>
+                        </a>
+                    {% empty %}
+                        <div class="list-group-item text-center py-3">
+                            <p class="text-muted mb-0">No similar services found</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        <br>
     </div>
 {% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+<div class="card gig-card h-100">
+    <a href="{% url 'gig_detail' gig.id %}">
+        <img src="{{ gig.get_photo_url }}" class="card-img-top" alt="{{ gig.title }}">
+    </a>
+    {% if show_featured and gig.featured %}
+    <span class="featured-badge"><i class="fas fa-star me-1"></i> Featured</span>
+    {% endif %}
+    {% if show_price %}
+    <span class="price-badge">${{ gig.price }}</span>
+    {% endif %}
+    <div class="card-body">
+        <a href="{% url 'gig_detail' gig.id %}" class="text-decoration-none text-dark">
+            <h5 class="card-title">{{ gig.title }}</h5>
+        </a>
+        <div class="provider-name">
+            <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                 alt="Provider">
+            <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
+                {{ gig.user.get_full_name|default:gig.user.username }}
+            </a>
+        </div>
+        <p class="card-text">{{ gig.description | truncatechars:60 }}</p>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <span class="badge bg-success">${{ gig.price }}</span>
+            <a href="{% url 'category_listing' gig.category.id %}" class="badge bg-light text-dark text-decoration-none">
+                <i class="fas fa-tag me-1"></i>{{ gig.category }}
+            </a>
+        </div>
+    </div>
+    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+        <small class="text-muted"><i class="far fa-clock me-1"></i> {{ gig.create_time|date:"M d, Y" }}</small>
+        <a href="{% url 'gig_detail' gig.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+    </div>
+</div>

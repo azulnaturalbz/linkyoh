@@ -1,13 +1,13 @@
 import io
 from PIL import Image
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, inlineformset_factory, BaseInlineFormSet
 from phonenumber_field.formfields import PhoneNumberField
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .models import Gig, Location, Review, Contact
+from .models import Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea
 
 
 # Declaring Extensions that will be allowed to be uploaded(Not to be used yet)
@@ -36,8 +36,8 @@ class GigForm(ModelForm):
             'title': _('Enter a clear, descriptive title for your gig (max 500 characters)'),
             'description': _('Describe your service in detail (max 1000 characters)'),
             'price': _('Enter your price in dollars'),
-            'photo': _('Upload an image for your gig (jpg, jpeg, png, gif only)'),
-            'phone_number': _('Enter your phone number in international format (e.g., +5016550000)'),
+            'photo': _('Upload a main image for your gig (jpg, jpeg, png, gif only)'),
+            'phone_number': _('Enter your primary phone number in international format (e.g., +5016550000)'),
             'address_1': _('Enter your primary address'),
             'address_2': _('Enter additional address information (optional)'),
         }
@@ -96,6 +96,106 @@ class GigForm(ModelForm):
             if photo.size > 10 * 1024 * 1024:
                 raise forms.ValidationError(_('File size must be no more than 10MB'))
         return photo
+
+
+class GigImageForm(ModelForm):
+    """Form for additional gig images"""
+    class Meta:
+        model = GigImage
+        fields = ['image', 'caption', 'is_primary', 'order']
+        widgets = {
+            'caption': forms.TextInput(attrs={'placeholder': 'Image caption (optional)'}),
+            'order': forms.NumberInput(attrs={'min': 0, 'max': 100}),
+        }
+        help_texts = {
+            'image': _('Upload an additional image (jpg, jpeg, png, gif only)'),
+            'caption': _('Add a caption for this image (optional)'),
+            'is_primary': _('Set as the primary image for this gig'),
+            'order': _('Set the display order (lower numbers appear first)'),
+        }
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            # Check file extension
+            ext = image.name.split('.')[-1].lower()
+            if ext not in ['jpg', 'jpeg', 'png', 'gif']:
+                raise forms.ValidationError(_('Only jpg, jpeg, png, and gif files are allowed'))
+
+            # Check file size (max 10MB)
+            if image.size > 10 * 1024 * 1024:
+                raise forms.ValidationError(_('File size must be no more than 10MB'))
+        return image
+
+
+class GigContactForm(ModelForm):
+    """Form for additional gig contact numbers"""
+    class Meta:
+        model = GigContact
+        fields = ['phone_number', 'description', 'is_whatsapp', 'is_primary', 'order']
+        widgets = {
+            'description': forms.TextInput(attrs={'placeholder': 'e.g., Work, Mobile, Office'}),
+            'order': forms.NumberInput(attrs={'min': 0, 'max': 100}),
+        }
+        help_texts = {
+            'phone_number': _('Enter a phone number in international format (e.g., +5016550000)'),
+            'description': _('Add a description for this contact (optional)'),
+            'is_whatsapp': _('Check if this number is available on WhatsApp'),
+            'is_primary': _('Set as the primary contact for this gig'),
+            'order': _('Set the display order (lower numbers appear first)'),
+        }
+
+
+class GigServiceAreaForm(ModelForm):
+    """Form for additional gig service areas"""
+    class Meta:
+        model = GigServiceArea
+        fields = ['district', 'location', 'description', 'is_primary', 'order']
+        widgets = {
+            'description': forms.TextInput(attrs={'placeholder': 'e.g., Main Area, Secondary Area'}),
+            'order': forms.NumberInput(attrs={'min': 0, 'max': 100}),
+        }
+        help_texts = {
+            'district': _('Select a district'),
+            'location': _('Select a location within the district'),
+            'description': _('Add a description for this service area (optional)'),
+            'is_primary': _('Set as the primary service area for this gig'),
+            'order': _('Set the display order (lower numbers appear first)'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Handle dynamic location dropdown
+        self.fields['location'].queryset = Location.objects.none()
+        if 'district' in self.data:
+            try:
+                district_id = self.data.get('district')
+                self.fields['location'].queryset = Location.objects.filter(
+                    local__local_district=district_id
+                ).select_related('local').order_by('local')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty location queryset
+        elif self.instance.pk and hasattr(self.instance, 'district') and self.instance.district:
+            self.fields['location'].queryset = Location.objects.filter(
+                local__local_district=self.instance.district_id
+            ).select_related('local').order_by('local')
+
+
+# Create formsets for the related models
+GigImageFormSet = inlineformset_factory(
+    Gig, GigImage, form=GigImageForm, 
+    extra=1, can_delete=True, max_num=10
+)
+
+GigContactFormSet = inlineformset_factory(
+    Gig, GigContact, form=GigContactForm,
+    extra=1, can_delete=True, max_num=5
+)
+
+GigServiceAreaFormSet = inlineformset_factory(
+    Gig, GigServiceArea, form=GigServiceAreaForm,
+    extra=1, can_delete=True, max_num=5
+)
 
     # Function Below makes sure that the image is only jpg , jpeg ,png or gif.
     # def clean_photo(self):

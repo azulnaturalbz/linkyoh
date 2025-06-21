@@ -1,0 +1,26 @@
+{% load static %}
+<a href="{% url 'category_listing' category.id %}" class="text-decoration-none">
+    <div class="card category-card">
+        <img src="{{ category.get_photo_url }}" class="card-img" alt="{{ category.category }}">
+        <div class="category-overlay">
+            <h6 class="mb-0">
+                {% if category.category == "Auto" %}
+                    <i class="fas fa-car me-1"></i>
+                {% elif category.category == "Health" %}
+                    <i class="fas fa-heartbeat me-1"></i>
+                {% elif category.category == "House" %}
+                    <i class="fas fa-home me-1"></i>
+                {% elif category.category == "Housing & Construction" %}
+                    <i class="fas fa-hammer me-1"></i>
+                {% elif category.category == "Pets" %}
+                    <i class="fas fa-paw me-1"></i>
+                {% elif category.category == "Services" %}
+                    <i class="fas fa-concierge-bell me-1"></i>
+                {% else %}
+                    <i class="fas fa-tag me-1"></i>
+                {% endif %}
+                {{ category.category }}
+            </h6>
+        </div>
+    </div>
+</a>

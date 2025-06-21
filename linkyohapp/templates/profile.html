@@ -1,65 +1,210 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block page %}
+{% block head %}
+<style>
+    .profile-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
 
-    {% if request.user == profile.user %}
-        <form method="post">
-            {% csrf_token %}
-            <div class="jumbotron text-center">
-                <h1><b>{{ profile.user.get_full_name|default:profile.user.username }}</b></h1>
-                <input class="form-control" name="slogan" value="{{ profile.slogan }}">
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <img src="{{ profile.avatar }}" alt="" class="img-thumbnail" height="120" width="120">
-                    <h3 class="text-uppercase"><b>About {{ profile.user.get_full_name|default:profile.user.username }}</b></h3>
-                    <hr/>
-                    <input class="form-control" name="about" value="{{ profile.about }}">
-                    <br/>
-                    <button class="btn btn-success" type="submit">Update</button>
-                </div>
-            </div>
-        </form>
-    {% else %}
-        <div class="jumbotron text-center">
-            <h1><b>{{ profile.user.get_full_name|default:profile.user.username }}</b></h1>
-            <p>{{ profile.slogan }}</p>
+    .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        object-fit: cover;
+    }
+
+    .profile-info {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .profile-about {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .profile-form .form-control {
+        margin-bottom: 1rem;
+    }
+
+    .gig-card {
+        height: 100%;
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gig-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .gig-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .section-title {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        z-index: 10;
+    }
+
+    .price-badge {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        z-index: 10;
+    }
+
+    .viewing-banner {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="container text-center">
+            <img src="{% if profile.avatar %}{{ profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                 alt="{{ profile.user.get_full_name|default:profile.user.username }}" class="profile-avatar mb-4">
+            <h1 class="display-5 mb-2">{{ profile.user.get_full_name|default:profile.user.username }}</h1>
+            {% if request.user == profile.user %}
+                <p class="lead mb-0">This is your public profile</p>
+            {% else %}
+                <p class="lead mb-0">{{ profile.slogan }}</p>
+            {% endif %}
         </div>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <img src="{{ profile.avatar }}" alt="" class="img-thumbnail" height="120" width="120">
-                <h3 class="text-uppercase"><b>About {{ profile.user.get_full_name|default:profile.user.username }}</b></h3>
-                <hr/>
-                <p>{{ profile.about }}</p>
-            </div>
+    </div>
+
+    <!-- Viewing Banner (only when viewing someone else's profile) -->
+    {% if request.user != profile.user %}
+    <div class="viewing-banner d-flex align-items-center">
+        <i class="fas fa-info-circle me-3 fs-4 text-primary"></i>
+        <div>
+            <p class="mb-0">You are viewing <strong>{{ profile.user.get_full_name|default:profile.user.username }}</strong>'s profile and listings.</p>
         </div>
+    </div>
     {% endif %}
 
-    <h3 class="text-uppercase" style="margin-top: 50px"><b>{{ profile.user.get_full_name|default:profile.user.username }}'s gigs</b></h3>
+    <!-- Profile Content -->
     <div class="row">
-
-        {% for gig in gigs %}
-
-            <div class="col-md-3">
-                <div class="card">
-                    <a href="{% url 'gig_detail' gig.id %}"><img class="card-img-top" src="/media/{{ gig.photo }}"
-                                                                 alt="Card image cap"></a>
-                    <div class="card-body">
-                        <strong class="d-inline-block mb-2 text-primary">{{ gig.category }}</strong>
-                        <a href="{% url 'gig_detail' gig.id %}"><h5 class="card-title">{{ gig.title }}</h5></a>
-                        <p class="card-text">{{ gig.description | truncatechars:40 }}</p>
-                        <div class="mb-1 text-muted">${{ gig.price }}</div>
-                        <a href="{% url 'gig_detail' gig.id %}">View Details</a>
+        <!-- Left Column - Profile Info -->
+        <div class="col-lg-4 mb-4">
+            {% if request.user == profile.user %}
+                <form method="post" class="profile-form">
+                    {% csrf_token %}
+                    <div class="profile-info">
+                        <h3 class="mb-4">Profile Information</h3>
+                        <div class="form-group">
+                            <label for="slogan"><i class="fas fa-quote-left me-2"></i>Your Slogan</label>
+                            <input class="form-control" id="slogan" name="slogan" value="{{ profile.slogan }}" placeholder="Add a catchy slogan">
+                        </div>
+                        <div class="form-group">
+                            <label for="about"><i class="fas fa-user me-2"></i>About You</label>
+                            <textarea class="form-control" id="about" name="about" rows="5" placeholder="Tell potential customers about yourself or your business">{{ profile.about }}</textarea>
+                        </div>
+                        <button class="btn btn-primary mt-3" type="submit">
+                            <i class="fas fa-save me-2"></i>Update Profile
+                        </button>
                     </div>
+                </form>
+            {% else %}
+                <div class="profile-about">
+                    <h3 class="mb-4"><i class="fas fa-user me-2"></i>About {{ profile.user.get_full_name|default:profile.user.username }}</h3>
+                    {% if profile.about %}
+                        <p>{{ profile.about }}</p>
+                    {% else %}
+                        <p class="text-muted">This user hasn't added any information yet.</p>
+                    {% endif %}
 
-                    <div class="card-footer">
-                        <small class="text-muted">Updated at:{{ gig.create_time }}</small>
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="fas fa-envelope me-2"></i>Contact</h5>
+                        <a href="#" class="btn btn-outline-primary mb-2 w-100">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </a>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endif %}
+        </div>
 
+        <!-- Right Column - Gigs -->
+        <div class="col-lg-8">
+            <h2 class="section-title">
+                {% if request.user == profile.user %}
+                    Your Services
+                {% else %}
+                    {{ profile.user.get_full_name|default:profile.user.username }}'s Services
+                {% endif %}
+            </h2>
+
+            {% if gigs %}
+                <div class="row">
+                    {% for gig in gigs %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            {% include 'includes/_gig_card.html' with show_price=True %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    {% if request.user == profile.user %}
+                        <p class="mb-0">You haven't created any services yet. <a href="{% url 'create_gig' %}" class="alert-link">Create your first service</a> to get started!</p>
+                    {% else %}
+                        <p class="mb-0">{{ profile.user.get_full_name|default:profile.user.username }} hasn't created any services yet.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 {% block scripts %}

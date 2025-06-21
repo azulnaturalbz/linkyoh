@@ -1,17 +1,69 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block page %}
-    <div class="jumbotron text-xs-center">
-  <h1 class="display-3">Thank You!</h1>
-  <p class="lead"><strong>Please note that your request has been</strong> we'll be getting back to you soon.</p>
-  <hr>
-  <p>
-    Having trouble? <a href="{% url 'contact' %}">Contact us</a>
-  </p>
-  <p class="lead">
-    <a class="btn btn-primary btn-sm" href="{% url 'home' %}" role="button">Continue to homepage</a>
-  </p>
-</div>
+
+{% block head %}
+<style>
+    .thanks-container {
+        padding: 4rem 0;
+        text-align: center;
+    }
+    
+    .thanks-icon {
+        font-size: 5rem;
+        color: var(--secondary-color);
+        margin-bottom: 2rem;
+    }
+    
+    .thanks-card {
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 3rem;
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: white;
+    }
+    
+    .action-buttons {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    @media (max-width: 576px) {
+        .thanks-container {
+            padding: 2rem 0;
+        }
+        
+        .thanks-card {
+            padding: 2rem 1rem;
+        }
+    }
+</style>
 {% endblock %}
-{% block scripts %}
+
+{% block page %}
+<div class="thanks-container">
+    <div class="thanks-card">
+        <div class="thanks-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1 class="display-4 mb-3">Thank You!</h1>
+        
+        <p class="lead mb-3">Your message has been received successfully.</p>
+        
+        <p class="mb-4">We appreciate you contacting Linkyoh. Our team will review your message and get back to you shortly. Please allow 24-48 hours for a response during business days.</p>
+        
+        <div class="action-buttons">
+            <a href="{% url 'contact' %}" class="btn btn-outline-primary">
+                <i class="fas fa-envelope me-2"></i>Send Another Message
+            </a>
+            <a href="{% url 'home' %}" class="btn btn-primary">
+                <i class="fas fa-home me-2"></i>Return to Homepage
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

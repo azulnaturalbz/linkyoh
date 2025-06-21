@@ -1,11 +1,286 @@
 {% extends "base.html" %}
-{% block title %}Create an account{% endblock %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Create an account | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    /* Registration page specific styles */
+    .register-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .register-card {
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+
+    .register-image {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        padding: 3rem;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .register-form-container {
+        padding: 3rem;
+        background-color: white;
+    }
+
+    .register-benefits {
+        margin-top: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 1rem;
+        padding: 2rem;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+
+    .benefit-icon {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .form-control {
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        border: 1px solid var(--gray-300);
+    }
+
+    .form-text {
+        color: var(--gray-600);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .security-note {
+        display: flex;
+        align-items: center;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background-color: rgba(52, 152, 219, 0.1);
+        border-radius: 0.5rem;
+    }
+
+    .security-icon {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-right: 1rem;
+    }
+
+    .password-requirements {
+        background-color: var(--gray-100);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .password-requirements ul {
+        padding-left: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .password-requirements li {
+        margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .register-image {
+            padding: 2rem;
+        }
+
+        .register-form-container {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block page %}
-    <h1>Create an account</h1>
-    <p>Please, sign up using the following form:</p>
-    <form action="." method="post">
-        {{ user_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Create my account"></p>
-    </form>
+<div class="register-container my-5">
+    <div class="row register-card">
+        <!-- Left side - Image and text -->
+        <div class="col-lg-6 register-image">
+            <h1 class="display-5 mb-4">Join Linkyoh Today</h1>
+            <p class="lead mb-4">Create your account to start showcasing your services, connecting with customers, and growing your business in Belize.</p>
+            <div class="mt-auto">
+                <p class="mb-0">Already have an account?</p>
+                <a href="{% url 'login' %}" class="btn btn-outline-light mt-2">Log In</a>
+            </div>
+        </div>
+
+        <!-- Right side - Registration form -->
+        <div class="col-lg-6 register-form-container">
+            <h2 class="mb-4">Create Your Account</h2>
+            <p class="text-muted mb-4">Fill out the form below to get started. All fields are required.</p>
+
+            {% if user_form.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong>Registration failed!</strong> Please correct the errors below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            <form action="." method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ user_form.username.id_for_label }}">Username</label>
+                    {% render_field user_form.username class="form-control" placeholder="Choose a username" %}
+                    {% if user_form.username.errors %}
+                        <div class="text-danger">{{ user_form.username.errors }}</div>
+                    {% endif %}
+                    <div class="form-text">Choose a unique username that you'll use to log in.</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="{{ user_form.first_name.id_for_label }}">First Name</label>
+                            {% render_field user_form.first_name class="form-control" placeholder="Your first name" %}
+                            {% if user_form.first_name.errors %}
+                                <div class="text-danger">{{ user_form.first_name.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="{{ user_form.last_name.id_for_label }}">Last Name</label>
+                            {% render_field user_form.last_name class="form-control" placeholder="Your last name" %}
+                            {% if user_form.last_name.errors %}
+                                <div class="text-danger">{{ user_form.last_name.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ user_form.email.id_for_label }}">Email Address</label>
+                    {% render_field user_form.email class="form-control" placeholder="your.email@example.com" %}
+                    {% if user_form.email.errors %}
+                        <div class="text-danger">{{ user_form.email.errors }}</div>
+                    {% endif %}
+                    <div class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ user_form.password.id_for_label }}">Password</label>
+                    {% render_field user_form.password class="form-control" placeholder="Create a secure password" %}
+                    {% if user_form.password.errors %}
+                        <div class="text-danger">{{ user_form.password.errors }}</div>
+                    {% endif %}
+                    <div class="password-requirements">
+                        <p class="mb-2"><i class="fas fa-shield-alt me-2"></i><strong>Password requirements:</strong></p>
+                        <ul>
+                            <li>At least 8 characters long</li>
+                            <li>Include at least one uppercase letter</li>
+                            <li>Include at least one number</li>
+                            <li>Include at least one special character</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ user_form.password2.id_for_label }}">Confirm Password</label>
+                    {% render_field user_form.password2 class="form-control" placeholder="Confirm your password" %}
+                    {% if user_form.password2.errors %}
+                        <div class="text-danger">{{ user_form.password2.errors }}</div>
+                    {% endif %}
+                    <div class="form-text">Enter the same password as before, for verification.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>Create My Account
+                    </button>
+                </div>
+
+                <div class="security-note">
+                    <div class="security-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 small">Your information is secure. We use industry-standard encryption to protect your personal data. By creating an account, you agree to our <a href="{% url 'terms' %}">Terms of Service</a> and <a href="{% url 'privacy' %}">Privacy Policy</a>.</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Benefits section -->
+    <div class="register-benefits">
+        <h3 class="mb-4">Why Join Linkyoh?</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div>
+                        <h5>Promote Your Services</h5>
+                        <p class="mb-0">Create gig listings to showcase your skills and services to potential customers across Belize.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                        <h5>Build Your Reputation</h5>
+                        <p class="mb-0">Collect reviews and ratings from satisfied customers to enhance your credibility.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div>
+                        <h5>Get Discovered</h5>
+                        <p class="mb-0">Be found by customers searching for services in your category and location.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div>
+                        <h5>Grow Your Business</h5>
+                        <p class="mb-0">Connect directly with customers without middlemen or commission fees.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
