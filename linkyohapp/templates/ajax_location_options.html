@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for location in locations %}
+<option value="{{ location.pk }}" {% if location.pk == selected_location %}selected{% endif %}>{{ location.local }}</option>
+{% endfor %}
