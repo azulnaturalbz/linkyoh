@@ -10,6 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db import transaction
+from six import print_
 
 from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea
 from .forms import (
@@ -23,7 +24,7 @@ from .forms import (
 def load_districts(request, did=None):
     """HTMX view to load districts"""
     districts = District.objects.all()
-    selected_district = did if did is not None else None
+    selected_district = request.GET.get('district') or did
 
     return render(request, 'district_dropdown_list_options.html', {
         'districts': districts, 
@@ -63,7 +64,7 @@ def ajax_load_locations(request):
 def load_categories(request, catid=None):
     """HTMX view to load categories"""
     categories = Category.objects.all()
-    selected_cat = catid if catid is not None else None
+    selected_cat = request.GET.get('category') or catid
 
     return render(request, 'category_dropdown_list_options.html', {
         'categories': categories, 
@@ -74,7 +75,7 @@ def load_categories(request, catid=None):
 def load_sub_categories(request, catid=None, subcatid=None):
     """HTMX view to load subcategories based on selected category"""
     category_id = request.GET.get('category') or catid
-    selected_subcategory = subcatid
+    selected_subcategory = request.GET.get('subcategory') or subcatid
 
     sub_categories = []
     if category_id:

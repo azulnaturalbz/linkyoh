@@ -1,4 +1,4 @@
 <option value="">---------</option>
 {% for location in locations %}
-<option value="{{ location.pk }}" {% if location.pk == selected_location %}selected{% endif %}>{{ location.local }}</option>
+<option value="{{ location.pk }}" {% if selected_location %}{% if location.pk|stringformat:"s" == selected_location %}selected{% endif %}{% endif %}>{{ location.local }}</option>
 {% endfor %}

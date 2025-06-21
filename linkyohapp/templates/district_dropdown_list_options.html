@@ -1,4 +1,4 @@
 <option value="">---------</option>
 {% for district in districts %}
-<option value="{{ district.pk }}" {% if district.pk == selected_district %}selected{% endif %}>{{ district.district_name }}</option>
+<option value="{{ district.pk }}" {% if selected_district %}{% if district.pk|stringformat:"s" == selected_district %}selected{% endif %}{% endif %}>{{ district.district_name }}</option>
 {% endfor %}

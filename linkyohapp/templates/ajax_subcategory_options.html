@@ -1,4 +1,4 @@
 <option value="">---------</option>
 {% for subcategory in subcategories %}
-<option value="{{ subcategory.pk }}" {% if subcategory.pk == selected_subcategory %}selected{% endif %}>{{ subcategory.subcategory }}</option>
+<option value="{{ subcategory.pk }}" {% if selected_subcategory %}{% if subcategory.pk|stringformat:"s" == selected_subcategory %}selected{% endif %}{% endif %}>{{ subcategory.subcategory }}</option>
 {% endfor %}

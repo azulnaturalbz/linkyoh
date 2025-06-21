@@ -300,9 +300,10 @@
                                     {% endif %}
                                 </label>
                                 <select class="form-select" name="category" id="categorySelect" 
-                                        hx-get="{% url 'ajax_load_category' %}{% if selected_category %}?category={{ selected_category }}{% endif %}"
+                                        hx-get="{% url 'ajax_load_category' %}"
                                         hx-trigger="load"
-                                        hx-target="#categorySelect">
+                                        hx-target="#categorySelect"
+                                        hx-vals='{"category": "{{ selected_category|default_if_none:"" }}"}'>
                                     <option value="">All Categories</option>
                                 </select>
                             </div>
@@ -318,10 +319,11 @@
                                     {% endif %}
                                 </label>
                                 <select class="form-select" name="subcategory" id="subcategorySelect"
-                                        hx-get="{% url 'ajax_load_sub_category' %}{% if selected_category %}?category={{ selected_category }}{% if selected_subcategory %}&subcategory={{ selected_subcategory }}{% endif %}{% endif %}"
+                                        hx-get="{% url 'ajax_load_sub_category' %}"
                                         hx-trigger="load,change from:#categorySelect"
                                         hx-target="#subcategorySelect"
-                                        hx-include="#categorySelect">
+                                        hx-include="#categorySelect"
+                                        {% if selected_category %} hx-vals='{"subcategory": "{{ selected_subcategory|default_if_none:"" }}", "category": "{{ selected_category|default_if_none:"" }}"}' {% endif %}>
                                     <option value="">All Subcategories</option>
                                 </select>
                             </div>
@@ -330,16 +332,19 @@
                             <div class="filter-section">
                                 <label class="form-label fw-medium">
                                     District
+
                                     {% if selected_district %}
                                         <a href="#" @click.prevent="clearDistrict" class="float-end text-decoration-none" title="Clear district filter">
                                             <small><i class="fas fa-times"></i></small>
                                         </a>
                                     {% endif %}
                                 </label>
-                                <select class="form-select" name="district" id="districtSelect" 
-                                        hx-get="{% url 'ajax_load_states' %}{% if selected_district %}?district={{ selected_district }}{% endif %}"
+                                <select class="form-select" name="district" id="districtSelect"
+                                        hx-get="{% url 'ajax_load_states' %}"
                                         hx-trigger="load"
-                                        hx-target="#districtSelect">
+                                        hx-target="#districtSelect"
+                                        hx-vals='{"district": "{{ selected_district|default_if_none:"" }}"}'>
+
                                     <option value="">All Districts</option>
                                 </select>
                             </div>
@@ -355,11 +360,12 @@
                                     {% endif %}
                                 </label>
                                 <select class="form-select" name="location" id="locationSelect"
-                                        hx-get="{% url 'ajax_load_locations' %}{% if selected_district %}?district={{ selected_district }}{% if selected_location %}&location={{ selected_location }}{% endif %}{% endif %}"
+                                        hx-get="{% url 'ajax_load_locations' %}"
                                         hx-trigger="load, change from:#districtSelect"
                                         hx-target="#locationSelect"
                                         hx-include="#districtSelect"
-                                        hx-params="*">
+                                        {% if selected_district %}hx-vals='{"district": "{{ selected_district|default_if_none:"" }}", "location": "{{ selected_location|default_if_none:"" }}"}'{% endif %}
+
                                     <option value="">All Locations</option>
                                 </select>
                             </div>
