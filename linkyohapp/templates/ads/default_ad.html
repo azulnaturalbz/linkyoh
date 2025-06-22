@@ -1,0 +1,119 @@
+{% load static %}
+<div class="ad-container ad-default" data-ad-id="{{ ad.id }}" data-impression-id="{{ impression_id }}">
+    <div class="ad-default-content">
+        <div class="ad-disclaimer">
+            <small>Advertisement</small>
+        </div>
+        
+        {% if ad.image %}
+            <div class="ad-image-container">
+                <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="ad-link">
+                    <img src="{{ ad.image.url }}" alt="{{ ad.title }}" class="ad-image img-fluid">
+                </a>
+            </div>
+        {% endif %}
+        
+        <div class="ad-text-container">
+            <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="ad-link">
+                <h5 class="ad-title">{{ ad.title }}</h5>
+            </a>
+            
+            {% if ad.description %}
+                <p class="ad-description">{{ ad.description|truncatechars:100 }}</p>
+            {% endif %}
+            
+            {% if ad.html_content %}
+                <div class="ad-html-content">
+                    {{ ad.html_content|safe }}
+                </div>
+            {% endif %}
+            
+            <div class="ad-cta">
+                <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="btn btn-sm btn-primary">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .ad-container {
+        position: relative;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .ad-default {
+        width: 100%;
+        max-width: 100%;
+        background-color: #f8f9fa;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .ad-default-content {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        position: relative;
+    }
+    
+    @media (min-width: 768px) {
+        .ad-default-content {
+            flex-direction: row;
+        }
+        
+        .ad-image-container {
+            flex: 0 0 30%;
+            margin-right: 1rem;
+        }
+        
+        .ad-text-container {
+            flex: 1;
+        }
+    }
+    
+    .ad-image {
+        max-width: 100%;
+        border-radius: 0.25rem;
+    }
+    
+    .ad-title {
+        margin-top: 0;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+    
+    .ad-description {
+        margin-bottom: 1rem;
+        color: var(--gray-700);
+    }
+    
+    .ad-disclaimer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        padding: 0.1rem 0.5rem;
+        font-size: 0.7rem;
+        border-bottom-left-radius: 0.25rem;
+    }
+    
+    .ad-cta {
+        margin-top: 1rem;
+    }
+    
+    .ad-link {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .ad-html-content {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+</style>

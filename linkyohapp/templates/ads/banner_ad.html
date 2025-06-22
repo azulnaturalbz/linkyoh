@@ -1,0 +1,66 @@
+{% load static %}
+<div class="ad-container ad-banner" data-ad-id="{{ ad.id }}" data-impression-id="{{ impression_id }}">
+    <div class="ad-banner-content">
+        {% if ad.image %}
+            <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="ad-link">
+                <img src="{{ ad.image.url }}" alt="{{ ad.title }}" class="ad-banner-image img-fluid">
+            </a>
+        {% elif ad.html_content %}
+            <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="ad-link">
+                <div class="ad-html-content">
+                    {{ ad.html_content|safe }}
+                </div>
+            </a>
+        {% endif %}
+    </div>
+    <div class="ad-disclaimer">
+        <small>Advertisement</small>
+    </div>
+</div>
+
+<style>
+    .ad-container {
+        position: relative;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        background-color: #f8f9fa;
+    }
+    
+    .ad-banner {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .ad-banner-content {
+        position: relative;
+    }
+    
+    .ad-banner-image {
+        width: 100%;
+        display: block;
+    }
+    
+    .ad-html-content {
+        padding: 1rem;
+    }
+    
+    .ad-disclaimer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        padding: 0.1rem 0.5rem;
+        font-size: 0.7rem;
+        border-bottom-left-radius: 0.25rem;
+    }
+    
+    .ad-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+</style>

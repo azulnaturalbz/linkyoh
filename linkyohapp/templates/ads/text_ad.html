@@ -1,0 +1,87 @@
+{% load static %}
+<div class="ad-container ad-text" data-ad-id="{{ ad.id }}" data-impression-id="{{ impression_id }}">
+    <div class="ad-text-content">
+        <div class="ad-text-header">
+            <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="ad-link">
+                <h5 class="ad-title">{{ ad.title }}</h5>
+            </a>
+            <div class="ad-disclaimer">
+                <small>Ad</small>
+            </div>
+        </div>
+        
+        {% if ad.description %}
+            <p class="ad-description">{{ ad.description }}</p>
+        {% endif %}
+        
+        {% if ad.html_content %}
+            <div class="ad-html-content">
+                {{ ad.html_content|safe }}
+            </div>
+        {% endif %}
+        
+        <div class="ad-cta">
+            <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="btn btn-sm btn-primary">
+                Learn More
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .ad-container {
+        position: relative;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+    
+    .ad-text {
+        width: 100%;
+        max-width: 100%;
+        background-color: #f8f9fa;
+        border: 1px solid rgba(0,0,0,0.1);
+        padding: 1rem;
+    }
+    
+    .ad-text-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .ad-title {
+        margin: 0;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+    
+    .ad-description {
+        margin-bottom: 1rem;
+        color: var(--gray-700);
+    }
+    
+    .ad-disclaimer {
+        background-color: var(--gray-500);
+        color: white;
+        padding: 0.1rem 0.5rem;
+        font-size: 0.7rem;
+        border-radius: 0.25rem;
+        margin-left: 0.5rem;
+    }
+    
+    .ad-cta {
+        margin-top: 1rem;
+    }
+    
+    .ad-link {
+        text-decoration: none;
+    }
+    
+    .ad-html-content {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+</style>

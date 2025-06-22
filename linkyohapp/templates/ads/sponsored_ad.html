@@ -1,0 +1,84 @@
+{% load static %}
+<div class="card gig-card sponsored-ad h-100" data-ad-id="{{ ad.id }}" data-impression-id="{{ impression_id }}">
+    <div class="sponsored-badge">
+        <i class="fas fa-star me-1"></i> Sponsored
+    </div>
+    
+    {% if ad.image %}
+        <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="ad-link">
+            <img src="{{ ad.image.url }}" alt="{{ ad.title }}" class="card-img-top">
+        </a>
+    {% endif %}
+    
+    <div class="card-body">
+        <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="text-decoration-none text-dark">
+            <h5 class="card-title">{{ ad.title }}</h5>
+        </a>
+        
+        {% if ad.description %}
+            <p class="card-text">{{ ad.description|truncatechars:80 }}</p>
+        {% endif %}
+        
+        {% if ad.html_content %}
+            <div class="ad-html-content">
+                {{ ad.html_content|safe }}
+            </div>
+        {% endif %}
+        
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <span class="badge bg-success">Featured</span>
+            <span class="badge bg-light text-dark">Premium</span>
+        </div>
+    </div>
+    
+    <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+        <small class="text-muted"><i class="far fa-clock me-1"></i> Limited Time</small>
+        <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="btn btn-sm btn-outline-primary">View Details</a>
+    </div>
+</div>
+
+<style>
+    .sponsored-ad {
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .sponsored-ad:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    
+    .sponsored-ad .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+    
+    .sponsored-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        z-index: 10;
+    }
+    
+    .sponsored-ad .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .sponsored-ad .card-text {
+        color: var(--gray-700);
+    }
+    
+    .ad-html-content {
+        margin-top: 1rem;
+    }
+</style>

@@ -1,9 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
 from linkyohapp import views
 
 urlpatterns = [
+    # Ad system
+    path('ads/', include('linkyohapp.urls_ad')),
+
     # Home and listings
     path('', views.home, name="home"),
     path('gigs/<int:id>/', views.gig_detail, name='gig_detail'),
