@@ -4,6 +4,134 @@
 
 {% block head %}
 <style>
+    /* QR Code styles */
+    .qr-code-container {
+        position: relative;
+        margin-left: 3rem;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .qr-code {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        display: inline-block;
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .qr-download-btn {
+        margin-top: 0.75rem;
+        font-size: 0.85rem;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: var(--primary-color);
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .qr-download-btn:hover {
+        background-color: white;
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .qr-card {
+        max-width: 100%;
+        width: 100%;
+        max-height: 80vh;
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        padding: 1.5rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .qr-card-qr {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .qr-card-qr canvas {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .qr-card-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+    }
+
+    .qr-card-name {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .qr-card-tagline {
+        font-size: 1rem;
+        color: #6c757d;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .qr-card-business {
+        font-size: 1.2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .qr-card-logo {
+        position: absolute;
+        bottom: 1rem;
+        width: 100px;
+    }
+
+    @media (max-width: 768px) {
+        .qr-code-container {
+            margin: 2rem 0 0 0;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .profile-header .d-flex {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code {
+            margin-top: 0;
+            width: 100%;
+        }
+
+        .profile-avatar {
+            margin-bottom: 1.5rem !important;
+        }
+    }
+
     /* Fix for file input text overflow */
     .form-control[type="file"] {
         overflow: hidden;
@@ -247,22 +375,86 @@
     <!-- Profile Header -->
     <div class="profile-header">
         <div class="container text-center">
-            <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
-                 alt="{{ profile.get_display_name }}" class="profile-avatar mb-4">
-            <h1 class="display-5 mb-2">
-                {{ profile.get_display_name }}
-                {% if profile.is_verified %}
-                <span class="verified-badge">
-                    <i class="fas fa-check-circle me-1"></i> Verified
-                </span>
-                {% endif %}
-                {% if profile.profile_type == 'business' %}
-                <span class="business-badge">
-                    <i class="fas fa-building me-1"></i> Business
-                </span>
-                {% endif %}
-            </h1>
-            <p class="lead mb-0">{{ profile.slogan }}</p>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="d-flex justify-content-center align-items-center flex-wrap">
+                        <!-- Avatar Container -->
+                        <div class="text-center">
+                            <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                 alt="{{ profile.get_display_name }}" class="profile-avatar mb-4">
+                        </div>
+
+                        <!-- QR Code (only shown if enabled) -->
+                        {% if profile.show_qr_code %}
+                        <div class="qr-code-container" x-data="{ showQrCard: false }" x-cloak>
+                            <div class="qr-code">
+                                <div id="profile-qr-code" data-profile-url="{{ request.scheme }}://{{ request.get_host }}{% url 'profile' profile.user.id %}"></div>
+                                <button class="btn btn-sm btn-outline-light qr-download-btn" @click="showQrCard = true">
+                                    <i class="fas fa-download me-1"></i> Download QR Card
+                                </button>
+                            </div>
+
+                            <!-- QR Card Modal -->
+                            <div x-show="showQrCard" 
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform scale-90"
+                                 x-transition:enter-end="opacity-100 transform scale-100"
+                                 x-transition:leave="transition ease-in duration-300"
+                                 x-transition:leave-start="opacity-100 transform scale-100"
+                                 x-transition:leave-end="opacity-0 transform scale-90"
+                                 class="modal-backdrop"
+                                 style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1050; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+
+                                <div class="modal-dialog modal-dialog-centered" style="margin: 0 auto; max-width: 500px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Download QR Card</h5>
+                                            <button type="button" class="btn-close" @click="showQrCard = false" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center p-4">
+                                            <div id="qr-card-container" class="d-flex justify-content-center">
+                                                <div id="qr-card" class="qr-card">
+                                                    <div id="qr-card-qr-code" class="qr-card-qr"></div>
+                                                    <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                                         alt="{{ profile.get_display_name }}" class="qr-card-avatar">
+                                                    <h2 class="qr-card-name">{{ profile.get_display_name }}</h2>
+                                                    <p class="qr-card-tagline">{{ profile.slogan }}</p>
+                                                    {% if profile.profile_type == 'business' and profile.company_name %}
+                                                    <p class="qr-card-business"><strong>{{ profile.company_name }}</strong></p>
+                                                    {% endif %}
+{#                                                    <img src="{% static 'img/logo.png' %}" alt="Linkyoh" class="qr-card-logo">#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-between">
+                                            <button type="button" class="btn btn-secondary" @click="showQrCard = false">Close</button>
+                                            <button id="download-qr-card" class="btn btn-primary" @click="downloadQrCard">
+                                                <i class="fas fa-download me-2"></i> Download PNG
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <h1 class="display-5 mb-2">
+                        {{ profile.get_display_name }}
+                        {% if profile.is_verified %}
+                        <span class="verified-badge">
+                            <i class="fas fa-check-circle me-1"></i> Verified
+                        </span>
+                        {% endif %}
+                        {% if profile.profile_type == 'business' %}
+                        <span class="business-badge">
+                            <i class="fas fa-building me-1"></i> Business
+                        </span>
+                        {% endif %}
+                    </h1>
+                    <p class="lead mb-0">{{ profile.slogan }}</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -278,11 +470,31 @@
     {% endif %}
 
     <!-- Viewing Banner (only when viewing someone else's profile) -->
-    {% if not is_own_profile %}
+    {% if not is_own_profile and is_authenticated %}
     <div class="viewing-banner d-flex align-items-center">
         <i class="fas fa-info-circle me-3 fs-4 text-primary"></i>
         <div>
             <p class="mb-0">You are viewing <strong>{{ profile.get_display_name }}</strong>'s profile and listings.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Call-to-action for unauthenticated users -->
+    {% if not is_authenticated %}
+    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+        <i class="fas fa-user-lock me-3 fs-4"></i>
+        <div>
+            <h5 class="alert-heading mb-1">Limited Preview</h5>
+            <p class="mb-2">You're viewing a limited preview of {{ profile.get_display_name }}'s profile.</p>
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-sign-in-alt me-1"></i> Sign In
+                </a>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-user-plus me-1"></i> Create Account
+                </a>
+                <span class="ms-2 text-muted align-self-center">to see more services and information.</span>
+            </div>
         </div>
     </div>
     {% endif %}
@@ -393,6 +605,16 @@
                                     </label>
                                     {% render_field form.about %}
                                     <div class="form-text">{{ form.about.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    {% url "toggle_qr_code" as toggle_qr_code_url %}
+                                    {% render_field form.show_qr_code class="form-check-input" hx-post=toggle_qr_code_url hx-trigger="change" hx-swap="none" %}
+                                    <label for="{{ form.show_qr_code.id_for_label }}" class="form-check-label">
+                                        <i class="fas fa-qrcode me-2"></i>{{ form.show_qr_code.label }}
+                                    </label>
+                                    <div class="form-text">{{ form.show_qr_code.help_text }}</div>
+                                    <div id="qr-toggle-status" class="mt-2 small text-success" style="display: none;"></div>
                                 </div>
                             </div>
 
@@ -710,6 +932,22 @@
                         </div>
                     {% endfor %}
                 </div>
+
+                <!-- Message for unauthenticated users when there are more gigs -->
+                {% if not is_authenticated and has_more_gigs %}
+                    <div class="alert alert-light border text-center mt-3">
+                        <p class="mb-2"><i class="fas fa-info-circle me-2"></i>Showing {{ gigs|length }} of {{ all_gigs_count }} services</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-sign-in-alt me-1"></i> Sign In
+                            </a>
+                            <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-user-plus me-1"></i> Create Account
+                            </a>
+                            <span class="ms-2 text-muted align-self-center">to see all services.</span>
+                        </div>
+                    </div>
+                {% endif %}
             {% else %}
                 <div class="alert alert-info">
                     {% if is_own_profile %}
@@ -724,8 +962,236 @@
 {% endblock %}
 
 {% block scripts %}
+<!-- QR Code, HTML-to-Image, and Alpine.js libraries -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // QR Code generation with improved error handling
+        function generateQRCode(elementId, url, size, callback) {
+            console.log(`Generating QR code for ${elementId} with URL: ${url}`);
+            const element = document.getElementById(elementId);
+
+            if (!element) {
+                console.error(`Element with ID ${elementId} not found`);
+                return;
+            }
+
+            // Clear any existing content
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+
+            try {
+                // Create a new canvas for the QR code
+                QRCode.toCanvas(null, url, {
+                    width: size,
+                    margin: 1,
+                    color: {
+                        dark: '#000000',
+                        light: '#FFFFFF'
+                    }
+                }, function(error, canvas) {
+                    if (error) {
+                        console.error(`Error generating QR code for ${elementId}:`, error);
+                        // Create an error message element
+                        const errorMsg = document.createElement('div');
+                        errorMsg.className = 'alert alert-danger';
+                        errorMsg.textContent = 'Failed to generate QR code';
+                        element.appendChild(errorMsg);
+                    } else {
+                        console.log(`Successfully generated QR code for ${elementId}`);
+                        // Append the canvas to the container
+                        element.appendChild(canvas);
+                        if (callback) callback(canvas);
+                    }
+                });
+            } catch (e) {
+                console.error(`Exception generating QR code for ${elementId}:`, e);
+                // Create an error message element
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'alert alert-danger';
+                errorMsg.textContent = 'Failed to generate QR code';
+                element.appendChild(errorMsg);
+            }
+        }
+
+        // Generate QR codes if the profile has QR enabled
+        const profileQrCode = document.getElementById('profile-qr-code');
+        if (profileQrCode) {
+            const profileUrl = profileQrCode.getAttribute('data-profile-url');
+
+            // Generate the profile header QR code
+            generateQRCode('profile-qr-code', profileUrl, 128);
+
+            // Generate the QR card code with a more reasonable size
+            generateQRCode('qr-card-qr-code', profileUrl, 250, function(canvas) {
+                // Ensure the canvas is properly styled
+                canvas.style.display = 'block';
+                canvas.style.margin = '0 auto';
+            });
+        }
+
+        // Show and hide QR toggle status message
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            if (event.detail.target.id === 'qr-toggle-status') {
+                const statusEl = document.getElementById('qr-toggle-status');
+                if (statusEl) {
+                    // Show the status message
+                    statusEl.style.display = 'block';
+                    statusEl.textContent = 'QR Code preference updated successfully';
+
+                    // Hide it after 3 seconds
+                    setTimeout(function() {
+                        statusEl.style.display = 'none';
+                    }, 3000);
+                }
+            }
+        });
+
+        // Alpine.js function to download QR card with improved error handling
+        window.downloadQrCard = function() {
+            console.log('Download QR card function called');
+            const qrCard = document.getElementById('qr-card');
+            const downloadBtn = document.getElementById('download-qr-card');
+            const qrCardContainer = document.getElementById('qr-card-container');
+
+            if (!qrCard) {
+                console.error('QR card element not found');
+                alert('Error: QR card element not found. Please try again.');
+                return;
+            }
+
+            if (!downloadBtn) {
+                console.error('Download button element not found');
+                return;
+            }
+
+            // Disable button during processing
+            downloadBtn.disabled = true;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+
+            // Ensure all images are loaded before capturing
+            const images = qrCard.querySelectorAll('img');
+            let imagesLoaded = 0;
+            const totalImages = images.length;
+
+            // If no images, proceed directly
+            if (totalImages === 0) {
+                captureAndDownload();
+                return;
+            }
+
+            // Check if all images are loaded
+            images.forEach(img => {
+                if (img.complete) {
+                    imagesLoaded++;
+                    if (imagesLoaded === totalImages) {
+                        captureAndDownload();
+                    }
+                } else {
+                    img.onload = function() {
+                        imagesLoaded++;
+                        if (imagesLoaded === totalImages) {
+                            captureAndDownload();
+                        }
+                    };
+                    img.onerror = function() {
+                        console.error('Error loading image:', img.src);
+                        imagesLoaded++;
+                        if (imagesLoaded === totalImages) {
+                            captureAndDownload();
+                        }
+                    };
+                }
+            });
+
+            function captureAndDownload() {
+                try {
+                    // Make sure the QR code is visible and fully rendered
+                    setTimeout(function() {
+                        console.log('Starting html2canvas conversion');
+
+                        // Temporarily add a border to help with debugging
+                        const originalStyle = qrCard.style.cssText;
+                        qrCard.style.border = '1px solid transparent';
+
+                        // Use html2canvas to convert the card to an image
+                        html2canvas(qrCard, {
+                            scale: 2, // Higher scale for better quality
+                            useCORS: true,
+                            logging: true, // Enable logging for debugging
+                            backgroundColor: 'white',
+                            allowTaint: true,
+                            onclone: function(clonedDoc) {
+                                // Make sure all elements are visible in the clone
+                                const clonedCard = clonedDoc.getElementById('qr-card');
+                                if (clonedCard) {
+                                    clonedCard.style.display = 'flex';
+                                    clonedCard.style.visibility = 'visible';
+                                    clonedCard.style.opacity = '1';
+
+                                    // Make sure all child elements are visible
+                                    const children = clonedCard.querySelectorAll('*');
+                                    children.forEach(child => {
+                                        child.style.display = '';
+                                        child.style.visibility = 'visible';
+                                        child.style.opacity = '1';
+                                    });
+                                }
+                            }
+                        }).then(function(canvas) {
+                            try {
+                                console.log('Canvas created successfully');
+                                // Restore original style
+                                qrCard.style.cssText = originalStyle;
+
+                                // Create download link
+                                const link = document.createElement('a');
+                                link.download = 'linkyoh-profile-card.png';
+                                link.href = canvas.toDataURL('image/png');
+                                document.body.appendChild(link);
+
+                                // Track download event
+                                if (typeof gtag !== 'undefined') {
+                                    gtag('event', 'qr_card_downloaded', {
+                                        'user_id': '{{ profile.user.id }}'
+                                    });
+                                }
+
+                                // Trigger download
+                                link.click();
+                                document.body.removeChild(link);
+
+                                // Show success message
+                                console.log('QR card downloaded successfully');
+                            } catch (e) {
+                                console.error('Error creating download link:', e);
+                                alert('Error creating download link. Please try again.');
+                            } finally {
+                                // Re-enable button
+                                downloadBtn.disabled = false;
+                                downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                            }
+                        }).catch(function(error) {
+                            console.error('Error generating card:', error);
+                            // Restore original style
+                            qrCard.style.cssText = originalStyle;
+                            downloadBtn.disabled = false;
+                            downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                            alert('Error generating card. Please try again.');
+                        });
+                    }, 1000); // Increased delay to ensure everything is rendered
+                } catch (e) {
+                    console.error('Exception in download process:', e);
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                    alert('An error occurred. Please try again.');
+                }
+            }
+        };
         // Show/hide business tab based on profile type selection
         const profileTypeSelect = document.getElementById('id_profile_type');
         const businessTab = document.querySelector('.business-tab');

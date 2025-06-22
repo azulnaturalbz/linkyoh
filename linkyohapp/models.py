@@ -245,6 +245,7 @@ class Profile(models.Model):
     gender = models.CharField(max_length=8, blank=True, null=True)
     about = models.TextField(blank=True)
     slogan = models.CharField(max_length=500, blank=True)
+    show_qr_code = models.BooleanField(default=False, help_text="Show QR code on your profile for easy sharing")
 
     # Contact information
     phone_regex = RegexValidator(regex=r'^\+?1?\d{7,15}$',

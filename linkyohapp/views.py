@@ -3,6 +3,7 @@ from django.core.mail import BadHeaderError, EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Count
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
@@ -508,10 +509,12 @@ def my_gigs(request):
     return view(request)
 
 
-@login_required(login_url='/')
 def profile(request, pid):
+    # Check if user is authenticated
+    is_authenticated = request.user.is_authenticated
+
     # Check if viewing own profile or someone else's
-    is_own_profile = str(request.user.id) == str(pid)
+    is_own_profile = is_authenticated and str(request.user.id) == str(pid)
 
     try:
         profile = Profile.objects.select_related('user', 'district', 'location').get(user_id=pid)
@@ -533,9 +536,21 @@ def profile(request, pid):
         form = None
 
     # Get the user's gigs
-    gigs = Gig.objects.filter(user=profile.user, status=True).select_related(
-        'category', 'sub_category', 'user__profile'
-    )
+    all_gigs_count = Gig.objects.filter(user=profile.user, status=True).count()
+
+    if is_authenticated:
+        # Show all gigs to authenticated users
+        gigs = Gig.objects.filter(user=profile.user, status=True).select_related(
+            'category', 'sub_category', 'user__profile'
+        )
+        has_more_gigs = False
+    else:
+        # Show only a limited number of gigs to unauthenticated users
+        limit = 3  # Limit to 3 gigs for unauthenticated users
+        gigs = Gig.objects.filter(user=profile.user, status=True).select_related(
+            'category', 'sub_category', 'user__profile'
+        )[:limit]
+        has_more_gigs = all_gigs_count > limit
 
     # Get districts for the district dropdown
     districts = District.objects.all()
@@ -546,6 +561,9 @@ def profile(request, pid):
         "form": form,
         "is_own_profile": is_own_profile,
         "districts": districts,
+        "is_authenticated": is_authenticated,
+        "has_more_gigs": has_more_gigs,
+        "all_gigs_count": all_gigs_count,
     }
 
     return render(request, 'profile.html', context)
@@ -682,6 +700,24 @@ def search(request):
     }
 
     return render(request, 'search_results.html', context)
+
+
+@login_required
+@require_POST
+def toggle_qr_code(request):
+    """HTMX endpoint to toggle the QR code preference without a full page reload"""
+    profile = get_object_or_404(Profile, user=request.user)
+
+    # Toggle the show_qr_code field
+    profile.show_qr_code = not profile.show_qr_code
+    profile.save(update_fields=['show_qr_code'])
+
+    # Return a simple response with the new state
+    return HttpResponse(
+        f'<div hx-swap-oob="true" id="qr-toggle-status">'
+        f'QR Code is now {"enabled" if profile.show_qr_code else "disabled"}'
+        f'</div>'
+    )
 
 
 def register(request):

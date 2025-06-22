@@ -244,7 +244,7 @@ class ProfileForm(forms.ModelForm):
             'phone_number', 'email_public', 'website',
             'facebook', 'twitter', 'instagram', 'linkedin',
             'company_name', 'business_type', 'business_description', 'year_established',
-            'address', 'district', 'location'
+            'address', 'district', 'location', 'show_qr_code'
         ]
         widgets = {
             'about': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell potential customers about yourself or your business'}),
@@ -279,6 +279,7 @@ class ProfileForm(forms.ModelForm):
             'address': _('Your physical address'),
             'district': _('Select your district'),
             'location': _('Select your location within the district'),
+            'show_qr_code': _('Display a QR code on your profile for easy sharing'),
         }
         labels = {
             'profile_type': _('Profile Type'),
@@ -301,6 +302,7 @@ class ProfileForm(forms.ModelForm):
             'address': _('Address'),
             'district': _('District'),
             'location': _('Location'),
+            'show_qr_code': _('Show QR Code'),
         }
 
     def __init__(self, *args, **kwargs):
