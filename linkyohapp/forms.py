@@ -65,6 +65,9 @@ class GigForm(ModelForm):
         # Add custom validators
         self.fields['price'].validators.append(MinValueValidator(0, message=_('Price cannot be negative')))
 
+        # Make photo field optional
+        self.fields['photo'].required = True
+
         # Add CSS classes for styling
         for field in self.fields:
             self.fields[field].widget.attrs.update({'class': 'form-control'})
@@ -86,14 +89,16 @@ class GigForm(ModelForm):
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
-        if photo:
+        if photo == 'gigs_img/empty_cover.jpg':
+          return photo
+        if photo and hasattr(photo, 'name'):
             # Check file extension
             ext = photo.name.split('.')[-1].lower()
             if ext not in ['jpg', 'jpeg', 'png', 'gif']:
                 raise forms.ValidationError(_('Only jpg, jpeg, png, and gif files are allowed'))
 
             # Check file size (max 10MB)
-            if photo.size > 10 * 1024 * 1024:
+            if hasattr(photo, 'size') and photo.size > 10 * 1024 * 1024:
                 raise forms.ValidationError(_('File size must be no more than 10MB'))
         return photo
 
@@ -116,14 +121,14 @@ class GigImageForm(ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data.get('image')
-        if image:
+        if image and hasattr(image, 'name'):
             # Check file extension
             ext = image.name.split('.')[-1].lower()
             if ext not in ['jpg', 'jpeg', 'png', 'gif']:
                 raise forms.ValidationError(_('Only jpg, jpeg, png, and gif files are allowed'))
 
             # Check file size (max 10MB)
-            if image.size > 10 * 1024 * 1024:
+            if hasattr(image, 'size') and image.size > 10 * 1024 * 1024:
                 raise forms.ValidationError(_('File size must be no more than 10MB'))
         return image
 
