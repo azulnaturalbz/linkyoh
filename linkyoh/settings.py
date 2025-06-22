@@ -191,3 +191,13 @@ DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 LOGOUT = 'logout'
+
+# File upload settings
+# Maximum size of request body (in bytes)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+
+# Maximum size of a request's POST parameters (in bytes)
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
+# Maximum size of a file upload (in bytes)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB

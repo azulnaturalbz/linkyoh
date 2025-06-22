@@ -22,6 +22,9 @@ from django_extensions.db import fields as extension_fields
 from django.core.validators import RegexValidator
 from phonenumber_field.modelfields import PhoneNumberField
 
+# Import image processing utilities
+from .image_utils import process_avatar, process_cover, process_gig_photo, process_image
+
 # Create your models here.
 
 # Default images for when files are missing
@@ -515,14 +518,31 @@ class GigServiceArea(models.Model):
         return f"{self.district.district_name} - {self.location.local}"
 
 
-# Signal handlers for file management
+# Signal handlers for file management and image processing
+
+@receiver(post_save, sender=Profile)
+def process_profile_images(sender, instance, **kwargs):
+    """
+    Process profile images after save:
+    1. Resize and compress avatar
+    2. Resize and compress cover image
+    """
+    # Process avatar if it exists
+    if instance.avatar:
+        process_avatar(instance.avatar)
+
+    # Process cover image if it exists
+    if instance.cover_image:
+        process_cover(instance.cover_image)
 
 @receiver(post_save, sender=Gig)
 def update_gig_image_paths(sender, instance, created, **kwargs):
     """
-    After a gig is saved, update the file paths if needed
-    This is necessary because we use the instance ID in the path, which isn't available for new instances
+    After a gig is saved:
+    1. Update the file paths if needed (for new instances)
+    2. Process the gig photo (resize and compress)
     """
+    # Update paths for new instances
     if created and instance.photo and 'new' in instance.photo.name:
         # Get the old file path
         old_path = instance.photo.path
@@ -542,13 +562,18 @@ def update_gig_image_paths(sender, instance, created, **kwargs):
             # Move the file
             os.rename(old_path, instance.photo.path)
 
+    # Process the gig photo
+    if instance.photo:
+        process_gig_photo(instance.photo)
 
 @receiver(post_save, sender=GigImage)
 def update_gig_additional_image_paths(sender, instance, created, **kwargs):
     """
-    After a gig image is saved, update the file paths if needed
-    This is necessary because we use the gig ID in the path, which might be 'unknown' for new instances
+    After a gig image is saved:
+    1. Update the file paths if needed (for new instances)
+    2. Process the image (resize and compress)
     """
+    # Update paths for new instances
     if created and instance.image and 'unknown' in instance.image.name:
         # Get the old file path
         old_path = instance.image.path
@@ -567,3 +592,13 @@ def update_gig_additional_image_paths(sender, instance, created, **kwargs):
             os.makedirs(os.path.dirname(instance.image.path), exist_ok=True)
             # Move the file
             os.rename(old_path, instance.image.path)
+
+    # Process the additional image
+    if instance.image:
+        process_image(instance.image, (800, 600), format='JPEG')
+
+@receiver(post_save, sender=Category)
+def process_category_image(sender, instance, **kwargs):
+    """Process category banner image after save"""
+    if instance.photo:
+        process_image(instance.photo, (1200, 400), format='JPEG')

@@ -18,12 +18,12 @@ RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev && apk --no-ca
         harfbuzz-dev \
         fribidi-dev
 WORKDIR /linkyoh
-COPY . /linkyoh/
 
 #Installing Requirements
 COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
+COPY . /linkyoh/
 #Start Up Command
 CMD python manage.py makemigrations
 CMD python manage.py migrate

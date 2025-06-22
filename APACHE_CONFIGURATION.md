@@ -261,6 +261,61 @@ With this configuration:
 2. Certificate renewal is handled by certbot on the Apache server
 3. The Linkyoh application doesn't need to handle SSL
 
+## File Upload Configuration
+
+### Configuring Apache for Large File Uploads
+
+By default, Apache has limits on file upload sizes that may prevent users from uploading large images or multiple files. To configure Apache to handle large file uploads:
+
+1. Add the following directives to your Apache configuration file (either in the main configuration or in the virtual host):
+
+```apache
+# Increase timeout values to handle large uploads
+Timeout 600
+ProxyTimeout 600
+
+# Increase the maximum request body size (value in bytes, 50MB = 52428800)
+LimitRequestBody 52428800
+
+# If using mod_proxy, increase the maximum request size
+<IfModule mod_proxy.c>
+    ProxyPass / http://192.168.1.156:8000/ timeout=600
+    ProxyPassReverse / http://192.168.1.156:8000/
+</IfModule>
+```
+
+2. If you're using PHP (for any part of your application), also update the PHP configuration:
+
+```apache
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 50M
+    php_value post_max_size 50M
+    php_value max_input_time 300
+    php_value max_execution_time 300
+</IfModule>
+```
+
+3. Restart Apache to apply the changes:
+
+```bash
+systemctl restart httpd
+```
+
+### Configuring Django for Large File Uploads
+
+In your Django settings, ensure you have the following settings:
+
+```python
+# Maximum size of request body (in bytes)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+
+# Maximum size of a request's POST parameters (in bytes)
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
+# Maximum size of a file upload (in bytes)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+```
+
 ## Troubleshooting
 
 ### Connection Issues
@@ -299,6 +354,25 @@ If you encounter SSL certificate issues:
 3. Restart Apache after certificate renewal:
    ```bash
    systemctl restart httpd
+   ```
+
+### File Upload Issues
+
+If users encounter issues with file uploads:
+
+1. Check Apache error logs for timeout or size limit errors:
+   ```bash
+   tail -f /var/log/httpd/linkyoh-error.log | grep -E "timeout|size|limit"
+   ```
+
+2. Verify the Apache configuration has been applied:
+   ```bash
+   apachectl -t -D DUMP_INCLUDES | grep -E "Timeout|LimitRequestBody|ProxyTimeout"
+   ```
+
+3. Check if the Django application is receiving the uploaded files:
+   ```bash
+   docker-compose -f docker-compose.app.yml logs web | grep -E "upload|file|size"
    ```
 
 ### Testing Static and Media File Serving
