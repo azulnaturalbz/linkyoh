@@ -50,15 +50,15 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Gig)
 class GigAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user', 'category', 'sub_category', 'price', 'status', 'featured', 'create_time')
-    list_filter = ('status', 'featured', 'category', 'district')
+    list_display = ('title', 'user', 'category', 'sub_category', 'price', 'status', 'create_time')
+    list_filter = ('status', 'category', 'district')
     search_fields = ('title', 'description', 'user__username', 'user__email')
-    actions = ['approve_gigs', 'disapprove_gigs', 'feature_gigs', 'unfeature_gigs']
+    actions = ['approve_gigs', 'disapprove_gigs']
     date_hierarchy = 'create_time'
 
     fieldsets = (
         ('Basic Information', {
-            'fields': ('user', 'title', 'description', 'price', 'status', 'featured')
+            'fields': ('user', 'title', 'description', 'price', 'status')
         }),
         ('Categories', {
             'fields': ('category', 'sub_category')
@@ -81,16 +81,6 @@ class GigAdmin(admin.ModelAdmin):
         self.message_user(request, f'{updated} gigs have been disapproved.')
     disapprove_gigs.short_description = 'Disapprove selected gigs'
 
-    def feature_gigs(self, request, queryset):
-        updated = queryset.update(featured=True)
-        self.message_user(request, f'{updated} gigs have been featured.')
-    feature_gigs.short_description = 'Mark selected gigs as featured'
-
-    def unfeature_gigs(self, request, queryset):
-        updated = queryset.update(featured=False)
-        self.message_user(request, f'{updated} gigs have been unfeatured.')
-    unfeature_gigs.short_description = 'Remove featured status from selected gigs'
-
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
@@ -107,21 +97,21 @@ class DistrictAdmin(admin.ModelAdmin):
 
 @admin.register(Local)
 class LocalAdmin(admin.ModelAdmin):
-    list_display = ('local_name', 'local_district', 'local_type')
-    list_filter = ('local_district', 'local_type')
+    list_display = ('local_name', 'local_district')
+    list_filter = ('local_district',)
     search_fields = ('local_name',)
 
 
 @admin.register(LocalType)
 class LocalTypeAdmin(admin.ModelAdmin):
-    list_display = ('local_type',)
-    search_fields = ('local_type',)
+    list_display = ('local_type_name',)
+    search_fields = ('local_type_name',)
 
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('local', 'get_district', 'get_type')
-    list_filter = ('local__local_district', 'local__local_type')
+    list_filter = ('local__local_district', 'local_type')
     search_fields = ('local__local_name',)
 
     def get_district(self, obj):
@@ -185,41 +175,27 @@ class ReviewAdmin(admin.ModelAdmin):
 
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ('gig', 'user', 'rating', 'create_time')
-    list_filter = ('rating', 'create_time')
-    search_fields = ('user__username', 'gig__title')
-    date_hierarchy = 'create_time'
+    list_display = ('rating', 'rating_description')
+    list_filter = ('rating',)
+    search_fields = ('rating_description',)
 
     fieldsets = (
         (None, {
-            'fields': ('gig', 'user', 'rating')
+            'fields': ('rating', 'rating_description')
         }),
     )
 
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'create_time', 'is_read')
-    list_filter = ('is_read', 'create_time')
-    search_fields = ('name', 'email', 'subject', 'message')
-    date_hierarchy = 'create_time'
-    actions = ['mark_as_read', 'mark_as_unread']
+    list_display = ('name', 'email', 'subject', 'category')
+    search_fields = ('name', 'email', 'subject', 'body')
 
     fieldsets = (
         ('Contact Information', {
-            'fields': ('name', 'email', 'subject')
+            'fields': ('name', 'email', 'phone', 'category', 'subject')
         }),
         ('Message', {
-            'fields': ('message', 'is_read')
+            'fields': ('body',)
         }),
     )
-
-    def mark_as_read(self, request, queryset):
-        updated = queryset.update(is_read=True)
-        self.message_user(request, f'{updated} messages have been marked as read.')
-    mark_as_read.short_description = 'Mark selected messages as read'
-
-    def mark_as_unread(self, request, queryset):
-        updated = queryset.update(is_read=False)
-        self.message_user(request, f'{updated} messages have been marked as unread.')
-    mark_as_unread.short_description = 'Mark selected messages as unread'
