@@ -10,11 +10,12 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db import transaction
+from django.contrib import messages
 from six import print_
 
 from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea
 from .forms import (
-    GigForm, ReviewForm, ContactForm, UserRegistrationForm,
+    GigForm, ReviewForm, ContactForm, UserRegistrationForm, ProfileForm,
     GigImageFormSet, GigContactFormSet, GigServiceAreaFormSet
 )
 
@@ -509,19 +510,45 @@ def my_gigs(request):
 
 @login_required(login_url='/')
 def profile(request, pid):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user_id=request.user.id)
-        profile.about = request.POST['about']
-        profile.slogan = request.POST['slogan']
-        profile.save()
-    else:
-        try:
-            profile = Profile.objects.get(user_id=pid)
-        except Profile.DoesNotExist:
-            return redirect('/')
+    # Check if viewing own profile or someone else's
+    is_own_profile = str(request.user.id) == str(pid)
 
-    gigs = Gig.objects.filter(user=profile.user, status=True)
-    return render(request, 'profile.html', {"profile": profile, "gigs": gigs})
+    try:
+        profile = Profile.objects.select_related('user', 'district', 'location').get(user_id=pid)
+    except Profile.DoesNotExist:
+        return redirect('/')
+
+    # If it's the user's own profile and they're submitting the form
+    if is_own_profile and request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            # Add a success message
+            messages.success(request, 'Your profile has been updated successfully.')
+            return redirect('profile', pid=request.user.id)
+    # If it's the user's own profile, show the form
+    elif is_own_profile:
+        form = ProfileForm(instance=profile)
+    else:
+        form = None
+
+    # Get the user's gigs
+    gigs = Gig.objects.filter(user=profile.user, status=True).select_related(
+        'category', 'sub_category', 'user__profile'
+    )
+
+    # Get districts for the district dropdown
+    districts = District.objects.all()
+
+    context = {
+        "profile": profile,
+        "gigs": gigs,
+        "form": form,
+        "is_own_profile": is_own_profile,
+        "districts": districts,
+    }
+
+    return render(request, 'profile.html', context)
 
 
 def contact(request):

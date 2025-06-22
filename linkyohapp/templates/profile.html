@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block head %}
 <style>
@@ -108,6 +109,121 @@
         border-radius: 0.5rem;
         margin-bottom: 2rem;
     }
+
+    .verified-badge {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(46, 204, 113, 0.1);
+        color: #27ae60;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: var(--gray-700);
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.5rem;
+        margin-right: 0.5rem;
+        transition: all 0.2s;
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color: var(--gray-100);
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+    }
+
+    .tab-content {
+        padding: 1.5rem 0;
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-text {
+        color: var(--gray-600);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .social-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--gray-100);
+        border-radius: 50%;
+        margin-right: 0.75rem;
+        color: var(--gray-700);
+    }
+
+    .business-badge {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(52, 152, 219, 0.1);
+        color: var(--primary-color);
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+
+    .profile-type-toggle {
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-type-toggle .btn {
+        padding: 0.5rem 1.5rem;
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .contact-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--gray-100);
+        border-radius: 50%;
+        margin-right: 0.75rem;
+        color: var(--gray-700);
+    }
+
+    .form-check-input[type="checkbox"] {
+        width: 1.25em;
+        height: 1.25em;
+    }
+
+    .form-check-label {
+        padding-left: 0.5rem;
+    }
+
+    .alert-success {
+        border-left: 4px solid #27ae60;
+    }
 </style>
 {% endblock %}
 
@@ -116,22 +232,41 @@
     <div class="profile-header">
         <div class="container text-center">
             <img src="{% if profile.avatar %}{{ profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
-                 alt="{{ profile.user.get_full_name|default:profile.user.username }}" class="profile-avatar mb-4">
-            <h1 class="display-5 mb-2">{{ profile.user.get_full_name|default:profile.user.username }}</h1>
-            {% if request.user == profile.user %}
-                <p class="lead mb-0">This is your public profile</p>
-            {% else %}
-                <p class="lead mb-0">{{ profile.slogan }}</p>
-            {% endif %}
+                 alt="{{ profile.get_display_name }}" class="profile-avatar mb-4">
+            <h1 class="display-5 mb-2">
+                {{ profile.get_display_name }}
+                {% if profile.is_verified %}
+                <span class="verified-badge">
+                    <i class="fas fa-check-circle me-1"></i> Verified
+                </span>
+                {% endif %}
+                {% if profile.profile_type == 'business' %}
+                <span class="business-badge">
+                    <i class="fas fa-building me-1"></i> Business
+                </span>
+                {% endif %}
+            </h1>
+            <p class="lead mb-0">{{ profile.slogan }}</p>
         </div>
     </div>
 
+    <!-- Success Message -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-4" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <!-- Viewing Banner (only when viewing someone else's profile) -->
-    {% if request.user != profile.user %}
+    {% if not is_own_profile %}
     <div class="viewing-banner d-flex align-items-center">
         <i class="fas fa-info-circle me-3 fs-4 text-primary"></i>
         <div>
-            <p class="mb-0">You are viewing <strong>{{ profile.user.get_full_name|default:profile.user.username }}</strong>'s profile and listings.</p>
+            <p class="mb-0">You are viewing <strong>{{ profile.get_display_name }}</strong>'s profile and listings.</p>
         </div>
     </div>
     {% endif %}
@@ -140,37 +275,378 @@
     <div class="row">
         <!-- Left Column - Profile Info -->
         <div class="col-lg-4 mb-4">
-            {% if request.user == profile.user %}
-                <form method="post" class="profile-form">
-                    {% csrf_token %}
-                    <div class="profile-info">
-                        <h3 class="mb-4">Profile Information</h3>
-                        <div class="form-group">
-                            <label for="slogan"><i class="fas fa-quote-left me-2"></i>Your Slogan</label>
-                            <input class="form-control" id="slogan" name="slogan" value="{{ profile.slogan }}" placeholder="Add a catchy slogan">
-                        </div>
-                        <div class="form-group">
-                            <label for="about"><i class="fas fa-user me-2"></i>About You</label>
-                            <textarea class="form-control" id="about" name="about" rows="5" placeholder="Tell potential customers about yourself or your business">{{ profile.about }}</textarea>
-                        </div>
-                        <button class="btn btn-primary mt-3" type="submit">
-                            <i class="fas fa-save me-2"></i>Update Profile
-                        </button>
+            {% if is_own_profile %}
+                <!-- Edit Profile Form -->
+                <div class="profile-info">
+                    <h3 class="mb-4">Edit Profile</h3>
+
+                    <!-- Profile Type Toggle -->
+                    <div class="profile-type-toggle btn-group w-100 mb-4" role="group" aria-label="Profile Type">
+                        <input type="radio" class="btn-check" name="profile_type_view" id="individual_view" autocomplete="off" {% if profile.profile_type == 'individual' %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="individual_view">Individual</label>
+
+                        <input type="radio" class="btn-check" name="profile_type_view" id="business_view" autocomplete="off" {% if profile.profile_type == 'business' %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="business_view">Business</label>
                     </div>
-                </form>
+
+                    <!-- Tabs for different sections -->
+                    <ul class="nav nav-tabs mb-3" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
+                                <i class="fas fa-user me-1"></i> Basic
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                <i class="fas fa-address-card me-1"></i> Contact
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="social-tab" data-bs-toggle="tab" data-bs-target="#social" type="button" role="tab" aria-controls="social" aria-selected="false">
+                                <i class="fas fa-share-alt me-1"></i> Social
+                            </button>
+                        </li>
+                        <li class="nav-item business-tab" role="presentation" {% if profile.profile_type != 'business' %}style="display: none;"{% endif %}>
+                            <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab" aria-controls="business" aria-selected="false">
+                                <i class="fas fa-building me-1"></i> Business
+                            </button>
+                        </li>
+                    </ul>
+
+                    <form method="post" class="profile-form">
+                        {% csrf_token %}
+
+                        <div class="tab-content" id="profileTabsContent">
+                            <!-- Basic Info Tab -->
+                            <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.profile_type.id_for_label }}" class="form-label">
+                                        <i class="fas fa-id-card me-2"></i>{{ form.profile_type.label }}
+                                    </label>
+                                    {% render_field form.profile_type class="form-select" hx-get="#" hx-trigger="change" hx-target="#business-tab" %}
+                                    <div class="form-text">{{ form.profile_type.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.avatar.id_for_label }}" class="form-label">
+                                        <i class="fas fa-image me-2"></i>{{ form.avatar.label }}
+                                    </label>
+                                    {% render_field form.avatar %}
+                                    <div class="form-text">{{ form.avatar.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.gender.id_for_label }}" class="form-label">
+                                        <i class="fas fa-venus-mars me-2"></i>{{ form.gender.label }}
+                                    </label>
+                                    {% render_field form.gender %}
+                                    <div class="form-text">{{ form.gender.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.slogan.id_for_label }}" class="form-label">
+                                        <i class="fas fa-quote-left me-2"></i>{{ form.slogan.label }}
+                                    </label>
+                                    {% render_field form.slogan %}
+                                    <div class="form-text">{{ form.slogan.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.about.id_for_label }}" class="form-label">
+                                        <i class="fas fa-user me-2"></i>{{ form.about.label }}
+                                    </label>
+                                    {% render_field form.about %}
+                                    <div class="form-text">{{ form.about.help_text }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info Tab -->
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.phone_number.id_for_label }}" class="form-label">
+                                        <i class="fas fa-phone me-2"></i>{{ form.phone_number.label }}
+                                    </label>
+                                    {% render_field form.phone_number %}
+                                    <div class="form-text">{{ form.phone_number.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    {% render_field form.email_public class="form-check-input" %}
+                                    <label for="{{ form.email_public.id_for_label }}" class="form-check-label">
+                                        {{ form.email_public.label }}
+                                    </label>
+                                    <div class="form-text">{{ form.email_public.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.address.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map-marker-alt me-2"></i>{{ form.address.label }}
+                                    </label>
+                                    {% render_field form.address %}
+                                    <div class="form-text">{{ form.address.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.district.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map me-2"></i>{{ form.district.label }}
+                                    </label>
+                                    <select name="{{ form.district.html_name }}" id="{{ form.district.auto_id }}" class="form-select"
+                                            hx-get="{% url 'ajax_load_locations' %}"
+                                            hx-trigger="change"
+                                            hx-target="#id_location"
+                                            hx-swap="innerHTML">
+                                        {% for choice in form.district.field.choices %}
+                                            <option value="{{ choice.0 }}" {% if form.district.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="form-text">{{ form.district.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.location.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map-pin me-2"></i>{{ form.location.label }}
+                                    </label>
+                                    <select name="{{ form.location.html_name }}" id="id_location" class="form-select">
+                                        {% if form.instance.location %}
+                                            <option value="{{ form.instance.location.pk }}" selected>{{ form.instance.location.local }}</option>
+                                        {% endif %}
+                                    </select>
+                                    <div class="form-text">{{ form.location.help_text }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Social Media Tab -->
+                            <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.website.id_for_label }}" class="form-label">
+                                        <i class="fas fa-globe me-2"></i>{{ form.website.label }}
+                                    </label>
+                                    {% render_field form.website %}
+                                    <div class="form-text">{{ form.website.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.facebook.id_for_label }}" class="form-label">
+                                        <i class="fab fa-facebook me-2"></i>{{ form.facebook.label }}
+                                    </label>
+                                    {% render_field form.facebook %}
+                                    <div class="form-text">{{ form.facebook.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.twitter.id_for_label }}" class="form-label">
+                                        <i class="fab fa-twitter me-2"></i>{{ form.twitter.label }}
+                                    </label>
+                                    {% render_field form.twitter %}
+                                    <div class="form-text">{{ form.twitter.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.instagram.id_for_label }}" class="form-label">
+                                        <i class="fab fa-instagram me-2"></i>{{ form.instagram.label }}
+                                    </label>
+                                    {% render_field form.instagram %}
+                                    <div class="form-text">{{ form.instagram.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.linkedin.id_for_label }}" class="form-label">
+                                        <i class="fab fa-linkedin me-2"></i>{{ form.linkedin.label }}
+                                    </label>
+                                    {% render_field form.linkedin %}
+                                    <div class="form-text">{{ form.linkedin.help_text }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Business Info Tab -->
+                            <div class="tab-pane fade" id="business" role="tabpanel" aria-labelledby="business-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.company_name.id_for_label }}" class="form-label">
+                                        <i class="fas fa-building me-2"></i>{{ form.company_name.label }}
+                                    </label>
+                                    {% render_field form.company_name %}
+                                    <div class="form-text">{{ form.company_name.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.business_type.id_for_label }}" class="form-label">
+                                        <i class="fas fa-briefcase me-2"></i>{{ form.business_type.label }}
+                                    </label>
+                                    {% render_field form.business_type %}
+                                    <div class="form-text">{{ form.business_type.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.year_established.id_for_label }}" class="form-label">
+                                        <i class="fas fa-calendar-alt me-2"></i>{{ form.year_established.label }}
+                                    </label>
+                                    {% render_field form.year_established %}
+                                    <div class="form-text">{{ form.year_established.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.business_description.id_for_label }}" class="form-label">
+                                        <i class="fas fa-info-circle me-2"></i>{{ form.business_description.label }}
+                                    </label>
+                                    {% render_field form.business_description %}
+                                    <div class="form-text">{{ form.business_description.help_text }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-save me-2"></i>Save Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
             {% else %}
+                <!-- View Profile -->
                 <div class="profile-about">
-                    <h3 class="mb-4"><i class="fas fa-user me-2"></i>About {{ profile.user.get_full_name|default:profile.user.username }}</h3>
+                    <h3 class="mb-4">
+                        <i class="fas fa-user me-2"></i>
+                        About {{ profile.get_display_name }}
+                        {% if profile.is_verified %}
+                        <span class="verified-badge">
+                            <i class="fas fa-check-circle me-1"></i> Verified
+                        </span>
+                        {% endif %}
+                    </h3>
+
                     {% if profile.about %}
                         <p>{{ profile.about }}</p>
                     {% else %}
                         <p class="text-muted">This user hasn't added any information yet.</p>
                     {% endif %}
 
+                    <!-- Contact Information -->
                     <div class="mt-4">
-                        <h5 class="mb-3"><i class="fas fa-envelope me-2"></i>Contact</h5>
+                        <h5 class="mb-3"><i class="fas fa-address-card me-2"></i>Contact Information</h5>
+
+                        {% if profile.phone_number %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <a href="tel:{{ profile.phone_number }}" class="text-decoration-none">{{ profile.phone_number }}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.email_public %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <a href="mailto:{{ profile.user.email }}" class="text-decoration-none">{{ profile.user.email }}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.website %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.website }}" target="_blank" class="text-decoration-none">{{ profile.website }}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.address %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                {{ profile.address }}
+                                {% if profile.location %}
+                                    <br>{{ profile.location.local }}, {{ profile.district.district_name }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Social Media Links -->
+                    {% if profile.facebook or profile.twitter or profile.instagram or profile.linkedin %}
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="fas fa-share-alt me-2"></i>Social Media</h5>
+
+                        {% if profile.facebook %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.facebook }}" target="_blank" class="text-decoration-none">Facebook</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.twitter %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.twitter }}" target="_blank" class="text-decoration-none">Twitter</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.instagram %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.instagram }}" target="_blank" class="text-decoration-none">Instagram</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.linkedin %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.linkedin }}" target="_blank" class="text-decoration-none">LinkedIn</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Business Information (if business profile) -->
+                    {% if profile.profile_type == 'business' and profile.company_name %}
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="fas fa-building me-2"></i>Business Information</h5>
+
+                        <p><strong>Company Name:</strong> {{ profile.company_name }}</p>
+
+                        {% if profile.business_type %}
+                        <p><strong>Business Type:</strong> {{ profile.business_type }}</p>
+                        {% endif %}
+
+                        {% if profile.year_established %}
+                        <p><strong>Established:</strong> {{ profile.year_established }}</p>
+                        {% endif %}
+
+                        {% if profile.business_description %}
+                        <p><strong>Description:</strong> {{ profile.business_description }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-4">
                         <a href="#" class="btn btn-outline-primary mb-2 w-100">
-                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                            <i class="fas fa-paper-plane me-2"></i>Contact {{ profile.get_display_name }}
                         </a>
                     </div>
                 </div>
@@ -180,10 +656,10 @@
         <!-- Right Column - Gigs -->
         <div class="col-lg-8">
             <h2 class="section-title">
-                {% if request.user == profile.user %}
+                {% if is_own_profile %}
                     Your Services
                 {% else %}
-                    {{ profile.user.get_full_name|default:profile.user.username }}'s Services
+                    {{ profile.get_display_name }}'s Services
                 {% endif %}
             </h2>
 
@@ -197,15 +673,53 @@
                 </div>
             {% else %}
                 <div class="alert alert-info">
-                    {% if request.user == profile.user %}
+                    {% if is_own_profile %}
                         <p class="mb-0">You haven't created any services yet. <a href="{% url 'create_gig' %}" class="alert-link">Create your first service</a> to get started!</p>
                     {% else %}
-                        <p class="mb-0">{{ profile.user.get_full_name|default:profile.user.username }} hasn't created any services yet.</p>
+                        <p class="mb-0">{{ profile.get_display_name }} hasn't created any services yet.</p>
                     {% endif %}
                 </div>
             {% endif %}
         </div>
     </div>
 {% endblock %}
+
 {% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show/hide business tab based on profile type selection
+        const profileTypeSelect = document.getElementById('id_profile_type');
+        const businessTab = document.querySelector('.business-tab');
+
+        if (profileTypeSelect && businessTab) {
+            profileTypeSelect.addEventListener('change', function() {
+                if (this.value === 'business') {
+                    businessTab.style.display = 'block';
+                } else {
+                    businessTab.style.display = 'none';
+                }
+            });
+        }
+
+        // For the view toggle buttons
+        const individualViewBtn = document.getElementById('individual_view');
+        const businessViewBtn = document.getElementById('business_view');
+
+        if (individualViewBtn && businessViewBtn && profileTypeSelect) {
+            individualViewBtn.addEventListener('change', function() {
+                if (this.checked) {
+                    profileTypeSelect.value = 'individual';
+                    businessTab.style.display = 'none';
+                }
+            });
+
+            businessViewBtn.addEventListener('change', function() {
+                if (this.checked) {
+                    profileTypeSelect.value = 'business';
+                    businessTab.style.display = 'block';
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

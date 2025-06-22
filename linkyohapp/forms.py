@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .models import Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea
+from .models import Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea, Profile, District
 
 
 # Declaring Extensions that will be allowed to be uploaded(Not to be used yet)
@@ -233,6 +233,99 @@ class ContactForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class ProfileForm(forms.ModelForm):
+    """Form for editing user profiles"""
+    class Meta:
+        model = Profile
+        fields = [
+            'profile_type', 'avatar', 'gender', 'about', 'slogan',
+            'phone_number', 'email_public', 'website',
+            'facebook', 'twitter', 'instagram', 'linkedin',
+            'company_name', 'business_type', 'business_description', 'year_established',
+            'address', 'district', 'location'
+        ]
+        widgets = {
+            'about': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Tell potential customers about yourself or your business'}),
+            'slogan': forms.TextInput(attrs={'placeholder': 'Add a catchy slogan'}),
+            'website': forms.URLInput(attrs={'placeholder': 'https://example.com'}),
+            'facebook': forms.URLInput(attrs={'placeholder': 'https://facebook.com/yourusername'}),
+            'twitter': forms.URLInput(attrs={'placeholder': 'https://twitter.com/yourusername'}),
+            'instagram': forms.URLInput(attrs={'placeholder': 'https://instagram.com/yourusername'}),
+            'linkedin': forms.URLInput(attrs={'placeholder': 'https://linkedin.com/in/yourusername'}),
+            'business_description': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Describe your business'}),
+            'address': forms.TextInput(attrs={'placeholder': 'Your address'}),
+            'year_established': forms.NumberInput(attrs={'min': 1900, 'max': 2100}),
+        }
+        help_texts = {
+            'profile_type': _('Select whether this is an individual or business profile'),
+            'avatar': _('URL to your profile picture'),
+            'gender': _('Your gender (optional)'),
+            'about': _('Tell potential customers about yourself or your business'),
+            'slogan': _('A short, catchy phrase that describes you or your business'),
+            'phone_number': _('Your contact phone number in international format (e.g., +5016550000)'),
+            'email_public': _('Check this if you want your email to be visible on your profile'),
+            'website': _('Your website URL (if you have one)'),
+            'facebook': _('Link to your Facebook profile or page'),
+            'twitter': _('Link to your Twitter profile'),
+            'instagram': _('Link to your Instagram profile'),
+            'linkedin': _('Link to your LinkedIn profile'),
+            'company_name': _('Your business name (for business profiles)'),
+            'business_type': _('Type of business (e.g., LLC, Corporation, Sole Proprietor)'),
+            'business_description': _('Detailed description of your business'),
+            'year_established': _('Year your business was established'),
+            'address': _('Your physical address'),
+            'district': _('Select your district'),
+            'location': _('Select your location within the district'),
+        }
+        labels = {
+            'profile_type': _('Profile Type'),
+            'avatar': _('Profile Picture URL'),
+            'gender': _('Gender'),
+            'about': _('About'),
+            'slogan': _('Slogan'),
+            'phone_number': _('Phone Number'),
+            'email_public': _('Make Email Public'),
+            'website': _('Website'),
+            'facebook': _('Facebook'),
+            'twitter': _('Twitter'),
+            'instagram': _('Instagram'),
+            'linkedin': _('LinkedIn'),
+            'company_name': _('Company Name'),
+            'business_type': _('Business Type'),
+            'business_description': _('Business Description'),
+            'year_established': _('Year Established'),
+            'address': _('Address'),
+            'district': _('District'),
+            'location': _('Location'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Add CSS classes for styling
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        # Make checkbox fields have the correct class
+        if 'email_public' in self.fields:
+            self.fields['email_public'].widget.attrs.update({'class': 'form-check-input'})
+
+        # Handle dynamic location dropdown
+        self.fields['location'].queryset = Location.objects.none()
+        if 'district' in self.data:
+            try:
+                district_id = self.data.get('district')
+                self.fields['location'].queryset = Location.objects.filter(
+                    local__local_district=district_id
+                ).select_related('local').order_by('local')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty location queryset
+        elif self.instance.pk and hasattr(self.instance, 'district') and self.instance.district:
+            self.fields['location'].queryset = Location.objects.filter(
+                local__local_district=self.instance.district_id
+            ).select_related('local').order_by('local')
 
 
 class UserRegistrationForm(forms.ModelForm):

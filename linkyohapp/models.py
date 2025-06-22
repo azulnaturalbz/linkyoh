@@ -219,20 +219,67 @@ class Location(models.Model):
 
 
 class Profile(models.Model):
+    PROFILE_TYPE_CHOICES = (
+        ('individual', 'Individual'),
+        ('business', 'Business'),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_type = models.CharField(max_length=20, choices=PROFILE_TYPE_CHOICES, default='individual')
     avatar = models.CharField(max_length=500, blank=True, null=True)
     gender = models.CharField(max_length=8, blank=True, null=True)
-    about = models.TextField()
-    slogan = models.CharField(max_length=500)
+    about = models.TextField(blank=True)
+    slogan = models.CharField(max_length=500, blank=True)
+
+    # Contact information
     phone_regex = RegexValidator(regex=r'^\+?1?\d{7,15}$',
                                  message="Phone number must be entered in the "
                                          "format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex],
                                     max_length=17,
                                     blank=True)  # validators should be a list
+    email_public = models.BooleanField(default=False, help_text="Make email public on profile")
+    website = models.URLField(max_length=200, blank=True)
+
+    # Social media links
+    facebook = models.URLField(max_length=200, blank=True)
+    twitter = models.URLField(max_length=200, blank=True)
+    instagram = models.URLField(max_length=200, blank=True)
+    linkedin = models.URLField(max_length=200, blank=True)
+
+    # Business specific fields
+    company_name = models.CharField(max_length=255, blank=True)
+    business_type = models.CharField(max_length=100, blank=True)
+    business_description = models.TextField(blank=True)
+    year_established = models.PositiveIntegerField(null=True, blank=True)
+
+    # Location
+    address = models.CharField(max_length=255, blank=True)
+    district = models.ForeignKey(District, on_delete=models.SET_NULL, null=True, blank=True)
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
+
+    # Verification
+    is_verified = models.BooleanField(default=False, help_text="Verified status - can only be set by admins")
+    verified_date = models.DateTimeField(null=True, blank=True)
+
+    # Timestamps
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username
+
+    def get_full_name(self):
+        """Return the user's full name or username if not available"""
+        if self.profile_type == 'business' and self.company_name:
+            return self.company_name
+        return self.user.get_full_name() or self.user.username
+
+    def get_display_name(self):
+        """Return the appropriate display name based on profile type"""
+        if self.profile_type == 'business' and self.company_name:
+            return self.company_name
+        return self.user.get_full_name() or self.user.username
 
 
 class Category(models.Model):
