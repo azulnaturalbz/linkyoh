@@ -90,7 +90,7 @@
                                         hx-trigger="load, change from:#id_category"
                                         hx-target="#id_subcategory"
                                         hx-include="#id_category"
-                                        {% if gig.sub_category_id %} hx-vars='{"subcategory": "{{ gig.sub_category_id|default_if_none:"" }}", "category": "{{  gig.category_id|default_if_none:""  }}" }' {% endif %}
+                                        {% if gig.sub_category_id %} hx-vals='{"subcategory": "{{ gig.sub_category_id|default_if_none:"" }}", "category": "{{  gig.category_id|default_if_none:""  }}" }' {% endif %}
                                         hx-swap="innerHTML">
                                 </select>
                             </div>
@@ -141,7 +141,7 @@
                                         hx-trigger="load, #id_district:change"
                                         hx-target="#id_location"
                                         hx-include="#id_district"
-                                        {% if gig.location_id %} hx-vars='{"location": "{{ gig.location_id|default_if_none:"" }}", "district": "{{ gig.district_id|default_if_none:"" }}"}' {% endif %}
+                                        {% if gig.location_id %} hx-vals='{"location": "{{ gig.location_id|default_if_none:"" }}", "district": "{{ gig.district_id|default_if_none:"" }}"}' {% endif %}
                                         hx-swap="innerHTML">
                                 </select>
                             </div>

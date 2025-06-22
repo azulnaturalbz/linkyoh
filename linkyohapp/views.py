@@ -484,7 +484,21 @@ class MyGigsView(LoginRequiredMixin, ListView):
     login_url = '/'
 
     def get_queryset(self):
-        return Gig.objects.filter(user=self.request.user)
+        # Optimize query by prefetching related objects and likes
+        return Gig.objects.filter(user=self.request.user).select_related(
+            'category', 'sub_category', 'district', 'location'
+        ).prefetch_related('likes')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add count of active gigs
+        context['active_gigs_count'] = Gig.objects.filter(user=self.request.user, status=True).count()
+        # Add total likes across all user's gigs
+        total_likes = 0
+        for gig in context['gigs']:
+            total_likes += gig.total_likes()
+        context['total_likes'] = total_likes
+        return context
 
 # Keep the function-based view as a wrapper for backward compatibility
 @login_required(login_url='/')

@@ -1,29 +1,316 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}My Gigs | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .dashboard-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 2.5rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .dashboard-stats {
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+        text-align: center;
+        border-right: 1px solid var(--gray-200);
+    }
+
+    .stat-card:last-child {
+        border-right: none;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .stat-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+        color: var(--gray-600);
+        font-size: 0.875rem;
+    }
+
+    .gig-card {
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        margin-bottom: 1.5rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .gig-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .gig-card-header {
+        display: flex;
+        align-items: center;
+        padding: 1.25rem;
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .gig-card-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 0.5rem;
+        object-fit: cover;
+        margin-right: 1rem;
+    }
+
+    .gig-card-title {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+
+    .gig-card-category {
+        color: var(--gray-600);
+        font-size: 0.875rem;
+    }
+
+    .gig-card-body {
+        padding: 1.25rem;
+    }
+
+    .gig-card-stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .gig-stat {
+        text-align: center;
+        padding: 0.5rem;
+    }
+
+    .gig-stat-value {
+        font-weight: 600;
+        font-size: 1.25rem;
+    }
+
+    .gig-stat-label {
+        color: var(--gray-600);
+        font-size: 0.75rem;
+    }
+
+    .gig-card-footer {
+        padding: 1rem 1.25rem;
+        background-color: var(--gray-100);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .status-badge {
+        padding: 0.35rem 0.75rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .status-active {
+        background-color: rgba(46, 204, 113, 0.15);
+        color: #27ae60;
+    }
+
+    .status-disabled {
+        background-color: rgba(231, 76, 60, 0.15);
+        color: #e74c3c;
+    }
+
+    .action-buttons .btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .empty-icon {
+        font-size: 4rem;
+        color: var(--gray-400);
+        margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .stat-card {
+            border-right: none;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .stat-card:last-child {
+            border-bottom: none;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block page %}
-    <h1 style="margin-bottom: 30px"> My Gigs</h1>
-    <div class="panel panel-default">
-    <table class="table table-bordered table-striped">
-        <thead class="bg-success">
-        <tr>
-            <th></th>
-            <th>Gig Title</th>
-            <th>Price ($)</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for gig in gigs %}
-            <tr>
-            <td>{{ forloop.counter }}</td>
-            <td><a href="{% url 'edit_gig' gig.id %}">{{ gig.title }}</a></td>
-            <td>{{ gig.price }}</td>
-            <td>{% if gig.status %}Active {% else %} Disabled{% endif %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="display-5 mb-2">My Gigs</h1>
+                    <p class="lead mb-0">Manage your services and track their performance</p>
+                </div>
+                <a href="{% url 'create_gig' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-plus-circle me-2"></i>Create New Gig
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="dashboard-stats">
+            <div class="row g-0">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="stat-value">{{ gigs|length }}</div>
+                        <div class="stat-label">Total Gigs</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-value">{{ active_gigs_count }}</div>
+                        <div class="stat-label">Active Gigs</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-value">--</div>
+                        <div class="stat-label">Total Views</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-value">{{ total_likes }}</div>
+                        <div class="stat-label">Total Likes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gig Listings -->
+        {% if gigs %}
+            <div class="row">
+                {% for gig in gigs %}
+                    <div class="col-lg-6">
+                        <div class="gig-card">
+                            <div class="gig-card-header">
+                                <img src="{{ gig.get_photo_url }}" alt="{{ gig.title }}" class="gig-card-img">
+                                <div>
+                                    <h5 class="gig-card-title">{{ gig.title }}</h5>
+                                    <div class="gig-card-category">
+                                        <span class="badge bg-light text-dark">
+                                            <i class="fas fa-tag me-1"></i>{{ gig.category }}
+                                        </span>
+                                        <span class="badge bg-light text-dark ms-1">
+                                            <i class="fas fa-sitemap me-1"></i>{{ gig.sub_category }}
+                                        </span>
+                                        <span class="badge bg-light text-dark ms-1">
+                                            <i class="fas fa-map-marker-alt me-1"></i>{{ gig.district }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gig-card-body">
+                                <p class="text-muted mb-3">{{ gig.description|truncatechars:100 }}</p>
+                                <div class="gig-card-stats">
+                                    <div class="gig-stat">
+                                        <div class="gig-stat-value">${{ gig.price }}</div>
+                                        <div class="gig-stat-label">Price</div>
+                                    </div>
+                                    <div class="gig-stat">
+                                        <div class="gig-stat-value">{{ gig.total_likes }}</div>
+                                        <div class="gig-stat-label">Likes</div>
+                                    </div>
+                                    <div class="gig-stat">
+                                        <div class="gig-stat-value">--</div>
+                                        <div class="gig-stat-label">Views</div>
+                                    </div>
+                                    <div class="gig-stat">
+                                        <div class="gig-stat-value">--</div>
+                                        <div class="gig-stat-label">Inquiries</div>
+                                    </div>
+                                </div>
+                                <p class="text-muted mb-0 small">
+                                    <i class="far fa-clock me-1"></i>Created: {{ gig.create_time|date:"M d, Y" }}
+                                </p>
+                            </div>
+                            <div class="gig-card-footer">
+                                <div>
+                                    <span class="status-badge {% if gig.status %}status-active{% else %}status-disabled{% endif %}">
+                                        {% if gig.status %}
+                                            <i class="fas fa-check-circle me-1"></i>Active
+                                        {% else %}
+                                            <i class="fas fa-times-circle me-1"></i>Disabled
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="action-buttons">
+                                    <a href="{% url 'gig_detail' gig.id %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye me-1"></i>View
+                                    </a>
+                                    <a href="{% url 'edit_gig' gig.id %}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-edit me-1"></i>Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3 class="mb-3">No Gigs Yet</h3>
+                <p class="text-muted mb-4">You haven't created any gigs yet. Start showcasing your services to potential customers!</p>
+                <a href="{% url 'create_gig' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-plus-circle me-2"></i>Create Your First Gig
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
