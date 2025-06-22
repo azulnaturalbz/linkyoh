@@ -90,6 +90,20 @@ def banner_upload_path(instance, filename):
     # Create a path with category_id/filename
     return os.path.join('category_img', str(category_id), filename)
 
+def profile_cover_upload_path(instance, filename):
+    """
+    Upload path for profile cover images
+    Creates a path like: profile_covers/user_id/uuid.ext
+    """
+    # Sanitize the filename
+    filename = sanitize_filename(filename)
+
+    # Get the user ID, defaulting to 'unknown' if not available
+    user_id = getattr(instance, 'user_id', 'unknown')
+
+    # Create a path with user_id/filename
+    return os.path.join('profile_covers', str(user_id), filename)
+
 
 class Country(models.Model):
     # Fields
@@ -227,6 +241,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_type = models.CharField(max_length=20, choices=PROFILE_TYPE_CHOICES, default='individual')
     avatar = models.FileField(upload_to='profile_avatars/', blank=True, null=True)
+    cover_image = models.FileField(upload_to=profile_cover_upload_path, blank=True, null=True)
     gender = models.CharField(max_length=8, blank=True, null=True)
     about = models.TextField(blank=True)
     slogan = models.CharField(max_length=500, blank=True)
@@ -280,6 +295,14 @@ class Profile(models.Model):
         if self.profile_type == 'business' and self.company_name:
             return self.company_name
         return self.user.get_full_name() or self.user.username
+
+    def get_cover_image_url(self):
+        """
+        Returns the URL of the profile cover image if it exists, otherwise returns the default image URL
+        """
+        if self.cover_image and file_exists(self.cover_image.name):
+            return self.cover_image.url
+        return os.path.join(settings.STATIC_URL, 'img/linkyoh_banner_web.png')
 
 
 class Category(models.Model):

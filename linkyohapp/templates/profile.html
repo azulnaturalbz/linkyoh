@@ -5,7 +5,7 @@
 {% block head %}
 <style>
     .profile-header {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{{ profile.get_cover_image_url }}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -342,6 +342,20 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label for="{{ form.cover_image.id_for_label }}" class="form-label">
+                                        <i class="fas fa-image me-2"></i>{{ form.cover_image.label }}
+                                    </label>
+                                    {% render_field form.cover_image class="form-control" %}
+                                    <div class="form-text">{{ form.cover_image.help_text }}</div>
+                                    {% if profile.cover_image %}
+                                    <div class="mt-2">
+                                        <img src="{{ profile.cover_image.url }}" alt="Current cover image" class="img-thumbnail" style="max-height: 100px;">
+                                        <small class="d-block text-muted">Current cover image</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="mb-3">
                                     <label for="{{ form.gender.id_for_label }}" class="form-label">
                                         <i class="fas fa-venus-mars me-2"></i>{{ form.gender.label }}
                                     </label>
@@ -563,15 +577,18 @@
                         </div>
                         {% endif %}
 
-                        {% if profile.address %}
+                        {% if profile.address or profile.location %}
                         <div class="contact-info-item">
                             <div class="contact-icon">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div>
-                                {{ profile.address }}
+                                {% if profile.address %}
+                                    {{ profile.address }}
+                                {% endif %}
                                 {% if profile.location %}
-                                    <br>{{ profile.location.local }}, {{ profile.district.district_name }}
+                                    {% if profile.address %}<br>{% endif %}
+                                    {{ profile.location.local }}, {{ profile.district.district_name }}
                                 {% endif %}
                             </div>
                         </div>

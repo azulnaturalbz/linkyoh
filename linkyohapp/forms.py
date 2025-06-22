@@ -240,7 +240,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = [
-            'profile_type', 'avatar', 'gender', 'about', 'slogan',
+            'profile_type', 'avatar', 'cover_image', 'gender', 'about', 'slogan',
             'phone_number', 'email_public', 'website',
             'facebook', 'twitter', 'instagram', 'linkedin',
             'company_name', 'business_type', 'business_description', 'year_established',
@@ -261,6 +261,7 @@ class ProfileForm(forms.ModelForm):
         help_texts = {
             'profile_type': _('Select whether this is an individual or business profile'),
             'avatar': _('Upload your profile picture'),
+            'cover_image': _('Upload a cover image for your profile header (optional)'),
             'gender': _('Your gender (optional)'),
             'about': _('Tell potential customers about yourself or your business'),
             'slogan': _('A short, catchy phrase that describes you or your business'),
@@ -282,6 +283,7 @@ class ProfileForm(forms.ModelForm):
         labels = {
             'profile_type': _('Profile Type'),
             'avatar': _('Profile Picture'),
+            'cover_image': _('Profile Header Image'),
             'gender': _('Gender'),
             'about': _('About'),
             'slogan': _('Slogan'),
