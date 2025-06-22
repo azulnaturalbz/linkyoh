@@ -4,6 +4,22 @@
 
 {% block head %}
 <style>
+    /* Fix for file input text overflow */
+    .form-control[type="file"] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Fix for image filename display */
+    .img-thumbnail + small {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
     .profile-header {
         background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{{ profile.get_cover_image_url }}');
         background-size: cover;

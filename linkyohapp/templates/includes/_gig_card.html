@@ -1,4 +1,21 @@
 {% load static %}
+<style>
+    .provider-name {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .provider-name img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+        object-fit: cover;
+    }
+</style>
 <div class="card gig-card h-100">
     <a href="{% url 'gig_detail' gig.id %}">
         <img src="{{ gig.get_photo_url }}" class="card-img-top" alt="{{ gig.title }}">
