@@ -1,4 +1,5 @@
 import os
+import logging
 from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
@@ -23,7 +24,7 @@ from django.core.validators import RegexValidator
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Import image processing utilities
-from .image_utils import process_avatar, process_cover, process_gig_photo, process_image
+from .image_utils import process_avatar, process_cover, process_gig_photo, process_image, ImageProcessingError
 
 # Create your models here.
 
@@ -529,11 +530,23 @@ def process_profile_images(sender, instance, **kwargs):
     """
     # Process avatar if it exists
     if instance.avatar:
-        process_avatar(instance.avatar)
+        try:
+            process_avatar(instance.avatar)
+        except ImageProcessingError as e:
+            # Log the error
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error processing avatar for profile {instance.id}: {str(e)}")
+            # We don't want to raise the exception here as it would prevent the profile from being saved
 
     # Process cover image if it exists
     if instance.cover_image:
-        process_cover(instance.cover_image)
+        try:
+            process_cover(instance.cover_image)
+        except ImageProcessingError as e:
+            # Log the error
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error processing cover image for profile {instance.id}: {str(e)}")
+            # We don't want to raise the exception here as it would prevent the profile from being saved
 
 @receiver(post_save, sender=Gig)
 def update_gig_image_paths(sender, instance, created, **kwargs):
@@ -564,7 +577,13 @@ def update_gig_image_paths(sender, instance, created, **kwargs):
 
     # Process the gig photo
     if instance.photo:
-        process_gig_photo(instance.photo)
+        try:
+            process_gig_photo(instance.photo)
+        except ImageProcessingError as e:
+            # Log the error
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error processing photo for gig {instance.id}: {str(e)}")
+            # We don't want to raise the exception here as it would prevent the gig from being saved
 
 @receiver(post_save, sender=GigImage)
 def update_gig_additional_image_paths(sender, instance, created, **kwargs):
@@ -595,10 +614,22 @@ def update_gig_additional_image_paths(sender, instance, created, **kwargs):
 
     # Process the additional image
     if instance.image:
-        process_image(instance.image, (800, 600), format='JPEG')
+        try:
+            process_image(instance.image, (800, 600), format=None)
+        except ImageProcessingError as e:
+            # Log the error
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error processing additional image {instance.id} for gig {instance.gig.id}: {str(e)}")
+            # We don't want to raise the exception here as it would prevent the image from being saved
 
 @receiver(post_save, sender=Category)
 def process_category_image(sender, instance, **kwargs):
     """Process category banner image after save"""
     if instance.photo:
-        process_image(instance.photo, (1200, 400), format='JPEG')
+        try:
+            process_image(instance.photo, (1200, 400), format='JPEG')
+        except ImageProcessingError as e:
+            # Log the error
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error processing photo for category {instance.id}: {str(e)}")
+            # We don't want to raise the exception here as it would prevent the category from being saved

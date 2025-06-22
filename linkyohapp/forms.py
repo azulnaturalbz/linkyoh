@@ -8,6 +8,7 @@ from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
 from .models import Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea, Profile, District
+from .image_utils import validate_image, ImageValidationError
 
 
 # Declaring Extensions that will be allowed to be uploaded(Not to be used yet)
@@ -90,16 +91,12 @@ class GigForm(ModelForm):
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
         if photo == 'gigs_img/empty_cover.jpg':
-          return photo
-        if photo and hasattr(photo, 'name'):
-            # Check file extension
-            ext = photo.name.split('.')[-1].lower()
-            if ext not in ['jpg', 'jpeg', 'png', 'gif']:
-                raise forms.ValidationError(_('Only jpg, jpeg, png, and gif files are allowed'))
-
-            # Check file size (max 10MB)
-            if hasattr(photo, 'size') and photo.size > 10 * 1024 * 1024:
-                raise forms.ValidationError(_('File size must be no more than 10MB'))
+            return photo
+        if photo:
+            try:
+                validate_image(photo)
+            except ImageValidationError as e:
+                raise forms.ValidationError(_(str(e)))
         return photo
 
 
@@ -113,7 +110,7 @@ class GigImageForm(ModelForm):
             'order': forms.NumberInput(attrs={'min': 0, 'max': 100}),
         }
         help_texts = {
-            'image': _('Upload an additional image (jpg, jpeg, png, gif only)'),
+            'image': _('Upload an additional image (jpg, jpeg, png, gif, heic, heif)'),
             'caption': _('Add a caption for this image (optional)'),
             'is_primary': _('Set as the primary image for this gig'),
             'order': _('Set the display order (lower numbers appear first)'),
@@ -121,15 +118,11 @@ class GigImageForm(ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data.get('image')
-        if image and hasattr(image, 'name'):
-            # Check file extension
-            ext = image.name.split('.')[-1].lower()
-            if ext not in ['jpg', 'jpeg', 'png', 'gif']:
-                raise forms.ValidationError(_('Only jpg, jpeg, png, and gif files are allowed'))
-
-            # Check file size (max 10MB)
-            if hasattr(image, 'size') and image.size > 10 * 1024 * 1024:
-                raise forms.ValidationError(_('File size must be no more than 10MB'))
+        if image:
+            try:
+                validate_image(image)
+            except ImageValidationError as e:
+                raise forms.ValidationError(_(str(e)))
         return image
 
 
@@ -315,6 +308,8 @@ class ProfileForm(forms.ModelForm):
         # Make checkbox fields have the correct class
         if 'email_public' in self.fields:
             self.fields['email_public'].widget.attrs.update({'class': 'form-check-input'})
+        if 'show_qr_code' in self.fields:
+            self.fields['show_qr_code'].widget.attrs.update({'class': 'form-check-input'})
 
         # Handle dynamic location dropdown
         self.fields['location'].queryset = Location.objects.none()
@@ -330,6 +325,24 @@ class ProfileForm(forms.ModelForm):
             self.fields['location'].queryset = Location.objects.filter(
                 local__local_district=self.instance.district_id
             ).select_related('local').order_by('local')
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data.get('avatar')
+        if avatar:
+            try:
+                validate_image(avatar)
+            except ImageValidationError as e:
+                raise forms.ValidationError(_(str(e)))
+        return avatar
+
+    def clean_cover_image(self):
+        cover_image = self.cleaned_data.get('cover_image')
+        if cover_image:
+            try:
+                validate_image(cover_image)
+            except ImageValidationError as e:
+                raise forms.ValidationError(_(str(e)))
+        return cover_image
 
 
 class UserRegistrationForm(forms.ModelForm):

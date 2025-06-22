@@ -7,6 +7,15 @@ from PIL import Image, UnidentifiedImageError, ImageFile
 from django.core.files.base import ContentFile
 from django.conf import settings
 
+# Custom exceptions for image processing errors
+class ImageProcessingError(Exception):
+    """Exception raised for errors during image processing."""
+    pass
+
+class ImageValidationError(Exception):
+    """Exception raised for errors during image validation."""
+    pass
+
 # Enable large image handling
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -44,20 +53,23 @@ def is_heic_image(file_path):
     Returns:
         bool: True if the image is HEIC/HEIF, False otherwise
     """
-    # Check file extension
-    ext = Path(file_path).suffix.lower()
-    if ext in ('.heic', '.heif'):
-        return True
-
-    # If extension doesn't match, try to check file header
     try:
-        with open(file_path, 'rb') as f:
-            header = f.read(12)
-            # Check for HEIC file signature
-            if b'ftypheic' in header or b'ftypheix' in header or b'ftyphevc' in header or b'ftypheim' in header:
-                return True
-    except Exception:
-        pass
+        # Check file extension
+        ext = Path(file_path).suffix.lower()
+        if ext in ('.heic', '.heif'):
+            return True
+
+        # If extension doesn't match, try to check file header
+        try:
+            with open(file_path, 'rb') as f:
+                header = f.read(12)
+                # Check for HEIC file signature
+                if b'ftypheic' in header or b'ftypheix' in header or b'ftyphevc' in header or b'ftypheim' in header:
+                    return True
+        except Exception as e:
+            logger.warning(f"Error checking file header for HEIC format: {str(e)}")
+    except Exception as e:
+        logger.warning(f"Error determining if image is HEIC: {str(e)}")
 
     return False
 
@@ -75,28 +87,59 @@ def convert_heic_to_jpeg(input_path, output_path=None):
     if output_path is None:
         output_path = str(Path(input_path).with_suffix('.jpg'))
 
+    logger.info(f"Converting HEIC image {input_path} to JPEG {output_path}")
+
     # Try using pillow-heif if available
     if HEIF_SUPPORT:
         try:
             img = Image.open(input_path)
             img.save(output_path, format='JPEG', quality=JPEG_QUALITY)
+            logger.info(f"Successfully converted HEIC to JPEG using pillow-heif: {output_path}")
             return output_path
         except Exception as e:
             logger.warning(f"Failed to convert HEIC using pillow-heif: {str(e)}")
+            # Continue to try other methods
 
     # Fallback to external tools if available
+    conversion_errors = []
+
+    # Try using ImageMagick's convert
     try:
-        # Try using ImageMagick's convert
-        subprocess.run(['convert', input_path, output_path], check=True)
+        logger.info("Attempting to convert HEIC using ImageMagick")
+        subprocess.run(['convert', input_path, output_path], check=True, capture_output=True, text=True)
+        logger.info(f"Successfully converted HEIC to JPEG using ImageMagick: {output_path}")
         return output_path
-    except (subprocess.SubprocessError, FileNotFoundError):
-        try:
-            # Try using heif-convert if available
-            subprocess.run(['heif-convert', input_path, output_path], check=True)
-            return output_path
-        except (subprocess.SubprocessError, FileNotFoundError):
-            logger.error(f"Failed to convert HEIC image {input_path}. Install pillow-heif or ImageMagick.")
-            return None
+    except subprocess.SubprocessError as e:
+        error_msg = f"ImageMagick conversion failed: {str(e)}"
+        if hasattr(e, 'stderr') and e.stderr:
+            error_msg += f" - {e.stderr}"
+        conversion_errors.append(error_msg)
+        logger.warning(error_msg)
+    except FileNotFoundError:
+        conversion_errors.append("ImageMagick 'convert' command not found")
+        logger.warning("ImageMagick 'convert' command not found")
+
+    # Try using heif-convert if available
+    try:
+        logger.info("Attempting to convert HEIC using heif-convert")
+        subprocess.run(['heif-convert', input_path, output_path], check=True, capture_output=True, text=True)
+        logger.info(f"Successfully converted HEIC to JPEG using heif-convert: {output_path}")
+        return output_path
+    except subprocess.SubprocessError as e:
+        error_msg = f"heif-convert failed: {str(e)}"
+        if hasattr(e, 'stderr') and e.stderr:
+            error_msg += f" - {e.stderr}"
+        conversion_errors.append(error_msg)
+        logger.warning(error_msg)
+    except FileNotFoundError:
+        conversion_errors.append("heif-convert command not found")
+        logger.warning("heif-convert command not found")
+
+    # If we get here, all conversion methods failed
+    error_details = "; ".join(conversion_errors)
+    logger.error(f"Failed to convert HEIC image {input_path}. Errors: {error_details}")
+    logger.error("To enable HEIC support, install pillow-heif or ImageMagick")
+    return None
 
 def get_original_path(path):
     """
@@ -131,17 +174,23 @@ def process_image(image_field, max_size, format=None):
     original_name = image_field.name
 
     # Check if this is a HEIC/HEIF image that needs conversion
-    if is_heic_image(original_path):
-        logger.info(f"Detected HEIC/HEIF image: {original_name}")
-        # Convert to JPEG first
-        converted_path = convert_heic_to_jpeg(original_path)
-        if converted_path:
-            logger.info(f"Successfully converted HEIC to JPEG: {converted_path}")
-            # Update the path to the converted image
-            original_path = converted_path
-        else:
-            logger.error(f"Failed to convert HEIC image: {original_name}")
-            return False
+    try:
+        if is_heic_image(original_path):
+            logger.info(f"Detected HEIC/HEIF image: {original_name}")
+            # Convert to JPEG first
+            converted_path = convert_heic_to_jpeg(original_path)
+            if converted_path:
+                logger.info(f"Successfully converted HEIC to JPEG: {converted_path}")
+                # Update the path to the converted image
+                original_path = converted_path
+            else:
+                error_msg = f"Failed to convert HEIC image: {original_name}. Please ensure pillow-heif or ImageMagick is installed."
+                logger.error(error_msg)
+                raise ImageProcessingError(error_msg)
+    except Exception as e:
+        error_msg = f"Error processing HEIC image {original_name}: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        raise ImageProcessingError(error_msg)
 
     try:
         # Open the image using PIL
@@ -222,14 +271,17 @@ def process_image(image_field, max_size, format=None):
         logger.info(f"Successfully processed image {original_name} to {format} format")
         return True
     except UnidentifiedImageError:
-        logger.error(f"Could not identify image format for {original_name}")
-        return False
+        error_msg = f"Could not identify image format for {original_name}"
+        logger.error(error_msg)
+        raise ImageProcessingError(error_msg)
     except IOError as e:
-        logger.error(f"IO error processing image {original_name}: {str(e)}")
-        return False
+        error_msg = f"IO error processing image {original_name}: {str(e)}"
+        logger.error(error_msg)
+        raise ImageProcessingError(error_msg)
     except Exception as e:
-        logger.error(f"Error processing image {original_name}: {str(e)}", exc_info=True)
-        return False
+        error_msg = f"Error processing image {original_name}: {str(e)}"
+        logger.error(error_msg, exc_info=True)
+        raise ImageProcessingError(error_msg)
 
 def process_avatar(avatar_field):
     """
@@ -257,3 +309,54 @@ def process_gig_photo(photo_field):
     better compression (WebP), so we use auto-detection.
     """
     return process_image(photo_field, GIG_PHOTO_MAX_SIZE, format=None)
+
+def validate_image(image_file):
+    """
+    Validate an image file before processing
+
+    Args:
+        image_file: A file object from a form upload
+
+    Returns:
+        True if the image is valid
+
+    Raises:
+        ImageValidationError: If the image is invalid
+    """
+    if not image_file:
+        return True
+
+    # Check file size
+    if hasattr(image_file, 'size') and image_file.size > 10 * 1024 * 1024:
+        raise ImageValidationError("File size must be no more than 10MB")
+
+    # Check file extension
+    if hasattr(image_file, 'name'):
+        ext = Path(image_file.name).suffix.lower()
+        if ext not in ['.jpg', '.jpeg', '.png', '.gif', '.heic', '.heif']:
+            raise ImageValidationError("Only jpg, jpeg, png, gif, heic, and heif files are allowed")
+
+    # Try to open the image to verify it's a valid image file
+    try:
+        # For HEIC files, we need to check if we have support
+        if hasattr(image_file, 'name') and Path(image_file.name).suffix.lower() in ['.heic', '.heif']:
+            if not HEIF_SUPPORT:
+                # Check if we have external tools
+                try:
+                    subprocess.run(['convert', '--version'], check=True, capture_output=True, text=True)
+                except (subprocess.SubprocessError, FileNotFoundError):
+                    try:
+                        subprocess.run(['heif-convert', '--version'], check=True, capture_output=True, text=True)
+                    except (subprocess.SubprocessError, FileNotFoundError):
+                        raise ImageValidationError("HEIC/HEIF images are not supported. Please install pillow-heif or ImageMagick.")
+
+        # Try to open the image
+        image_file.seek(0)
+        img = Image.open(image_file)
+        img.verify()  # Verify it's a valid image
+
+        # Reset the file pointer
+        image_file.seek(0)
+        return True
+    except Exception as e:
+        raise ImageValidationError(f"Invalid image file: {str(e)}")
