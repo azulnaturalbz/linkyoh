@@ -14,7 +14,7 @@
             <h5 class="card-title">{{ gig.title }}</h5>
         </a>
         <div class="provider-name">
-            <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+            <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                  alt="Provider">
             <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
                 {{ gig.user.get_full_name|default:gig.user.username }}

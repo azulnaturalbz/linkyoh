@@ -231,7 +231,7 @@
     <!-- Profile Header -->
     <div class="profile-header">
         <div class="container text-center">
-            <img src="{% if profile.avatar %}{{ profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+            <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
                  alt="{{ profile.get_display_name }}" class="profile-avatar mb-4">
             <h1 class="display-5 mb-2">
                 {{ profile.get_display_name }}
@@ -313,7 +313,7 @@
                         </li>
                     </ul>
 
-                    <form method="post" class="profile-form">
+                    <form method="post" class="profile-form" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         <div class="tab-content" id="profileTabsContent">
@@ -323,7 +323,7 @@
                                     <label for="{{ form.profile_type.id_for_label }}" class="form-label">
                                         <i class="fas fa-id-card me-2"></i>{{ form.profile_type.label }}
                                     </label>
-                                    {% render_field form.profile_type class="form-select" hx-get="#" hx-trigger="change" hx-target="#business-tab" %}
+                                    {% render_field form.profile_type class="form-select" %}
                                     <div class="form-text">{{ form.profile_type.help_text }}</div>
                                 </div>
 
@@ -331,8 +331,14 @@
                                     <label for="{{ form.avatar.id_for_label }}" class="form-label">
                                         <i class="fas fa-image me-2"></i>{{ form.avatar.label }}
                                     </label>
-                                    {% render_field form.avatar %}
+                                    {% render_field form.avatar class="form-control" %}
                                     <div class="form-text">{{ form.avatar.help_text }}</div>
+                                    {% if profile.avatar %}
+                                    <div class="mt-2">
+                                        <img src="{{ profile.avatar.url }}" alt="Current profile picture" class="img-thumbnail" style="max-height: 100px;">
+                                        <small class="d-block text-muted">Current profile picture</small>
+                                    </div>
+                                    {% endif %}
                                 </div>
 
                                 <div class="mb-3">
@@ -695,8 +701,20 @@
             profileTypeSelect.addEventListener('change', function() {
                 if (this.value === 'business') {
                     businessTab.style.display = 'block';
+                    // Update the radio buttons
+                    if (businessViewBtn) {
+                        businessViewBtn.checked = true;
+                    }
+                    // Click on the business tab to make it active
+                    document.getElementById('business-tab').click();
                 } else {
                     businessTab.style.display = 'none';
+                    // Update the radio buttons
+                    if (individualViewBtn) {
+                        individualViewBtn.checked = true;
+                    }
+                    // Click on the basic tab to make it active
+                    document.getElementById('basic-tab').click();
                 }
             });
         }
@@ -710,6 +728,8 @@
                 if (this.checked) {
                     profileTypeSelect.value = 'individual';
                     businessTab.style.display = 'none';
+                    // Click on the basic tab to make it active
+                    document.getElementById('basic-tab').click();
                 }
             });
 
@@ -717,6 +737,8 @@
                 if (this.checked) {
                     profileTypeSelect.value = 'business';
                     businessTab.style.display = 'block';
+                    // Click on the business tab to make it active
+                    document.getElementById('business-tab').click();
                 }
             });
         }

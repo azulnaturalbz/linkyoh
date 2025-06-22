@@ -222,7 +222,7 @@
                             {% for review in reviews %}
                                 <div class="review-item mb-4">
                                     <div class="d-flex align-items-center mb-2">
-                                        <img src="{% if review.user.profile.avatar %}{{ review.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                        <img src="{% if review.user.profile.avatar %}{{ review.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                                              class="rounded-circle me-2" width="40" height="40" alt="User avatar">
                                         <div>
                                             <h6 class="mb-0">{{ review.user.get_full_name|default:review.user.username }}</h6>
@@ -253,7 +253,7 @@
                     <h5 class="mb-0">Service Provider</h5>
                 </div>
                 <div class="card-body text-center">
-                    <img src="{% if gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+                    <img src="{% if gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                          class="rounded-circle mb-3" height="100" width="100" alt="Provider avatar">
                     <h5>
                         <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none">

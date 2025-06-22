@@ -260,7 +260,7 @@ class ProfileForm(forms.ModelForm):
         }
         help_texts = {
             'profile_type': _('Select whether this is an individual or business profile'),
-            'avatar': _('URL to your profile picture'),
+            'avatar': _('Upload your profile picture'),
             'gender': _('Your gender (optional)'),
             'about': _('Tell potential customers about yourself or your business'),
             'slogan': _('A short, catchy phrase that describes you or your business'),
@@ -281,7 +281,7 @@ class ProfileForm(forms.ModelForm):
         }
         labels = {
             'profile_type': _('Profile Type'),
-            'avatar': _('Profile Picture URL'),
+            'avatar': _('Profile Picture'),
             'gender': _('Gender'),
             'about': _('About'),
             'slogan': _('Slogan'),

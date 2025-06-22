@@ -238,7 +238,7 @@
                                 <h5 class="card-title">{{ gig.title }}</h5>
                             </a>
                             <div class="d-flex align-items-center mb-3">
-                                <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                                      alt="Provider" class="rounded-circle me-2" width="30" height="30">
                                 <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
                                     {{ gig.user.get_full_name|default:gig.user.username }}
@@ -328,7 +328,7 @@
                                 <p class="review-content">{{ review.content|truncatechars:120 }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <img src="{% if review.user.profile and review.user.profile.avatar %}{{ review.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                        <img src="{% if review.user.profile and review.user.profile.avatar %}{{ review.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                                              alt="Reviewer" class="rounded-circle me-2" width="24" height="24">
                                         <span class="reviewer">{{ review.user.get_full_name|default:review.user.username }}</span>
                                     </div>
@@ -363,7 +363,7 @@
                                 <h5 class="card-title">{{ gig.title }}</h5>
                             </a>
                             <div class="provider-name">
-                                <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
+                                <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                                      alt="Provider">
                                 <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
                                     {{ gig.user.get_full_name|default:gig.user.username }}

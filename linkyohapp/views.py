@@ -520,7 +520,7 @@ def profile(request, pid):
 
     # If it's the user's own profile and they're submitting the form
     if is_own_profile and request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             # Add a success message

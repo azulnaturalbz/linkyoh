@@ -226,7 +226,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_type = models.CharField(max_length=20, choices=PROFILE_TYPE_CHOICES, default='individual')
-    avatar = models.CharField(max_length=500, blank=True, null=True)
+    avatar = models.FileField(upload_to='profile_avatars/', blank=True, null=True)
     gender = models.CharField(max_length=8, blank=True, null=True)
     about = models.TextField(blank=True)
     slogan = models.CharField(max_length=500, blank=True)
