@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Verify Your Phone Number | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    /* Verification page specific styles */
+    .verification-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .verification-card {
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+    }
+
+    .verification-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        padding: 2rem;
+        color: white;
+        text-align: center;
+    }
+
+    .verification-body {
+        padding: 2rem;
+        background-color: white;
+    }
+
+    .verification-code-input {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 2rem 0;
+    }
+
+    .verification-code-input input {
+        width: 3rem;
+        height: 3.5rem;
+        font-size: 1.5rem;
+        text-align: center;
+        border: 1px solid var(--gray-300);
+        border-radius: 0.5rem;
+    }
+
+    .verification-code-input input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .verification-timer {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: var(--gray-600);
+    }
+
+    .verification-options {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    .verification-method {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .verification-method-btn {
+        margin: 0 0.5rem;
+    }
+
+    @media (max-width: 576px) {
+        .verification-code-input input {
+            width: 2.5rem;
+            height: 3rem;
+            font-size: 1.2rem;
+        }
+    }
+</style>
+<!-- Include Alpine.js -->
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<!-- Include HTMX -->
+<script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block page %}
+<div class="verification-container my-5" x-data="{ 
+    minutes: 10, 
+    seconds: 0,
+    resendDisabled: true,
+    method: '{{ method }}',
+    phone: '{{ phone_number }}',
+    startTimer() {
+        const endTime = new Date().getTime() + (this.minutes * 60 + this.seconds) * 1000;
+        
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+            
+            if (distance <= 0) {
+                clearInterval(interval);
+                this.minutes = 0;
+                this.seconds = 0;
+                this.resendDisabled = false;
+            } else {
+                this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+    },
+    formatTime(val) {
+        return val.toString().padStart(2, '0');
+    },
+    setupCodeInput() {
+        const inputs = document.querySelectorAll('.verification-code-input input');
+        
+        inputs.forEach((input, index) => {
+            // Auto-focus the first input on page load
+            if (index === 0) {
+                input.focus();
+            }
+            
+            input.addEventListener('keydown', function(e) {
+                // Allow only numbers, backspace, delete, tab, arrows
+                if (
+                    !/^\d$/.test(e.key) && 
+                    e.key !== 'Backspace' && 
+                    e.key !== 'Delete' && 
+                    e.key !== 'Tab' && 
+                    e.key !== 'ArrowLeft' && 
+                    e.key !== 'ArrowRight'
+                ) {
+                    e.preventDefault();
+                }
+            });
+            
+            input.addEventListener('input', function(e) {
+                // Move to next input if this one is filled
+                if (this.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                
+                // Combine all inputs for the hidden form field
+                const code = Array.from(inputs).map(input => input.value).join('');
+                document.getElementById('verification_code').value = code;
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                // Handle backspace - move to previous input if current is empty
+                if (e.key === 'Backspace' && !this.value.length && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    }
+}" x-init="startTimer(); setupCodeInput()">
+    <div class="verification-card">
+        <div class="verification-header">
+            <h2 class="mb-2">Verify Your Phone Number</h2>
+            <p class="mb-0">We've sent a verification code to your phone</p>
+        </div>
+        
+        <div class="verification-body">
+            <div class="text-center mb-4">
+                <p>Please enter the 6-digit verification code sent to:</p>
+                <p class="fw-bold">{{ phone_number }}</p>
+                <p class="text-muted small">Verification method: <span class="fw-bold" x-text="method === 'sms' ? 'SMS' : 'WhatsApp'"></span></p>
+            </div>
+            
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                {{ error }}
+            </div>
+            {% endif %}
+            
+            <form action="{% url 'verify_phone' %}" method="post" id="verification-form">
+                {% csrf_token %}
+                <input type="hidden" name="phone_number" value="{{ phone_number }}">
+                <input type="hidden" name="verification_code" id="verification_code">
+                
+                <div class="verification-code-input">
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                    <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric">
+                </div>
+                
+                <div class="verification-timer">
+                    <p>Code expires in: <span x-text="formatTime(minutes)"></span>:<span x-text="formatTime(seconds)"></span></p>
+                </div>
+                
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-check-circle me-2"></i>Verify Phone Number
+                    </button>
+                </div>
+            </form>
+            
+            <div class="verification-method mt-4">
+                <p class="text-center mb-3">Change verification method:</p>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-outline-secondary verification-method-btn" 
+                            :class="{'active': method === 'sms'}"
+                            hx-post="{% url 'resend_code' %}"
+                            hx-vals='{"phone_number": "{{ phone_number }}", "method": "sms"}'
+                            hx-target="#resend-response"
+                            hx-swap="innerHTML"
+                            x-on:click="method = 'sms'">
+                        <i class="fas fa-sms me-2"></i>SMS
+                    </button>
+                    <button class="btn btn-outline-secondary verification-method-btn" 
+                            :class="{'active': method === 'whatsapp'}"
+                            hx-post="{% url 'resend_code' %}"
+                            hx-vals='{"phone_number": "{{ phone_number }}", "method": "whatsapp"}'
+                            hx-target="#resend-response"
+                            hx-swap="innerHTML"
+                            x-on:click="method = 'whatsapp'">
+                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                    </button>
+                </div>
+            </div>
+            
+            <div id="resend-response" class="mt-3 text-center"></div>
+            
+            <div class="verification-options">
+                <button class="btn btn-link text-muted" 
+                        hx-post="{% url 'resend_code' %}"
+                        hx-vals='{"phone_number": "{{ phone_number }}", "method": "sms"}'
+                        hx-target="#resend-response"
+                        hx-swap="innerHTML"
+                        :disabled="resendDisabled">
+                    Resend Code
+                </button>
+                <a href="{% url 'register' %}" class="btn btn-link text-muted">Change Phone Number</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

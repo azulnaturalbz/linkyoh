@@ -348,6 +348,11 @@ class ProfileForm(forms.ModelForm):
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+    phone_number = PhoneNumberField(
+        help_text="Enter your Belize phone number (e.g., +5016550000)",
+        required=True,
+        region="BZ"  # Set Belize as the default region
+    )
 
     class Meta:
         model = User
@@ -358,3 +363,11 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['password2']
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        if phone_number:
+            # Ensure the phone number is from Belize
+            if not str(phone_number).startswith('+501'):
+                raise forms.ValidationError('Please enter a valid Belize phone number starting with +501.')
+        return phone_number

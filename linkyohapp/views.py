@@ -12,7 +12,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db import transaction
 from django.contrib import messages
+from django.contrib.auth.models import User
 from six import print_
+
+import credentials
 
 from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea
 from .forms import (
@@ -399,7 +402,7 @@ class CreateGigView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 # Keep the function-based view as a wrapper for backward compatibility
-@login_required(login_url='/')
+@login_required(login_url='/login/')
 def create_gig(request):
     view = CreateGigView.as_view()
     return view(request)
@@ -411,7 +414,7 @@ class EditGigView(LoginRequiredMixin, UpdateView):
     template_name = 'edit_gig.html'
     success_url = reverse_lazy('my_gigs')
     pk_url_kwarg = 'id'
-    login_url = '/'
+    login_url = '/login/'
 
     def get_queryset(self):
         # Ensure users can only edit their own gigs
@@ -468,7 +471,7 @@ class EditGigView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 # Keep the function-based view as a wrapper for backward compatibility
-@login_required(login_url='/')
+@login_required(login_url='/login/')
 def edit_gig(request, id):
     try:
         # Verify the gig exists and belongs to the user
@@ -483,7 +486,7 @@ class MyGigsView(LoginRequiredMixin, ListView):
     model = Gig
     template_name = 'my_gigs.html'
     context_object_name = 'gigs'
-    login_url = '/'
+    login_url = '/login/'
 
     def get_queryset(self):
         # Optimize query by prefetching related objects and likes
@@ -503,7 +506,7 @@ class MyGigsView(LoginRequiredMixin, ListView):
         return context
 
 # Keep the function-based view as a wrapper for backward compatibility
-@login_required(login_url='/')
+@login_required(login_url='/login/')
 def my_gigs(request):
     view = MyGigsView.as_view()
     return view(request)
@@ -702,7 +705,7 @@ def search(request):
     return render(request, 'search_results.html', context)
 
 
-@login_required
+@login_required(login_url='/login/')
 @require_POST
 def toggle_qr_code(request):
     """HTMX endpoint to toggle the QR code preference without a full page reload"""
@@ -724,16 +727,137 @@ def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
-            # Create a new user object but avoid saving it yet
-            new_user = user_form.save(commit=False)
-            # Set the chosen password
-            new_user.set_password(
-                user_form.cleaned_data['password']
-            )
-            new_user.save()
-            profile = Profile(user_id=new_user.id)
-            profile.save()
-            return render(request, 'account/register_done.html', context={'new_user': new_user})
+            # Store form data in session for later use after verification
+            request.session['registration_data'] = {
+                'username': user_form.cleaned_data['username'],
+                'first_name': user_form.cleaned_data['first_name'],
+                'last_name': user_form.cleaned_data['last_name'],
+                'email': user_form.cleaned_data['email'],
+                'password': user_form.cleaned_data['password'],
+                'phone_number': str(user_form.cleaned_data['phone_number']),
+            }
+
+            # Check if phone verification is enabled
+            if credentials.PHONE_VERIFICATION_ENABLED:
+                # Send verification code
+                phone_number = user_form.cleaned_data['phone_number']
+                method = request.POST.get('verification_method', 'sms')  # Default to SMS
+
+                from .phone_utils import create_verification
+                verification, code, success = create_verification(phone_number, method)
+
+                if success:
+                    # Redirect to verification page
+                    return redirect('verify_phone')
+                else:
+                    # If sending verification failed, show error
+                    messages.error(request, "Failed to send verification code. Please try again.")
+            else:
+                # If verification is disabled, proceed with registration
+                return complete_registration(request)
     else:
         user_form = UserRegistrationForm()
-    return render(request, 'account/register.html', context={'user_form': user_form})
+
+    return render(request, 'account/register.html', context={
+        'user_form': user_form,
+        'phone_verification_enabled': credentials.PHONE_VERIFICATION_ENABLED,
+    })
+
+
+def complete_registration(request):
+    """Complete the registration process after phone verification or if verification is disabled"""
+    registration_data = request.session.get('registration_data')
+
+    if not registration_data:
+        messages.error(request, "Registration data not found. Please try again.")
+        return redirect('register')
+
+    # Create the user
+    new_user = User.objects.create_user(
+        username=registration_data['username'],
+        email=registration_data['email'],
+        password=registration_data['password'],
+        first_name=registration_data['first_name'],
+        last_name=registration_data['last_name']
+    )
+
+    # Create the profile with phone number
+    profile = Profile(
+        user_id=new_user.id,
+        phone_number=registration_data['phone_number']
+    )
+    profile.save()
+
+    # Clear the session data
+    if 'registration_data' in request.session:
+        del request.session['registration_data']
+    if 'phone_verified' in request.session:
+        del request.session['phone_verified']
+
+    return render(request, 'account/register_done.html', context={'new_user': new_user})
+
+
+def verify_phone(request):
+    """Handle phone verification"""
+    # Check if there's registration data in the session
+    if 'registration_data' not in request.session:
+        messages.error(request, "No registration in progress. Please start over.")
+        return redirect('register')
+
+    phone_number = request.session['registration_data']['phone_number']
+
+    if request.method == 'POST':
+        verification_code = request.POST.get('verification_code')
+
+        if not verification_code:
+            return render(request, 'account/verify_phone.html', {
+                'phone_number': phone_number,
+                'method': request.session.get('verification_method', 'sms'),
+                'error': 'Please enter the verification code.'
+            })
+
+        from .phone_utils import verify_code
+        if verify_code(phone_number, verification_code):
+            # Mark phone as verified in session
+            request.session['phone_verified'] = True
+            # Complete registration
+            return complete_registration(request)
+        else:
+            return render(request, 'account/verify_phone.html', {
+                'phone_number': phone_number,
+                'method': request.session.get('verification_method', 'sms'),
+                'error': 'Invalid or expired verification code. Please try again.'
+            })
+
+    # GET request - show verification form
+    return render(request, 'account/verify_phone.html', {
+        'phone_number': phone_number,
+        'method': request.session.get('verification_method', 'sms')
+    })
+
+
+def resend_code(request):
+    """HTMX endpoint to resend verification code"""
+    if request.method != 'POST':
+        return HttpResponse("Method not allowed", status=405)
+
+    # Check if there's registration data in the session
+    if 'registration_data' not in request.session:
+        return render(request, 'account/resend_code_response.html', {
+            'success': False,
+            'method': 'sms'
+        })
+
+    phone_number = request.session['registration_data']['phone_number']
+    method = request.POST.get('method', 'sms')
+
+    # Store the verification method in session
+    request.session['verification_method'] = method
+
+    from .phone_utils import create_verification
+    verification, code, success = create_verification(phone_number, method)
+
+    return render(request, 'account/resend_code_response.html', {
+        'success': success,
+        'method': method
+    })

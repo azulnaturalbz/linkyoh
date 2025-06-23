@@ -5,6 +5,8 @@
 {% block title %}Create an account | Linkyoh{% endblock %}
 
 {% block head %}
+<!-- Include Bootstrap JS for tooltips -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <style>
     /* Registration page specific styles */
     .register-container {
@@ -189,6 +191,49 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="{{ user_form.phone_number.id_for_label }}">
+                        Phone Number
+                        <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip" data-bs-placement="top" 
+                           title="Your phone number will be verified to ensure account security and prevent spam. We'll send a verification code to this number."></i>
+                    </label>
+                    {% render_field user_form.phone_number class="form-control" placeholder="+5016550000" %}
+                    {% if user_form.phone_number.errors %}
+                        <div class="text-danger">{{ user_form.phone_number.errors }}</div>
+                    {% endif %}
+                    <div class="form-text">
+                        {{ user_form.phone_number.help_text }}
+                        {% if phone_verification_enabled %}
+                        <span class="ms-1 text-primary">This number will receive a verification code.</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if phone_verification_enabled %}
+                <div class="form-group">
+                    <label>
+                        Verification Method
+                        <i class="fas fa-info-circle text-primary" data-bs-toggle="tooltip" data-bs-placement="top" 
+                           title="Choose how you want to receive your verification code. SMS works for all phones, WhatsApp is optional and only needed if you prefer to receive the code via WhatsApp."></i>
+                    </label>
+                    <div class="d-flex">
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="verification_method" id="method_sms" value="sms" checked>
+                            <label class="form-check-label" for="method_sms">
+                                <i class="fas fa-sms me-1"></i> SMS
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="verification_method" id="method_whatsapp" value="whatsapp">
+                            <label class="form-check-label" for="method_whatsapp">
+                                <i class="fab fa-whatsapp me-1"></i> WhatsApp <span class="text-muted small">(optional)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-text">Select SMS if you don't use WhatsApp or prefer text messages.</div>
+                </div>
+                {% endif %}
+
+                <div class="form-group">
                     <label for="{{ user_form.password.id_for_label }}">Password</label>
                     {% render_field user_form.password class="form-control" placeholder="Create a secure password" %}
                     {% if user_form.password.errors %}
@@ -283,4 +328,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Initialize tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
 {% endblock %}

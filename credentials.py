@@ -29,3 +29,10 @@ ALLOWED_HOST3 = os.environ['LYAH3']
 MERCHANT_ID = os.environ['LYMERCHANT_ID']
 PUBLIC_KEY = os.environ['LYMERCHANT_PUBLIC']
 PRIVATE_KEY = os.environ['LYMERCHANT_PRIVATE']
+
+# Phone verification settings
+PHONE_VERIFICATION_ENABLED = os.environ.get('PHONE_VERIFICATION_ENABLED', 'False') == 'True'
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID', '')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN', '')
+TWILIO_PHONE_NUMBER = os.environ.get('TWILIO_PHONE_NUMBER', '')
+TWILIO_WHATSAPP_NUMBER = os.environ.get('TWILIO_WHATSAPP_NUMBER', '')

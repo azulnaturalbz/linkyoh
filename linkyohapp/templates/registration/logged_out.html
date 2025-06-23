@@ -1,6 +1,110 @@
 {% extends "base.html" %}
-{% block title %}Logged out{% endblock %}
+{% load static %}
+
+{% block title %}Logged Out - Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .logout-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 3rem 1rem;
+    }
+
+    .logout-card {
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        background-color: white;
+        text-align: center;
+        padding: 3rem;
+    }
+
+    .logout-icon {
+        font-size: 4rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .logout-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+    }
+
+    .logout-message {
+        font-size: 1.1rem;
+        color: var(--gray-700);
+        margin-bottom: 2rem;
+    }
+
+    .logout-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .security-note {
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: rgba(46, 204, 113, 0.1);
+        border-radius: 0.5rem;
+        text-align: left;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .security-icon {
+        font-size: 1.5rem;
+        color: #27ae60;
+        margin-right: 1rem;
+        margin-top: 0.2rem;
+    }
+
+    @media (max-width: 768px) {
+        .logout-card {
+            padding: 2rem 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block page %}
-    <h1>Logged out</h1>
-    <p>You have been successfully logged out. You can <a href="{% url "login" %}">log-in again</a>.</p>
+<div class="logout-container">
+    <div class="logout-card">
+        <div class="logout-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+
+        <h1 class="logout-title">Successfully Logged Out</h1>
+
+        <p class="logout-message">
+            You have been securely logged out of your Linkyoh account. 
+            Thank you for using our services!
+        </p>
+
+        <div class="logout-actions">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-sign-in-alt me-2"></i>Log In Again
+            </a>
+
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-home me-2"></i>Return to Home Page
+            </a>
+        </div>
+
+        <div class="security-note">
+            <div class="security-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div>
+                <p class="mb-0 small">
+                    <strong>Security Tip:</strong> Always remember to log out when using shared or public computers to protect your account information.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

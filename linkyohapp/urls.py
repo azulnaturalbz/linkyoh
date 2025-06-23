@@ -49,6 +49,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.register, name='register'),
+    path('verify-phone/', views.verify_phone, name='verify_phone'),
+    path('resend-code/', views.resend_code, name='resend_code'),
 
     # Password Change
     path('password-change/', auth_views.PasswordChangeView.as_view(), name='password_change'),

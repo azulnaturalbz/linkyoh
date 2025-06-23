@@ -458,6 +458,33 @@ class Contact(models.Model):
         return self.email
 
 
+class PhoneVerification(models.Model):
+    """Model for storing phone verification codes"""
+    VERIFICATION_METHOD_CHOICES = (
+        ('sms', 'SMS'),
+        ('whatsapp', 'WhatsApp'),
+    )
+
+    phone_number = PhoneNumberField()
+    verification_code = models.CharField(max_length=6)
+    is_verified = models.BooleanField(default=False)
+    verification_method = models.CharField(max_length=10, choices=VERIFICATION_METHOD_CHOICES, default='sms')
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    attempts = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Phone Verification"
+        verbose_name_plural = "Phone Verifications"
+
+    def __str__(self):
+        return f"{self.phone_number} - {self.verification_code}"
+
+    def is_expired(self):
+        """Check if the verification code has expired"""
+        return timezone.now() > self.expires_at
+
+
 class GigImage(models.Model):
     """Model for additional gig images"""
     gig = models.ForeignKey(Gig, related_name='images', on_delete=models.CASCADE)
