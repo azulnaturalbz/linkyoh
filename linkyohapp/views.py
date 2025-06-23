@@ -17,6 +17,8 @@ from six import print_
 
 import credentials
 
+from .auth_views import CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
+
 from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea
 from .forms import (
     GigForm, ReviewForm, ContactForm, UserRegistrationForm, ProfileForm,
@@ -793,6 +795,10 @@ def complete_registration(request):
         del request.session['registration_data']
     if 'phone_verified' in request.session:
         del request.session['phone_verified']
+
+    # Send welcome email
+    from .email_utils import send_welcome_email
+    send_welcome_email(new_user, request)
 
     return render(request, 'account/register_done.html', context={'new_user': new_user})
 

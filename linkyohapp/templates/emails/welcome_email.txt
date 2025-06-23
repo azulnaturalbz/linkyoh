@@ -1,0 +1,22 @@
+Hello {{ user.first_name|default:user.username }},
+
+Thank you for joining Linkyoh! We're excited to have you as part of our community.
+
+Linkyoh is the premier platform for connecting service providers with customers in Belize. Here's what you can do with your new account:
+
+- Create gig listings to showcase your skills and services
+- Build your reputation with reviews from satisfied customers
+- Get discovered by customers searching for services in your category and location
+- Connect directly with customers without middlemen or commission fees
+
+To get started, visit our website to log in to your account:
+{{ protocol }}://{{ domain }}{% url 'login' %}
+
+If you have any questions or need assistance, please don't hesitate to contact our support team at {{ support_email }}.
+
+Best regards,
+The Linkyoh Team
+
+---
+This email was sent to {{ user.email }}. If you did not sign up for a Linkyoh account, please ignore this email.
+© {% now "Y" %} Linkyoh. All rights reserved.
