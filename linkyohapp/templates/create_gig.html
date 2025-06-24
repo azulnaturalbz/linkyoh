@@ -35,36 +35,45 @@
                 <!-- Tabs for different sections -->
                 <ul class="nav nav-tabs mb-4" id="gigFormTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab" 
-                            @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic" 
-                            :aria-selected="currentTab === 'basic'">Basic Info</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab"
+                                @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic"
+                                :aria-selected="currentTab === 'basic'">Basic Info
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab" 
-                            @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images" 
-                            :aria-selected="currentTab === 'images'">Images</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab"
+                                @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images"
+                                :aria-selected="currentTab === 'images'">Images
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'contacts' }" id="contacts-tab" 
-                            @click.prevent="currentTab = 'contacts'" type="button" role="tab" aria-controls="contacts" 
-                            :aria-selected="currentTab === 'contacts'">Contact Info</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'contacts' }" id="contacts-tab"
+                                @click.prevent="currentTab = 'contacts'" type="button" role="tab"
+                                aria-controls="contacts"
+                                :aria-selected="currentTab === 'contacts'">Contact Info
+                        </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'locations' }" id="locations-tab" 
-                            @click.prevent="currentTab = 'locations'" type="button" role="tab" aria-controls="locations" 
-                            :aria-selected="currentTab === 'locations'">Service Areas</button>
+                        <button class="nav-link" :class="{ 'active': currentTab === 'locations' }" id="locations-tab"
+                                @click.prevent="currentTab = 'locations'" type="button" role="tab"
+                                aria-controls="locations"
+                                :aria-selected="currentTab === 'locations'">Service Areas
+                        </button>
                     </li>
                 </ul>
 
                 <!-- Tab content -->
                 <div class="tab-content" id="gigFormTabsContent">
                     <!-- Basic Info Tab -->
-                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'basic' }" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'basic' }" id="basic"
+                         role="tabpanel" aria-labelledby="basic-tab">
                         <div class="row mb-3">
                             <label for="title" class="col-sm-2 col-form-label">Gig Title</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" placeholder="Enter your listing title" id="title" name="title" required>
-                                <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max 500 characters)</small>
+                                <input class="form-control" type="text" placeholder="Enter your listing title"
+                                       id="title" name="title" required>
+                                <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max
+                                    500 characters)</small>
                             </div>
                         </div>
 
@@ -96,8 +105,10 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" name="description" placeholder="Enter your service/listing description" required></textarea>
-                                <small class="form-text text-muted">Describe your service in detail (max 1000 characters)</small>
+                                <textarea class="form-control" rows="5" name="description"
+                                          placeholder="Enter your service/listing description" required></textarea>
+                                <small class="form-text text-muted">Describe your service in detail (max 1000
+                                    characters)</small>
                             </div>
                         </div>
 
@@ -112,8 +123,10 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Main Phone</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="tel" placeholder="+5016550000" id="phone_number" name="phone_number" required>
-                                <small class="form-text text-muted">Enter your primary phone number in international format</small>
+                                <input class="form-control" type="tel" placeholder="+5016550000" id="phone_number"
+                                       name="phone_number" required>
+                                <small class="form-text text-muted">Enter your primary phone number in international
+                                    format</small>
                             </div>
                         </div>
 
@@ -145,14 +158,18 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Address 1</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" placeholder="Enter your street address, house number, etc" id="address_1" name="address_1" required>
+                                <input class="form-control" type="text"
+                                       placeholder="Enter your street address, house number, etc" id="address_1"
+                                       name="address_1" required>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Address 2</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" placeholder="Enter your secondary street address (optional)" id="address_2" name="address_2">
+                                <input class="form-control" type="text"
+                                       placeholder="Enter your secondary street address (optional)" id="address_2"
+                                       name="address_2">
                             </div>
                         </div>
 
@@ -160,7 +177,8 @@
                             <label class="col-sm-2 col-form-label">Main Photo</label>
                             <div class="col-sm-10">
                                 <input type="file" class="form-control" name="photo" accept="image/*">
-                                <small class="form-text text-muted">Upload a main image for your gig (jpg, jpeg, png, gif only)</small>
+                                <small class="form-text text-muted">Upload a main image for your gig (jpg, jpeg, png,
+                                    gif only)</small>
                             </div>
                         </div>
 
@@ -176,7 +194,8 @@
                     </div>
 
                     <!-- Images Tab -->
-                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'images' }" id="images" role="tabpanel" aria-labelledby="images-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'images' }" id="images"
+                         role="tabpanel" aria-labelledby="images-tab">
                         <div class="card mb-4">
                             <div class="card-header bg-light">
                                 <h5 class="mb-0">Additional Images</h5>
@@ -218,7 +237,8 @@
                                                     {% if form.instance.pk %}
                                                         <div class="form-check">
                                                             {{ form.DELETE }}
-                                                            <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
+                                                            <label class="form-check-label text-danger"
+                                                                   for="{{ form.DELETE.id_for_label }}">
                                                                 Delete this image
                                                             </label>
                                                         </div>
@@ -229,13 +249,15 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <button type="button" class="btn btn-outline-primary" id="add-image">Add Another Image</button>
+                                <button type="button" class="btn btn-outline-primary" id="add-image">Add Another Image
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Contacts Tab -->
-                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'contacts' }" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'contacts' }" id="contacts"
+                         role="tabpanel" aria-labelledby="contacts-tab">
                         <div class="card mb-4">
                             <div class="card-header bg-light">
                                 <h5 class="mb-0">Additional Contact Numbers</h5>
@@ -286,7 +308,8 @@
                                                     {% if form.instance.pk %}
                                                         <div class="form-check">
                                                             {{ form.DELETE }}
-                                                            <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
+                                                            <label class="form-check-label text-danger"
+                                                                   for="{{ form.DELETE.id_for_label }}">
                                                                 Delete this contact
                                                             </label>
                                                         </div>
@@ -297,13 +320,16 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <button type="button" class="btn btn-outline-primary" id="add-contact">Add Another Contact</button>
+                                <button type="button" class="btn btn-outline-primary" id="add-contact">Add Another
+                                    Contact
+                                </button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Service Areas Tab -->
-                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'locations' }" id="locations" role="tabpanel" aria-labelledby="locations-tab">
+                    <div class="tab-pane fade" :class="{ 'show active': currentTab === 'locations' }" id="locations"
+                         role="tabpanel" aria-labelledby="locations-tab">
                         <div class="card mb-4">
                             <div class="card-header bg-light">
                                 <h5 class="mb-0">Additional Service Areas</h5>
@@ -317,22 +343,25 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     {{ form.district.label_tag }}
-                                                    {{ form.district }}
-                                                    <small class="form-text text-muted">{{ form.district.help_text }}</small>
-                                                    {{ form.district.errors }}
+                                                    <select name="district" class="form-control" id="id_district_2"
+                                                            required
+                                                            hx-get="{% url 'ajax_load_states' %}"
+                                                            hx-trigger="load"
+                                                            hx-target="#id_district_2"
+                                                            hx-swap="innerHTML">
+                                                    </select>
+
                                                 </div>
                                                 <div class="col-md-6">
                                                     {{ form.location.label_tag }}
-                                                    <select name="{{ form.location.html_name }}" id="{{ form.location.auto_id }}" class="form-control"
+
+                                                    <select name="location" class="form-control" id="id_location_2"
+                                                            required
                                                             hx-get="{% url 'ajax_load_locations' %}"
-                                                            hx-trigger="load, change from:#{{ form.district.auto_id }}"
-                                                            hx-target="#{{ form.location.auto_id }}"
-                                                            hx-include="#{{ form.district.auto_id }}"
+                                                            hx-trigger="load, change from:#id_district_2"
+                                                            hx-target="#id_location_2"
+                                                            hx-include="#id_district_2"
                                                             hx-swap="innerHTML">
-                                                        <option value="">---------</option>
-                                                        {% if form.instance.pk and form.instance.location %}
-                                                            <option value="{{ form.instance.location.pk }}" selected>{{ form.instance.location.local }}</option>
-                                                        {% endif %}
                                                     </select>
                                                     <small class="form-text text-muted">{{ form.location.help_text }}</small>
                                                     {{ form.location.errors }}
@@ -363,7 +392,8 @@
                                                     {% if form.instance.pk %}
                                                         <div class="form-check">
                                                             {{ form.DELETE }}
-                                                            <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
+                                                            <label class="form-check-label text-danger"
+                                                                   for="{{ form.DELETE.id_for_label }}">
                                                                 Delete this service area
                                                             </label>
                                                         </div>
@@ -374,16 +404,23 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                                <button type="button" class="btn btn-outline-primary" id="add-service-area">Add Another Service Area</button>
+                                <button type="button" class="btn btn-outline-primary" id="add-service-area">Add Another
+                                    Service Area
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-secondary" id="prev-tab" @click="prevTab()" x-show="!isFirstTab">Previous</button>
-                    <button type="button" class="btn btn-primary" id="next-tab" @click="nextTab()" x-show="!isLastTab">Next</button>
-                    <button type="submit" class="btn btn-success" id="submit-btn" x-show="isLastTab">Publish Gig</button>
+                    <button type="button" class="btn btn-secondary" id="prev-tab" @click="prevTab()"
+                            x-show="!isFirstTab">Previous
+                    </button>
+                    <button type="button" class="btn btn-primary" id="next-tab" @click="nextTab()" x-show="!isLastTab">
+                        Next
+                    </button>
+                    <button type="submit" class="btn btn-success" id="submit-btn" x-show="isLastTab">Publish Gig
+                    </button>
                 </div>
             </form>
         </div>
@@ -393,7 +430,7 @@
 {% block scripts %}
     <!-- Alpine.js and HTMX handle most of the dynamic functionality -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Formset handling
             const addImageBtn = document.getElementById('add-image');
             const imageFormset = document.getElementById('image-formset');
@@ -410,13 +447,13 @@
             function setupFormsetButtons(addBtn, formset, prefix) {
                 if (!addBtn) return;
 
-                addBtn.addEventListener('click', function() {
+                addBtn.addEventListener('click', function () {
                     const forms = formset.querySelectorAll(`.${prefix.replace('_', '-')}-form`);
                     const totalForms = document.querySelector(`#id_${prefix}-TOTAL_FORMS`);
 
                     const newForm = forms[0].cloneNode(true);
                     newForm.innerHTML = newForm.innerHTML.replace(
-                        new RegExp(`${prefix}-0-`, 'g'), 
+                        new RegExp(`${prefix}-0-`, 'g'),
                         `${prefix}-${forms.length}-`
                     );
 
@@ -454,7 +491,7 @@
                             newLocation.setAttribute('hx-get', '{% url "ajax_load_locations" %}');
                             newLocation.setAttribute('hx-trigger', `load, #${newDistrict.id}:change`);
                             newLocation.setAttribute('hx-target', `#${newLocation.id}`);
-                            newLocation.setAttribute('hx-include', `#${newDistrict.id}`);
+                            newLocation.setAttribute('hx-vals', `{"district": document.getElementById("${newDistrict.id}").value}`);
                             newLocation.setAttribute('hx-swap', 'innerHTML');
                         }
                     }

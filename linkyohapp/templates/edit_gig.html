@@ -333,22 +333,25 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     {{ form.district.label_tag }}
-                                                    {{ form.district }}
-                                                    <small class="form-text text-muted">{{ form.district.help_text }}</small>
-                                                    {{ form.district.errors }}
+                                                    <select name="district" class="form-control" id="id_district_2"
+                                                            required
+                                                            hx-get="{% url 'ajax_load_states' %}"
+                                                            hx-trigger="load"
+                                                            hx-target="#id_district_2"
+                                                            hx-swap="innerHTML">
+                                                    </select>
+
                                                 </div>
                                                 <div class="col-md-6">
                                                     {{ form.location.label_tag }}
-                                                    <select name="{{ form.location.html_name }}" id="{{ form.location.auto_id }}" class="form-control"
+
+                                                    <select name="location" class="form-control" id="id_location_2"
+                                                            required
                                                             hx-get="{% url 'ajax_load_locations' %}"
-                                                            hx-trigger="load, #{{ form.district.auto_id }}:change"
-                                                            hx-target="#{{ form.location.auto_id }}"
-                                                            hx-include="#{{ form.district.auto_id }}"
+                                                            hx-trigger="load, change from:#id_district_2"
+                                                            hx-target="#id_location_2"
+                                                            hx-include="#id_district_2"
                                                             hx-swap="innerHTML">
-                                                        <option value="">---------</option>
-                                                        {% if form.instance.pk and form.instance.location %}
-                                                            <option value="{{ form.instance.location.pk }}" selected>{{ form.instance.location.local }}</option>
-                                                        {% endif %}
                                                     </select>
                                                     <small class="form-text text-muted">{{ form.location.help_text }}</small>
                                                     {{ form.location.errors }}
@@ -473,10 +476,10 @@
 
                         if (newDistrict && newLocation) {
                             // Set up HTMX for the new location dropdown
-                            newLocation.setAttribute('hx-get', '{% url "ajax_load_locations" %}');
+                             newLocation.setAttribute('hx-get', '{% url "ajax_load_locations" %}');
                             newLocation.setAttribute('hx-trigger', `load, #${newDistrict.id}:change`);
                             newLocation.setAttribute('hx-target', `#${newLocation.id}`);
-                            newLocation.setAttribute('hx-include', `#${newDistrict.id}`);
+                            newLocation.setAttribute('hx-vals', `{"district": document.getElementById("${newDistrict.id}").value}`);
                             newLocation.setAttribute('hx-swap', 'innerHTML');
                         }
                     }
