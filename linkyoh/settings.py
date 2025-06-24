@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'bootstrap4',
     'rest_framework',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -209,3 +210,4 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+CELERY_WORKER_STATE_DB = os.path.join(BASE_DIR, 'celery_worker_state.db')

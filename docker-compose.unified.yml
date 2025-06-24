@@ -1,0 +1,214 @@
+version: '3'
+
+# Unified Docker Compose file for Linkyoh
+# This file combines all services from the separate Docker Compose files
+# and allows for different environments (dev/prod) and optional email services.
+#
+# Usage:
+# - Development mode: ENVIRONMENT=dev docker-compose -f docker-compose.unified.yml up -d
+# - Production mode: ENVIRONMENT=prod docker-compose -f docker-compose.unified.yml up -d
+# - App-only mode: ENVIRONMENT=app docker-compose -f docker-compose.unified.yml up -d
+# - Standalone mode: ENVIRONMENT=standalone docker-compose -f docker-compose.unified.yml up -d
+#
+# Email services are included by default. To disable them:
+# - Without email: ENABLE_EMAIL=false docker-compose -f docker-compose.unified.yml up -d
+
+services:
+  # Web application service
+  web:
+    build:
+      context: .
+    container_name: linkyoh_web
+    restart: always
+    profiles: ["web-only", "with-email", "full"]
+    volumes:
+      - .:/linkyoh
+      # Volume mounts are conditionally set based on ENVIRONMENT
+      - ${VOLUME_STATIC:-static_volume}:${STATIC_PATH:-/linkyoh/static}:rw
+      - ${VOLUME_MEDIA:-media_volume}:${MEDIA_PATH:-/linkyoh/media}:rw
+    command: >
+      sh -c "python manage.py makemigrations && 
+             python manage.py migrate && 
+             ${COLLECT_STATIC:-} 
+             exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    environment:
+      - LYDEPLOYMENT_MODE=${ENVIRONMENT:-standalone}
+      # Pass through all environment variables from .env
+      - LYDEBUG=${LYDEBUG}
+      - LYDBUSER=${LYDBUSER}
+      - LYDB_PASSWORD=${LYDB_PASSWORD}
+      - LYDB_NAME=${LYDB_NAME}
+      - LYDB_HOST=${LYDB_HOST}
+      - LYDB_PORT=${LYDB_PORT}
+      - LYEMAIL_BACKEND=${LYEMAIL_BACKEND}
+      - LYEMAIL_HOST=${LYEMAIL_HOST}
+      - LYEMAIL_HOST_USER=${LYEMAIL_HOST_USER}
+      - LYEMAIL_HOST_PASSWORD=${LYEMAIL_HOST_PASSWORD}
+      - LYEMAIL_PORT=${LYEMAIL_PORT}
+      - LYEMAIL_TLS=${LYEMAIL_TLS}
+      - LYEMAIL_SSL=${LYEMAIL_SSL}
+      - LYDEFAULT_EMAIL=${LYDEFAULT_EMAIL}
+      - LYSEND_TO_EMAIL=${LYSEND_TO_EMAIL}
+      - LYFB_KEY=${LYFB_KEY}
+      - LYFB_SECRET=${LYFB_SECRET}
+      - LYAPP_SECRET=${LYAPP_SECRET}
+      - LYAH0=${LYAH0}
+      - LYAH1=${LYAH1}
+      - LYAH2=${LYAH2}
+      - LYAH3=${LYAH3}
+      - LYLYMERCHANT_ID=${LYLYMERCHANT_ID}
+      - LYMERCHANT_PUBLIC=${LYMERCHANT_PUBLIC}
+      - LYMERCHANT_PRIVATE=${LYMERCHANT_PRIVATE}
+      # Add Celery broker URL if email is enabled
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-amqp://guest:guest@rabbitmq:5672//}
+    env_file:
+      - .env
+    # Expose port directly only in app mode
+    ports:
+      - ${EXPOSE_WEB_PORT:-127.0.0.1:8000:8000}
+    networks:
+      - linkyoh_network
+    # Dependencies are managed through profiles
+    # When using the with-email or full profiles, web will depend on rabbitmq
+
+  # Nginx service - only included in dev, prod, and standalone modes
+  nginx:
+    build:
+      context: ./nginx
+    container_name: linkyoh_nginx
+    restart: always
+    profiles: ["web-only", "with-email", "full"]
+    image: ${NGINX_IMAGE:-nginx:latest}
+    volumes:
+      - ${NGINX_CONF_PATH:-./nginx}:/etc/nginx/conf.d
+#      - ${CERTBOT_CONF_PATH:-./nginx/certbot/conf}:/etc/letsencrypt
+#      - ${CERTBOT_WWW_PATH:-./nginx/certbot/www}:/var/www/certbot
+      - ${VOLUME_STATIC:-static_volume}:${STATIC_PATH:-/linkyoh/static}:ro
+      - ${VOLUME_MEDIA:-media_volume}:${MEDIA_PATH:-/linkyoh/media}:ro
+    ports:
+      - "${NGINX_HTTP_PORT:-80}:80"
+      - "${NGINX_HTTPS_PORT:-443}:443"
+    command: ${NGINX_COMMAND:-nginx -g 'daemon off;'}
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME:-linkyoh.com}
+    networks:
+      - linkyoh_network
+    depends_on:
+      - web
+
+  # Certbot service - only included in prod and standalone modes
+  certbot:
+    image: certbot/certbot:latest
+    container_name: linkyoh_certbot
+    restart: always
+    profiles: ["full"]
+    volumes:
+      - ${CERTBOT_CONF_PATH:-./nginx/certbot/conf}:/etc/letsencrypt
+      - ${CERTBOT_WWW_PATH:-./nginx/certbot/www}:/var/www/certbot
+    entrypoint: ${CERTBOT_COMMAND:-"sh -c 'trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet --agree-tos && nginx -s reload 2>/dev/null || true; sleep 12h; done;'"}
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME:-linkyoh.com}
+    networks:
+      - linkyoh_network
+    depends_on:
+      - nginx
+
+  # RabbitMQ service - only included if email is enabled
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: linkyoh_rabbitmq
+    restart: unless-stopped
+    profiles: ["with-email", "full"]
+    ports:
+      - "${RABBITMQ_PORT:-5672}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER:-guest}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS:-guest}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - linkyoh_network
+
+  # Celery worker service - only included if email is enabled
+  celery_worker:
+    build:
+      context: .
+    container_name: linkyoh_celery_worker
+    restart: unless-stopped
+    profiles: ["with-email", "full"]
+    command: celery -A linkyoh worker -l info
+    volumes:
+      - .:/linkyoh
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-amqp://guest:guest@rabbitmq:5672//}
+      - LYDEPLOYMENT_MODE=${ENVIRONMENT:-standalone}
+      - LYDEBUG=${LYDEBUG}
+      - LYDBUSER=${LYDBUSER}
+      - LYDB_PASSWORD=${LYDB_PASSWORD}
+      - LYDB_NAME=${LYDB_NAME}
+      - LYDB_HOST=${LYDB_HOST}
+      - LYDB_PORT=${LYDB_PORT}
+      - LYEMAIL_BACKEND=${LYEMAIL_BACKEND}
+      - LYEMAIL_HOST=${LYEMAIL_HOST}
+      - LYEMAIL_HOST_USER=${LYEMAIL_HOST_USER}
+      - LYEMAIL_HOST_PASSWORD=${LYEMAIL_HOST_PASSWORD}
+      - LYEMAIL_PORT=${LYEMAIL_PORT}
+      - LYEMAIL_TLS=${LYEMAIL_TLS}
+      - LYEMAIL_SSL=${LYEMAIL_SSL}
+      - LYDEFAULT_EMAIL=${LYDEFAULT_EMAIL}
+      - LYSEND_TO_EMAIL=${LYSEND_TO_EMAIL}
+      - LYAPP_SECRET=${LYAPP_SECRET}
+    env_file:
+      - .env
+    networks:
+      - linkyoh_network
+    depends_on:
+      - rabbitmq
+      - web
+
+  # Celery beat service - only included if email is enabled
+  celery_beat:
+    build:
+      context: .
+    container_name: linkyoh_celery_beat
+    restart: unless-stopped
+    profiles: ["with-email", "full"]
+    command: celery -A linkyoh beat -l info
+    volumes:
+      - .:/linkyoh
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-amqp://guest:guest@rabbitmq:5672//}
+      - LYDEPLOYMENT_MODE=${ENVIRONMENT:-standalone}
+      - LYDEBUG=${LYDEBUG}
+      - LYDBUSER=${LYDBUSER}
+      - LYDB_PASSWORD=${LYDB_PASSWORD}
+      - LYDB_NAME=${LYDB_NAME}
+      - LYDB_HOST=${LYDB_HOST}
+      - LYDB_PORT=${LYDB_PORT}
+      - LYEMAIL_BACKEND=${LYEMAIL_BACKEND}
+      - LYEMAIL_HOST=${LYEMAIL_HOST}
+      - LYEMAIL_HOST_USER=${LYEMAIL_HOST_USER}
+      - LYEMAIL_HOST_PASSWORD=${LYEMAIL_HOST_PASSWORD}
+      - LYEMAIL_PORT=${LYEMAIL_PORT}
+      - LYEMAIL_TLS=${LYEMAIL_TLS}
+      - LYEMAIL_SSL=${LYEMAIL_SSL}
+      - LYDEFAULT_EMAIL=${LYDEFAULT_EMAIL}
+      - LYSEND_TO_EMAIL=${LYSEND_TO_EMAIL}
+      - LYAPP_SECRET=${LYAPP_SECRET}
+    env_file:
+      - .env
+    networks:
+      - linkyoh_network
+    depends_on:
+      - rabbitmq
+      - web
+
+volumes:
+  static_volume:
+  media_volume:
+  rabbitmq_data:
+
+networks:
+  linkyoh_network:
+    driver: bridge
