@@ -136,7 +136,9 @@ class CategoryListView(ListView):
                 Q(description__icontains=search_query) |
                 Q(sub_category__subcategory__icontains=search_query) |
                 Q(district__district_name__icontains=search_query) |
-                Q(location__local__local_name__icontains=search_query)
+                Q(location__local__local_name__icontains=search_query) |
+                Q(service_areas__district__district_name__icontains=search_query) |
+                Q(service_areas__location__local__local_name__icontains=search_query)
             )
 
         # Apply subcategory filter if provided
@@ -145,16 +147,16 @@ class CategoryListView(ListView):
 
         # Apply district filter if provided
         if district_id:
-            base_query &= Q(district_id=district_id)
+            base_query &= (Q(district_id=district_id) | Q(service_areas__district_id=district_id))
 
         # Apply location filter if provided
         if location_id:
-            base_query &= Q(location_id=location_id)
+            base_query &= (Q(location_id=location_id) | Q(service_areas__location_id=location_id))
 
         # Optimize query by prefetching related objects
         return Gig.objects.filter(base_query).select_related(
             'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-        ).order_by("-create_time")
+        ).prefetch_related('service_areas').distinct().order_by("-create_time")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -294,7 +296,7 @@ class GigDetailView(DetailView):
         # Add additional images, contacts, and service areas
         context['additional_images'] = gig.images.all().order_by('order', 'created')
         context['contacts'] = gig.contacts.all().order_by('order', 'id')
-        context['service_areas'] = gig.service_areas.all().order_by('order', 'id')
+        context['service_areas'] = gig.get_all_service_areas()
 
         # Add related gigs (same category, excluding this one)
         context['related_gigs'] = Gig.objects.filter(
@@ -629,7 +631,9 @@ def search(request):
             Q(category__category__icontains=search_query) |
             Q(sub_category__subcategory__icontains=search_query) |
             Q(district__district_name__icontains=search_query) |
-            Q(location__local__local_name__icontains=search_query)
+            Q(location__local__local_name__icontains=search_query) |
+            Q(service_areas__district__district_name__icontains=search_query) |
+            Q(service_areas__location__local__local_name__icontains=search_query)
         )
 
     # Apply category filter if provided
@@ -642,11 +646,11 @@ def search(request):
 
     # Apply district filter if provided
     if district_id:
-        base_query &= Q(district_id=district_id)
+        base_query &= (Q(district_id=district_id) | Q(service_areas__district_id=district_id))
 
     # Apply location filter if provided
     if location_id:
-        base_query &= Q(location_id=location_id)
+        base_query &= (Q(location_id=location_id) | Q(service_areas__location_id=location_id))
 
     # Apply price range filters if provided
     if min_price:
@@ -668,7 +672,7 @@ def search(request):
     # Execute the query
     gigs = Gig.objects.filter(base_query).select_related(
         'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-    ).order_by("-create_time")
+    ).prefetch_related('service_areas').distinct().order_by("-create_time")
 
     # Get total count before pagination
     total_count = gigs.count()
