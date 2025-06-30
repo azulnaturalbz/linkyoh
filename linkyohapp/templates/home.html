@@ -233,7 +233,11 @@
                             </div>
                             <p class="card-text">{{ gig.description | truncatechars:80 }}</p>
                             <div class="d-flex justify-content-between align-items-center">
+                                {% if gig.call_for_pricing or gig.price == -1 %}
+                                <span class="badge bg-info"><i class="fas fa-phone-alt me-1"></i> Call for pricing</span>
+                                {% else %}
                                 <span class="badge bg-success">${{ gig.price }}</span>
+                                {% endif %}
                                 <div class="d-flex align-items-center">
                                     <a href="{% url 'category_listing' gig.category.id %}" class="badge bg-secondary me-2 text-decoration-none">
                                         <i class="fas fa-folder me-1"></i>{{ gig.category }}
@@ -367,7 +371,11 @@
                             </div>
                             <p class="card-text">{{ gig.description | truncatechars:60 }}</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
+                                {% if gig.call_for_pricing or gig.price == -1 %}
+                                <span class="badge bg-info"><i class="fas fa-phone-alt me-1"></i> Call for pricing</span>
+                                {% else %}
                                 <span class="badge bg-success">${{ gig.price }}</span>
+                                {% endif %}
                                 <a href="{% url 'category_listing' gig.category.id %}" class="badge bg-light text-dark text-decoration-none">
                                     {{ gig.category }}
                                 </a>

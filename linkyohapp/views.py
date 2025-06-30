@@ -696,11 +696,12 @@ def search(request):
     if location_id:
         base_query &= (Q(location_id=location_id) | Q(service_areas__location_id=location_id))
 
-    # Apply price range filters if provided
+    # Apply price range filters if provided, but always include "Call for pricing" gigs (price=-1)
     if min_price:
         try:
             min_price_value = int(min_price)
-            base_query &= Q(price__gte=min_price_value)
+            # Include gigs with price >= min_price OR price = -1 (call for pricing)
+            base_query &= (Q(price__gte=min_price_value) | Q(price=-1))
         except ValueError:
             # Invalid min_price, ignore this filter
             min_price = ''
@@ -708,7 +709,8 @@ def search(request):
     if max_price:
         try:
             max_price_value = int(max_price)
-            base_query &= Q(price__lte=max_price_value)
+            # Include gigs with price <= max_price OR price = -1 (call for pricing)
+            base_query &= (Q(price__lte=max_price_value) | Q(price=-1))
         except ValueError:
             # Invalid max_price, ignore this filter
             max_price = ''

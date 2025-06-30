@@ -105,7 +105,11 @@
                             <p>{{ gig.description }}</p>
 
                             <h5 class="mt-4">Price</h5>
+                            {% if gig.call_for_pricing or gig.price == -1 %}
+                            <p class="fs-4 fw-bold text-info"><i class="fas fa-phone-alt me-2"></i> Call for pricing details</p>
+                            {% else %}
                             <p class="fs-4 fw-bold text-success">${{ gig.price }}</p>
+                            {% endif %}
 
                             <h5 class="mt-4">Category</h5>
                             <p>
@@ -289,7 +293,11 @@
                         <a href="{% url 'gig_detail' related_gig.id %}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h6 class="mb-1">{{ related_gig.title|truncatechars:40 }}</h6>
+                                {% if related_gig.call_for_pricing or related_gig.price == -1 %}
+                                <small class="text-info"><i class="fas fa-phone-alt me-1"></i> Call for pricing</small>
+                                {% else %}
                                 <small>${{ related_gig.price }}</small>
+                                {% endif %}
                             </div>
                             <small class="text-muted">{{ related_gig.sub_category }}</small>
                         </a>

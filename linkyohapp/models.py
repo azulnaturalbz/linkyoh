@@ -345,7 +345,8 @@ class Gig(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     description = models.CharField(max_length=1000)
-    price = models.PositiveIntegerField(default=0)
+    price = models.IntegerField(default=0, help_text="Use -1 for 'Call for pricing'")
+    call_for_pricing = models.BooleanField(default=False, help_text="Hide price and show 'Call for pricing details' instead")
     photo = models.FileField(upload_to=cover_upload_path, default=DEFAULT_GIG_IMAGE)
     # Main phone number is kept for backward compatibility
     phone_regex = RegexValidator(regex=r'^\+?1?\d{7,15}$',

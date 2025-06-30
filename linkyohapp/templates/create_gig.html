@@ -16,6 +16,7 @@
             <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
                 currentTab: 'basic',
                 tabs: ['basic', 'images', 'contacts', 'locations'],
+                priceFieldVisible: true,
                 get currentTabIndex() { return this.tabs.indexOf(this.currentTab) },
                 get isFirstTab() { return this.currentTabIndex === 0 },
                 get isLastTab() { return this.currentTabIndex === this.tabs.length - 1 },
@@ -113,10 +114,19 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Price ($)</label>
+                            <label class="col-sm-2 col-form-label">Pricing</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" value="0" name="price" required>
-                                <small class="form-text text-muted">Enter your price in dollars</small>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="call_for_pricing" name="call_for_pricing" x-on:change="priceFieldVisible = !$event.target.checked">
+                                    <label class="form-check-label" for="call_for_pricing">
+                                        Call for pricing details
+                                    </label>
+                                    <small class="form-text text-muted d-block">Check this if you prefer customers to call for pricing details instead of displaying a fixed price</small>
+                                </div>
+                                <div x-show="priceFieldVisible">
+                                    <input type="number" class="form-control" value="0" name="price" :required="priceFieldVisible">
+                                    <small class="form-text text-muted">Enter your price in dollars</small>
+                                </div>
                             </div>
                         </div>
 

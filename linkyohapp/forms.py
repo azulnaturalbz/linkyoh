@@ -26,6 +26,7 @@ class GigForm(ModelForm):
                   'sub_category',
                   'description',
                   'price',
+                  'call_for_pricing',
                   'photo',
                   'status',
                   'phone_number',
@@ -37,6 +38,7 @@ class GigForm(ModelForm):
             'title': _('Enter a clear, descriptive title for your gig (max 500 characters)'),
             'description': _('Describe your service in detail (max 1000 characters)'),
             'price': _('Enter your price in dollars'),
+            'call_for_pricing': _('Check this if you prefer customers to call for pricing details instead of displaying a fixed price'),
             'photo': _('Upload a main image for your gig (jpg, jpeg, png, gif only)'),
             'phone_number': _('Enter your primary phone number in international format (e.g., +5016550000)'),
             'address_1': _('Enter your primary address'),
@@ -69,9 +71,16 @@ class GigForm(ModelForm):
         # Make photo field optional
         self.fields['photo'].required = True
 
+        # Customize call_for_pricing widget
+        self.fields['call_for_pricing'].widget = forms.CheckboxInput(attrs={
+            'class': 'form-check-input',
+            'x-on:change': 'priceFieldVisible = !$event.target.checked'
+        })
+
         # Add CSS classes for styling
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
+            if field != 'call_for_pricing':  # Skip call_for_pricing as we've already customized it
+                self.fields[field].widget.attrs.update({'class': 'form-control'})
 
         # Handle dynamic location dropdown
         self.fields['location'].queryset = Location.objects.none()
@@ -87,6 +96,21 @@ class GigForm(ModelForm):
             self.fields['location'].queryset = Location.objects.filter(
                 local__local_district=self.instance.district_id
             ).select_related('local').order_by('local')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        call_for_pricing = cleaned_data.get('call_for_pricing')
+        price = cleaned_data.get('price')
+
+        # If call_for_pricing is checked, set price to -1 as a special value
+        # This will be used to identify gigs with "Call for pricing" in queries
+        if call_for_pricing:
+            cleaned_data['price'] = -1
+        elif price is None or price < 0:
+            # Only validate price if call_for_pricing is not checked
+            self.add_error('price', _('Please enter a valid price (0 or greater)'))
+
+        return cleaned_data
 
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
