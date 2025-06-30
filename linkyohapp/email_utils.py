@@ -37,6 +37,17 @@ def send_email(subject, template_html, template_txt, context, recipient_list, fr
             logger.info(f"Email task queued for {', '.join(recipient_list)}: {subject}")
             return True
         else:
+            safe_context = copy.deepcopy(context)
+            # Convert any User objects in context to dicts if needed
+            if 'user' in safe_context and hasattr(safe_context['user'], '__dict__'):
+                user_obj = safe_context['user']
+                safe_context['user'] = {
+                    'id': user_obj.id,
+                    'username': user_obj.username,
+                    'first_name': user_obj.first_name,
+                    'last_name': user_obj.last_name,
+                    'email': user_obj.email,
+                }
             # Send email synchronously
             return send_email_task(
                 subject=subject,
@@ -65,9 +76,18 @@ def send_welcome_email(user, request=None):
     template_html = "emails/welcome_email.html"
     template_txt = "emails/welcome_email.txt"
 
+    # Convert User object to a serializable dictionary
+    user_data = {
+        'id': user.id,
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+    }
+
     # Prepare context
     context = {
-        'user': user,
+        'user': user_data,
         'support_email': settings.DEFAULT_FROM_EMAIL,
     }
 
@@ -103,9 +123,18 @@ def send_password_reset_confirmation_email(user, request=None):
     template_html = "emails/password_reset_confirmation.html"
     template_txt = "emails/password_reset_confirmation.txt"
 
+    # Convert User object to a serializable dictionary
+    user_data = {
+        'id': user.id,
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+    }
+
     # Prepare context
     context = {
-        'user': user,
+        'user': user_data,
         'support_email': settings.DEFAULT_FROM_EMAIL,
     }
 
