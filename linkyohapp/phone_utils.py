@@ -1,131 +1,127 @@
-import random
-import string
+"""
+phone_utils.py – Twilio Verify–based phone verification helpers
+---------------------------------------------------------------
+
+This module replaces the custom SMS/WhatsApp code‑sending logic
+with Twilio’s Verify service.  Twilio hosts the OTP code, handles
+expiry, rate‑limiting, and templating (including WhatsApp), so
+the application only needs to start a verification and later
+check the code.
+"""
+
 import logging
 from datetime import timedelta
+
 from django.utils import timezone
-from django.conf import settings
 from twilio.rest import Client
-from twilio.base.exceptions import TwilioRestException
 import credentials
 
 logger = logging.getLogger(__name__)
 
-def generate_verification_code(length=6):
-    """Generate a random verification code of specified length"""
-    return ''.join(random.choices(string.digits, k=length))
+# Lazily‑initialised Twilio client & Verify service
+_client = Client(credentials.TWILIO_ACCOUNT_SID, credentials.TWILIO_AUTH_TOKEN)
+_verify_service = _client.verify.v2.services(credentials.TWILIO_VERIFY_SERVICE_SID)
 
-def send_verification_sms(phone_number, verification_code):
-    """Send verification code via SMS using Twilio"""
+
+# ---------------------------------------------------------------------------
+# Twilio Verify helpers
+# ---------------------------------------------------------------------------
+
+def start_twilio_verification(phone_number: str, channel: str = "sms") -> bool:
+    """
+    Kick off a Twilio Verify flow for *phone_number*.
+    `channel` must be either ``"sms"`` or ``"whatsapp"``.
+    Returns ``True`` on success, ``False`` on error.
+    """
     if not credentials.PHONE_VERIFICATION_ENABLED:
-        logger.info(f"Phone verification disabled. Would have sent code {verification_code} to {phone_number}")
-        return True
-    
-    try:
-        client = Client(credentials.TWILIO_ACCOUNT_SID, credentials.TWILIO_AUTH_TOKEN)
-        message = client.messages.create(
-            body=f"Your Linkyoh verification code is: {verification_code}",
-            from_=credentials.TWILIO_PHONE_NUMBER,
-            to=str(phone_number)
+        logger.info(
+            "Phone verification disabled. Would have started %s verification for %s",
+            channel,
+            phone_number,
         )
-        logger.info(f"SMS sent to {phone_number}: {message.sid}")
         return True
-    except TwilioRestException as e:
-        logger.error(f"Failed to send SMS to {phone_number}: {str(e)}")
+
+    try:
+        _verify_service.verifications.create(to=str(phone_number), channel=channel)
+        logger.info("Started %s verification for %s", channel, phone_number)
+        return True
+    except Exception as exc:  # noqa: BLE001 – propagate all Twilio errors uniformly
+        logger.error("Verify start failed for %s: %s", phone_number, exc)
         return False
 
-def send_verification_whatsapp(phone_number, verification_code):
-    """Send verification code via WhatsApp using Twilio"""
+
+def check_twilio_verification(phone_number: str, code: str) -> bool:
+    """
+    Ask Twilio to validate *code* for *phone_number*.
+    Returns ``True`` if Twilio marks it ``approved``.
+    """
     if not credentials.PHONE_VERIFICATION_ENABLED:
-        logger.info(f"Phone verification disabled. Would have sent code {verification_code} to {phone_number} via WhatsApp")
-        return True
-    
+        # Development shortcut: accept “000000” when Verify is disabled
+        return code == "000000"
+
     try:
-        client = Client(credentials.TWILIO_ACCOUNT_SID, credentials.TWILIO_AUTH_TOKEN)
-        message = client.messages.create(
-            body=f"Your Linkyoh verification code is: {verification_code}",
-            from_=f"whatsapp:{credentials.TWILIO_WHATSAPP_NUMBER}",
-            to=f"whatsapp:{str(phone_number)}"
+        check = _verify_service.verification_checks.create(
+            to=str(phone_number), code=code
         )
-        logger.info(f"WhatsApp message sent to {phone_number}: {message.sid}")
-        return True
-    except TwilioRestException as e:
-        logger.error(f"Failed to send WhatsApp message to {phone_number}: {str(e)}")
+        approved = check.status == "approved"
+        logger.info("Verification check for %s: %s", phone_number, check.status)
+        return approved
+    except Exception as exc:  # noqa: BLE001
+        logger.error("Verify check failed for %s: %s", phone_number, exc)
         return False
 
-def create_verification(phone_number, method='sms', expiry_minutes=10):
+
+# ---------------------------------------------------------------------------
+# Public API expected by the views
+# ---------------------------------------------------------------------------
+
+def create_verification(phone_number, method="sms", expiry_minutes: int = 10):
     """
-    Create a new verification code for the given phone number
-    
-    Args:
-        phone_number: The phone number to verify
-        method: The verification method ('sms' or 'whatsapp')
-        expiry_minutes: Number of minutes until the code expires
-        
-    Returns:
-        tuple: (verification_object, verification_code)
+    Wrapper used by the registration flow.
+
+    Starts a Verify request via Twilio and stores a *stub* row in
+    ``PhoneVerification`` for local bookkeeping (rate‑limiting,
+    analytics).  The actual OTP code is **not** stored locally.
+
+    Returns ``(None, None, success)`` to preserve the original
+    triple‑return signature used in the views.
     """
-    from .models import PhoneVerification
-    
-    # Generate a new verification code
-    verification_code = generate_verification_code()
-    
-    # Calculate expiration time
-    expires_at = timezone.now() + timedelta(minutes=expiry_minutes)
-    
-    # Create or update verification record
-    verification, created = PhoneVerification.objects.update_or_create(
+    from .models import PhoneVerification  # local import to avoid Django setup issues
+
+    success = start_twilio_verification(phone_number, method)
+
+    # Up‑sert a stub record (no code stored)
+    PhoneVerification.objects.update_or_create(
         phone_number=phone_number,
         defaults={
-            'verification_code': verification_code,
-            'is_verified': False,
-            'verification_method': method,
-            'expires_at': expires_at,
-            'attempts': 0
-        }
+            "verification_code": "",
+            "is_verified": False,
+            "verification_method": method,
+            "expires_at": timezone.now() + timedelta(minutes=expiry_minutes),
+            "attempts": 0,
+        },
     )
-    
-    # Send the verification code
-    if method == 'whatsapp':
-        success = send_verification_whatsapp(phone_number, verification_code)
-    else:  # Default to SMS
-        success = send_verification_sms(phone_number, verification_code)
-    
-    return verification, verification_code, success
+
+    return None, None, success
+
 
 def verify_code(phone_number, code):
     """
-    Verify a code for a given phone number
-    
-    Args:
-        phone_number: The phone number to verify
-        code: The verification code to check
-        
-    Returns:
-        bool: True if verification successful, False otherwise
+    Validate *code* via Twilio Verify and update local attempt / status counters.
+    Returns ``True`` when the code is correct.
     """
     from .models import PhoneVerification
-    
-    try:
-        verification = PhoneVerification.objects.get(phone_number=phone_number)
-        
-        # Check if the verification has expired
-        if verification.is_expired():
-            logger.warning(f"Verification code for {phone_number} has expired")
-            return False
-        
-        # Increment the number of attempts
-        verification.attempts += 1
-        verification.save()
-        
-        # Check if the code matches
-        if verification.verification_code == code:
-            verification.is_verified = True
-            verification.save()
-            logger.info(f"Phone number {phone_number} successfully verified")
-            return True
-        else:
-            logger.warning(f"Invalid verification code for {phone_number}")
-            return False
-    except PhoneVerification.DoesNotExist:
-        logger.warning(f"No verification found for {phone_number}")
-        return False
+
+    approved = check_twilio_verification(phone_number, code)
+
+    obj, _ = PhoneVerification.objects.get_or_create(phone_number=phone_number)
+    obj.attempts += 1
+    obj.is_verified = approved
+    if approved:
+        obj.verification_code = code  # Store the code only on success
+        obj.expires_at = timezone.now() + timedelta(days=365)  # Extend expiry on success
+    else:
+        obj.expires_at = timezone.now() + timedelta(minutes=10)  # Reset expiry on failure
+    obj.save(update_fields=["attempts", "is_verified", "verification_code", "expires_at"])
+
+    return approved
