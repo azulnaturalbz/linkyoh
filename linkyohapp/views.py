@@ -198,17 +198,61 @@ class SubCategoryListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
+        # Get search parameters
+        search_query = self.request.GET.get('param', '')
+        district_id = self.request.GET.get('district', '')
+        location_id = self.request.GET.get('location', '')
+
+        # Start with base query - always show active gigs in this subcategory
+        base_query = Q(status=True, sub_category_id=self.kwargs['id'])
+
+        # Add text search if provided
+        if search_query:
+            base_query &= (
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(district__district_name__icontains=search_query) |
+                Q(location__local__local_name__icontains=search_query) |
+                Q(service_areas__district__district_name__icontains=search_query) |
+                Q(service_areas__location__local__local_name__icontains=search_query)
+            )
+
+        # Apply district filter if provided
+        if district_id:
+            base_query &= (Q(district_id=district_id) | Q(service_areas__district_id=district_id))
+
+        # Apply location filter if provided
+        if location_id:
+            base_query &= (Q(location_id=location_id) | Q(service_areas__location_id=location_id))
+
         # Optimize query by prefetching related objects
-        return Gig.objects.filter(status=True, sub_category_id=self.kwargs['id']).select_related(
-            'user', 'category', 'sub_category'
-        ).order_by("-create_time")
+        return Gig.objects.filter(base_query).select_related(
+            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
+        ).prefetch_related('service_areas').distinct().order_by("-create_time")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         # Cache the subcategory to avoid additional query
         if not hasattr(self, '_sub_category'):
             self._sub_category = SubCategory.objects.select_related('category').get(pk=self.kwargs['id'])
         context['sub_category'] = self._sub_category
+
+        # Add search parameters to context
+        context['search_query'] = self.request.GET.get('param', '')
+        context['selected_district'] = self.request.GET.get('district', '')
+        context['selected_location'] = self.request.GET.get('location', '')
+
+        # Check if any filters are applied
+        context['has_filters'] = bool(
+            context['selected_district'] or 
+            context['selected_location']
+        )
+        context['has_search'] = bool(context['search_query'])
+
+        # Get total count of results
+        context['total_count'] = self.get_queryset().count()
+
         return context
 
 # Keep the function-based view as a wrapper for backward compatibility
