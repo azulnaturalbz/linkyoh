@@ -1,6 +1,194 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+<style>
+    /* Custom styles for the gig editing form */
+    .gig-form-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .gig-form-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .gig-form-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-section {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .form-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .form-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--gray-700);
+    }
+
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+        padding: 0.625rem 0.875rem;
+        border-color: var(--gray-300);
+        transition: all 0.2s;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+    }
+
+    .form-text {
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+    }
+
+    .form-item {
+        background-color: var(--gray-100);
+        border-radius: 0.5rem;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--gray-200);
+        transition: all 0.2s;
+    }
+
+    .form-item:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* Progress indicator */
+    .form-progress {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .form-progress::before {
+        content: '';
+        position: absolute;
+        top: 1.25rem;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--gray-300);
+        z-index: 1;
+    }
+
+    .progress-step {
+        position: relative;
+        z-index: 2;
+        background-color: white;
+        padding: 0 0.5rem;
+        text-align: center;
+        width: 25%;
+    }
+
+    .step-number {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background-color: var(--gray-300);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.5rem;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .step-title {
+        font-size: 0.875rem;
+        color: var(--gray-600);
+        transition: all 0.2s;
+    }
+
+    .progress-step.active .step-number {
+        background-color: var(--primary-color);
+    }
+
+    .progress-step.active .step-title {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .progress-step.completed .step-number {
+        background-color: var(--secondary-color);
+    }
+
+    /* Custom nav tabs */
+    .nav-tabs {
+        border-bottom: 1px solid var(--gray-300);
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        border-bottom: 3px solid transparent;
+        border-radius: 0;
+        padding: 0.75rem 1.25rem;
+        font-weight: 500;
+        color: var(--gray-600);
+        transition: all 0.2s;
+    }
+
+    .nav-tabs .nav-link:hover {
+        color: var(--primary-color);
+        border-bottom-color: var(--gray-300);
+    }
+
+    .nav-tabs .nav-link.active {
+        color: var(--primary-color);
+        border-bottom-color: var(--primary-color);
+        background-color: transparent;
+    }
+
+    /* Custom buttons */
+    .btn-nav {
+        padding: 0.625rem 1.5rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+    }
+
+    .btn-nav i {
+        margin-right: 0.5rem;
+    }
+
+    /* Image preview */
+    .image-preview {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+    }
+
+    .image-preview img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
+
 {% block page %}
     {% if error %}
         <div class="alert alert-warning alert-dismissible" role="alert">
@@ -9,191 +197,313 @@
         </div>
     {% endif %}
 
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Edit Gig: {{ gig.title }}</h4>
-        </div>
-        <div class="card-body">
-            <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
-                currentTab: 'basic',
-                tabs: ['basic', 'images', 'contacts', 'locations'],
-                priceFieldVisible: {% if gig.call_for_pricing %}false{% else %}true{% endif %},
-                get currentTabIndex() { return this.tabs.indexOf(this.currentTab) },
-                get isFirstTab() { return this.currentTabIndex === 0 },
-                get isLastTab() { return this.currentTabIndex === this.tabs.length - 1 },
-                nextTab() {
-                    if (!this.isLastTab) {
-                        this.currentTab = this.tabs[this.currentTabIndex + 1];
-                    }
-                },
-                prevTab() {
-                    if (!this.isFirstTab) {
-                        this.currentTab = this.tabs[this.currentTabIndex - 1];
-                    }
-                }
-            }">
-                {% csrf_token %}
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="gig-form-card card">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <i class="fas fa-edit me-2 fa-lg"></i>
+                        <h4 class="mb-0">Edit Gig: {{ gig.title }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
+                            currentTab: 'basic',
+                            tabs: ['basic', 'images', 'contacts', 'locations'],
+                            priceFieldVisible: {% if gig.call_for_pricing %}false{% else %}true{% endif %},
+                            get currentTabIndex() { return this.tabs.indexOf(this.currentTab) },
+                            get isFirstTab() { return this.currentTabIndex === 0 },
+                            get isLastTab() { return this.currentTabIndex === this.tabs.length - 1 },
+                            nextTab() {
+                                if (!this.isLastTab) {
+                                    this.currentTab = this.tabs[this.currentTabIndex + 1];
+                                }
+                            },
+                            prevTab() {
+                                if (!this.isFirstTab) {
+                                    this.currentTab = this.tabs[this.currentTabIndex - 1];
+                                }
+                            }
+                        }">
+                            {% csrf_token %}
 
-                <!-- Tabs for different sections -->
-                <ul class="nav nav-tabs mb-4" id="gigFormTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab" 
-                            @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic" 
-                            :aria-selected="currentTab === 'basic'">Basic Info</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab" 
-                            @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images" 
-                            :aria-selected="currentTab === 'images'">Images</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'contacts' }" id="contacts-tab" 
-                            @click.prevent="currentTab = 'contacts'" type="button" role="tab" aria-controls="contacts" 
-                            :aria-selected="currentTab === 'contacts'">Contact Info</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'locations' }" id="locations-tab" 
-                            @click.prevent="currentTab = 'locations'" type="button" role="tab" aria-controls="locations" 
-                            :aria-selected="currentTab === 'locations'">Service Areas</button>
-                    </li>
-                </ul>
+                            <!-- Progress Indicator -->
+                            <div class="form-progress">
+                                <div class="progress-step" :class="{ 'active': currentTab === 'basic', 'completed': currentTabIndex > 0 }">
+                                    <div class="step-number">
+                                        <template x-if="currentTabIndex > 0">
+                                            <i class="fas fa-check"></i>
+                                        </template>
+                                        <template x-if="currentTabIndex <= 0">
+                                            <span>1</span>
+                                        </template>
+                                    </div>
+                                    <div class="step-title">Basic Info</div>
+                                </div>
+                                <div class="progress-step" :class="{ 'active': currentTab === 'images', 'completed': currentTabIndex > 1 }">
+                                    <div class="step-number">
+                                        <template x-if="currentTabIndex > 1">
+                                            <i class="fas fa-check"></i>
+                                        </template>
+                                        <template x-if="currentTabIndex <= 1">
+                                            <span>2</span>
+                                        </template>
+                                    </div>
+                                    <div class="step-title">Images</div>
+                                </div>
+                                <div class="progress-step" :class="{ 'active': currentTab === 'contacts', 'completed': currentTabIndex > 2 }">
+                                    <div class="step-number">
+                                        <template x-if="currentTabIndex > 2">
+                                            <i class="fas fa-check"></i>
+                                        </template>
+                                        <template x-if="currentTabIndex <= 2">
+                                            <span>3</span>
+                                        </template>
+                                    </div>
+                                    <div class="step-title">Contact Info</div>
+                                </div>
+                                <div class="progress-step" :class="{ 'active': currentTab === 'locations' }">
+                                    <div class="step-number">4</div>
+                                    <div class="step-title">Service Areas</div>
+                                </div>
+                            </div>
+
+                            <!-- Tabs for different sections -->
+                            <ul class="nav nav-tabs mb-4" id="gigFormTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab" 
+                                        @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic" 
+                                        :aria-selected="currentTab === 'basic'">
+                                        <i class="fas fa-info-circle me-1"></i> Basic Info
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab" 
+                                        @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images" 
+                                        :aria-selected="currentTab === 'images'">
+                                        <i class="fas fa-images me-1"></i> Images
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'contacts' }" id="contacts-tab" 
+                                        @click.prevent="currentTab = 'contacts'" type="button" role="tab" aria-controls="contacts" 
+                                        :aria-selected="currentTab === 'contacts'">
+                                        <i class="fas fa-address-book me-1"></i> Contact Info
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'locations' }" id="locations-tab" 
+                                        @click.prevent="currentTab = 'locations'" type="button" role="tab" aria-controls="locations" 
+                                        :aria-selected="currentTab === 'locations'">
+                                        <i class="fas fa-map-marker-alt me-1"></i> Service Areas
+                                    </button>
+                                </li>
+                            </ul>
 
                 <!-- Tab content -->
                 <div class="tab-content" id="gigFormTabsContent">
                     <!-- Basic Info Tab -->
                     <div class="tab-pane fade" :class="{ 'show active': currentTab === 'basic' }" id="basic" role="tabpanel" aria-labelledby="basic-tab">
-                        <div class="row mb-3">
-                            <label for="title" class="col-sm-2 col-form-label">Gig Title</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" value="{{ gig.title }}" id="title" name="title" required>
-                                <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max 500 characters)</small>
-                            </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Category</label>
-                            <div class="col-sm-10">
-                                <select name="category" class="form-control" id="id_category" required
-                                        hx-get="{% url 'ajax_load_category' gig.category_id %}"
-                                        hx-trigger="load"
-                                        hx-target="#id_category"
-                                        hx-vals='{"category": "{{ gig.category_id|default_if_none:"" }}"}'
-                                        hx-swap="innerHTML">
-                                </select>
-                            </div>
-                        </div>
+                        <!-- Basic Information Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-info-circle me-2"></i>Basic Information</h5>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Sub Category</label>
-                            <div class="col-sm-10">
-                                <select name="sub_category" class="form-control" id="id_subcategory" required
-                                        hx-get="{% url 'ajax_load_sub_category' %}"
-                                        hx-trigger="load, change from:#id_category"
-                                        hx-target="#id_subcategory"
-                                        hx-include="#id_category"
-                                        {% if gig.sub_category_id %} hx-vals='{"subcategory": "{{ gig.sub_category_id|default_if_none:"" }}", "category": "{{  gig.category_id|default_if_none:""  }}" }' {% endif %}
-                                        hx-swap="innerHTML">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Description</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" name="description" required>{{ gig.description }}</textarea>
-                                <small class="form-text text-muted">Describe your service in detail (max 1000 characters)</small>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Pricing</label>
-                            <div class="col-sm-10">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="call_for_pricing" name="call_for_pricing" 
-                                           x-on:change="priceFieldVisible = !$event.target.checked"
-                                           {% if gig.call_for_pricing %}checked{% endif %}>
-                                    <label class="form-check-label" for="call_for_pricing">
-                                        Call for pricing details
-                                    </label>
-                                    <small class="form-text text-muted d-block">Check this if you prefer customers to call for pricing details instead of displaying a fixed price</small>
+                            <div class="row mb-3">
+                                <label for="title" class="col-sm-3 col-form-label">
+                                    <i class="fas fa-heading me-2 text-primary"></i>Gig Title
+                                </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" value="{{ gig.title }}" id="title" name="title" required>
+                                    <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max 500 characters)</small>
                                 </div>
-                                <div x-show="priceFieldVisible">
-                                    <input type="number" class="form-control" value="{{ gig.price }}" name="price" :required="priceFieldVisible">
-                                    <small class="form-text text-muted">Enter your price in dollars</small>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-folder me-2 text-primary"></i>Category
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="category" class="form-select" id="id_category" required
+                                            hx-get="{% url 'ajax_load_category' gig.category_id %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_category"
+                                            hx-vals='{"category": "{{ gig.category_id|default_if_none:"" }}"}'
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select the main category for your service</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-tag me-2 text-primary"></i>Sub Category
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="sub_category" class="form-select" id="id_subcategory" required
+                                            hx-get="{% url 'ajax_load_sub_category' %}"
+                                            hx-trigger="load, change from:#id_category"
+                                            hx-target="#id_subcategory"
+                                            hx-include="#id_category"
+                                            {% if gig.sub_category_id %} hx-vals='{"subcategory": "{{ gig.sub_category_id|default_if_none:"" }}", "category": "{{  gig.category_id|default_if_none:""  }}" }' {% endif %}
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select a specific subcategory to help customers find your service</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-align-left me-2 text-primary"></i>Description
+                                </label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" rows="5" name="description" required>{{ gig.description }}</textarea>
+                                    <small class="form-text text-muted">Describe your service in detail (max 1000 characters)</small>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Main Phone</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="tel" value="{{ gig.phone_number }}" id="phone_number" name="phone_number" required>
-                                <small class="form-text text-muted">Enter your primary phone number in international format</small>
-                            </div>
-                        </div>
+                        <!-- Pricing Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-dollar-sign me-2"></i>Pricing Information</h5>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">District</label>
-                            <div class="col-sm-10">
-                                <select name="district" class="form-control" id="id_district" required
-                                        hx-get="{% url 'ajax_load_states' gig.district_id %}"
-                                        hx-trigger="load"
-                                        hx-target="#id_district"
-                                        hx-vals='{"district": "{{ gig.district_id|default_if_none:"" }}"}'
-                                        hx-swap="innerHTML">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Location</label>
-                            <div class="col-sm-10">
-                                <select name="location" class="form-control" id="id_location" required
-                                        hx-get="{% url 'ajax_load_locations' gig.district_id gig.location_id %}"
-                                        hx-trigger="load, #id_district:change"
-                                        hx-target="#id_location"
-                                        hx-include="#id_district"
-                                        {% if gig.location_id %} hx-vals='{"location": "{{ gig.location_id|default_if_none:"" }}", "district": "{{ gig.district_id|default_if_none:"" }}"}' {% endif %}
-                                        hx-swap="innerHTML">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Address 1</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="address_1" name="address_1" value="{{ gig.address_1 }}" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Address 2</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="address_2" name="address_2" value="{{ gig.address_2 }}">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Main Photo</label>
-                            <div class="col-sm-10">
-                                {% if gig.photo %}
-                                    <div class="mb-2">
-                                        <img src="/media/{{ gig.photo }}" alt="{{ gig.title }}" class="img-thumbnail" style="max-height: 150px;">
-                                        <small class="d-block text-muted">Current: {{ gig.photo }}</small>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-tag me-2 text-primary"></i>Pricing Option
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="call_for_pricing" name="call_for_pricing" 
+                                               x-on:change="priceFieldVisible = !$event.target.checked"
+                                               {% if gig.call_for_pricing %}checked{% endif %}>
+                                        <label class="form-check-label" for="call_for_pricing">
+                                            <i class="fas fa-phone-alt me-1 text-info"></i> Call for pricing details
+                                        </label>
+                                        <small class="form-text text-muted d-block">Check this if you prefer customers to call for pricing details instead of displaying a fixed price</small>
                                     </div>
-                                {% endif %}
-                                <input type="file" class="form-control" name="photo" accept="image/*">
-                                <small class="form-text text-muted">Upload a new main image for your gig (jpg, jpeg, png, gif only)</small>
+                                    <div x-show="priceFieldVisible" class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                        <input type="number" class="form-control" value="{{ gig.price }}" name="price" :required="priceFieldVisible">
+                                        <small class="form-text text-muted w-100">Enter your price in dollars</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Status</label>
-                            <div class="col-sm-10">
-                                <select name="status" class="form-control" required>
-                                    <option value="1" {% if gig.status %} selected {% endif %}>Active</option>
-                                    <option value="0" {% if not gig.status %} selected {% endif %}>Disabled</option>
-                                </select>
+                        <!-- Contact Information Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-phone-alt me-2"></i>Contact Information</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-phone me-2 text-primary"></i>Main Phone
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        <input class="form-control" type="tel" value="{{ gig.phone_number }}" id="phone_number" name="phone_number" required>
+                                    </div>
+                                    <small class="form-text text-muted">Enter your primary phone number in international format</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-map-marker-alt me-2"></i>Location Information</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-map me-2 text-primary"></i>District
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="district" class="form-select" id="id_district" required
+                                            hx-get="{% url 'ajax_load_states' gig.district_id %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_district"
+                                            hx-vals='{"district": "{{ gig.district_id|default_if_none:"" }}"}'
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select the district where your service is primarily offered</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-map-pin me-2 text-primary"></i>Location
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="location" class="form-select" id="id_location" required
+                                            hx-get="{% url 'ajax_load_locations' gig.district_id gig.location_id %}"
+                                            hx-trigger="load, #id_district:change"
+                                            hx-target="#id_location"
+                                            hx-include="#id_district"
+                                            {% if gig.location_id %} hx-vals='{"location": "{{ gig.location_id|default_if_none:"" }}", "district": "{{ gig.district_id|default_if_none:"" }}"}' {% endif %}
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select the specific location within the district</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-home me-2 text-primary"></i>Address 1
+                                </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" id="address_1" name="address_1" value="{{ gig.address_1 }}" required>
+                                    <small class="form-text text-muted">Enter your primary address</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-building me-2 text-primary"></i>Address 2
+                                </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" id="address_2" name="address_2" value="{{ gig.address_2 }}">
+                                    <small class="form-text text-muted">Additional address information (optional)</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Media Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-image me-2"></i>Media</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-camera me-2 text-primary"></i>Main Photo
+                                </label>
+                                <div class="col-sm-9">
+                                    {% if gig.photo %}
+                                        <div class="image-preview mb-3">
+                                            <img src="/media/{{ gig.photo }}" alt="{{ gig.title }}" class="img-fluid">
+                                            <small class="d-block text-muted mt-1">Current image: {{ gig.photo }}</small>
+                                        </div>
+                                    {% endif %}
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-upload"></i></span>
+                                        <input type="file" class="form-control" name="photo" accept="image/*">
+                                    </div>
+                                    <small class="form-text text-muted">Upload a new main image for your gig (jpg, jpeg, png, gif only)</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-toggle-on me-2"></i>Status</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-check-circle me-2 text-primary"></i>Gig Status
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="status" class="form-select" required>
+                                        <option value="1" {% if gig.status %} selected {% endif %}>Active</option>
+                                        <option value="0" {% if not gig.status %} selected {% endif %}>Disabled</option>
+                                    </select>
+                                    <small class="form-text text-muted">Set your gig as active to make it visible to customers, or disabled to hide it temporarily</small>
+                                </div>
                             </div>
                         </div>
                     </div>

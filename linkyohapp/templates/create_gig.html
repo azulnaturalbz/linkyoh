@@ -1,5 +1,180 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block head %}
+<style>
+    /* Custom styles for the gig creation form */
+    .gig-form-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .gig-form-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .gig-form-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .form-section {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .form-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .form-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: var(--gray-700);
+    }
+
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+        padding: 0.625rem 0.875rem;
+        border-color: var(--gray-300);
+        transition: all 0.2s;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+    }
+
+    .form-text {
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+    }
+
+    .form-item {
+        background-color: var(--gray-100);
+        border-radius: 0.5rem;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--gray-200);
+        transition: all 0.2s;
+    }
+
+    .form-item:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    /* Progress indicator */
+    .form-progress {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .form-progress::before {
+        content: '';
+        position: absolute;
+        top: 1.25rem;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--gray-300);
+        z-index: 1;
+    }
+
+    .progress-step {
+        position: relative;
+        z-index: 2;
+        background-color: white;
+        padding: 0 0.5rem;
+        text-align: center;
+        width: 25%;
+    }
+
+    .step-number {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background-color: var(--gray-300);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 0.5rem;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .step-title {
+        font-size: 0.875rem;
+        color: var(--gray-600);
+        transition: all 0.2s;
+    }
+
+    .progress-step.active .step-number {
+        background-color: var(--primary-color);
+    }
+
+    .progress-step.active .step-title {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .progress-step.completed .step-number {
+        background-color: var(--secondary-color);
+    }
+
+    /* Custom nav tabs */
+    .nav-tabs {
+        border-bottom: 1px solid var(--gray-300);
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        border-bottom: 3px solid transparent;
+        border-radius: 0;
+        padding: 0.75rem 1.25rem;
+        font-weight: 500;
+        color: var(--gray-600);
+        transition: all 0.2s;
+    }
+
+    .nav-tabs .nav-link:hover {
+        color: var(--primary-color);
+        border-bottom-color: var(--gray-300);
+    }
+
+    .nav-tabs .nav-link.active {
+        color: var(--primary-color);
+        border-bottom-color: var(--primary-color);
+        background-color: transparent;
+    }
+
+    /* Custom buttons */
+    .btn-nav {
+        padding: 0.625rem 1.5rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+    }
+
+    .btn-nav i {
+        margin-right: 0.5rem;
+    }
+</style>
+{% endblock %}
+
 {% block page %}
     {% if error %}
         <div class="alert alert-warning alert-dismissible" role="alert">
@@ -8,197 +183,312 @@
         </div>
     {% endif %}
 
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Create a New Gig</h4>
-        </div>
-        <div class="card-body">
-            <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
-                currentTab: 'basic',
-                tabs: ['basic', 'images', 'contacts', 'locations'],
-                priceFieldVisible: true,
-                get currentTabIndex() { return this.tabs.indexOf(this.currentTab) },
-                get isFirstTab() { return this.currentTabIndex === 0 },
-                get isLastTab() { return this.currentTabIndex === this.tabs.length - 1 },
-                nextTab() {
-                    if (!this.isLastTab) {
-                        this.currentTab = this.tabs[this.currentTabIndex + 1];
-                    }
-                },
-                prevTab() {
-                    if (!this.isFirstTab) {
-                        this.currentTab = this.tabs[this.currentTabIndex - 1];
-                    }
-                }
-            }">
-                {% csrf_token %}
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="gig-form-card card">
+                    <div class="card-header bg-primary text-white d-flex align-items-center">
+                        <i class="fas fa-plus-circle me-2 fa-lg"></i>
+                        <h4 class="mb-0">Create a New Gig</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
+                            currentTab: 'basic',
+                            tabs: ['basic', 'images', 'contacts', 'locations'],
+                            priceFieldVisible: true,
+                            get currentTabIndex() { return this.tabs.indexOf(this.currentTab) },
+                            get isFirstTab() { return this.currentTabIndex === 0 },
+                            get isLastTab() { return this.currentTabIndex === this.tabs.length - 1 },
+                            nextTab() {
+                                if (!this.isLastTab) {
+                                    this.currentTab = this.tabs[this.currentTabIndex + 1];
+                                }
+                            },
+                            prevTab() {
+                                if (!this.isFirstTab) {
+                                    this.currentTab = this.tabs[this.currentTabIndex - 1];
+                                }
+                            }
+                        }">
+                            {% csrf_token %}
 
-                <!-- Tabs for different sections -->
-                <ul class="nav nav-tabs mb-4" id="gigFormTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab"
-                                @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic"
-                                :aria-selected="currentTab === 'basic'">Basic Info
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab"
-                                @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images"
-                                :aria-selected="currentTab === 'images'">Images
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'contacts' }" id="contacts-tab"
-                                @click.prevent="currentTab = 'contacts'" type="button" role="tab"
-                                aria-controls="contacts"
-                                :aria-selected="currentTab === 'contacts'">Contact Info
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" :class="{ 'active': currentTab === 'locations' }" id="locations-tab"
-                                @click.prevent="currentTab = 'locations'" type="button" role="tab"
-                                aria-controls="locations"
-                                :aria-selected="currentTab === 'locations'">Service Areas
-                        </button>
-                    </li>
-                </ul>
+                            <!-- Progress Indicator -->
+                            <div class="form-progress">
+                                <div class="progress-step" :class="{ 'active': currentTab === 'basic', 'completed': currentTabIndex > 0 }">
+                                    <div class="step-number">
+                                        <template x-if="currentTabIndex > 0">
+                                            <i class="fas fa-check"></i>
+                                        </template>
+                                        <template x-if="currentTabIndex <= 0">
+                                            <span>1</span>
+                                        </template>
+                                    </div>
+                                    <div class="step-title">Basic Info</div>
+                                </div>
+                                <div class="progress-step" :class="{ 'active': currentTab === 'images', 'completed': currentTabIndex > 1 }">
+                                    <div class="step-number">
+                                        <template x-if="currentTabIndex > 1">
+                                            <i class="fas fa-check"></i>
+                                        </template>
+                                        <template x-if="currentTabIndex <= 1">
+                                            <span>2</span>
+                                        </template>
+                                    </div>
+                                    <div class="step-title">Images</div>
+                                </div>
+                                <div class="progress-step" :class="{ 'active': currentTab === 'contacts', 'completed': currentTabIndex > 2 }">
+                                    <div class="step-number">
+                                        <template x-if="currentTabIndex > 2">
+                                            <i class="fas fa-check"></i>
+                                        </template>
+                                        <template x-if="currentTabIndex <= 2">
+                                            <span>3</span>
+                                        </template>
+                                    </div>
+                                    <div class="step-title">Contact Info</div>
+                                </div>
+                                <div class="progress-step" :class="{ 'active': currentTab === 'locations' }">
+                                    <div class="step-number">4</div>
+                                    <div class="step-title">Service Areas</div>
+                                </div>
+                            </div>
+
+                            <!-- Tabs for different sections -->
+                            <ul class="nav nav-tabs mb-4" id="gigFormTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab"
+                                            @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic"
+                                            :aria-selected="currentTab === 'basic'">
+                                            <i class="fas fa-info-circle me-1"></i> Basic Info
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab"
+                                            @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images"
+                                            :aria-selected="currentTab === 'images'">
+                                            <i class="fas fa-images me-1"></i> Images
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'contacts' }" id="contacts-tab"
+                                            @click.prevent="currentTab = 'contacts'" type="button" role="tab"
+                                            aria-controls="contacts"
+                                            :aria-selected="currentTab === 'contacts'">
+                                            <i class="fas fa-address-book me-1"></i> Contact Info
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" :class="{ 'active': currentTab === 'locations' }" id="locations-tab"
+                                            @click.prevent="currentTab = 'locations'" type="button" role="tab"
+                                            aria-controls="locations"
+                                            :aria-selected="currentTab === 'locations'">
+                                            <i class="fas fa-map-marker-alt me-1"></i> Service Areas
+                                    </button>
+                                </li>
+                            </ul>
 
                 <!-- Tab content -->
                 <div class="tab-content" id="gigFormTabsContent">
                     <!-- Basic Info Tab -->
                     <div class="tab-pane fade" :class="{ 'show active': currentTab === 'basic' }" id="basic"
                          role="tabpanel" aria-labelledby="basic-tab">
-                        <div class="row mb-3">
-                            <label for="title" class="col-sm-2 col-form-label">Gig Title</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" placeholder="Enter your listing title"
-                                       id="title" name="title" required>
-                                <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max
-                                    500 characters)</small>
-                            </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Category</label>
-                            <div class="col-sm-10">
-                                <select name="category" class="form-control" id="id_category" required
-                                        hx-get="{% url 'ajax_load_category' %}"
-                                        hx-trigger="load"
-                                        hx-target="#id_category"
-                                        hx-swap="innerHTML">
-                                </select>
-                            </div>
-                        </div>
+                        <!-- Basic Information Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-info-circle me-2"></i>Basic Information</h5>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Sub Category</label>
-                            <div class="col-sm-10">
-                                <select name="sub_category" class="form-control" id="id_subcategory" required
-                                        hx-get="{% url 'ajax_load_sub_category' %}"
-                                        hx-trigger="load, change from:#id_category"
-                                        hx-target="#id_subcategory"
-                                        hx-include="#id_category"
-                                        hx-swap="innerHTML">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Description</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" name="description"
-                                          placeholder="Enter your service/listing description" required></textarea>
-                                <small class="form-text text-muted">Describe your service in detail (max 1000
-                                    characters)</small>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Pricing</label>
-                            <div class="col-sm-10">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="call_for_pricing" name="call_for_pricing" x-on:change="priceFieldVisible = !$event.target.checked">
-                                    <label class="form-check-label" for="call_for_pricing">
-                                        Call for pricing details
-                                    </label>
-                                    <small class="form-text text-muted d-block">Check this if you prefer customers to call for pricing details instead of displaying a fixed price</small>
+                            <div class="row mb-3">
+                                <label for="title" class="col-sm-3 col-form-label">
+                                    <i class="fas fa-heading me-2 text-primary"></i>Gig Title
+                                </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="Enter your listing title"
+                                           id="title" name="title" required>
+                                    <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max 500 characters)</small>
                                 </div>
-                                <div x-show="priceFieldVisible">
-                                    <input type="number" class="form-control" value="0" name="price" :required="priceFieldVisible">
-                                    <small class="form-text text-muted">Enter your price in dollars</small>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-folder me-2 text-primary"></i>Category
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="category" class="form-select" id="id_category" required
+                                            hx-get="{% url 'ajax_load_category' %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_category"
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select the main category for your service</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-tag me-2 text-primary"></i>Sub Category
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="sub_category" class="form-select" id="id_subcategory" required
+                                            hx-get="{% url 'ajax_load_sub_category' %}"
+                                            hx-trigger="load, change from:#id_category"
+                                            hx-target="#id_subcategory"
+                                            hx-include="#id_category"
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select a specific subcategory to help customers find your service</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-align-left me-2 text-primary"></i>Description
+                                </label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" rows="5" name="description"
+                                              placeholder="Enter your service/listing description" required></textarea>
+                                    <small class="form-text text-muted">Describe your service in detail (max 1000 characters)</small>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Main Phone</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="tel" placeholder="+5016550000" id="phone_number"
-                                       name="phone_number" required>
-                                <small class="form-text text-muted">Enter your primary phone number in international
-                                    format</small>
+                        <!-- Pricing Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-dollar-sign me-2"></i>Pricing Information</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-tag me-2 text-primary"></i>Pricing Option
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" id="call_for_pricing" name="call_for_pricing" 
+                                               x-on:change="priceFieldVisible = !$event.target.checked">
+                                        <label class="form-check-label" for="call_for_pricing">
+                                            <i class="fas fa-phone-alt me-1 text-info"></i> Call for pricing details
+                                        </label>
+                                        <small class="form-text text-muted d-block">Check this if you prefer customers to call for pricing details instead of displaying a fixed price</small>
+                                    </div>
+                                    <div x-show="priceFieldVisible" class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                        <input type="number" class="form-control" value="0" name="price" :required="priceFieldVisible">
+                                        <small class="form-text text-muted w-100">Enter your price in dollars</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">District</label>
-                            <div class="col-sm-10">
-                                <select name="district" class="form-control" id="id_district" required
-                                        hx-get="{% url 'ajax_load_states' %}"
-                                        hx-trigger="load"
-                                        hx-target="#id_district"
-                                        hx-swap="innerHTML">
-                                </select>
+                        <!-- Contact Information Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-phone-alt me-2"></i>Contact Information</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-phone me-2 text-primary"></i>Main Phone
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        <input class="form-control" type="tel" placeholder="+5016550000" id="phone_number"
+                                               name="phone_number" required>
+                                    </div>
+                                    <small class="form-text text-muted">Enter your primary phone number in international format</small>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Location</label>
-                            <div class="col-sm-10">
-                                <select name="location" class="form-control" id="id_location" required
-                                        hx-get="{% url 'ajax_load_locations' %}"
-                                        hx-trigger="load, change from:#id_district"
-                                        hx-target="#id_location"
-                                        hx-include="#id_district"
-                                        hx-swap="innerHTML">
-                                </select>
+                        <!-- Location Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-map-marker-alt me-2"></i>Location Information</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-map me-2 text-primary"></i>District
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="district" class="form-select" id="id_district" required
+                                            hx-get="{% url 'ajax_load_states' %}"
+                                            hx-trigger="load"
+                                            hx-target="#id_district"
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select the district where your service is primarily offered</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-map-pin me-2 text-primary"></i>Location
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="location" class="form-select" id="id_location" required
+                                            hx-get="{% url 'ajax_load_locations' %}"
+                                            hx-trigger="load, change from:#id_district"
+                                            hx-target="#id_location"
+                                            hx-include="#id_district"
+                                            hx-swap="innerHTML">
+                                    </select>
+                                    <small class="form-text text-muted">Select the specific location within the district</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-home me-2 text-primary"></i>Address 1
+                                </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text"
+                                           placeholder="Enter your street address, house number, etc" id="address_1"
+                                           name="address_1" required>
+                                    <small class="form-text text-muted">Enter your primary address</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-building me-2 text-primary"></i>Address 2
+                                </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text"
+                                           placeholder="Enter your secondary street address (optional)" id="address_2"
+                                           name="address_2">
+                                    <small class="form-text text-muted">Additional address information (optional)</small>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Address 1</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text"
-                                       placeholder="Enter your street address, house number, etc" id="address_1"
-                                       name="address_1" required>
+                        <!-- Media Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-image me-2"></i>Media</h5>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-camera me-2 text-primary"></i>Main Photo
+                                </label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-upload"></i></span>
+                                        <input type="file" class="form-control" name="photo" accept="image/*">
+                                    </div>
+                                    <small class="form-text text-muted">Upload a main image for your gig (jpg, jpeg, png, gif only)</small>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Address 2</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text"
-                                       placeholder="Enter your secondary street address (optional)" id="address_2"
-                                       name="address_2">
-                            </div>
-                        </div>
+                        <!-- Status Section -->
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-toggle-on me-2"></i>Status</h5>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Main Photo</label>
-                            <div class="col-sm-10">
-                                <input type="file" class="form-control" name="photo" accept="image/*">
-                                <small class="form-text text-muted">Upload a main image for your gig (jpg, jpeg, png,
-                                    gif only)</small>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Status</label>
-                            <div class="col-sm-10">
-                                <select name="status" class="form-control" required>
-                                    <option value="1">Active</option>
-                                    <option value="0">Disabled</option>
-                                </select>
+                            <div class="row mb-3">
+                                <label class="col-sm-3 col-form-label">
+                                    <i class="fas fa-check-circle me-2 text-primary"></i>Gig Status
+                                </label>
+                                <div class="col-sm-9">
+                                    <select name="status" class="form-select" required>
+                                        <option value="1">Active</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                    <small class="form-text text-muted">Set your gig as active to make it visible to customers, or disabled to hide it temporarily</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,60 +496,75 @@
                     <!-- Images Tab -->
                     <div class="tab-pane fade" :class="{ 'show active': currentTab === 'images' }" id="images"
                          role="tabpanel" aria-labelledby="images-tab">
-                        <div class="card mb-4">
-                            <div class="card-header bg-light">
-                                <h5 class="mb-0">Additional Images</h5>
-                                <small class="text-muted">Add up to 10 additional images for your gig</small>
-                            </div>
-                            <div class="card-body">
-                                {{ image_formset.management_form }}
-                                <div id="image-formset">
-                                    {% for form in image_formset %}
-                                        <div class="image-form mb-4 p-3 border rounded">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    {{ form.image.label_tag }}
-                                                    {{ form.image }}
-                                                    <small class="form-text text-muted">{{ form.image.help_text }}</small>
-                                                    {{ form.image.errors }}
+
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-images me-2"></i>Additional Images</h5>
+                            <p class="text-muted mb-4">Add up to 10 additional images to showcase your service from different angles or highlight specific features.</p>
+
+                            {{ image_formset.management_form }}
+                            <div id="image-formset">
+                                {% for form in image_formset %}
+                                    <div class="form-item image-form mb-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h6 class="mb-0"><i class="fas fa-image me-2 text-primary"></i>Image #{{ forloop.counter }}</h6>
+                                            {% if form.instance.pk %}
+                                                <div class="form-check">
+                                                    {{ form.DELETE }}
+                                                    <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
+                                                        <i class="fas fa-trash-alt me-1"></i> Delete this image
+                                                    </label>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    {{ form.caption.label_tag }}
-                                                    {{ form.caption }}
-                                                    <small class="form-text text-muted">{{ form.caption.help_text }}</small>
-                                                    {{ form.caption.errors }}
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-4">
-                                                    <div class="form-check">
-                                                        {{ form.is_primary }}
-                                                        {{ form.is_primary.label_tag }}
-                                                        <small class="form-text text-muted d-block">{{ form.is_primary.help_text }}</small>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    {{ form.order.label_tag }}
-                                                    {{ form.order }}
-                                                    <small class="form-text text-muted">{{ form.order.help_text }}</small>
-                                                </div>
-                                                <div class="col-md-4 d-flex align-items-end">
-                                                    {% if form.instance.pk %}
-                                                        <div class="form-check">
-                                                            {{ form.DELETE }}
-                                                            <label class="form-check-label text-danger"
-                                                                   for="{{ form.DELETE.id_for_label }}">
-                                                                Delete this image
-                                                            </label>
-                                                        </div>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            {{ form.id }}
+                                            {% endif %}
                                         </div>
-                                    {% endfor %}
-                                </div>
-                                <button type="button" class="btn btn-outline-primary" id="add-image">Add Another Image
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-file-image me-2 text-primary"></i>Image File
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-upload"></i></span>
+                                                    {{ form.image }}
+                                                </div>
+                                                <small class="form-text text-muted">{{ form.image.help_text|default:"Upload an image file (jpg, jpeg, png, gif)" }}</small>
+                                                {{ form.image.errors }}
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-comment-alt me-2 text-primary"></i>Caption
+                                                </label>
+                                                {{ form.caption }}
+                                                <small class="form-text text-muted">{{ form.caption.help_text|default:"Add a descriptive caption for this image" }}</small>
+                                                {{ form.caption.errors }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-check">
+                                                    {{ form.is_primary }}
+                                                    <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
+                                                        <i class="fas fa-star me-1 text-warning"></i> Set as primary image
+                                                    </label>
+                                                    <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check this to make this image the main image for your gig" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-sort-numeric-down me-2 text-primary"></i>Display Order
+                                                </label>
+                                                {{ form.order }}
+                                                <small class="form-text text-muted">{{ form.order.help_text|default:"Set the display order (lower numbers appear first)" }}</small>
+                                            </div>
+                                        </div>
+                                        {{ form.id }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="button" class="btn btn-primary" id="add-image">
+                                    <i class="fas fa-plus-circle me-2"></i>Add Another Image
                                 </button>
                             </div>
                         </div>
@@ -268,70 +573,87 @@
                     <!-- Contacts Tab -->
                     <div class="tab-pane fade" :class="{ 'show active': currentTab === 'contacts' }" id="contacts"
                          role="tabpanel" aria-labelledby="contacts-tab">
-                        <div class="card mb-4">
-                            <div class="card-header bg-light">
-                                <h5 class="mb-0">Additional Contact Numbers</h5>
-                                <small class="text-muted">Add up to 5 additional contact numbers for your gig</small>
-                            </div>
-                            <div class="card-body">
-                                {{ contact_formset.management_form }}
-                                <div id="contact-formset">
-                                    {% for form in contact_formset %}
-                                        <div class="contact-form mb-4 p-3 border rounded">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    {{ form.phone_number.label_tag }}
-                                                    {{ form.phone_number }}
-                                                    <small class="form-text text-muted">{{ form.phone_number.help_text }}</small>
-                                                    {{ form.phone_number.errors }}
+
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-address-book me-2"></i>Additional Contact Numbers</h5>
+                            <p class="text-muted mb-4">Add up to 5 additional contact numbers to make it easier for customers to reach you through different channels.</p>
+
+                            {{ contact_formset.management_form }}
+                            <div id="contact-formset">
+                                {% for form in contact_formset %}
+                                    <div class="form-item contact-form mb-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h6 class="mb-0"><i class="fas fa-phone-alt me-2 text-primary"></i>Contact #{{ forloop.counter }}</h6>
+                                            {% if form.instance.pk %}
+                                                <div class="form-check">
+                                                    {{ form.DELETE }}
+                                                    <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
+                                                        <i class="fas fa-trash-alt me-1"></i> Delete this contact
+                                                    </label>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    {{ form.description.label_tag }}
-                                                    {{ form.description }}
-                                                    <small class="form-text text-muted">{{ form.description.help_text }}</small>
-                                                    {{ form.description.errors }}
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-4">
-                                                    <div class="form-check">
-                                                        {{ form.is_whatsapp }}
-                                                        {{ form.is_whatsapp.label_tag }}
-                                                        <small class="form-text text-muted d-block">{{ form.is_whatsapp.help_text }}</small>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-check">
-                                                        {{ form.is_primary }}
-                                                        {{ form.is_primary.label_tag }}
-                                                        <small class="form-text text-muted d-block">{{ form.is_primary.help_text }}</small>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    {{ form.order.label_tag }}
-                                                    {{ form.order }}
-                                                    <small class="form-text text-muted">{{ form.order.help_text }}</small>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-12">
-                                                    {% if form.instance.pk %}
-                                                        <div class="form-check">
-                                                            {{ form.DELETE }}
-                                                            <label class="form-check-label text-danger"
-                                                                   for="{{ form.DELETE.id_for_label }}">
-                                                                Delete this contact
-                                                            </label>
-                                                        </div>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            {{ form.id }}
+                                            {% endif %}
                                         </div>
-                                    {% endfor %}
-                                </div>
-                                <button type="button" class="btn btn-outline-primary" id="add-contact">Add Another
-                                    Contact
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-phone me-2 text-primary"></i>Phone Number
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                    {{ form.phone_number }}
+                                                </div>
+                                                <small class="form-text text-muted">{{ form.phone_number.help_text|default:"Enter phone number in international format (e.g., +5016550000)" }}</small>
+                                                {{ form.phone_number.errors }}
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-info-circle me-2 text-primary"></i>Description
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                                                    {{ form.description }}
+                                                </div>
+                                                <small class="form-text text-muted">{{ form.description.help_text|default:"Describe this contact (e.g., Business, Personal, Office)" }}</small>
+                                                {{ form.description.errors }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-check">
+                                                    {{ form.is_whatsapp }}
+                                                    <label class="form-check-label" for="{{ form.is_whatsapp.id_for_label }}">
+                                                        <i class="fab fa-whatsapp me-1 text-success"></i> Available on WhatsApp
+                                                    </label>
+                                                    <small class="form-text text-muted d-block">{{ form.is_whatsapp.help_text|default:"Check if this number can be contacted via WhatsApp" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-check">
+                                                    {{ form.is_primary }}
+                                                    <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
+                                                        <i class="fas fa-star me-1 text-warning"></i> Set as primary contact
+                                                    </label>
+                                                    <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check to make this the primary contact number" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-sort-numeric-down me-2 text-primary"></i>Display Order
+                                                </label>
+                                                {{ form.order }}
+                                                <small class="form-text text-muted">{{ form.order.help_text|default:"Set the display order (lower numbers appear first)" }}</small>
+                                            </div>
+                                        </div>
+                                        {{ form.id }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="button" class="btn btn-primary" id="add-contact">
+                                    <i class="fas fa-plus-circle me-2"></i>Add Another Contact
                                 </button>
                             </div>
                         </div>
@@ -340,97 +662,128 @@
                     <!-- Service Areas Tab -->
                     <div class="tab-pane fade" :class="{ 'show active': currentTab === 'locations' }" id="locations"
                          role="tabpanel" aria-labelledby="locations-tab">
-                        <div class="card mb-4">
-                            <div class="card-header bg-light">
-                                <h5 class="mb-0">Additional Service Areas</h5>
-                                <small class="text-muted">Add up to 5 additional service areas for your gig</small>
-                            </div>
-                            <div class="card-body">
-                                {{ service_area_formset.management_form }}
-                                <div id="service-area-formset">
-                                    {% for form in service_area_formset %}
-                                        <div class="service-area-form mb-4 p-3 border rounded">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    {{ form.district.label_tag }}
-                                                    <select name="district" class="form-control" id="id_district_2"
-                                                            required
-                                                            hx-get="{% url 'ajax_load_states' %}"
-                                                            hx-trigger="load"
-                                                            hx-target="#id_district_2"
-                                                            hx-swap="innerHTML">
-                                                    </select>
 
-                                                </div>
-                                                <div class="col-md-6">
-                                                    {{ form.location.label_tag }}
+                        <div class="form-section">
+                            <h5 class="form-section-title"><i class="fas fa-map-marked-alt me-2"></i>Additional Service Areas</h5>
+                            <p class="text-muted mb-4">Add up to 5 additional areas where you offer your services to reach more customers in different locations.</p>
 
-                                                    <select name="location" class="form-control" id="id_location_2"
-                                                            required
-                                                            hx-get="{% url 'ajax_load_locations' %}"
-                                                            hx-trigger="load, change from:#id_district_2"
-                                                            hx-target="#id_location_2"
-                                                            hx-include="#id_district_2"
-                                                            hx-swap="innerHTML">
-                                                    </select>
-                                                    <small class="form-text text-muted">{{ form.location.help_text }}</small>
-                                                    {{ form.location.errors }}
+                            {{ service_area_formset.management_form }}
+                            <div id="service-area-formset">
+                                {% for form in service_area_formset %}
+                                    <div class="form-item service-area-form mb-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h6 class="mb-0"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Service Area #{{ forloop.counter }}</h6>
+                                            {% if form.instance.pk %}
+                                                <div class="form-check">
+                                                    {{ form.DELETE }}
+                                                    <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
+                                                        <i class="fas fa-trash-alt me-1"></i> Delete this service area
+                                                    </label>
                                                 </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-md-4">
-                                                    {{ form.description.label_tag }}
-                                                    {{ form.description }}
-                                                    <small class="form-text text-muted">{{ form.description.help_text }}</small>
-                                                    {{ form.description.errors }}
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-check">
-                                                        {{ form.is_primary }}
-                                                        {{ form.is_primary.label_tag }}
-                                                        <small class="form-text text-muted d-block">{{ form.is_primary.help_text }}</small>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    {{ form.order.label_tag }}
-                                                    {{ form.order }}
-                                                    <small class="form-text text-muted">{{ form.order.help_text }}</small>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-12">
-                                                    {% if form.instance.pk %}
-                                                        <div class="form-check">
-                                                            {{ form.DELETE }}
-                                                            <label class="form-check-label text-danger"
-                                                                   for="{{ form.DELETE.id_for_label }}">
-                                                                Delete this service area
-                                                            </label>
-                                                        </div>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            {{ form.id }}
+                                            {% endif %}
                                         </div>
-                                    {% endfor %}
-                                </div>
-                                <button type="button" class="btn btn-outline-primary" id="add-service-area">Add Another
-                                    Service Area
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-map me-2 text-primary"></i>District
+                                                </label>
+                                                <select name="district" class="form-select" id="id_district_2"
+                                                        required
+                                                        hx-get="{% url 'ajax_load_states' %}"
+                                                        hx-trigger="load"
+                                                        hx-target="#id_district_2"
+                                                        hx-swap="innerHTML">
+                                                </select>
+                                                <small class="form-text text-muted">Select the district where you offer your service</small>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-map-pin me-2 text-primary"></i>Location
+                                                </label>
+                                                <select name="location" class="form-select" id="id_location_2"
+                                                        required
+                                                        hx-get="{% url 'ajax_load_locations' %}"
+                                                        hx-trigger="load, change from:#id_district_2"
+                                                        hx-target="#id_location_2"
+                                                        hx-include="#id_district_2"
+                                                        hx-swap="innerHTML">
+                                                </select>
+                                                <small class="form-text text-muted">{{ form.location.help_text|default:"Select the specific location within the district" }}</small>
+                                                {{ form.location.errors }}
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-info-circle me-2 text-primary"></i>Description
+                                                </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                                                    {{ form.description }}
+                                                </div>
+                                                <small class="form-text text-muted">{{ form.description.help_text|default:"Add details about this service area (e.g., 'Weekends only', 'Extra fee applies')" }}</small>
+                                                {{ form.description.errors }}
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-check">
+                                                    {{ form.is_primary }}
+                                                    <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
+                                                        <i class="fas fa-star me-1 text-warning"></i> Set as primary area
+                                                    </label>
+                                                    <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check to make this your primary service area" }}</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="form-label">
+                                                    <i class="fas fa-sort-numeric-down me-2 text-primary"></i>Display Order
+                                                </label>
+                                                {{ form.order }}
+                                                <small class="form-text text-muted">{{ form.order.help_text|default:"Set the display order (lower numbers appear first)" }}</small>
+                                            </div>
+                                        </div>
+                                        {{ form.id }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="button" class="btn btn-primary" id="add-service-area">
+                                    <i class="fas fa-plus-circle me-2"></i>Add Another Service Area
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-secondary" id="prev-tab" @click="prevTab()"
-                            x-show="!isFirstTab">Previous
-                    </button>
-                    <button type="button" class="btn btn-primary" id="next-tab" @click="nextTab()" x-show="!isLastTab">
-                        Next
-                    </button>
-                    <button type="submit" class="btn btn-success" id="submit-btn" x-show="isLastTab">Publish Gig
-                    </button>
+                <div class="form-navigation mt-5 pt-4 border-top">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-nav btn-lg btn-outline-secondary" id="prev-tab" @click="prevTab()"
+                                x-show="!isFirstTab">
+                            <i class="fas fa-arrow-left me-2"></i>Previous
+                        </button>
+                        <div x-show="isLastTab" class="d-flex">
+                            <button type="button" class="btn btn-nav btn-lg btn-outline-secondary me-2" id="prev-tab-final" @click="prevTab()">
+                                <i class="fas fa-arrow-left me-2"></i>Previous
+                            </button>
+                            <button type="submit" class="btn btn-nav btn-lg btn-success" id="submit-btn">
+                                <i class="fas fa-check-circle me-2"></i>Publish Gig
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-nav btn-lg btn-primary" id="next-tab" @click="nextTab()" x-show="!isLastTab">
+                            Next<i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+
+                    <div class="text-center text-muted mt-3">
+                        <small>
+                            <span x-show="currentTab === 'basic'">Step 1 of 4: Fill in the basic information about your gig</span>
+                            <span x-show="currentTab === 'images'">Step 2 of 4: Add images to showcase your service</span>
+                            <span x-show="currentTab === 'contacts'">Step 3 of 4: Add additional contact information</span>
+                            <span x-show="currentTab === 'locations'">Step 4 of 4: Specify additional service areas</span>
+                        </small>
+                    </div>
                 </div>
             </form>
         </div>
