@@ -306,7 +306,7 @@
                                         </a>
                                     {% endif %}
                                 </label>
-                                <select class="form-select" name="subcategory" id="subcategorySelect"
+                                <select class="form-select select2" name="subcategory" id="subcategorySelect"
                                         hx-get="{% url 'ajax_load_sub_category' %}"
                                         hx-trigger="load,change from:#categorySelect"
                                         hx-target="#subcategorySelect"
@@ -347,7 +347,7 @@
                                         </a>
                                     {% endif %}
                                 </label>
-                                <select class="form-select" name="location" id="locationSelect"
+                                <select class="form-select select2" name="location" id="locationSelect"
                                         hx-get="{% url 'ajax_load_locations' %}"
                                         hx-trigger="load, change from:#districtSelect"
                                         hx-target="#locationSelect"
