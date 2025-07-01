@@ -705,7 +705,6 @@
                                                     <i class="fas fa-map me-2 text-primary"></i>District
                                                 </label>
                                                 <select name="district" class="form-select" id="id_district_2"
-                                                        required
                                                         hx-get="{% url 'ajax_load_states' %}"
                                                         hx-trigger="load"
                                                         hx-target="#id_district_2"
@@ -718,7 +717,6 @@
                                                     <i class="fas fa-map-pin me-2 text-primary"></i>Location
                                                 </label>
                                                 <select name="location" class="form-select" id="id_location_2"
-                                                        required
                                                         hx-get="{% url 'ajax_load_locations' %}"
                                                         hx-trigger="load, change from:#id_district_2"
                                                         hx-target="#id_location_2"
