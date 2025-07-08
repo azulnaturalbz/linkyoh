@@ -65,11 +65,13 @@ class GigForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Add custom validators
-        self.fields['price'].validators.append(MinValueValidator(0, message=_('Price cannot be negative')))
+        # Make photo field optional when editing (instance exists)
+        self.fields['photo'].required = not bool(self.instance.pk)
 
-        # Make photo field optional
-        self.fields['photo'].required = True
+        # Only add the MinValueValidator if this is not an instance with call_for_pricing
+        # This allows -1 as a valid value for price when call_for_pricing is enabled
+        if not (self.instance.pk and self.instance.call_for_pricing):
+            self.fields['price'].validators.append(MinValueValidator(0, message=_('Price cannot be negative')))
 
         # Customize call_for_pricing widget
         self.fields['call_for_pricing'].widget = forms.CheckboxInput(attrs={
@@ -106,7 +108,7 @@ class GigForm(ModelForm):
         # This will be used to identify gigs with "Call for pricing" in queries
         if call_for_pricing:
             cleaned_data['price'] = -1
-        elif price is None or price < 0:
+        elif price is None or price < -1:
             # Only validate price if call_for_pricing is not checked
             self.add_error('price', _('Please enter a valid price (0 or greater)'))
 
@@ -189,18 +191,30 @@ class GigServiceAreaForm(ModelForm):
         super().__init__(*args, **kwargs)
         # Handle dynamic location dropdown
         self.fields['location'].queryset = Location.objects.none()
-        if 'district' in self.data:
+
+        # Build the correct key for the posted district (formsets prefix each field name)
+        district_key = f'{self.prefix}-district' if self.prefix else 'district'
+
+        if district_key in self.data:
             try:
-                district_id = self.data.get('district')
-                self.fields['location'].queryset = Location.objects.filter(
-                    local__local_district=district_id
-                ).select_related('local').order_by('local')
+                district_id = self.data.get(district_key)
+                self.fields['location'].queryset = (
+                    Location.objects
+                    .filter(local__local_district=district_id)
+                    .select_related('local')
+                    .order_by('local')
+                )
             except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty location queryset
-        elif self.instance.pk and hasattr(self.instance, 'district') and self.instance.district:
-            self.fields['location'].queryset = Location.objects.filter(
-                local__local_district=self.instance.district_id
-            ).select_related('local').order_by('local')
+                # Invalid input; keep an empty queryset
+                pass
+        elif self.instance.pk and getattr(self.instance, 'district', None):
+            # Populate when editing an existing instance
+            self.fields['location'].queryset = (
+                Location.objects
+                .filter(local__local_district=self.instance.district_id)
+                .select_related('local')
+                .order_by('local')
+            )
 
 
 # Create formsets for the related models

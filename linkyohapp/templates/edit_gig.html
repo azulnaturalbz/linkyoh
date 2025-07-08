@@ -197,6 +197,15 @@
         </div>
     {% endif %}
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>{% if message.tags == 'error' %}Error!{% elif message.tags == 'warning' %}Warning!{% elif message.tags == 'success' %}Success!{% else %}Notice!{% endif %}</strong> {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <div class="container py-4">
         <div class="row justify-content-center">
             <div class="col-lg-10">
@@ -686,7 +695,7 @@
                             {{ service_area_formset.management_form }}
                             <div id="service-area-formset">
                                 {% for form in service_area_formset %}
-                                    <div class="form-item service-area-form mb-4">
+                                    <div class="form-item service-areas-form mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <h6 class="mb-0"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Service Area #{{ forloop.counter }}</h6>
                                             {% if form.instance.pk %}
@@ -704,24 +713,35 @@
                                                 <label class="form-label">
                                                     <i class="fas fa-map me-2 text-primary"></i>District
                                                 </label>
-                                                <select name="district" class="form-select" id="id_district_2"
+                                                <select name="{{ form.district.html_name }}" class="form-select"
+                                                        id="{{ form.district.auto_id }}"
                                                         hx-get="{% url 'ajax_load_states' %}"
                                                         hx-trigger="load"
-                                                        hx-target="#id_district_2"
+                                                        hx-target="#{{ form.district.auto_id }}"
+                                                        {% if form.district.value %}hx-vals='{"district": "{{ form.district.value.id }}"}'{% endif %}
                                                         hx-swap="innerHTML">
+                                                    {% if form.district.value %}
+                                                        <option value="{{ form.district.value.id }}" selected>{{ form.district.value }}</option>
+                                                    {% endif %}
                                                 </select>
                                                 <small class="form-text text-muted">Select the district where you offer your service</small>
+                                                {{ form.district.errors }}
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
                                                     <i class="fas fa-map-pin me-2 text-primary"></i>Location
                                                 </label>
-                                                <select name="location" class="form-select" id="id_location_2"
+                                                <select name="{{ form.location.html_name }}" class="form-select"
+                                                        id="{{ form.location.auto_id }}"
                                                         hx-get="{% url 'ajax_load_locations' %}"
-                                                        hx-trigger="load, change from:#id_district_2"
-                                                        hx-target="#id_location_2"
-                                                        hx-include="#id_district_2"
+                                                        hx-trigger="load, change from:#{{ form.district.auto_id }}"
+                                                        hx-target="#{{ form.location.auto_id }}"
+                                                        hx-include="#{{ form.district.auto_id }}"
+                                                        {% if form.location.value %}hx-vals='{"location": "{{ form.location.value.id }}", "district": "{{ form.district.value.id }}"}'{% endif %}
                                                         hx-swap="innerHTML">
+                                                    {% if form.location.value %}
+                                                        <option value="{{ form.location.value.id }}" selected>{{ form.location.value }}</option>
+                                                    {% endif %}
                                                 </select>
                                                 <small class="form-text text-muted">{{ form.location.help_text|default:"Select the specific location within the district" }}</small>
                                                 {{ form.location.errors }}
@@ -824,9 +844,38 @@
             function setupFormsetButtons(addBtn, formset, prefix) {
                 if (!addBtn) return;
 
+                // Function to check if we should disable the add button
+                const checkMaxForms = () => {
+                    const forms = formset.querySelectorAll(`.${prefix.replace('_', '-')}-form`);
+                    // Max forms is 5 for service areas, 10 for images, 5 for contacts
+                    const maxForms = prefix === 'service_areas' ? 5 : (prefix === 'images' ? 10 : 5);
+
+                    if (forms.length >= maxForms) {
+                        addBtn.disabled = true;
+                        addBtn.classList.add('disabled');
+                        addBtn.title = `Maximum of ${maxForms} ${prefix.replace('_', ' ')} reached`;
+                    } else {
+                        addBtn.disabled = false;
+                        addBtn.classList.remove('disabled');
+                        addBtn.title = '';
+                    }
+                };
+
+                // Initial check
+                checkMaxForms();
+
                 addBtn.addEventListener('click', function() {
                     const forms = formset.querySelectorAll(`.${prefix.replace('_', '-')}-form`);
                     const totalForms = document.querySelector(`#id_${prefix}-TOTAL_FORMS`);
+
+                    // Max forms is 5 for service areas, 10 for images, 5 for contacts
+                    const maxForms = prefix === 'service_areas' ? 5 : (prefix === 'images' ? 10 : 5);
+
+                    // Check if we've reached the maximum number of forms
+                    if (forms.length >= maxForms) {
+                        alert(`You can only add up to ${maxForms} ${prefix.replace('_', ' ')}.`);
+                        return;
+                    }
 
                     const newForm = forms[0].cloneNode(true);
                     newForm.innerHTML = newForm.innerHTML.replace(
@@ -864,17 +913,38 @@
                     formset.appendChild(newForm);
                     totalForms.value = forms.length + 1;
 
+                    // Check if we need to disable the add button after adding a form
+                    checkMaxForms();
+
                     // Initialize HTMX for new district/location selects in service areas
                     if (prefix === 'service_areas') {
-                        const newDistrict = newForm.querySelector('select[name*="district"]');
-                        const newLocation = newForm.querySelector('select[name*="location"]');
+                        // Get the new form index
+                        const formIndex = forms.length;
+
+                        // Create IDs for the new district and location selects
+                        const newDistrictId = `id_${prefix}-${formIndex}-district`;
+                        const newLocationId = `id_${prefix}-${formIndex}-location`;
+
+                        // Find the select elements
+                        const newDistrict = newForm.querySelector(`select[id="${newDistrictId}"]`) || 
+                                           newForm.querySelector('select[name*="district"]');
+                        const newLocation = newForm.querySelector(`select[id="${newLocationId}"]`) || 
+                                           newForm.querySelector('select[name*="location"]');
 
                         if (newDistrict && newLocation) {
+                            // Update IDs if needed
+                            newDistrict.id = newDistrictId;
+                            newLocation.id = newLocationId;
+
+                            // Update names if needed
+                            newDistrict.name = `${prefix}-${formIndex}-district`;
+                            newLocation.name = `${prefix}-${formIndex}-location`;
+
                             // Set up HTMX for the new location dropdown
-                             newLocation.setAttribute('hx-get', '{% url "ajax_load_locations" %}');
-                            newLocation.setAttribute('hx-trigger', `load, #${newDistrict.id}:change`);
-                            newLocation.setAttribute('hx-target', `#${newLocation.id}`);
-                            newLocation.setAttribute('hx-vals', `{"district": document.getElementById("${newDistrict.id}").value}`);
+                            newLocation.setAttribute('hx-get', '{% url "ajax_load_locations" %}');
+                            newLocation.setAttribute('hx-trigger', `load,change from:#${newDistrictId}`);
+                            newLocation.setAttribute('hx-target', `#${newLocationId}`);
+                            newLocation.setAttribute('hx-include', `#${newDistrictId}`);
                             newLocation.setAttribute('hx-swap', 'innerHTML');
                         }
                     }

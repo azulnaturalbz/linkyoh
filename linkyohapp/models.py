@@ -583,28 +583,29 @@ def update_gig_image_paths(sender, instance, created, **kwargs):
     1. Update the file paths if needed (for new instances)
     2. Process the gig photo (resize and compress)
     """
-    # Update paths for new instances
-    if created and instance.photo and 'new' in instance.photo.name:
-        # Get the old file path
-        old_path = instance.photo.path
-
-        # Generate the new path with the correct ID
-        filename = os.path.basename(instance.photo.name)
-        new_path = os.path.join('gigs_img', str(instance.user_id), str(instance.id), 'cover', filename)
-
-        # Update the file path in the database
-        instance.photo.name = new_path
-        instance.save(update_fields=['photo'])
-
-        # If the old file exists, move it to the new location
-        if os.path.exists(old_path):
-            # Ensure the directory exists
-            os.makedirs(os.path.dirname(instance.photo.path), exist_ok=True)
-            # Move the file
-            os.rename(old_path, instance.photo.path)
-
-    # Process the gig photo
+    # Update paths for new instances or when a new photo is uploaded
     if instance.photo:
+        # For new instances or when the path contains 'new'
+        if (created and 'new' in instance.photo.name) or (not created and 'new' in instance.photo.name):
+            # Get the old file path
+            old_path = instance.photo.path
+
+            # Generate the new path with the correct ID
+            filename = os.path.basename(instance.photo.name)
+            new_path = os.path.join('gigs_img', str(instance.user_id), str(instance.id), 'cover', filename)
+
+            # Update the file path in the database
+            instance.photo.name = new_path
+            instance.save(update_fields=['photo'])
+
+            # If the old file exists, move it to the new location
+            if os.path.exists(old_path):
+                # Ensure the directory exists
+                os.makedirs(os.path.dirname(instance.photo.path), exist_ok=True)
+                # Move the file
+                os.rename(old_path, instance.photo.path)
+
+        # Process the gig photo
         try:
             process_gig_photo(instance.photo)
         except ImageProcessingError as e:
@@ -619,29 +620,31 @@ def update_gig_additional_image_paths(sender, instance, created, **kwargs):
     After a gig image is saved:
     1. Update the file paths if needed (for new instances)
     2. Process the image (resize and compress)
+    3. Ensure only one image is set as primary
     """
-    # Update paths for new instances
-    if created and instance.image and 'unknown' in instance.image.name:
-        # Get the old file path
-        old_path = instance.image.path
-
-        # Generate the new path with the correct ID
-        filename = os.path.basename(instance.image.name)
-        new_path = os.path.join('gigs_img', str(instance.gig.user_id), str(instance.gig.id), 'additional', filename)
-
-        # Update the file path in the database
-        instance.image.name = new_path
-        instance.save(update_fields=['image'])
-
-        # If the old file exists, move it to the new location
-        if os.path.exists(old_path):
-            # Ensure the directory exists
-            os.makedirs(os.path.dirname(instance.image.path), exist_ok=True)
-            # Move the file
-            os.rename(old_path, instance.image.path)
-
-    # Process the additional image
+    # Update paths for new instances or when a new image is uploaded
     if instance.image:
+        # For new instances or when the path contains 'unknown'
+        if (created and 'unknown' in instance.image.name) or (not created and 'unknown' in instance.image.name):
+            # Get the old file path
+            old_path = instance.image.path
+
+            # Generate the new path with the correct ID
+            filename = os.path.basename(instance.image.name)
+            new_path = os.path.join('gigs_img', str(instance.gig.user_id), str(instance.gig.id), 'additional', filename)
+
+            # Update the file path in the database
+            instance.image.name = new_path
+            instance.save(update_fields=['image'])
+
+            # If the old file exists, move it to the new location
+            if os.path.exists(old_path):
+                # Ensure the directory exists
+                os.makedirs(os.path.dirname(instance.image.path), exist_ok=True)
+                # Move the file
+                os.rename(old_path, instance.image.path)
+
+        # Process the additional image
         try:
             process_image(instance.image, (800, 600), format=None)
         except ImageProcessingError as e:
@@ -649,6 +652,21 @@ def update_gig_additional_image_paths(sender, instance, created, **kwargs):
             logger = logging.getLogger(__name__)
             logger.error(f"Error processing additional image {instance.id} for gig {instance.gig.id}: {str(e)}")
             # We don't want to raise the exception here as it would prevent the image from being saved
+
+    # If this image is set as primary, ensure all other images for this gig are not primary
+    if instance.is_primary:
+        # Get all other images for this gig
+        other_images = GigImage.objects.filter(gig=instance.gig).exclude(id=instance.id)
+        # Set is_primary to False for all other images
+        other_images.update(is_primary=False)
+
+        # If this is set as primary, we should also update the main gig photo
+        # This ensures that when a user sets an additional image as primary,
+        # it becomes the main image for the gig
+        if instance.image:
+            # Update the main gig photo
+            instance.gig.photo = instance.image
+            instance.gig.save(update_fields=['photo'])
 
 @receiver(post_save, sender=Category)
 def process_category_image(sender, instance, **kwargs):

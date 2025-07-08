@@ -31,7 +31,16 @@ from .forms import (
 def load_districts(request, did=None):
     """HTMX view to load districts"""
     districts = District.objects.all()
+
+    # Try to get selected_district from standard parameter or URL parameter
     selected_district = request.GET.get('district') or did
+
+    # If not found, look for parameters with formset prefixes
+    if not selected_district:
+        for key in request.GET.keys():
+            if ('district' in key) and request.GET.get(key):
+                selected_district = request.GET.get(key)
+                break
 
     return render(request, 'district_dropdown_list_options.html', {
         'districts': districts, 
@@ -41,8 +50,25 @@ def load_districts(request, did=None):
 
 def load_locations(request, did=None, lid=None):
     """HTMX view to load locations based on selected district"""
+    # Try to get district_id from standard parameter or URL parameter
     district_id = request.GET.get('district') or did
+
+    # If not found, look for parameters with formset prefixes
+    if not district_id:
+        for key in request.GET.keys():
+            if ('district' in key) and request.GET.get(key):
+                district_id = request.GET.get(key)
+                break
+
+    # Try to get selected_location from standard parameter or URL parameter
     selected_location = request.GET.get('location') or lid
+
+    # If not found, look for parameters with formset prefixes
+    if not selected_location:
+        for key in request.GET.keys():
+            if ('location' in key) and request.GET.get(key):
+                selected_location = request.GET.get(key)
+                break
 
     locations = []
     if district_id:
@@ -55,8 +81,26 @@ def load_locations(request, did=None, lid=None):
 
 def ajax_load_locations(request):
     """HTMX view to load locations based on selected district"""
+    # Try to get district_id from standard parameter
     district_id = request.GET.get('district', '')
+
+    # If not found, look for parameters with formset prefixes
+    if not district_id:
+        for key in request.GET.keys():
+            if ('district' in key) and request.GET.get(key):
+                district_id = request.GET.get(key)
+                break
+
+    # Try to get selected_location from standard parameter
     selected_location = request.GET.get('location', None)
+
+    # If not found, look for parameters with formset prefixes
+    if not selected_location:
+        for key in request.GET.keys():
+            if ('location' in key) and request.GET.get(key):
+                selected_location = request.GET.get(key)
+                break
+
     locations = []
 
     if district_id:
@@ -71,7 +115,16 @@ def ajax_load_locations(request):
 def load_categories(request, catid=None):
     """HTMX view to load categories"""
     categories = Category.objects.all()
+
+    # Try to get selected_cat from standard parameter or URL parameter
     selected_cat = request.GET.get('category') or catid
+
+    # If not found, look for parameters with formset prefixes
+    if not selected_cat:
+        for key in request.GET.keys():
+            if ('category' in key) and ('sub_category' not in key) and request.GET.get(key):
+                selected_cat = request.GET.get(key)
+                break
 
     return render(request, 'category_dropdown_list_options.html', {
         'categories': categories, 
@@ -81,8 +134,25 @@ def load_categories(request, catid=None):
 
 def load_sub_categories(request, catid=None, subcatid=None):
     """HTMX view to load subcategories based on selected category"""
+    # Try to get category_id from standard parameter or URL parameter
     category_id = request.GET.get('category') or catid
+
+    # If not found, look for parameters with formset prefixes
+    if not category_id:
+        for key in request.GET.keys():
+            if ('category' in key) and ('sub_category' not in key) and request.GET.get(key):
+                category_id = request.GET.get(key)
+                break
+
+    # Try to get selected_subcategory from standard parameter or URL parameter
     selected_subcategory = request.GET.get('subcategory') or subcatid
+
+    # If not found, look for parameters with formset prefixes
+    if not selected_subcategory:
+        for key in request.GET.keys():
+            if ('sub_category' in key) and request.GET.get(key):
+                selected_subcategory = request.GET.get(key)
+                break
 
     sub_categories = []
     if category_id:
@@ -95,8 +165,26 @@ def load_sub_categories(request, catid=None, subcatid=None):
 
 def ajax_load_subcategories(request):
     """HTMX view to load subcategories based on selected category"""
+    # Try to get category_id from standard parameter
     category_id = request.GET.get('category', '')
+
+    # If not found, look for parameters with formset prefixes
+    if not category_id:
+        for key in request.GET.keys():
+            if ('category' in key) and ('sub_category' not in key) and request.GET.get(key):
+                category_id = request.GET.get(key)
+                break
+
+    # Try to get selected_subcategory from standard parameter
     selected_subcategory = request.GET.get('subcategory', None)
+
+    # If not found, look for parameters with formset prefixes
+    if not selected_subcategory:
+        for key in request.GET.keys():
+            if ('sub_category' in key) and request.GET.get(key):
+                selected_subcategory = request.GET.get(key)
+                break
+
     subcategories = []
 
     if category_id:
@@ -415,13 +503,13 @@ class CreateGigView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
 
         if self.request.POST:
-            context['image_formset'] = GigImageFormSet(self.request.POST, self.request.FILES)
-            context['contact_formset'] = GigContactFormSet(self.request.POST)
-            context['service_area_formset'] = GigServiceAreaFormSet(self.request.POST)
+            context['image_formset'] = GigImageFormSet(self.request.POST, self.request.FILES, prefix='images')
+            context['contact_formset'] = GigContactFormSet(self.request.POST, prefix='contacts')
+            context['service_area_formset'] = GigServiceAreaFormSet(self.request.POST, prefix='service_areas')
         else:
-            context['image_formset'] = GigImageFormSet()
-            context['contact_formset'] = GigContactFormSet()
-            context['service_area_formset'] = GigServiceAreaFormSet()
+            context['image_formset'] = GigImageFormSet(prefix='images')
+            context['contact_formset'] = GigContactFormSet(prefix='contacts')
+            context['service_area_formset'] = GigServiceAreaFormSet(prefix='service_areas')
 
         return context
 
@@ -431,23 +519,37 @@ class CreateGigView(LoginRequiredMixin, CreateView):
         contact_formset = context['contact_formset']
         service_area_formset = context['service_area_formset']
 
-        with transaction.atomic():
-            form.instance.user = self.request.user
-            self.object = form.save()
+        # Check if all formsets are valid before proceeding
+        if not image_formset.is_valid():
+            messages.error(self.request, "There was an error with one or more images. Please check and try again.")
+            return self.form_invalid(form)
 
-            if image_formset.is_valid():
+        if not contact_formset.is_valid():
+            messages.error(self.request, "There was an error with one or more contact numbers. Please check and try again.")
+            return self.form_invalid(form)
+
+        if not service_area_formset.is_valid():
+            messages.error(self.request, "There was an error with one or more service areas. Please check and try again.")
+            return self.form_invalid(form)
+
+        try:
+            with transaction.atomic():
+                form.instance.user = self.request.user
+                self.object = form.save()
+
                 image_formset.instance = self.object
                 image_formset.save()
 
-            if contact_formset.is_valid():
                 contact_formset.instance = self.object
                 contact_formset.save()
 
-            if service_area_formset.is_valid():
                 service_area_formset.instance = self.object
                 service_area_formset.save()
 
-        return super().form_valid(form)
+            return super().form_valid(form)
+        except Exception as e:
+            messages.error(self.request, f"An error occurred while saving your gig: {str(e)}")
+            return self.form_invalid(form)
 
 # Keep the function-based view as a wrapper for backward compatibility
 @login_required(login_url='/login/')
@@ -474,18 +576,18 @@ class EditGigView(LoginRequiredMixin, UpdateView):
 
         if self.request.POST:
             context['image_formset'] = GigImageFormSet(
-                self.request.POST, self.request.FILES, instance=gig
+                self.request.POST, self.request.FILES, instance=gig, prefix='images'
             )
             context['contact_formset'] = GigContactFormSet(
-                self.request.POST, instance=gig
+                self.request.POST, instance=gig, prefix='contacts'
             )
             context['service_area_formset'] = GigServiceAreaFormSet(
-                self.request.POST, instance=gig
+                self.request.POST, instance=gig, prefix='service_areas'
             )
         else:
-            context['image_formset'] = GigImageFormSet(instance=gig)
-            context['contact_formset'] = GigContactFormSet(instance=gig)
-            context['service_area_formset'] = GigServiceAreaFormSet(instance=gig)
+            context['image_formset'] = GigImageFormSet(instance=gig, prefix='images')
+            context['contact_formset'] = GigContactFormSet(instance=gig, prefix='contacts')
+            context['service_area_formset'] = GigServiceAreaFormSet(instance=gig, prefix='service_areas')
 
         return context
 
@@ -495,28 +597,36 @@ class EditGigView(LoginRequiredMixin, UpdateView):
         contact_formset = context['contact_formset']
         service_area_formset = context['service_area_formset']
 
-        with transaction.atomic():
-            self.object = form.save()
+        # Check if all formsets are valid before proceeding
+        if not image_formset.is_valid():
+            messages.error(self.request, "There was an error with one or more images. Please check and try again.")
+            return self.form_invalid(form)
 
-            if image_formset.is_valid():
+        if not contact_formset.is_valid():
+            messages.error(self.request, "There was an error with one or more contact numbers. Please check and try again.")
+            return self.form_invalid(form)
+
+        if not service_area_formset.is_valid():
+            messages.error(self.request, "There was an error with one or more service areas. Please check and try again.")
+            return self.form_invalid(form)
+
+        try:
+            with transaction.atomic():
+                self.object = form.save()
+
                 image_formset.instance = self.object
                 image_formset.save()
-            else:
-                return self.form_invalid(form)
 
-            if contact_formset.is_valid():
                 contact_formset.instance = self.object
                 contact_formset.save()
-            else:
-                return self.form_invalid(form)
 
-            if service_area_formset.is_valid():
                 service_area_formset.instance = self.object
                 service_area_formset.save()
-            else:
-                return self.form_invalid(form)
 
-        return super().form_valid(form)
+            return super().form_valid(form)
+        except Exception as e:
+            messages.error(self.request, f"An error occurred while saving your gig: {str(e)}")
+            return self.form_invalid(form)
 
 # Keep the function-based view as a wrapper for backward compatibility
 @login_required(login_url='/login/')
