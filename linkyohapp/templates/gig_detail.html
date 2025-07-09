@@ -218,24 +218,19 @@
                             <!-- Service Areas Section -->
                             {% if service_areas %}
                                 <div class="detail-section">
-                                    <h5><i class="fas fa-globe me-2"></i>Service Areas</h5>
-                                    <div class="d-flex flex-wrap">
-                                        {% for area in service_areas %}
-                                            {% if forloop.first %}
-                                                <span class="badge bg-primary service-area-badge me-2 mb-2">
-                                                    <i class="fas fa-map-marker-alt me-1"></i> 
-                                                    {{ area.district }} - {{ area.location }}
-                                                    <strong>(Main Service Area)</strong>
-                                                </span>
-                                            {% else %}
+                                    <h5><i class="fas fa-globe me-2"></i>Main Service Area</h5>
+                                    <p><strong>{{ service_areas.0.district }} - {{ service_areas.0.location }}</strong></p>
+                                    {% if service_areas|length > 1 %}
+                                        <h5 class="mt-3"><i class="fas fa-globe me-2"></i>Additional Service Areas</h5>
+                                        <div class="d-flex flex-wrap">
+                                            {% for area in service_areas|slice:"1:" %}
                                                 <span class="badge bg-info service-area-badge me-2 mb-2">
-                                                    <i class="fas fa-map-marker-alt me-1"></i> 
-                                                    {{ area.district }} - {{ area.location }}
-                                                    {% if area.description %} ({{ area.description }}){% endif %}
+                                                    <i class="fas fa-map-marker-alt me-1"></i>
+                                                    {{ area.district }} - {{ area.location }}{% if area.description %} ({{ area.description }}){% endif %}
                                                 </span>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         </div>

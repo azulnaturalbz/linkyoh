@@ -533,18 +533,28 @@ class CreateGigView(LoginRequiredMixin, CreateView):
             return self.form_invalid(form)
 
         try:
-            with transaction.atomic():
-                form.instance.user = self.request.user
-                self.object = form.save()
+                with transaction.atomic():
+                    form.instance.user = self.request.user
+                    self.object = form.save()
 
-                image_formset.instance = self.object
-                image_formset.save()
+                    # Discard any new image forms with no file
+                    for f in image_formset.forms:
+                        if not f.cleaned_data.get('image') and not f.cleaned_data.get('id'):
+                            f.cleaned_data['DELETE'] = True
 
-                contact_formset.instance = self.object
-                contact_formset.save()
+                    # Discard any new contact forms with no phone number
+                    for f in contact_formset.forms:
+                        if not f.cleaned_data.get('phone_number') and not f.cleaned_data.get('id'):
+                            f.cleaned_data['DELETE'] = True
 
-                service_area_formset.instance = self.object
-                service_area_formset.save()
+                    image_formset.instance = self.object
+                    image_formset.save()
+
+                    contact_formset.instance = self.object
+                    contact_formset.save()
+
+                    service_area_formset.instance = self.object
+                    service_area_formset.save()
 
             return super().form_valid(form)
         except Exception as e:
@@ -613,6 +623,16 @@ class EditGigView(LoginRequiredMixin, UpdateView):
         try:
             with transaction.atomic():
                 self.object = form.save()
+
+                # Discard any updated image forms with no file for new entries
+                for f in image_formset.forms:
+                    if not f.cleaned_data.get('image') and not f.cleaned_data.get('id'):
+                        f.cleaned_data['DELETE'] = True
+
+                # Discard any updated contact forms with no phone number for new entries
+                for f in contact_formset.forms:
+                    if not f.cleaned_data.get('phone_number') and not f.cleaned_data.get('id'):
+                        f.cleaned_data['DELETE'] = True
 
                 image_formset.instance = self.object
                 image_formset.save()

@@ -513,7 +513,7 @@
                             {{ image_formset.management_form }}
                             <div id="image-formset">
                                 {% for form in image_formset %}
-                                    <div class="form-item image-form mb-4">
+                                    <div class="form-item image-form images-form mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <h6 class="mb-0"><i class="fas fa-image me-2 text-primary"></i>Image #{{ forloop.counter }}</h6>
                                             {% if form.instance.pk %}
@@ -590,7 +590,7 @@
                             {{ contact_formset.management_form }}
                             <div id="contact-formset">
                                 {% for form in contact_formset %}
-                                    <div class="form-item contact-form mb-4">
+                                    <div class="form-item contact-form contacts-form mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <h6 class="mb-0"><i class="fas fa-phone-alt me-2 text-primary"></i>Contact #{{ forloop.counter }}</h6>
                                             {% if form.instance.pk %}
@@ -702,7 +702,7 @@
                                                         hx-get="{% url 'ajax_load_states' %}"
                                                         hx-trigger="load"
                                                         hx-target="#{{ form.district.auto_id }}"
-                                                        {% if form.district.value %}hx-vals='{"district": "{{ form.district.value.id }}"}'{% endif %}
+                                                        {% if form.district.value %}hx-vals='{"district": "{{ form.district.value }}"}'{% endif %}
                                                         hx-swap="innerHTML">
                                                     {% if form.district.value %}
                                                         <option value="{{ form.district.value.id }}" selected>{{ form.district.value }}</option>
@@ -721,7 +721,7 @@
                                                         hx-trigger="load, change from:#{{ form.district.auto_id }}"
                                                         hx-target="#{{ form.location.auto_id }}"
                                                         hx-include="#{{ form.district.auto_id }}"
-                                                        {% if form.location.value %}hx-vals='{"location": "{{ form.location.value.id }}", "district": "{{ form.district.value.id }}"}'{% endif %}
+                                                        {% if form.location.value %}hx-vals='{"location": "{{ form.location.value }}", "district": "{{ form.district.value }}"}'{% endif %}
                                                         hx-swap="innerHTML">
                                                     {% if form.location.value %}
                                                         <option value="{{ form.location.value.id }}" selected>{{ form.location.value }}</option>
@@ -890,6 +890,23 @@
 
                     formset.appendChild(newForm);
                     totalForms.value = forms.length + 1;
+
+                    // Add remove button for new forms (images & contacts)
+                    if (prefix === 'images' || prefix === 'contacts') {
+                        const header = newForm.querySelector('.d-flex.justify-content-between');
+                        if (header) {
+                            const removeBtn = document.createElement('button');
+                            removeBtn.type = 'button';
+                            removeBtn.className = 'btn btn-link text-danger remove-form';
+                            removeBtn.innerHTML = '<i class="fas fa-trash-alt me-1"></i> Remove';
+                            removeBtn.addEventListener('click', () => {
+                                newForm.remove();
+                                totalForms.value = formset.querySelectorAll(`.${prefix.replace('_', '-')}-form`).length;
+                                checkMaxForms();
+                            });
+                            header.appendChild(removeBtn);
+                        }
+                    }
 
                     // Check if we need to disable the add button after adding a form
                     checkMaxForms();
