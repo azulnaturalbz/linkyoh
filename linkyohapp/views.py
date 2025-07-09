@@ -5,6 +5,7 @@ from django.db.models import Q, Count
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -521,15 +522,36 @@ class CreateGigView(LoginRequiredMixin, CreateView):
 
         # Check if all formsets are valid before proceeding
         if not image_formset.is_valid():
-            messages.error(self.request, "There was an error with one or more images. Please check and try again.")
+            # Aggregate image formset errors for user feedback
+            errors = []
+            for idx, f in enumerate(image_formset.forms, start=1):
+                for field, field_errors in f.errors.items():
+                    for err in field_errors:
+                        errors.append(f"Image #{idx} {field}: {err}")
+            errors.extend(image_formset.non_form_errors())
+            messages.error(self.request, _("Image errors: %s") % "; ".join(errors))
             return self.form_invalid(form)
 
         if not contact_formset.is_valid():
-            messages.error(self.request, "There was an error with one or more contact numbers. Please check and try again.")
+            # Aggregate contact formset errors
+            errors = []
+            for idx, f in enumerate(contact_formset.forms, start=1):
+                for field, field_errors in f.errors.items():
+                    for err in field_errors:
+                        errors.append(f"Contact #{idx} {field}: {err}")
+            errors.extend(contact_formset.non_form_errors())
+            messages.error(self.request, _("Contact errors: %s") % "; ".join(errors))
             return self.form_invalid(form)
 
         if not service_area_formset.is_valid():
-            messages.error(self.request, "There was an error with one or more service areas. Please check and try again.")
+            # Aggregate service area formset errors
+            errors = []
+            for idx, f in enumerate(service_area_formset.forms, start=1):
+                for field, field_errors in f.errors.items():
+                    for err in field_errors:
+                        errors.append(f"Service Area #{idx} {field}: {err}")
+            errors.extend(service_area_formset.non_form_errors())
+            messages.error(self.request, _("Service area errors: %s") % "; ".join(errors))
             return self.form_invalid(form)
 
         try:
@@ -556,7 +578,7 @@ class CreateGigView(LoginRequiredMixin, CreateView):
                     service_area_formset.instance = self.object
                     service_area_formset.save()
 
-            return super().form_valid(form)
+                return super().form_valid(form)
         except Exception as e:
             messages.error(self.request, f"An error occurred while saving your gig: {str(e)}")
             return self.form_invalid(form)
@@ -609,15 +631,33 @@ class EditGigView(LoginRequiredMixin, UpdateView):
 
         # Check if all formsets are valid before proceeding
         if not image_formset.is_valid():
-            messages.error(self.request, "There was an error with one or more images. Please check and try again.")
+            errors = []
+            for idx, f in enumerate(image_formset.forms, start=1):
+                for field, field_errors in f.errors.items():
+                    for err in field_errors:
+                        errors.append(f"Image #{idx} {field}: {err}")
+            errors.extend(image_formset.non_form_errors())
+            messages.error(self.request, _("Image errors: %s") % "; ".join(errors))
             return self.form_invalid(form)
 
         if not contact_formset.is_valid():
-            messages.error(self.request, "There was an error with one or more contact numbers. Please check and try again.")
+            errors = []
+            for idx, f in enumerate(contact_formset.forms, start=1):
+                for field, field_errors in f.errors.items():
+                    for err in field_errors:
+                        errors.append(f"Contact #{idx} {field}: {err}")
+            errors.extend(contact_formset.non_form_errors())
+            messages.error(self.request, _("Contact errors: %s") % "; ".join(errors))
             return self.form_invalid(form)
 
         if not service_area_formset.is_valid():
-            messages.error(self.request, "There was an error with one or more service areas. Please check and try again.")
+            errors = []
+            for idx, f in enumerate(service_area_formset.forms, start=1):
+                for field, field_errors in f.errors.items():
+                    for err in field_errors:
+                        errors.append(f"Service Area #{idx} {field}: {err}")
+            errors.extend(service_area_formset.non_form_errors())
+            messages.error(self.request, _("Service area errors: %s") % "; ".join(errors))
             return self.form_invalid(form)
 
         try:
