@@ -861,7 +861,7 @@
                         return;
                     }
 
-                    const newForm = forms[0].cloneNode(true);
+                    const newForm = forms[forms.length - 1].cloneNode(true);
                     newForm.innerHTML = newForm.innerHTML.replace(
                         new RegExp(`${prefix}-0-`, 'g'),
                         `${prefix}-${forms.length}-`
