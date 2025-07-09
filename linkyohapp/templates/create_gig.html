@@ -866,6 +866,11 @@
                         new RegExp(`${prefix}-0-`, 'g'),
                         `${prefix}-${forms.length}-`
                     );
+                    // Update the header number (#1, #2, ...) in the cloned form
+                    const headerTitle = newForm.querySelector('h6.mb-0');
+                    if (headerTitle) {
+                        headerTitle.innerHTML = headerTitle.innerHTML.replace(/#\d+/, '#' + (forms.length + 1));
+                    }
 
                     // Clear input values
                     newForm.querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio])').forEach(input => {
