@@ -155,6 +155,8 @@ class GigImageForm(ModelForm):
         super().__init__(*args, **kwargs)
         # "order" is optional – default to 0 when the user leaves it blank.
         self.fields['order'].required = False
+        # Allow empty image so that completely blank forms don't raise validation
+        self.fields['image'].required = False
 
     def clean_order(self):
         """Return 0 when order is omitted so validation doesn't complain."""
@@ -182,6 +184,7 @@ class GigContactForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['order'].required = False
+        self.fields['phone_number'].required = False
 
     def clean_order(self):
         order = self.cleaned_data.get('order')
