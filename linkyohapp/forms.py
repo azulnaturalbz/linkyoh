@@ -216,6 +216,10 @@ class GigServiceAreaForm(ModelForm):
         # "order" optional
         self.fields['order'].required = False
 
+        # Allow completely blank service-area rows (district & location optional)
+        self.fields['district'].required = False
+        self.fields['location'].required = False
+
         # Build the correct key for the posted district (formsets prefix each field name)
         district_key = f'{self.prefix}-district' if self.prefix else 'district'
 
@@ -239,6 +243,18 @@ class GigServiceAreaForm(ModelForm):
                 .select_related('local')
                 .order_by('local')
             )
+
+    def clean(self):
+        cleaned = super().clean()
+
+        # When both district & location are missing treat form as blank so that the
+        # formset logic in the view can discard it without triggering model errors.
+        if (
+            not cleaned.get('district') and not cleaned.get('location')
+            and not cleaned.get('id')  # brand new row
+        ):
+            cleaned['DELETE'] = True
+        return cleaned
 
     def clean_order(self):
         order = self.cleaned_data.get('order')
