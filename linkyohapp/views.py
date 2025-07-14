@@ -555,30 +555,42 @@ class CreateGigView(LoginRequiredMixin, CreateView):
             return self.form_invalid(form)
 
         try:
-                with transaction.atomic():
-                    form.instance.user = self.request.user
-                    self.object = form.save()
+            with transaction.atomic():
+                form.instance.user = self.request.user
+                self.object = form.save()
 
-                    # Discard any new image forms with no file
-                    for f in image_formset.forms:
-                        if not f.cleaned_data.get('image') and not f.cleaned_data.get('id'):
-                            f.cleaned_data['DELETE'] = True
+                # Discard any new image forms with no file
+                for f in image_formset.forms:
+                    if not f.cleaned_data.get('image') and not f.cleaned_data.get('id'):
+                        f.cleaned_data['DELETE'] = True
 
-                    # Discard any new contact forms with no phone number
-                    for f in contact_formset.forms:
-                        if not f.cleaned_data.get('phone_number') and not f.cleaned_data.get('id'):
-                            f.cleaned_data['DELETE'] = True
+                # Discard any new contact forms with no phone number
+                for f in contact_formset.forms:
+                    if not f.cleaned_data.get('phone_number') and not f.cleaned_data.get('id'):
+                        f.cleaned_data['DELETE'] = True
 
-                    image_formset.instance = self.object
-                    image_formset.save()
+                image_formset.instance = self.object
+                image_formset.save()
 
-                    contact_formset.instance = self.object
-                    contact_formset.save()
+                contact_formset.instance = self.object
+                contact_formset.save()
 
-                    service_area_formset.instance = self.object
-                    service_area_formset.save()
+                service_area_formset.instance = self.object
+                # Ignore completely blank service area forms (e.g. when the user clicked
+                # "add" several times but did not fill every extra row). A form is
+                # considered blank when both the district and location are missing and
+                # it is a brand-new entry (no primary key yet).
+                for f in service_area_formset.forms:
+                    if (
+                        not f.cleaned_data.get('district')
+                        and not f.cleaned_data.get('location')
+                        and not f.cleaned_data.get('id')
+                    ):
+                        f.cleaned_data['DELETE'] = True
 
-                return super().form_valid(form)
+                service_area_formset.save()
+
+            return super().form_valid(form)
         except Exception as e:
             messages.error(self.request, f"An error occurred while saving your gig: {str(e)}")
             return self.form_invalid(form)
@@ -681,6 +693,17 @@ class EditGigView(LoginRequiredMixin, UpdateView):
                 contact_formset.save()
 
                 service_area_formset.instance = self.object
+
+                # Ignore completely blank service area forms that the user added but did
+                # not fill out.
+                for f in service_area_formset.forms:
+                    if (
+                        not f.cleaned_data.get('district')
+                        and not f.cleaned_data.get('location')
+                        and not f.cleaned_data.get('id')
+                    ):
+                        f.cleaned_data['DELETE'] = True
+
                 service_area_formset.save()
 
             return super().form_valid(form)

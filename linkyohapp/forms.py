@@ -151,6 +151,16 @@ class GigImageForm(ModelForm):
                 raise forms.ValidationError(_(str(e)))
         return image
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # "order" is optional – default to 0 when the user leaves it blank.
+        self.fields['order'].required = False
+
+    def clean_order(self):
+        """Return 0 when order is omitted so validation doesn't complain."""
+        order = self.cleaned_data.get('order')
+        return 0 if order in (None, '') else order
+
 
 class GigContactForm(ModelForm):
     """Form for additional gig contact numbers"""
@@ -168,6 +178,14 @@ class GigContactForm(ModelForm):
             'is_primary': _('Set as the primary contact for this gig'),
             'order': _('Set the display order (lower numbers appear first)'),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['order'].required = False
+
+    def clean_order(self):
+        order = self.cleaned_data.get('order')
+        return 0 if order in (None, '') else order
 
 
 class GigServiceAreaForm(ModelForm):
@@ -192,6 +210,9 @@ class GigServiceAreaForm(ModelForm):
         # Handle dynamic location dropdown
         self.fields['location'].queryset = Location.objects.none()
 
+        # "order" optional
+        self.fields['order'].required = False
+
         # Build the correct key for the posted district (formsets prefix each field name)
         district_key = f'{self.prefix}-district' if self.prefix else 'district'
 
@@ -215,6 +236,10 @@ class GigServiceAreaForm(ModelForm):
                 .select_related('local')
                 .order_by('local')
             )
+
+    def clean_order(self):
+        order = self.cleaned_data.get('order')
+        return 0 if order in (None, '') else order
 
 
 # Create formsets for the related models
