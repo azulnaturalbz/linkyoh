@@ -363,6 +363,13 @@ class Gig(models.Model):
     create_time = models.DateTimeField(default=timezone.now)
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
 
+    # Featured flags
+    featured = models.BooleanField(default=False, help_text="Featured across the entire site")
+    featured_in_category = models.BooleanField(default=False, help_text="Featured within its category")
+    featured_in_subcategory = models.BooleanField(default=False, help_text="Featured within its subcategory")
+    featured_in_location = models.BooleanField(default=False, help_text="Featured within its location")
+    featured_in_district = models.BooleanField(default=False, help_text="Featured within its district")
+
     def __str__(self):
         return self.title
 

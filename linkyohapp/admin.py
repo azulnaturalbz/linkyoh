@@ -50,10 +50,10 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Gig)
 class GigAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user', 'category', 'sub_category', 'price', 'status', 'create_time')
-    list_filter = ('status', 'category', 'district')
+    list_display = ('title', 'user', 'category', 'sub_category', 'price', 'status', 'featured', 'create_time')
+    list_filter = ('status', 'category', 'district', 'featured', 'featured_in_category', 'featured_in_subcategory', 'featured_in_location', 'featured_in_district')
     search_fields = ('title', 'description', 'user__username', 'user__email')
-    actions = ['approve_gigs', 'disapprove_gigs']
+    actions = ['approve_gigs', 'disapprove_gigs', 'feature_gigs', 'unfeature_gigs']
     date_hierarchy = 'create_time'
 
     fieldsets = (
@@ -69,6 +69,10 @@ class GigAdmin(admin.ModelAdmin):
         ('Media', {
             'fields': ('photo',)
         }),
+        ('Featured Status', {
+            'fields': ('featured', 'featured_in_category', 'featured_in_subcategory', 'featured_in_location', 'featured_in_district'),
+            'description': 'Control where this gig appears as featured. Featured gigs appear at the top of listings and have a special badge.'
+        }),
     )
 
     def approve_gigs(self, request, queryset):
@@ -80,6 +84,16 @@ class GigAdmin(admin.ModelAdmin):
         updated = queryset.update(status=False)
         self.message_user(request, f'{updated} gigs have been disapproved.')
     disapprove_gigs.short_description = 'Disapprove selected gigs'
+
+    def feature_gigs(self, request, queryset):
+        updated = queryset.update(featured=True)
+        self.message_user(request, f'{updated} gigs have been marked as featured.')
+    feature_gigs.short_description = 'Mark selected gigs as featured'
+
+    def unfeature_gigs(self, request, queryset):
+        updated = queryset.update(featured=False)
+        self.message_user(request, f'{updated} gigs have been unmarked as featured.')
+    unfeature_gigs.short_description = 'Remove featured status from selected gigs'
 
 
 @admin.register(Country)

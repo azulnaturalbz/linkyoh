@@ -245,7 +245,9 @@ class CategoryListView(ListView):
         # Optimize query by prefetching related objects
         return Gig.objects.filter(base_query).select_related(
             'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-        ).prefetch_related('service_areas').distinct().order_by("-create_time")
+        ).prefetch_related('service_areas').distinct().order_by(
+            "-featured", "-featured_in_category", "-create_time"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -271,6 +273,9 @@ class CategoryListView(ListView):
 
         # Get total count of results
         context['total_count'] = self.get_queryset().count()
+
+        # Add flag to show featured badges
+        context['show_featured'] = True
 
         return context
 
@@ -317,7 +322,9 @@ class SubCategoryListView(ListView):
         # Optimize query by prefetching related objects
         return Gig.objects.filter(base_query).select_related(
             'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-        ).prefetch_related('service_areas').distinct().order_by("-create_time")
+        ).prefetch_related('service_areas').distinct().order_by(
+            "-featured", "-featured_in_subcategory", "-create_time"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -342,6 +349,9 @@ class SubCategoryListView(ListView):
         # Get total count of results
         context['total_count'] = self.get_queryset().count()
 
+        # Add flag to show featured badges
+        context['show_featured'] = True
+
         return context
 
 # Keep the function-based view as a wrapper for backward compatibility
@@ -359,8 +369,8 @@ class HomeView(ListView):
     def get_queryset(self):
         # Optimize query by prefetching related objects
         return Gig.objects.filter(status=True).select_related(
-            'user', 'category', 'sub_category'
-        ).order_by("-create_time")
+            'user', 'category', 'sub_category', 'user__profile'
+        ).order_by("-featured", "-create_time")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -371,12 +381,10 @@ class HomeView(ListView):
         ).order_by('-gig_count')
         context['popular_categories'] = categories_with_count[:6]
 
-        # Add featured gigs (those with the most likes)
-        featured_gigs = Gig.objects.filter(status=True).select_related(
+        # Add featured gigs (using the featured flag)
+        featured_gigs = Gig.objects.filter(status=True, featured=True).select_related(
             'user', 'category', 'sub_category', 'user__profile'
-        ).prefetch_related('likes').annotate(
-            like_count=Count('likes')
-        ).order_by('-like_count')[:3]
+        ).order_by('-create_time')[:3]
         context['featured_gigs'] = featured_gigs
 
         # Add recent reviews
@@ -384,6 +392,9 @@ class HomeView(ListView):
             'user', 'gig', 'rating', 'user__profile'
         ).order_by('-create_time')[:3]
         context['recent_reviews'] = recent_reviews
+
+        # Add flag to show featured badges
+        context['show_featured'] = True
 
         return context
 
@@ -911,7 +922,9 @@ def search(request):
     # Execute the query
     gigs = Gig.objects.filter(base_query).select_related(
         'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-    ).prefetch_related('service_areas').distinct().order_by("-create_time")
+    ).prefetch_related('service_areas').distinct().order_by(
+        "-featured", "-create_time"
+    )
 
     # Get total count before pagination
     total_count = gigs.count()
@@ -944,7 +957,8 @@ def search(request):
         "max_price": max_price,
         "has_filters": has_filters,
         "has_search": has_search,
-        "total_count": total_count
+        "total_count": total_count,
+        "show_featured": True
     }
 
     return render(request, 'search_results.html', context)
