@@ -31,7 +31,12 @@
             <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                  alt="Provider">
             <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
-                {{ gig.user.get_full_name|default:gig.user.username }}
+                {{ gig.user.profile.get_display_name }}
+                {% if gig.user.profile.is_verified %}
+                <span class="verified-badge" style="font-size: 0.7rem; padding: 0.15rem 0.5rem;">
+                    <i class="fas fa-check-circle me-1"></i> Verified
+                </span>
+                {% endif %}
             </a>
         </div>
         <p class="card-text">{{ gig.description | truncatechars:60 }}</p>

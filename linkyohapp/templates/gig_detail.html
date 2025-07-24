@@ -16,6 +16,18 @@
             border-radius: 0.5rem;
         }
 
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #27ae60;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
         .contact-badge {
             margin-right: 10px;
             margin-bottom: 10px;
@@ -364,7 +376,12 @@
                          class="rounded-circle mb-3 border shadow-sm" height="120" width="120" alt="Provider avatar">
                     <h5>
                         <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none">
-                            {{ gig.user.get_full_name|default:gig.user.username }}
+                            {{ gig.user.profile.get_display_name }}
+                            {% if gig.user.profile.is_verified %}
+                            <span class="verified-badge">
+                                <i class="fas fa-check-circle me-1"></i> Verified
+                            </span>
+                            {% endif %}
                         </a>
                     </h5>
                     <p class="text-muted">
