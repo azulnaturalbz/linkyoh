@@ -818,6 +818,20 @@ class MyGigsView(LoginRequiredMixin, ListView):
         for gig in context['gigs']:
             total_likes += gig.total_likes()
         context['total_likes'] = total_likes
+
+        # Add total views for user's gigs
+        context['total_views'] = Stats.get_total_views_for_user_gigs(self.request.user)
+
+        # Add total views for all active gigs (for admins)
+        if self.request.user.is_staff:
+            context['all_active_gigs_views'] = Stats.get_total_views_for_active_gigs()
+
+        # Add view counts for each gig
+        gig_views = {}
+        for gig in context['gigs']:
+            gig_views[gig.id] = Stats.get_views_for_gig(gig)
+        context['gig_views'] = gig_views
+
         return context
 
 # Keep the function-based view as a wrapper for backward compatibility

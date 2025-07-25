@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}My Gigs | Linkyoh{% endblock %}
 
@@ -214,7 +215,7 @@
                         <div class="stat-icon">
                             <i class="fas fa-eye"></i>
                         </div>
-                        <div class="stat-value">--</div>
+                        <div class="stat-value">{{ total_views }}</div>
                         <div class="stat-label">Total Views</div>
                     </div>
                 </div>
@@ -229,6 +230,21 @@
                 </div>
             </div>
         </div>
+
+        {% if user.is_staff %}
+        <!-- Admin Stats -->
+        <div class="alert alert-info mb-4">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-chart-line fa-2x"></i>
+                </div>
+                <div>
+                    <h5 class="mb-1">Platform Statistics</h5>
+                    <p class="mb-0">Total views across all active gigs: <strong>{{ all_active_gigs_views }}</strong></p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
         <!-- Gig Listings -->
         {% if gigs %}
@@ -265,7 +281,7 @@
                                         <div class="gig-stat-label">Likes</div>
                                     </div>
                                     <div class="gig-stat">
-                                        <div class="gig-stat-value">--</div>
+                                        <div class="gig-stat-value">{{ gig_views|get_item:gig.id }}</div>
                                         <div class="gig-stat-label">Views</div>
                                     </div>
                                     <div class="gig-stat">

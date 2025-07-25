@@ -869,3 +869,32 @@ class Stats(models.Model):
             filters['object_id'] = obj.id
 
         return cls.objects.filter(**filters)
+
+    @classmethod
+    def get_total_views_for_active_gigs(cls):
+        """Get the total number of views for all active gigs"""
+        return cls.objects.filter(
+            metric_type=cls.VIEW,
+            gig__status=True
+        ).count()
+
+    @classmethod
+    def get_total_views_for_user_gigs(cls, user, active_only=True):
+        """Get the total number of views for a user's gigs"""
+        filters = {
+            'metric_type': cls.VIEW,
+            'gig__user': user
+        }
+
+        if active_only:
+            filters['gig__status'] = True
+
+        return cls.objects.filter(**filters).count()
+
+    @classmethod
+    def get_views_for_gig(cls, gig):
+        """Get the number of views for a specific gig"""
+        return cls.objects.filter(
+            metric_type=cls.VIEW,
+            gig=gig
+        ).count()
