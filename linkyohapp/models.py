@@ -1,5 +1,6 @@
 import os
 import logging
+import uuid
 from uuid import uuid4
 from django.db import models
 from django.contrib.auth.models import User
@@ -11,7 +12,7 @@ from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
-from django.db.models import CharField, DateTimeField, DecimalField, PositiveIntegerField, TextField, BooleanField
+from django.db.models import CharField, DateTimeField, DecimalField, PositiveIntegerField, TextField, BooleanField, JSONField
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -686,3 +687,185 @@ def process_category_image(sender, instance, **kwargs):
             logger = logging.getLogger(__name__)
             logger.error(f"Error processing photo for category {instance.id}: {str(e)}")
             # We don't want to raise the exception here as it would prevent the category from being saved
+
+
+class Stats(models.Model):
+    """
+    Stats model for tracking various metrics and analytics for the platform.
+    This includes views, clicks, and other interactions with gigs, categories, and subcategories.
+    """
+    # Choices for metric types
+    VIEW = 'view'
+    CONTACT_CLICK = 'contact_click'
+    SHARE = 'share'
+    FAVORITE = 'favorite'
+    CATEGORY_VIEW = 'category_view'
+    SUBCATEGORY_VIEW = 'subcategory_view'
+    SEARCH = 'search'
+
+    METRIC_TYPE_CHOICES = [
+        (VIEW, 'View'),
+        (CONTACT_CLICK, 'Contact Click'),
+        (SHARE, 'Share'),
+        (FAVORITE, 'Favorite'),
+        (CATEGORY_VIEW, 'Category View'),
+        (SUBCATEGORY_VIEW, 'Subcategory View'),
+        (SEARCH, 'Search'),
+    ]
+
+    # Fields
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # Content type and object ID for generic relation
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    # Direct foreign keys for common models (for easier querying)
+    gig = models.ForeignKey(Gig, on_delete=models.CASCADE, null=True, blank=True, related_name='stats')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='stats')
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True, related_name='stats')
+
+    metric_type = models.CharField(max_length=20, choices=METRIC_TYPE_CHOICES)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='stats')
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(null=True, blank=True)
+    metadata = JSONField(null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = 'Stat'
+        verbose_name_plural = 'Stats'
+        indexes = [
+            models.Index(fields=['created_at']),
+            models.Index(fields=['metric_type']),
+            models.Index(fields=['gig']),
+            models.Index(fields=['category']),
+            models.Index(fields=['subcategory']),
+        ]
+
+    def __str__(self):
+        content_str = ''
+        if self.gig:
+            content_str = f"Gig: {self.gig.title}"
+        elif self.category:
+            content_str = f"Category: {self.category.category}"
+        elif self.subcategory:
+            content_str = f"Subcategory: {self.subcategory.subcategory}"
+
+        return f"{self.get_metric_type_display()} - {content_str} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"
+
+    # Class methods for tracking different types of events
+    @classmethod
+    def track_view(cls, obj, user=None, ip_address=None, user_agent=None):
+        """Track a view event for a gig, category, or subcategory"""
+        kwargs = {
+            'metric_type': cls.VIEW,
+            'user': user,
+            'ip_address': ip_address,
+            'user_agent': user_agent
+        }
+
+        # Set the appropriate foreign key based on object type
+        if isinstance(obj, Gig):
+            kwargs['gig'] = obj
+        elif isinstance(obj, Category):
+            kwargs['category'] = obj
+            kwargs['metric_type'] = cls.CATEGORY_VIEW
+        elif isinstance(obj, SubCategory):
+            kwargs['subcategory'] = obj
+            kwargs['metric_type'] = cls.SUBCATEGORY_VIEW
+        else:
+            # Use generic relation for other object types
+            kwargs['content_type'] = ContentType.objects.get_for_model(obj)
+            kwargs['object_id'] = obj.id
+
+        return cls.objects.create(**kwargs)
+
+    @classmethod
+    def track_contact_click(cls, gig, user=None, ip_address=None, contact_type=None):
+        """Track a contact button click for a gig"""
+        metadata = {'contact_type': contact_type} if contact_type else None
+
+        return cls.objects.create(
+            gig=gig,
+            metric_type=cls.CONTACT_CLICK,
+            user=user,
+            ip_address=ip_address,
+            metadata=metadata
+        )
+
+    @classmethod
+    def track_share(cls, obj, user=None, platform=None):
+        """Track a share event for a gig, category, or subcategory"""
+        metadata = {'platform': platform} if platform else None
+        kwargs = {
+            'metric_type': cls.SHARE,
+            'user': user,
+            'metadata': metadata
+        }
+
+        # Set the appropriate foreign key based on object type
+        if isinstance(obj, Gig):
+            kwargs['gig'] = obj
+        elif isinstance(obj, Category):
+            kwargs['category'] = obj
+        elif isinstance(obj, SubCategory):
+            kwargs['subcategory'] = obj
+        else:
+            # Use generic relation for other object types
+            kwargs['content_type'] = ContentType.objects.get_for_model(obj)
+            kwargs['object_id'] = obj.id
+
+        return cls.objects.create(**kwargs)
+
+    @classmethod
+    def track_favorite(cls, gig, user=None, ip_address=None):
+        """Track a favorite/like event for a gig"""
+        return cls.objects.create(
+            gig=gig,
+            metric_type=cls.FAVORITE,
+            user=user,
+            ip_address=ip_address
+        )
+
+    @classmethod
+    def track_search(cls, user=None, ip_address=None, query=None, filters=None):
+        """Track a search event"""
+        metadata = {
+            'query': query,
+            'filters': filters
+        }
+
+        return cls.objects.create(
+            metric_type=cls.SEARCH,
+            user=user,
+            ip_address=ip_address,
+            metadata=metadata
+        )
+
+    @classmethod
+    def get_stats(cls, obj, metric_type=None, days=30):
+        """Get stats for an object, optionally filtered by metric type and time period"""
+        start_date = timezone.now() - timezone.timedelta(days=days)
+
+        filters = {
+            'created_at__gte': start_date
+        }
+
+        if metric_type:
+            filters['metric_type'] = metric_type
+
+        # Set the appropriate filter based on object type
+        if isinstance(obj, Gig):
+            filters['gig'] = obj
+        elif isinstance(obj, Category):
+            filters['category'] = obj
+        elif isinstance(obj, SubCategory):
+            filters['subcategory'] = obj
+        else:
+            # Use generic relation for other object types
+            filters['content_type'] = ContentType.objects.get_for_model(obj)
+            filters['object_id'] = obj.id
+
+        return cls.objects.filter(**filters)

@@ -20,7 +20,7 @@ import credentials
 
 from .auth_views import CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
 
-from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea
+from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea, Stats
 from .forms import (
     GigForm, ReviewForm, ContactForm, UserRegistrationForm, ProfileForm,
     GigImageFormSet, GigContactFormSet, GigServiceAreaFormSet
@@ -257,6 +257,9 @@ class CategoryListView(ListView):
             self._category = Category.objects.get(pk=self.kwargs['id'])
         context['category'] = self._category
 
+        # Track the category view
+        self._track_category_view(self._category)
+
         # Add search parameters to context
         context['search_query'] = self.request.GET.get('param', '')
         context['selected_subcategory'] = self.request.GET.get('subcategory', '')
@@ -278,6 +281,24 @@ class CategoryListView(ListView):
         context['show_featured'] = True
 
         return context
+
+    def _track_category_view(self, category):
+        """Track a view event for this category"""
+        # Get the user if authenticated
+        user = self.request.user if self.request.user.is_authenticated else None
+
+        # Get the client IP address
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip_address = x_forwarded_for.split(',')[0]
+        else:
+            ip_address = self.request.META.get('REMOTE_ADDR')
+
+        # Get the user agent
+        user_agent = self.request.META.get('HTTP_USER_AGENT', '')
+
+        # Track the view
+        Stats.track_view(category, user=user, ip_address=ip_address, user_agent=user_agent)
 
 # Keep the function-based view as a wrapper for backward compatibility
 def category_listings(request, id):
@@ -334,6 +355,9 @@ class SubCategoryListView(ListView):
             self._sub_category = SubCategory.objects.select_related('category').get(pk=self.kwargs['id'])
         context['sub_category'] = self._sub_category
 
+        # Track the subcategory view
+        self._track_subcategory_view(self._sub_category)
+
         # Add search parameters to context
         context['search_query'] = self.request.GET.get('param', '')
         context['selected_district'] = self.request.GET.get('district', '')
@@ -353,6 +377,24 @@ class SubCategoryListView(ListView):
         context['show_featured'] = True
 
         return context
+
+    def _track_subcategory_view(self, subcategory):
+        """Track a view event for this subcategory"""
+        # Get the user if authenticated
+        user = self.request.user if self.request.user.is_authenticated else None
+
+        # Get the client IP address
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip_address = x_forwarded_for.split(',')[0]
+        else:
+            ip_address = self.request.META.get('REMOTE_ADDR')
+
+        # Get the user agent
+        user_agent = self.request.META.get('HTTP_USER_AGENT', '')
+
+        # Track the view
+        Stats.track_view(subcategory, user=user, ip_address=ip_address, user_agent=user_agent)
 
 # Keep the function-based view as a wrapper for backward compatibility
 def sub_category_listings(request, id):
@@ -421,6 +463,9 @@ class GigDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         gig = self.get_object()
 
+        # Track the gig view
+        self._track_gig_view(gig)
+
         # Check if user has liked the gig
         is_liked = False
         if self.request.user.is_authenticated and gig.likes.filter(id=self.request.user.id).exists():
@@ -453,6 +498,24 @@ class GigDetailView(DetailView):
         ).order_by('-create_time')[:5]
 
         return context
+
+    def _track_gig_view(self, gig):
+        """Track a view event for this gig"""
+        # Get the user if authenticated
+        user = self.request.user if self.request.user.is_authenticated else None
+
+        # Get the client IP address
+        x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip_address = x_forwarded_for.split(',')[0]
+        else:
+            ip_address = self.request.META.get('REMOTE_ADDR')
+
+        # Get the user agent
+        user_agent = self.request.META.get('HTTP_USER_AGENT', '')
+
+        # Track the view
+        Stats.track_view(gig, user=user, ip_address=ip_address, user_agent=user_agent)
 
     def post(self, request, *args, **kwargs):
         # Handle review submission
@@ -868,6 +931,16 @@ def search(request):
     min_price = request.GET.get('min_price', '')
     max_price = request.GET.get('max_price', '')
 
+    # Track the search event
+    _track_search_event(request, search_query, {
+        'category_id': category_id,
+        'subcategory_id': subcategory_id,
+        'district_id': district_id,
+        'location_id': location_id,
+        'min_price': min_price,
+        'max_price': max_price
+    })
+
     # Start with base query - always show active gigs
     base_query = Q(status=True)
 
@@ -1124,3 +1197,88 @@ def resend_code(request):
         'success': success,
         'method': method
     })
+
+
+def _track_search_event(request, query, filters):
+    """Track a search event with query and filters"""
+    # Get the user if authenticated
+    user = request.user if request.user.is_authenticated else None
+
+    # Get the client IP address
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
+
+    # Track the search
+    Stats.track_search(user=user, ip_address=ip_address, query=query, filters=filters)
+
+
+@require_POST
+def track_event(request):
+    """API endpoint for tracking events via AJAX"""
+    # Get the event data from the request
+    event_type = request.POST.get('event_type')
+    object_type = request.POST.get('object_type')
+    object_id = request.POST.get('object_id')
+    metadata = request.POST.get('metadata', {})
+
+    # Validate required fields
+    if not all([event_type, object_type, object_id]):
+        return JsonResponse({'status': 'error', 'message': 'Missing required fields'}, status=400)
+
+    # Get the user if authenticated
+    user = request.user if request.user.is_authenticated else None
+
+    # Get the client IP address
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
+
+    # Get the user agent
+    user_agent = request.META.get('HTTP_USER_AGENT', '')
+
+    # Track the event based on object type
+    try:
+        if object_type == 'gig':
+            gig = get_object_or_404(Gig, id=object_id)
+
+            if event_type == 'contact_click':
+                contact_type = metadata.get('contact_type')
+                Stats.track_contact_click(gig, user=user, ip_address=ip_address, contact_type=contact_type)
+            elif event_type == 'share':
+                platform = metadata.get('platform')
+                Stats.track_share(gig, user=user, platform=platform)
+            elif event_type == 'favorite':
+                Stats.track_favorite(gig, user=user, ip_address=ip_address)
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid event type'}, status=400)
+
+        elif object_type == 'category':
+            category = get_object_or_404(Category, id=object_id)
+
+            if event_type == 'share':
+                platform = metadata.get('platform')
+                Stats.track_share(category, user=user, platform=platform)
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid event type for category'}, status=400)
+
+        elif object_type == 'subcategory':
+            subcategory = get_object_or_404(SubCategory, id=object_id)
+
+            if event_type == 'share':
+                platform = metadata.get('platform')
+                Stats.track_share(subcategory, user=user, platform=platform)
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid event type for subcategory'}, status=400)
+
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid object type'}, status=400)
+
+        return JsonResponse({'status': 'success'})
+
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)

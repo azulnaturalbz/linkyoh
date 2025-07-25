@@ -32,6 +32,7 @@ urlpatterns = [
     path('ajax/locations/', views.ajax_load_locations, name="ajax_load_locations_search"),
     path('like-gig/', views.like_gig, name="like_gig"),
     path('toggle-qr-code/', views.toggle_qr_code, name="toggle_qr_code"),
+    path('track-event/', views.track_event, name="track_event"),
 
     # Category and search
     path('category/<int:id>/', views.category_listings, name="category_listing"),

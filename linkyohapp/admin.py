@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Profile, Gig, Country, District, Local, LocalType, Location, Category,SubCategory,Review, Rating,Contact
+from django.db.models import Count
+from django.utils import timezone
+from .models import Profile, Gig, Country, District, Local, LocalType, Location, Category, SubCategory, Review, Rating, Contact, Stats
 
 
 # Register your models here.
@@ -213,3 +215,49 @@ class ContactAdmin(admin.ModelAdmin):
             'fields': ('body',)
         }),
     )
+
+
+@admin.register(Stats)
+class StatsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'metric_type', 'content_object_display', 'user', 'ip_address', 'created_at')
+    list_filter = ('metric_type', 'created_at')
+    search_fields = ('user__username', 'user__email', 'ip_address')
+    date_hierarchy = 'created_at'
+    readonly_fields = ('id', 'created_at', 'content_type', 'object_id', 'content_object_display', 
+                      'gig', 'category', 'subcategory', 'user', 'ip_address', 'user_agent', 'metadata')
+
+    fieldsets = (
+        ('Metric Information', {
+            'fields': ('id', 'metric_type', 'created_at')
+        }),
+        ('Content', {
+            'fields': ('content_type', 'object_id', 'content_object_display', 'gig', 'category', 'subcategory')
+        }),
+        ('User Information', {
+            'fields': ('user', 'ip_address', 'user_agent')
+        }),
+        ('Additional Data', {
+            'fields': ('metadata',)
+        }),
+    )
+
+    def content_object_display(self, obj):
+        """Display a string representation of the content object"""
+        if obj.gig:
+            return f"Gig: {obj.gig.title}"
+        elif obj.category:
+            return f"Category: {obj.category.category}"
+        elif obj.subcategory:
+            return f"Subcategory: {obj.subcategory.subcategory}"
+        elif obj.content_object:
+            return f"{obj.content_type.model.capitalize()}: {str(obj.content_object)}"
+        return "None"
+    content_object_display.short_description = 'Content Object'
+
+    def has_add_permission(self, request):
+        """Disable manual creation of stats"""
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        """Disable editing of stats"""
+        return False
