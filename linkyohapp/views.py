@@ -14,7 +14,6 @@ from django.urls import reverse_lazy
 from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.models import User
-from six import print_
 
 import credentials
 

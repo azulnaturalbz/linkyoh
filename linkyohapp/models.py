@@ -12,7 +12,8 @@ from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
-from django.db.models import CharField, DateTimeField, DecimalField, PositiveIntegerField, TextField, BooleanField, JSONField
+from django.db.models import CharField, DateTimeField, DecimalField, PositiveIntegerField, TextField, BooleanField
+from django.db.models import JSONField
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
