@@ -882,6 +882,11 @@ class Stats(models.Model):
     @classmethod
     def get_total_views_for_user_gigs(cls, user, active_only=True):
         """Get the total number of views for a user's gigs"""
+        # First check if the user has any gigs
+        user_gigs = Gig.objects.filter(user=user)
+        if not user_gigs.exists():
+            return 0
+
         filters = {
             'metric_type': cls.VIEW,
             'gig__user': user
