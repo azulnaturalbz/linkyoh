@@ -189,6 +189,33 @@
                             <div class="detail-section">
                                 <h5><i class="fas fa-info-circle me-2"></i>Description</h5>
                                 <p>{{ gig.description }}</p>
+
+                                {% if is_admin_created %}
+                                    <div class="alert alert-info mt-3" role="alert">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <i class="fas fa-info-circle fa-2x me-3"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5 class="alert-heading">This listing was created by Linkyoh AI admin bot</h5>
+                                                {% if user.is_authenticated %}
+                                                    {% if can_claim %}
+                                                        <p class="mb-2">Are you the owner of this business? You can claim this listing to manage it yourself.</p>
+                                                        <a href="{% url 'claim_gig' gig_id=gig.id %}" class="btn btn-primary">
+                                                            <i class="fas fa-flag me-2"></i>Claim This Listing
+                                                        </a>
+                                                    {% elif has_pending_claim %}
+                                                        <p class="mb-0">You have already submitted a claim request for this listing. An administrator will review your request.</p>
+                                                    {% else %}
+                                                        <p class="mb-0">You cannot claim this listing at this time.</p>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <p class="mb-2">Are you the owner of this business? <a href="{% url 'login' %}?next={% url 'claim_gig' gig_id=gig.id %}">Log in</a> or <a href="{% url 'register' %}?next={% url 'claim_gig' gig_id=gig.id %}">register</a> to claim this listing.</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
 
                             <!-- Price Section -->

@@ -13,6 +13,7 @@ urlpatterns = [
     path('my-gigs/', views.my_gigs, name="my_gigs"),
     path('create-gig/', views.create_gig, name="create_gig"),
     path('my-gigs/edit/<int:id>/', views.edit_gig, name="edit_gig"),
+    path('gigs/<int:gig_id>/claim/', views.claim_gig, name="claim_gig"),
     path('profile/<int:pid>/', views.profile, name="profile"),
 
     # AJAX endpoints

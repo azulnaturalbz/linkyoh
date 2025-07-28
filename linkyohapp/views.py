@@ -8,9 +8,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -19,10 +19,10 @@ import credentials
 
 from .auth_views import CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
 
-from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea, Stats
+from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea, Stats, GigClaimRequest
 from .forms import (
     GigForm, ReviewForm, ContactForm, UserRegistrationForm, ProfileForm,
-    GigImageFormSet, GigContactFormSet, GigServiceAreaFormSet
+    GigImageFormSet, GigContactFormSet, GigServiceAreaFormSet, GigClaimRequestForm
 )
 
 
@@ -495,6 +495,28 @@ class GigDetailView(DetailView):
         ).select_related(
             'category', 'sub_category'
         ).order_by('-create_time')[:5]
+
+        # Check if this gig was created by an admin/staff user
+        is_admin_created = gig.user.is_staff
+        context['is_admin_created'] = is_admin_created
+
+        # Check if the current user can claim this gig
+        can_claim = False
+        has_pending_claim = False
+
+        if is_admin_created and self.request.user.is_authenticated and self.request.user != gig.user:
+            # Check if user already has a pending claim for this gig
+            has_pending_claim = GigClaimRequest.objects.filter(
+                gig=gig,
+                user=self.request.user,
+                status='pending'
+            ).exists()
+
+            # User can claim if they don't have a pending claim
+            can_claim = not has_pending_claim
+
+        context['can_claim'] = can_claim
+        context['has_pending_claim'] = has_pending_claim
 
         return context
 
@@ -987,6 +1009,63 @@ def help_faq(request):
 
 def thanks(request):
     return render(request, 'thanks.html')
+
+
+class GigClaimRequestView(LoginRequiredMixin, FormView):
+    """
+    View for users to submit a claim request for a gig that was created by an admin.
+    """
+    template_name = 'claim_gig.html'
+    form_class = GigClaimRequestForm
+
+    def dispatch(self, request, *args, **kwargs):
+        # Get the gig
+        self.gig = get_object_or_404(Gig, id=self.kwargs['gig_id'])
+
+        # Check if this gig was created by an admin/staff user
+        if not self.gig.user.is_staff:
+            messages.error(request, "This gig cannot be claimed as it was not created by an administrator.")
+            return redirect('gig_detail', id=self.gig.id)
+
+        # Check if the user already has a pending claim for this gig
+        if GigClaimRequest.objects.filter(gig=self.gig, user=request.user, status='pending').exists():
+            messages.info(request, "You already have a pending claim request for this gig.")
+            return redirect('gig_detail', id=self.gig.id)
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['gig'] = self.gig
+        return context
+
+    def form_valid(self, form):
+        # Create the claim request but don't save it yet
+        claim_request = form.save(commit=False)
+
+        # Set the gig and user
+        claim_request.gig = self.gig
+        claim_request.user = self.request.user
+
+        # Save the claim request
+        claim_request.save()
+
+        # Show success message
+        messages.success(self.request, 
+                        "Your claim request has been submitted successfully. "
+                        "An administrator will review your request and you will be notified of the decision.")
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('gig_detail', kwargs={'id': self.gig.id})
+
+
+# Function-based view wrapper for backward compatibility
+@login_required
+def claim_gig(request, gig_id):
+    view = GigClaimRequestView.as_view()
+    return view(request, gig_id=gig_id)
 
 
 def search(request):

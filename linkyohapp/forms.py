@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .models import Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea, Profile, District
+from .models import Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea, Profile, District, GigClaimRequest
 from .image_utils import validate_image, ImageValidationError
 
 
@@ -453,3 +453,49 @@ class UserRegistrationForm(forms.ModelForm):
             if not str(phone_number).startswith('+501'):
                 raise forms.ValidationError('Please enter a valid Belize phone number starting with +501.')
         return phone_number
+
+
+class GigClaimRequestForm(forms.ModelForm):
+    """
+    Form for users to submit a claim request for a gig that was created by an admin.
+    """
+    class Meta:
+        model = GigClaimRequest
+        fields = ('contact_number', 'reason', 'supporting_document')
+        widgets = {
+            'reason': forms.Textarea(attrs={'rows': 4, 'class': 'form-control'}),
+            'contact_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+5016550000'}),
+        }
+        help_texts = {
+            'contact_number': _('Your contact phone number in international format (e.g., +5016550000)'),
+            'reason': _('Explain why you should be the owner of this gig. Include details about your business or service.'),
+            'supporting_document': _('Upload any supporting documents such as business license, ID, or other proof (optional)'),
+        }
+        labels = {
+            'contact_number': _('Contact Number'),
+            'reason': _('Reason for Claim'),
+            'supporting_document': _('Supporting Document'),
+        }
+
+    def clean_contact_number(self):
+        contact_number = self.cleaned_data.get('contact_number')
+        if contact_number:
+            # Ensure the phone number is from Belize
+            if not str(contact_number).startswith('+501'):
+                raise forms.ValidationError('Please enter a valid Belize phone number starting with +501.')
+        return contact_number
+
+    def clean_supporting_document(self):
+        document = self.cleaned_data.get('supporting_document')
+        if document:
+            # Check file size (limit to 5MB)
+            if document.size > 5 * 1024 * 1024:
+                raise forms.ValidationError('File size must be under 5MB.')
+
+            # Check file extension
+            allowed_extensions = ['pdf', 'jpg', 'jpeg', 'png', 'doc', 'docx']
+            ext = document.name.split('.')[-1].lower()
+            if ext not in allowed_extensions:
+                raise forms.ValidationError(f'Only {", ".join(allowed_extensions)} files are allowed.')
+
+        return document

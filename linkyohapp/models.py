@@ -28,6 +28,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 # Import image processing utilities
 from .image_utils import process_avatar, process_cover, process_gig_photo, process_image, ImageProcessingError
 
+# Define claim request status choices
+GIG_CLAIM_STATUS_CHOICES = [
+    ('pending', 'Pending'),
+    ('approved', 'Approved'),
+    ('rejected', 'Rejected'),
+]
+
 # Create your models here.
 
 # Default images for when files are missing
@@ -688,6 +695,55 @@ def process_category_image(sender, instance, **kwargs):
             logger = logging.getLogger(__name__)
             logger.error(f"Error processing photo for category {instance.id}: {str(e)}")
             # We don't want to raise the exception here as it would prevent the category from being saved
+
+
+class GigClaimRequest(models.Model):
+    """
+    Model for tracking requests to claim ownership of gigs that were created by admins.
+    Users can submit a claim request with supporting information, and admins can approve or reject it.
+    """
+    gig = models.ForeignKey(Gig, on_delete=models.CASCADE, related_name='claim_requests')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gig_claims')
+    contact_number = models.CharField(validators=[RegexValidator(regex=r'^\+?1?\d{7,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")], 
+                                 max_length=17)
+    reason = models.TextField(help_text="Explain why you should be the owner of this gig")
+    supporting_document = models.FileField(upload_to='claim_documents/', blank=True, null=True, 
+                                          help_text="Upload any supporting documents (business license, ID, etc.)")
+    status = models.CharField(max_length=10, choices=GIG_CLAIM_STATUS_CHOICES, default='pending')
+    admin_notes = models.TextField(blank=True, help_text="Admin notes about this claim request")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Gig Claim Request"
+        verbose_name_plural = "Gig Claim Requests"
+
+    def __str__(self):
+        return f"Claim for {self.gig.title} by {self.user.username} ({self.get_status_display()})"
+
+    def approve(self):
+        """Approve the claim request and transfer ownership of the gig"""
+        if self.status != 'approved':
+            # Update the gig's owner
+            self.gig.user = self.user
+            self.gig.save()
+
+            # Update the request status
+            self.status = 'approved'
+            self.save()
+
+            return True
+        return False
+
+    def reject(self):
+        """Reject the claim request"""
+        if self.status != 'rejected':
+            self.status = 'rejected'
+            self.save()
+            return True
+        return False
 
 
 class Stats(models.Model):

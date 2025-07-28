@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}Claim Gig: {{ gig.title }} | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .claim-form-container {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+        border: none;
+    }
+    
+    .claim-form-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .claim-form-body {
+        padding: 2rem;
+        background-color: white;
+    }
+    
+    .gig-info {
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid var(--primary-color);
+    }
+    
+    .info-card {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <nav aria-label="breadcrumb" class="mt-3 mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'gig_detail' id=gig.id %}">{{ gig.title }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Claim Gig</li>
+                </ol>
+            </nav>
+            
+            <div class="claim-form-container">
+                <div class="claim-form-header">
+                    <h2 class="mb-0"><i class="fas fa-flag me-2"></i>Claim This Gig</h2>
+                </div>
+                
+                <div class="claim-form-body">
+                    <div class="gig-info">
+                        <h4>{{ gig.title }}</h4>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-tag me-2"></i>{{ gig.category.category }} > {{ gig.sub_category.subcategory }}
+                        </p>
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-map-marker-alt me-2"></i>{{ gig.district.district_name }}, {{ gig.location.local.local_name }}
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h5><i class="fas fa-info-circle me-2"></i>About Claiming a Gig</h5>
+                        <p>This gig was created by an administrator. If you are the rightful owner of this business or service, you can submit a claim request.</p>
+                        <p>Please provide the requested information below. An administrator will review your claim and may contact you for verification. If approved, ownership of this gig will be transferred to your account.</p>
+                    </div>
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <h5 class="mb-3">Contact Information</h5>
+                            {% bootstrap_field form.contact_number %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5 class="mb-3">Claim Details</h5>
+                            {% bootstrap_field form.reason %}
+                            {% bootstrap_field form.supporting_document %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'gig_detail' id=gig.id %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Gig
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Claim Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

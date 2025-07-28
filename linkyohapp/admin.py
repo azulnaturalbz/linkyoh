@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 from django.utils import timezone
-from .models import Profile, Gig, Country, District, Local, LocalType, Location, Category, SubCategory, Review, Rating, Contact, Stats
+from .models import Profile, Gig, Country, District, Local, LocalType, Location, Category, SubCategory, Review, Rating, Contact, Stats, GigClaimRequest
 
 
 # Register your models here.
@@ -261,3 +261,55 @@ class StatsAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         """Disable editing of stats"""
         return False
+
+
+@admin.register(GigClaimRequest)
+class GigClaimRequestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'gig', 'user', 'status', 'created_at', 'updated_at')
+    list_filter = ('status', 'created_at')
+    search_fields = ('gig__title', 'user__username', 'user__email', 'reason', 'admin_notes')
+    date_hierarchy = 'created_at'
+    readonly_fields = ('created_at', 'updated_at')
+    actions = ['approve_claims', 'reject_claims']
+
+    fieldsets = (
+        ('Claim Information', {
+            'fields': ('gig', 'user', 'status', 'created_at', 'updated_at')
+        }),
+        ('Contact Information', {
+            'fields': ('contact_number',)
+        }),
+        ('Claim Details', {
+            'fields': ('reason', 'supporting_document')
+        }),
+        ('Admin Section', {
+            'fields': ('admin_notes',),
+            'classes': ('collapse',)
+        }),
+    )
+
+    def approve_claims(self, request, queryset):
+        """Approve selected claim requests and transfer gig ownership"""
+        approved_count = 0
+        for claim in queryset.filter(status='pending'):
+            if claim.approve():
+                approved_count += 1
+
+        if approved_count:
+            self.message_user(request, f'{approved_count} claim requests have been approved and gig ownership transferred.')
+        else:
+            self.message_user(request, 'No pending claims were found to approve.')
+    approve_claims.short_description = 'Approve selected claim requests'
+
+    def reject_claims(self, request, queryset):
+        """Reject selected claim requests"""
+        rejected_count = 0
+        for claim in queryset.filter(status='pending'):
+            if claim.reject():
+                rejected_count += 1
+
+        if rejected_count:
+            self.message_user(request, f'{rejected_count} claim requests have been rejected.')
+        else:
+            self.message_user(request, 'No pending claims were found to reject.')
+    reject_claims.short_description = 'Reject selected claim requests'
