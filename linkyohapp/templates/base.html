@@ -272,6 +272,22 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contact' %}"><i class="fas fa-envelope me-1"></i> Contact</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="helpDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-question-circle me-1"></i> Help
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="helpDropdown">
+                            <li><h6 class="dropdown-header">Guides</h6></li>
+                            <li><a class="dropdown-item" href="{% url 'help_center' %}"><i class="fas fa-question-circle me-2"></i>Help Center</a></li>
+                            <li><a class="dropdown-item" href="{% url 'help_add_gig' %}"><i class="fas fa-plus-circle me-2"></i>How to Add a Gig</a></li>
+                            <li><a class="dropdown-item" href="{% url 'help_search' %}"><i class="fas fa-search me-2"></i>Search & Filter Guide</a></li>
+                            <li><a class="dropdown-item" href="{% url 'help_profile' %}"><i class="fas fa-user-circle me-2"></i>Profile Management</a></li>
+                            <li><a class="dropdown-item" href="{% url 'help_dashboard' %}"><i class="fas fa-tachometer-alt me-2"></i>Dashboard Guide</a></li>
+                            <li><a class="dropdown-item" href="{% url 'help_metrics' %}"><i class="fas fa-chart-bar me-2"></i>Understanding Metrics</a></li>
+                            <li><a class="dropdown-item" href="{% url 'help_faq' %}"><i class="fas fa-question me-2"></i>Frequently Asked Questions</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
                 <!-- Search form -->
@@ -388,6 +404,13 @@
                 <ul class="nav flex-column">
                     <li class="nav-item"><a href="{% url 'terms' %}" class="nav-link px-0 py-1 text-muted"><i class="fas fa-angle-right me-1"></i> Terms</a></li>
                     <li class="nav-item"><a href="{% url 'privacy' %}" class="nav-link px-0 py-1 text-muted"><i class="fas fa-angle-right me-1"></i> Privacy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-6 mb-3">
+                <h6 class="fw-bold">Help</h6>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a href="{% url 'help_center' %}" class="nav-link px-0 py-1 text-muted"><i class="fas fa-angle-right me-1"></i> Help Center</a></li>
+                    <li class="nav-item"><a href="{% url 'help_faq' %}" class="nav-link px-0 py-1 text-muted"><i class="fas fa-angle-right me-1"></i> FAQ</a></li>
                 </ul>
             </div>
             <div class="col-md-4 mb-3">

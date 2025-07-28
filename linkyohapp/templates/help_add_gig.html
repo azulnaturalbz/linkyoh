@@ -1,0 +1,714 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}How to Add a Gig | Linkyoh Help{% endblock %}
+
+{% block head %}
+<style>
+    .help-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .help-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .help-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .help-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .help-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .help-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .help-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .field-name {
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .required-badge {
+        background-color: #e74c3c;
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        margin-left: 0.5rem;
+        font-weight: 600;
+    }
+
+    .optional-badge {
+        background-color: #7f8c8d;
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.25rem;
+        margin-left: 0.5rem;
+        font-weight: 600;
+    }
+
+    .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        margin-right: 0.75rem;
+    }
+
+    .tip-card {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .warning-card {
+        background-color: rgba(231, 76, 60, 0.1);
+        border-left: 4px solid #e74c3c;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .quick-start-card {
+        background-color: rgba(46, 204, 113, 0.1);
+        border-left: 4px solid #2ecc71;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .screenshot {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin: 1.5rem 0;
+        max-width: 100%;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: var(--primary-color);
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="help-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">How to Add a Gig</h1>
+                <p class="lead mb-0">A step-by-step guide to creating your service listing on Linkyoh</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <a href="{% url 'create_gig' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-plus-circle me-2"></i>Create a Gig Now
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3 mb-4">
+            <div class="card sticky-top" style="top: 6rem; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                </div>
+                <div class="card-body p-0">
+                    <nav class="nav flex-column nav-pills p-3">
+                        <a class="nav-link" href="#introduction">Introduction</a>
+                        <a class="nav-link" href="#quick-start">Quick Start Guide</a>
+                        <a class="nav-link" href="#basic-info">Basic Information</a>
+                        <a class="nav-link" href="#images">Images</a>
+                        <a class="nav-link" href="#contacts">Contact Information</a>
+                        <a class="nav-link" href="#service-areas">Service Areas</a>
+                        <a class="nav-link" href="#tips">Tips for Success</a>
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="help-card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-book me-2"></i>Gig Creation Guide</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Introduction Section -->
+                    <div class="help-section" id="introduction">
+                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <p>Welcome to the Linkyoh gig creation guide! A "gig" is a service listing that showcases what you offer to potential customers. Creating a well-crafted gig is essential to attract customers and grow your business on our platform.</p>
+                        <p>This guide will walk you through the entire process of creating a gig, explaining each field and section of the form. Whether you're looking to create a simple listing quickly or a detailed service offering with multiple images and contact options, we've got you covered.</p>
+                    </div>
+
+                    <!-- Quick Start Guide Section -->
+                    <div class="help-section" id="quick-start">
+                        <h2 class="help-section-title"><i class="fas fa-bolt me-2"></i>Quick Start Guide</h2>
+                        <p>If you're in a hurry and want to create a simple gig quickly, follow these steps:</p>
+                        
+                        <div class="quick-start-card">
+                            <h5><i class="fas fa-rocket me-2"></i>Create a Simple Gig in 5 Minutes</h5>
+                            <ol class="mb-0">
+                                <li class="mb-2"><strong>Go to the <a href="{% url 'create_gig' %}">Create Gig</a> page</strong></li>
+                                <li class="mb-2"><strong>Fill in the required fields in the Basic Info tab:</strong>
+                                    <ul>
+                                        <li>Gig Title</li>
+                                        <li>Category & Subcategory</li>
+                                        <li>Description</li>
+                                        <li>Price (or check "Call for pricing")</li>
+                                        <li>Main Phone Number</li>
+                                        <li>District & Location</li>
+                                        <li>Address</li>
+                                        <li>Main Photo</li>
+                                    </ul>
+                                </li>
+                                <li class="mb-2"><strong>Skip the other tabs</strong> (Images, Contact Info, Service Areas) - these are optional</li>
+                                <li class="mb-2"><strong>Click "Publish Gig"</strong> at the bottom of the form</li>
+                                <li><strong>That's it!</strong> Your gig is now live on Linkyoh</li>
+                            </ol>
+                        </div>
+                        
+                        <p class="mt-3">For a more detailed listing that stands out from the competition, continue reading this guide to learn about all the available options.</p>
+                    </div>
+
+                    <!-- Basic Information Section -->
+                    <div class="help-section" id="basic-info">
+                        <h2 class="help-section-title"><i class="fas fa-clipboard-list me-2"></i>Basic Information</h2>
+                        <p>The Basic Information tab contains the essential details about your service. All fields in this section are required unless noted as optional.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Basic Information Fields</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">Gig Title</span> <span class="required-badge">Required</span></td>
+                                        <td>The name of your service (max 500 characters)</td>
+                                        <td>Be clear and specific. Include keywords that potential customers might search for.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Category</span> <span class="required-badge">Required</span></td>
+                                        <td>The main category your service belongs to</td>
+                                        <td>Choose the most relevant category for your service to help customers find you.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Subcategory</span> <span class="required-badge">Required</span></td>
+                                        <td>A more specific classification within the main category</td>
+                                        <td>The subcategory options will change based on the category you select.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Description</span> <span class="required-badge">Required</span></td>
+                                        <td>Detailed information about your service (max 1000 characters)</td>
+                                        <td>Include what you offer, your experience, and why customers should choose you.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Pricing Information</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">Call for pricing</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Check this if you prefer customers to call you for pricing details</td>
+                                        <td>Useful for services where pricing varies based on customer needs.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Price</span> <span class="required-badge">Required</span></td>
+                                        <td>The cost of your service in dollars</td>
+                                        <td>If you checked "Call for pricing," this field will be hidden and set to a special value.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">3</span>Contact Information</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">Main Phone</span> <span class="required-badge">Required</span></td>
+                                        <td>Your primary contact number in international format</td>
+                                        <td>Use the format +5016550000 for Belize numbers.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">4</span>Location Information</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">District</span> <span class="required-badge">Required</span></td>
+                                        <td>The district where your service is primarily offered</td>
+                                        <td>Select the district where you're based or primarily operate.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Location</span> <span class="required-badge">Required</span></td>
+                                        <td>The specific location within the district</td>
+                                        <td>The location options will change based on the district you select.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Address 1</span> <span class="required-badge">Required</span></td>
+                                        <td>Your primary address</td>
+                                        <td>Enter your street address, house number, etc.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Address 2</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Additional address information</td>
+                                        <td>Use this for apartment numbers, building names, etc.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">5</span>Media</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">Main Photo</span> <span class="required-badge">Required</span></td>
+                                        <td>The primary image for your gig</td>
+                                        <td>Use a high-quality image that clearly represents your service. Supported formats: jpg, jpeg, png, gif.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">6</span>Status</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">Gig Status</span> <span class="required-badge">Required</span></td>
+                                        <td>Whether your gig is active (visible) or disabled (hidden)</td>
+                                        <td>Set to "Active" to make your gig visible to customers immediately. Set to "Disabled" if you're not ready to publish yet.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tip-card mt-4">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">For a simple gig, you only need to fill out the Basic Info tab. The other tabs (Images, Contact Info, Service Areas) are optional and can be added later to enhance your listing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Images Section -->
+                    <div class="help-section" id="images">
+                        <h2 class="help-section-title"><i class="fas fa-images me-2"></i>Images (Optional)</h2>
+                        <p>The Images tab allows you to add up to 10 additional images to showcase your service from different angles or highlight specific features.</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">Image File</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Additional image for your gig</td>
+                                        <td>Use high-quality images that showcase different aspects of your service.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Caption</span> <span class="optional-badge">Optional</span></td>
+                                        <td>A description for the image</td>
+                                        <td>Use captions to explain what the image shows or highlight specific features.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Set as primary image</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Makes this image the main image for your gig</td>
+                                        <td>Check this to replace the main photo with this image.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">Optional</span></td>
+                                        <td>The order in which images appear</td>
+                                        <td>Lower numbers appear first. Leave blank to use the default order.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">High-quality images can significantly increase customer interest. Include images that show your work process, before/after results, or your team in action.</p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information Section -->
+                    <div class="help-section" id="contacts">
+                        <h2 class="help-section-title"><i class="fas fa-address-book me-2"></i>Contact Information (Optional)</h2>
+                        <p>The Contact Info tab allows you to add up to 5 additional contact numbers to make it easier for customers to reach you through different channels.</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">Phone Number</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Additional contact number in international format</td>
+                                        <td>Use the format +5016550000 for Belize numbers.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Description</span> <span class="optional-badge">Optional</span></td>
+                                        <td>A label for this contact number</td>
+                                        <td>Examples: "Business", "Mobile", "Office", "WhatsApp only"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Available on WhatsApp</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Indicates if this number can be contacted via WhatsApp</td>
+                                        <td>Check this if customers can reach you on WhatsApp using this number.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Set as primary contact</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Makes this the primary contact number for your gig</td>
+                                        <td>Check this to replace the main phone number with this one.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">Optional</span></td>
+                                        <td>The order in which contact numbers appear</td>
+                                        <td>Lower numbers appear first. Leave blank to use the default order.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Providing multiple contact options increases the chances of customers reaching you. Consider adding a dedicated business line and a WhatsApp number for messaging.</p>
+                        </div>
+                    </div>
+
+                    <!-- Service Areas Section -->
+                    <div class="help-section" id="service-areas">
+                        <h2 class="help-section-title"><i class="fas fa-map-marked-alt me-2"></i>Service Areas (Optional)</h2>
+                        <p>The Service Areas tab allows you to add up to 5 additional areas where you offer your services to reach more customers in different locations.</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="field-name">District</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Additional district where you offer your service</td>
+                                        <td>Select districts where you're willing to travel or provide services.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Location</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Specific location within the additional district</td>
+                                        <td>The location options will change based on the district you select.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Description</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Additional information about this service area</td>
+                                        <td>Examples: "Weekends only", "Extra fee applies", "By appointment only"</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Set as primary area</span> <span class="optional-badge">Optional</span></td>
+                                        <td>Makes this the primary service area for your gig</td>
+                                        <td>Check this to replace the main location with this one.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">Optional</span></td>
+                                        <td>The order in which service areas appear</td>
+                                        <td>Lower numbers appear first. Leave blank to use the default order.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Adding multiple service areas can significantly increase your visibility in search results. If you're willing to travel to provide your service, be sure to add those areas here.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tips for Success Section -->
+                    <div class="help-section" id="tips">
+                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Tips for Success</h2>
+                        <p>Here are some tips to help your gig stand out and attract more customers:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-heading me-2 text-primary"></i>Write a Clear Title</h5>
+                                        <p class="card-text">Use specific keywords that potential customers might search for. Be clear about what you offer.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-image me-2 text-primary"></i>Use High-Quality Images</h5>
+                                        <p class="card-text">Clear, well-lit photos of your work will attract more customers. Show before/after results if applicable.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-align-left me-2 text-primary"></i>Detailed Description</h5>
+                                        <p class="card-text">Explain what sets your service apart, your experience, and why customers should choose you.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-phone me-2 text-primary"></i>Multiple Contact Options</h5>
+                                        <p class="card-text">Make it easy for customers to reach you by providing multiple contact methods.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Add Multiple Service Areas</h5>
+                                        <p class="card-text">Increase your visibility by adding all the areas where you're willing to provide your service.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-dollar-sign me-2 text-primary"></i>Clear Pricing</h5>
+                                        <p class="card-text">Be transparent about your pricing or check "Call for pricing" if your rates vary based on the job.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="help-section" id="faq">
+                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How many gigs can I create?
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        You can create as many gigs as you want, but we recommend focusing on quality over quantity. Create separate gigs for distinct services you offer.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Can I edit my gig after publishing it?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, you can edit your gig at any time. Go to "My Gigs" in your account and click the "Edit" button next to the gig you want to modify.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        What if I want to temporarily hide my gig?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        You can set the "Gig Status" to "Disabled" to hide your gig from search results and category listings. You can reactivate it at any time by changing the status back to "Active".
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        What image formats are supported?
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        We support JPG, JPEG, PNG, and GIF image formats. For best results, use high-quality images with a resolution of at least 800x600 pixels.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        How do I get my gig featured?
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Featured gigs are selected by our admin team. To increase your chances, create a complete and professional listing with high-quality images and detailed information. Contact our support team to inquire about featured opportunities.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="text-center mt-5">
+                        <h4 class="mb-4">Ready to create your gig?</h4>
+                        <a href="{% url 'create_gig' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-plus-circle me-2"></i>Create a Gig Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make the sidebar navigation sticky and highlight the current section
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.help-section');
+        
+        // Highlight the active section when scrolling
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll to section when clicking on nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

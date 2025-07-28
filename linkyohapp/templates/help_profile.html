@@ -1,0 +1,661 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Managing Your Profile | Linkyoh Help{% endblock %}
+
+{% block head %}
+<style>
+    .help-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .help-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .help-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .help-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .help-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .help-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .help-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        margin-right: 0.75rem;
+    }
+
+    .tip-card {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .warning-card {
+        background-color: rgba(231, 76, 60, 0.1);
+        border-left: 4px solid #e74c3c;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .quick-start-card {
+        background-color: rgba(46, 204, 113, 0.1);
+        border-left: 4px solid #2ecc71;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .screenshot {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin: 1.5rem 0;
+        max-width: 100%;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: var(--primary-color);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .profile-example {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="help-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Managing Your Profile</h1>
+                <p class="lead mb-0">Learn how to update your profile information and build trust with potential customers</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' user.id %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-user-circle me-2"></i>View My Profile
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login to Manage Profile
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3 mb-4">
+            <div class="card sticky-top" style="top: 6rem; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                </div>
+                <div class="card-body p-0">
+                    <nav class="nav flex-column nav-pills p-3">
+                        <a class="nav-link" href="#introduction">Introduction</a>
+                        <a class="nav-link" href="#accessing-profile">Accessing Your Profile</a>
+                        <a class="nav-link" href="#profile-photo">Profile Photo</a>
+                        <a class="nav-link" href="#personal-info">Personal Information</a>
+                        <a class="nav-link" href="#contact-info">Contact Information</a>
+                        <a class="nav-link" href="#privacy">Privacy Settings</a>
+                        <a class="nav-link" href="#tips">Profile Tips</a>
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="help-card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-user-circle me-2"></i>Profile Management Guide</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Introduction Section -->
+                    <div class="help-section" id="introduction">
+                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <p>Your Linkyoh profile is your digital identity on our platform. A complete, professional profile helps build trust with potential customers and increases the visibility of your services. This guide will help you create and maintain an effective profile that showcases your expertise and reliability.</p>
+                        <p>Your profile includes:</p>
+                        <ul>
+                            <li>Profile photo</li>
+                            <li>Personal information (name, bio, etc.)</li>
+                            <li>Contact information</li>
+                            <li>Privacy settings</li>
+                        </ul>
+                        <p>A well-maintained profile not only helps customers find and trust you but also improves your overall experience on Linkyoh.</p>
+                    </div>
+
+                    <!-- Accessing Your Profile Section -->
+                    <div class="help-section" id="accessing-profile">
+                        <h2 class="help-section-title"><i class="fas fa-sign-in-alt me-2"></i>Accessing Your Profile</h2>
+                        <p>There are several ways to access your profile on Linkyoh:</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>From the Navigation Menu</h5>
+                        <ol>
+                            <li>Click on your profile picture or username in the top-right corner of any page</li>
+                            <li>A dropdown menu will appear</li>
+                            <li>Click on "My Profile"</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Direct URL</h5>
+                        <p>You can also access your profile directly by going to:</p>
+                        <code>https://linkyoh.com/profile/[your-user-id]/</code>
+                        
+                        <div class="tip-card mt-4">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Bookmark your profile page for quick access. This is especially useful if you frequently update your information or check your gig statistics.</p>
+                        </div>
+                    </div>
+
+                    <!-- Profile Photo Section -->
+                    <div class="help-section" id="profile-photo">
+                        <h2 class="help-section-title"><i class="fas fa-camera me-2"></i>Profile Photo</h2>
+                        <p>Your profile photo is often the first impression potential customers have of you. A professional, clear photo can significantly increase trust and engagement.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Adding or Changing Your Profile Photo</h5>
+                        <ol>
+                            <li>Go to your profile page</li>
+                            <li>Click on the "Edit Profile" button</li>
+                            <li>In the edit form, look for the "Profile Picture" section</li>
+                            <li>Click "Choose File" or "Browse" to select an image from your device</li>
+                            <li>After selecting your image, click "Save Changes" at the bottom of the form</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Profile Photo Best Practices</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-success"><i class="fas fa-check-circle me-2"></i>Do</h5>
+                                        <ul class="mb-0">
+                                            <li>Use a clear, well-lit photo</li>
+                                            <li>Show your face clearly (headshot or head-and-shoulders)</li>
+                                            <li>Use a neutral background</li>
+                                            <li>Look professional and approachable</li>
+                                            <li>Use a recent photo that looks like you</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-danger"><i class="fas fa-times-circle me-2"></i>Don't</h5>
+                                        <ul class="mb-0">
+                                            <li>Use blurry or low-quality images</li>
+                                            <li>Use group photos where you're not clearly identifiable</li>
+                                            <li>Use logos instead of your photo (unless representing a company)</li>
+                                            <li>Use filters that significantly alter your appearance</li>
+                                            <li>Use inappropriate or unprofessional images</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">For service providers, consider using a photo that relates to your profession. For example, if you're a chef, a photo of you in your chef's uniform can help establish credibility.</p>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information Section -->
+                    <div class="help-section" id="personal-info">
+                        <h2 class="help-section-title"><i class="fas fa-id-card me-2"></i>Personal Information</h2>
+                        <p>Your personal information helps customers learn more about you and your expertise. Providing complete and accurate information builds trust and credibility.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Updating Your Personal Information</h5>
+                        <ol>
+                            <li>Go to your profile page</li>
+                            <li>Click on the "Edit Profile" button</li>
+                            <li>Update the fields in the form</li>
+                            <li>Click "Save Changes" when you're done</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Key Profile Fields</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Tips</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Full Name</td>
+                                        <td>Your first and last name</td>
+                                        <td>Use your real name for better trust and recognition</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Display Name</td>
+                                        <td>The name shown publicly on your profile and gigs</td>
+                                        <td>Can be your full name or a business name if you prefer</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bio</td>
+                                        <td>A short description about yourself or your business</td>
+                                        <td>Include your experience, skills, and what makes your services unique</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td>Your primary location</td>
+                                        <td>Be specific to help local customers find you</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">3</span>Writing an Effective Bio</h5>
+                        <p>Your bio is your opportunity to introduce yourself to potential customers. Here's how to write an effective one:</p>
+                        
+                        <div class="profile-example p-4 bg-light border rounded">
+                            <h6 class="text-primary mb-3">Example of a Good Bio:</h6>
+                            <p class="mb-0"><em>"Professional electrician with over 10 years of experience in residential and commercial electrical work. Certified and insured, specializing in electrical installations, repairs, and maintenance. Known for reliable service, attention to detail, and fair pricing. Serving all areas of Belize City and surrounding districts."</em></p>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-check-circle me-2 text-success"></i>Include</h5>
+                                        <ul class="mb-0">
+                                            <li>Your professional experience</li>
+                                            <li>Relevant qualifications or certifications</li>
+                                            <li>Areas of specialization</li>
+                                            <li>Geographic areas you serve</li>
+                                            <li>What makes your service unique</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-times-circle me-2 text-danger"></i>Avoid</h5>
+                                        <ul class="mb-0">
+                                            <li>Spelling and grammar errors</li>
+                                            <li>Exaggerating your qualifications</li>
+                                            <li>Writing too little (one sentence is not enough)</li>
+                                            <li>Writing too much (keep it concise)</li>
+                                            <li>Including irrelevant personal information</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information Section -->
+                    <div class="help-section" id="contact-info">
+                        <h2 class="help-section-title"><i class="fas fa-address-book me-2"></i>Contact Information</h2>
+                        <p>Providing accurate contact information makes it easy for potential customers to reach you. You can control which contact details are visible to others.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Managing Contact Information</h5>
+                        <ol>
+                            <li>Go to your profile page</li>
+                            <li>Click on the "Edit Profile" button</li>
+                            <li>Update your contact information in the appropriate fields</li>
+                            <li>Use the privacy settings to control who can see each piece of information</li>
+                            <li>Click "Save Changes" when you're done</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Contact Information Fields</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Description</th>
+                                        <th>Privacy Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Email Address</td>
+                                        <td>Your primary email for account notifications and customer contact</td>
+                                        <td>Public, Registered Users Only, or Private</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone Number</td>
+                                        <td>Your primary contact number</td>
+                                        <td>Public, Registered Users Only, or Private</td>
+                                    </tr>
+                                    <tr>
+                                        <td>WhatsApp</td>
+                                        <td>Your WhatsApp number (if different from phone)</td>
+                                        <td>Public, Registered Users Only, or Private</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Website</td>
+                                        <td>Your personal or business website</td>
+                                        <td>Public, Registered Users Only, or Private</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="warning-card">
+                            <h5><i class="fas fa-exclamation-triangle me-2"></i>Important</h5>
+                            <p class="mb-0">While you can control the visibility of your contact information on your profile, remember that any contact information you include in your gig listings will be visible to anyone viewing those listings.</p>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Settings Section -->
+                    <div class="help-section" id="privacy">
+                        <h2 class="help-section-title"><i class="fas fa-shield-alt me-2"></i>Privacy Settings</h2>
+                        <p>Linkyoh gives you control over who can see your information. Understanding and using these settings helps you balance visibility with privacy.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Understanding Privacy Options</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Privacy Level</th>
+                                        <th>Description</th>
+                                        <th>Recommended For</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Public</td>
+                                        <td>Information is visible to anyone visiting Linkyoh</td>
+                                        <td>Business contact information, professional details</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Registered Users Only</td>
+                                        <td>Only visible to users who have created a Linkyoh account</td>
+                                        <td>Secondary contact methods, more detailed information</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Private</td>
+                                        <td>Only visible to you and Linkyoh administrators</td>
+                                        <td>Personal information not relevant to your services</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Adjusting Privacy Settings</h5>
+                        <ol>
+                            <li>Go to your profile page</li>
+                            <li>Click on the "Edit Profile" button</li>
+                            <li>For each piece of information, look for the privacy dropdown menu</li>
+                            <li>Select your preferred privacy level for each field</li>
+                            <li>Click "Save Changes" when you're done</li>
+                        </ol>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">If you're using Linkyoh primarily for business purposes, setting most of your professional information to "Public" can help potential customers find and contact you more easily. For personal information, you may want to use more restrictive settings.</p>
+                        </div>
+                    </div>
+
+                    <!-- Profile Tips Section -->
+                    <div class="help-section" id="tips">
+                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Profile Tips</h2>
+                        <p>Here are some tips to help you create a profile that stands out and builds trust with potential customers:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-image me-2 text-primary"></i>Use a Professional Photo</h5>
+                                        <p class="card-text">A clear, professional photo helps build trust. Avoid using logos unless you're representing a company.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-user-check me-2 text-primary"></i>Complete All Fields</h5>
+                                        <p class="card-text">Profiles with complete information appear more trustworthy and professional. Don't leave important fields empty.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-certificate me-2 text-primary"></i>Highlight Credentials</h5>
+                                        <p class="card-text">Mention relevant certifications, qualifications, or years of experience to establish credibility.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-spell-check me-2 text-primary"></i>Check Spelling and Grammar</h5>
+                                        <p class="card-text">Errors can make your profile look unprofessional. Proofread everything before saving.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-sync-alt me-2 text-primary"></i>Keep Information Updated</h5>
+                                        <p class="card-text">Regularly review and update your profile to ensure all information is current and accurate.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-phone-alt me-2 text-primary"></i>Provide Multiple Contact Options</h5>
+                                        <p class="card-text">Give customers different ways to reach you, such as phone, email, and WhatsApp.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="help-section" id="faq">
+                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Who can see my profile information?
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        The visibility of your profile information depends on your privacy settings. You can set each piece of information to be visible to everyone (Public), only registered users, or keep it private (visible only to you and administrators).
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Can I use a business name instead of my personal name?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, you can use your business name as your display name. Your account should still be registered under your real name, but you can set your display name to your business name, which will be shown publicly on your profile and gigs.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        How do I change my email address or password?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>To change your email address:</strong></p>
+                                        <ol>
+                                            <li>Go to your profile page</li>
+                                            <li>Click "Edit Profile"</li>
+                                            <li>Update your email address</li>
+                                            <li>Click "Save Changes"</li>
+                                        </ol>
+                                        <p><strong>To change your password:</strong></p>
+                                        <ol>
+                                            <li>Click on your profile picture in the top-right corner</li>
+                                            <li>Select "Password Change" from the dropdown menu</li>
+                                            <li>Enter your current password and your new password</li>
+                                            <li>Click "Change Password"</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Can I delete my profile?
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        If you wish to delete your account, please contact our support team through the Contact Us page. Note that deleting your account will remove all your gigs and profile information from Linkyoh.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        Why should I verify my phone number?
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Verifying your phone number adds an extra layer of security to your account and helps build trust with potential customers. Verified accounts are often seen as more trustworthy and legitimate. It also allows us to contact you if there are any issues with your account or gigs.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="text-center mt-5">
+                        <h4 class="mb-4">Ready to update your profile?</h4>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'profile' user.id %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-user-edit me-2"></i>Edit My Profile
+                        </a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login to Manage Profile
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make the sidebar navigation sticky and highlight the current section
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.help-section');
+        
+        // Highlight the active section when scrolling
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll to section when clicking on nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

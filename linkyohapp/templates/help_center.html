@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Help Center | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .help-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .help-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .help-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .help-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .help-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .help-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .search-box {
+        background-color: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="help-header">
+    <div class="container text-center">
+        <h1 class="display-4 mb-3">Linkyoh Help Center</h1>
+        <p class="lead mb-4">Find answers to your questions and learn how to get the most out of Linkyoh</p>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="search-box">
+                    <form method="GET" action="{% url 'search' %}">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fas fa-search text-primary"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" placeholder="Search for services..." name="param">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="text-center mb-4">How can we help you today?</h2>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Getting Started -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="help-card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-rocket me-2"></i>Getting Started</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="help-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h5 class="mb-3">New to Linkyoh?</h5>
+                    <p class="mb-4">Learn the basics and get started with our platform.</p>
+                    <a href="{% url 'help_add_gig' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-plus-circle me-2"></i>How to Add a Gig
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Searching and Filtering -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="help-card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-search me-2"></i>Finding Services</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="help-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h5 class="mb-3">Search & Filter</h5>
+                    <p class="mb-4">Learn how to find the perfect service for your needs.</p>
+                    <a href="{% url 'help_search' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-filter me-2"></i>Search & Filter Guide
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Management -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="help-card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-user me-2"></i>Your Profile</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="help-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h5 class="mb-3">Profile Management</h5>
+                    <p class="mb-4">Learn how to update your profile and manage your account.</p>
+                    <a href="{% url 'help_profile' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-id-card me-2"></i>Profile Guide
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard/My Gigs -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="help-card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-th-list me-2"></i>Your Dashboard</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="help-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h5 class="mb-3">Managing Your Gigs</h5>
+                    <p class="mb-4">Learn how to manage your gigs and track their performance.</p>
+                    <a href="{% url 'help_dashboard' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard Guide
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Understanding Metrics -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="help-card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Metrics & Analytics</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="help-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h5 class="mb-3">Understanding Your Stats</h5>
+                    <p class="mb-4">Learn how to interpret your gig metrics and analytics.</p>
+                    <a href="{% url 'help_metrics' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-chart-bar me-2"></i>Metrics Guide
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ -->
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="help-card h-100">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-question-circle me-2"></i>FAQ</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="help-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h5 class="mb-3">Frequently Asked Questions</h5>
+                    <p class="mb-4">Find answers to common questions about using Linkyoh.</p>
+                    <a href="{% url 'help_faq' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-question me-2"></i>View FAQ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Contact Support -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card bg-light border-0 rounded-3">
+                <div class="card-body p-4 text-center">
+                    <h4 class="mb-3"><i class="fas fa-headset me-2"></i>Need More Help?</h4>
+                    <p class="mb-4">Can't find what you're looking for? Our support team is here to help.</p>
+                    <a href="{% url 'contact' %}" class="btn btn-primary">
+                        <i class="fas fa-envelope me-2"></i>Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

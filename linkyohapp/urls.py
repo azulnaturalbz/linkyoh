@@ -46,6 +46,15 @@ urlpatterns = [
     path('contact-us/', views.contact, name="contact"),
     path('thanks/', views.thanks, name="thanks"),
 
+    # Help pages
+    path('help/', views.help_center, name="help_center"),
+    path('help/add-gig/', views.help_add_gig, name="help_add_gig"),
+    path('help/search/', views.help_search, name="help_search"),
+    path('help/profile/', views.help_profile, name="help_profile"),
+    path('help/dashboard/', views.help_dashboard, name="help_dashboard"),
+    path('help/metrics/', views.help_metrics, name="help_metrics"),
+    path('help/faq/', views.help_faq, name="help_faq"),
+
     # Authentication
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

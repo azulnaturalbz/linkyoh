@@ -1,0 +1,681 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard Guide | Linkyoh Help{% endblock %}
+
+{% block head %}
+<style>
+    .help-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .help-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .help-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .help-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .help-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .help-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .help-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        margin-right: 0.75rem;
+    }
+
+    .tip-card {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .warning-card {
+        background-color: rgba(231, 76, 60, 0.1);
+        border-left: 4px solid #e74c3c;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .quick-start-card {
+        background-color: rgba(46, 204, 113, 0.1);
+        border-left: 4px solid #2ecc71;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .screenshot {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin: 1.5rem 0;
+        max-width: 100%;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: var(--primary-color);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .dashboard-example {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="help-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Using Your Dashboard</h1>
+                <p class="lead mb-0">Learn how to manage your gigs and track their performance</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                {% if user.is_authenticated %}
+                <a href="{% url 'my_gigs' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-th-list me-2"></i>Go to My Gigs
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login to View Dashboard
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3 mb-4">
+            <div class="card sticky-top" style="top: 6rem; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                </div>
+                <div class="card-body p-0">
+                    <nav class="nav flex-column nav-pills p-3">
+                        <a class="nav-link" href="#introduction">Introduction</a>
+                        <a class="nav-link" href="#accessing-dashboard">Accessing Your Dashboard</a>
+                        <a class="nav-link" href="#dashboard-overview">Dashboard Overview</a>
+                        <a class="nav-link" href="#managing-gigs">Managing Your Gigs</a>
+                        <a class="nav-link" href="#performance-metrics">Performance Metrics</a>
+                        <a class="nav-link" href="#gig-status">Gig Status</a>
+                        <a class="nav-link" href="#tips">Dashboard Tips</a>
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="help-card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-tachometer-alt me-2"></i>Dashboard Guide</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Introduction Section -->
+                    <div class="help-section" id="introduction">
+                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <p>Your Linkyoh dashboard (also known as "My Gigs") is your control center for managing all your service listings. It provides a comprehensive overview of your gigs, their performance, and tools to manage them effectively.</p>
+                        <p>With your dashboard, you can:</p>
+                        <ul>
+                            <li>View all your active and inactive gigs in one place</li>
+                            <li>Track performance metrics like views and likes</li>
+                            <li>Edit, activate, or deactivate gigs</li>
+                            <li>Create new gigs</li>
+                            <li>Monitor customer engagement</li>
+                        </ul>
+                        <p>This guide will help you navigate your dashboard and make the most of its features to effectively manage your service listings on Linkyoh.</p>
+                    </div>
+
+                    <!-- Accessing Your Dashboard Section -->
+                    <div class="help-section" id="accessing-dashboard">
+                        <h2 class="help-section-title"><i class="fas fa-sign-in-alt me-2"></i>Accessing Your Dashboard</h2>
+                        <p>There are several ways to access your dashboard on Linkyoh:</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>From the Navigation Menu</h5>
+                        <ol>
+                            <li>Click on your profile picture or username in the top-right corner of any page</li>
+                            <li>A dropdown menu will appear</li>
+                            <li>Click on "My Gigs"</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Direct URL</h5>
+                        <p>You can also access your dashboard directly by going to:</p>
+                        <code>https://linkyoh.com/my-gigs/</code>
+                        
+                        <div class="tip-card mt-4">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Bookmark your dashboard page for quick access. This is especially useful if you manage multiple gigs and need to check their performance regularly.</p>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Overview Section -->
+                    <div class="help-section" id="dashboard-overview">
+                        <h2 class="help-section-title"><i class="fas fa-columns me-2"></i>Dashboard Overview</h2>
+                        <p>Your dashboard is designed to give you a clear overview of all your gigs and their performance. Here's what you'll find on your dashboard:</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-th-list"></i>
+                                        </div>
+                                        <h5>Gig Listings</h5>
+                                        <p>A list of all your gigs, both active and inactive</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <h5>Performance Metrics</h5>
+                                        <p>View counts, likes, and other engagement metrics</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-cog"></i>
+                                        </div>
+                                        <h5>Management Tools</h5>
+                                        <p>Options to edit, activate, or deactivate your gigs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </div>
+                                        <h5>Create New Gig</h5>
+                                        <p>Quick access to create a new service listing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Dashboard Layout</h5>
+                        <p>Your dashboard is organized to make it easy to find and manage your gigs:</p>
+                        
+                        <div class="dashboard-example p-4 bg-light border rounded">
+                            <h6 class="text-primary mb-3">Dashboard Components:</h6>
+                            <ul class="mb-0">
+                                <li><strong>Header Section:</strong> Shows your total number of gigs and a button to create a new gig</li>
+                                <li><strong>Gig Cards:</strong> Each of your gigs is displayed as a card with key information and action buttons</li>
+                                <li><strong>Metrics Display:</strong> Each gig card shows performance metrics like views and likes</li>
+                                <li><strong>Action Buttons:</strong> Options to view, edit, or change the status of each gig</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Managing Your Gigs Section -->
+                    <div class="help-section" id="managing-gigs">
+                        <h2 class="help-section-title"><i class="fas fa-tasks me-2"></i>Managing Your Gigs</h2>
+                        <p>Your dashboard provides several tools to help you manage your gigs effectively. Here's how to use them:</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Creating a New Gig</h5>
+                        <ol>
+                            <li>From your dashboard, click the "Create New Gig" button</li>
+                            <li>Fill out the gig creation form with all required information</li>
+                            <li>Click "Publish Gig" to make your gig live</li>
+                        </ol>
+                        <p>For detailed guidance on creating gigs, see our <a href="{% url 'help_add_gig' %}">How to Add a Gig</a> guide.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Editing an Existing Gig</h5>
+                        <ol>
+                            <li>Find the gig you want to edit on your dashboard</li>
+                            <li>Click the "Edit" button (pencil icon) on the gig card</li>
+                            <li>Make your changes in the edit form</li>
+                            <li>Click "Save Changes" to update your gig</li>
+                        </ol>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Regularly updating your gigs with fresh information, new photos, or updated pricing can help keep them relevant and attractive to potential customers.</p>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">3</span>Viewing Your Gig</h5>
+                        <ol>
+                            <li>Find the gig you want to view on your dashboard</li>
+                            <li>Click the "View" button (eye icon) on the gig card</li>
+                            <li>This will take you to the public view of your gig, exactly as customers see it</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">4</span>Changing Gig Status</h5>
+                        <ol>
+                            <li>Find the gig you want to update on your dashboard</li>
+                            <li>Click the "Active/Inactive" toggle switch on the gig card</li>
+                            <li>Confirm your choice when prompted</li>
+                        </ol>
+                        
+                        <div class="warning-card">
+                            <h5><i class="fas fa-exclamation-triangle me-2"></i>Important</h5>
+                            <p class="mb-0">When you deactivate a gig, it will no longer appear in search results or category listings. However, the URL will still work if someone has it bookmarked or saved. To completely remove a gig, you need to delete it.</p>
+                        </div>
+                    </div>
+
+                    <!-- Performance Metrics Section -->
+                    <div class="help-section" id="performance-metrics">
+                        <h2 class="help-section-title"><i class="fas fa-chart-bar me-2"></i>Performance Metrics</h2>
+                        <p>Your dashboard displays key performance metrics for each of your gigs, helping you understand how they're performing and which ones are attracting the most interest.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Understanding Metrics</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Description</th>
+                                        <th>Why It Matters</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Views</td>
+                                        <td>The number of times your gig has been viewed</td>
+                                        <td>Indicates how many people are seeing your gig</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Likes</td>
+                                        <td>The number of users who have liked your gig</td>
+                                        <td>Shows interest level and potential customer engagement</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Updated</td>
+                                        <td>When you last made changes to your gig</td>
+                                        <td>Helps you keep track of when information might need refreshing</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td>Whether your gig is active or inactive</td>
+                                        <td>Indicates if your gig is visible to potential customers</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Detailed Analytics</h5>
+                        <p>For more detailed analytics about your gig's performance:</p>
+                        <ol>
+                            <li>Click on the "Stats" or "Analytics" link on a gig card (if available)</li>
+                            <li>View detailed information about views over time, user engagement, and more</li>
+                        </ol>
+                        <p>For more information on understanding and using metrics, see our <a href="{% url 'help_metrics' %}">Metrics Guide</a>.</p>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Compare metrics across your gigs to identify what works best. If one gig is getting significantly more views or likes, consider what makes it more appealing and apply those elements to your other gigs.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gig Status Section -->
+                    <div class="help-section" id="gig-status">
+                        <h2 class="help-section-title"><i class="fas fa-toggle-on me-2"></i>Gig Status</h2>
+                        <p>Managing the status of your gigs is an important part of maintaining your presence on Linkyoh. You can control whether each gig is visible to potential customers.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Status Types</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100 border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Active</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">When a gig is active:</p>
+                                        <ul class="mb-0">
+                                            <li>It appears in search results</li>
+                                            <li>It's visible in category listings</li>
+                                            <li>Users can find and interact with it</li>
+                                            <li>It can receive views, likes, and inquiries</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100 border-secondary">
+                                    <div class="card-header bg-secondary text-white">
+                                        <h5 class="mb-0"><i class="fas fa-times-circle me-2"></i>Inactive</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">When a gig is inactive:</p>
+                                        <ul class="mb-0">
+                                            <li>It doesn't appear in search results</li>
+                                            <li>It's hidden from category listings</li>
+                                            <li>The URL still works if someone has it saved</li>
+                                            <li>It can still be viewed, but won't attract new customers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>When to Change Status</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Scenario</th>
+                                        <th>Recommended Status</th>
+                                        <th>Why</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>You're currently available for work</td>
+                                        <td>Active</td>
+                                        <td>Makes your services visible to potential customers</td>
+                                    </tr>
+                                    <tr>
+                                        <td>You're temporarily unavailable (vacation, fully booked, etc.)</td>
+                                        <td>Inactive</td>
+                                        <td>Prevents inquiries when you can't take on new work</td>
+                                    </tr>
+                                    <tr>
+                                        <td>You're updating your gig information</td>
+                                        <td>Inactive (temporarily)</td>
+                                        <td>Prevents customers from seeing incomplete information</td>
+                                    </tr>
+                                    <tr>
+                                        <td>You no longer offer this service</td>
+                                        <td>Inactive or Delete</td>
+                                        <td>Removes services you no longer provide</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Instead of deactivating a gig when you're temporarily unavailable, consider updating the description to indicate your availability timeline. This keeps your gig visible and lets potential customers know when you'll be available again.</p>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Tips Section -->
+                    <div class="help-section" id="tips">
+                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Dashboard Tips</h2>
+                        <p>Here are some tips to help you make the most of your dashboard and effectively manage your gigs:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-sync-alt me-2 text-primary"></i>Regular Updates</h5>
+                                        <p class="card-text">Update your gigs regularly with fresh information, new photos, or seasonal offerings to keep them relevant and attractive.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-chart-line me-2 text-primary"></i>Monitor Performance</h5>
+                                        <p class="card-text">Check your metrics regularly to understand which gigs are performing well and which might need improvements.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-th-large me-2 text-primary"></i>Diversify Your Offerings</h5>
+                                        <p class="card-text">Create multiple gigs for different services you offer to reach a wider audience and increase your visibility.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-eye me-2 text-primary"></i>Preview Your Gigs</h5>
+                                        <p class="card-text">Regularly view your gigs as customers see them to ensure they look professional and contain accurate information.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-calendar-alt me-2 text-primary"></i>Seasonal Updates</h5>
+                                        <p class="card-text">Update your gigs for holidays or seasonal changes to stay relevant and capture seasonal demand.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-trash-alt me-2 text-primary"></i>Remove Outdated Gigs</h5>
+                                        <p class="card-text">Delete or deactivate gigs for services you no longer offer to keep your profile current and focused.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="help-section" id="faq">
+                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How many gigs can I create?
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        You can create as many gigs as you want on Linkyoh. However, we recommend focusing on quality over quantity. It's better to have a few well-crafted, detailed gigs than many incomplete or low-quality ones.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        What's the difference between deactivating and deleting a gig?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Deactivating a gig:</strong></p>
+                                        <ul>
+                                            <li>Hides it from search results and category listings</li>
+                                            <li>Keeps the gig in your dashboard</li>
+                                            <li>Allows you to reactivate it later</li>
+                                            <li>Preserves all gig data, metrics, and history</li>
+                                        </ul>
+                                        <p><strong>Deleting a gig:</strong></p>
+                                        <ul>
+                                            <li>Permanently removes the gig from Linkyoh</li>
+                                            <li>Cannot be undone</li>
+                                            <li>Removes all associated data and metrics</li>
+                                            <li>Frees up the title and content for use in new gigs</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Why did my views or likes decrease?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Metrics like views and likes can fluctuate for several reasons:
+                                        <ul>
+                                            <li>System updates or data corrections</li>
+                                            <li>Removal of spam or bot activity</li>
+                                            <li>Users unliking a previously liked gig</li>
+                                            <li>Temporary reporting delays or glitches</li>
+                                        </ul>
+                                        If you notice a significant unexplained decrease, please contact our support team.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Can I organize or sort my gigs on the dashboard?
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Currently, gigs are displayed in order of creation date, with the newest gigs appearing first. We're working on adding sorting and filtering options to the dashboard in future updates to make it easier to manage multiple gigs.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        How can I increase views and engagement for my gigs?
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        To increase views and engagement:
+                                        <ul>
+                                            <li>Use clear, descriptive titles with relevant keywords</li>
+                                            <li>Add high-quality images that showcase your services</li>
+                                            <li>Provide detailed descriptions of what you offer</li>
+                                            <li>Keep your gig information up-to-date</li>
+                                            <li>Add multiple service areas to reach more customers</li>
+                                            <li>Share your gig links on social media or with your network</li>
+                                            <li>Respond promptly to inquiries to build a good reputation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="text-center mt-5">
+                        <h4 class="mb-4">Ready to manage your gigs?</h4>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'my_gigs' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-th-list me-2"></i>Go to My Gigs
+                        </a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login to View Dashboard
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make the sidebar navigation sticky and highlight the current section
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.help-section');
+        
+        // Highlight the active section when scrolling
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll to section when clicking on nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

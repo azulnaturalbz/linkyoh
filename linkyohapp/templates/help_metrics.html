@@ -1,0 +1,769 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Understanding Metrics | Linkyoh Help{% endblock %}
+
+{% block head %}
+<style>
+    .help-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .help-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .help-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .help-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .help-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .help-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .help-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        margin-right: 0.75rem;
+    }
+
+    .tip-card {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .warning-card {
+        background-color: rgba(231, 76, 60, 0.1);
+        border-left: 4px solid #e74c3c;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .quick-start-card {
+        background-color: rgba(46, 204, 113, 0.1);
+        border-left: 4px solid #2ecc71;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .screenshot {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin: 1.5rem 0;
+        max-width: 100%;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: var(--primary-color);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .metric-example {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        background-color: #f8f9fa;
+    }
+    
+    .chart-container {
+        height: 250px;
+        margin: 2rem 0;
+        position: relative;
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="help-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Understanding Metrics</h1>
+                <p class="lead mb-0">Learn how to interpret your gig metrics and make data-driven decisions</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                {% if user.is_authenticated %}
+                <a href="{% url 'my_gigs' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-chart-line me-2"></i>View My Metrics
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login to View Metrics
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3 mb-4">
+            <div class="card sticky-top" style="top: 6rem; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                </div>
+                <div class="card-body p-0">
+                    <nav class="nav flex-column nav-pills p-3">
+                        <a class="nav-link" href="#introduction">Introduction</a>
+                        <a class="nav-link" href="#key-metrics">Key Metrics</a>
+                        <a class="nav-link" href="#viewing-metrics">Viewing Your Metrics</a>
+                        <a class="nav-link" href="#interpreting-data">Interpreting Data</a>
+                        <a class="nav-link" href="#improving-metrics">Improving Your Metrics</a>
+                        <a class="nav-link" href="#tracking-progress">Tracking Progress</a>
+                        <a class="nav-link" href="#tips">Metrics Tips</a>
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="help-card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Metrics Guide</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Introduction Section -->
+                    <div class="help-section" id="introduction">
+                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <p>Linkyoh provides valuable metrics to help you understand how your gigs are performing. These metrics give you insights into user engagement, visibility, and the overall effectiveness of your listings.</p>
+                        <p>Understanding and using these metrics can help you:</p>
+                        <ul>
+                            <li>Track the performance of your gigs over time</li>
+                            <li>Identify which gigs are most popular</li>
+                            <li>Understand user behavior and preferences</li>
+                            <li>Make data-driven decisions to improve your listings</li>
+                            <li>Measure the impact of changes you make</li>
+                        </ul>
+                        <p>This guide will explain the different metrics available on Linkyoh, how to access them, and how to use them to improve your gigs' performance.</p>
+                    </div>
+
+                    <!-- Key Metrics Section -->
+                    <div class="help-section" id="key-metrics">
+                        <h2 class="help-section-title"><i class="fas fa-key me-2"></i>Key Metrics</h2>
+                        <p>Linkyoh tracks several key metrics for your gigs. Here's what each one means and why it matters:</p>
+                        
+                        <div class="table-responsive mt-4">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Description</th>
+                                        <th>Why It Matters</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><i class="fas fa-eye me-2 text-primary"></i>Views</td>
+                                        <td>The number of times your gig has been viewed by users</td>
+                                        <td>Indicates the visibility and reach of your gig</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-heart me-2 text-danger"></i>Likes</td>
+                                        <td>The number of users who have liked your gig</td>
+                                        <td>Shows interest level and positive engagement</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-search me-2 text-success"></i>Search Appearances</td>
+                                        <td>How many times your gig appeared in search results</td>
+                                        <td>Indicates how discoverable your gig is through search</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-mouse-pointer me-2 text-info"></i>Click-through Rate</td>
+                                        <td>Percentage of search appearances that resulted in clicks</td>
+                                        <td>Shows how compelling your gig title and preview are</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-clock me-2 text-warning"></i>Average View Time</td>
+                                        <td>How long users typically spend viewing your gig</td>
+                                        <td>Indicates how engaging your gig content is</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-share-alt me-2 text-secondary"></i>Shares</td>
+                                        <td>Number of times your gig has been shared</td>
+                                        <td>Shows how many users found your gig valuable enough to share</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Understanding Metric Relationships</h5>
+                        <p>These metrics are interconnected and tell a complete story about your gig's performance:</p>
+                        
+                        <div class="metric-example p-4 bg-light border rounded">
+                            <h6 class="text-primary mb-3">How Metrics Work Together:</h6>
+                            <ol class="mb-0">
+                                <li><strong>Search Appearances</strong> → Your gig shows up in search results</li>
+                                <li><strong>Click-through Rate</strong> → Users click on your gig from search results</li>
+                                <li><strong>Views</strong> → Users view your gig page</li>
+                                <li><strong>Average View Time</strong> → Users spend time reading your gig details</li>
+                                <li><strong>Likes/Shares</strong> → Users engage positively with your gig</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="tip-card mt-4">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">A drop-off at any stage of this funnel can indicate where you might need to make improvements. For example, if you have many search appearances but a low click-through rate, you might need to improve your gig title or main image.</p>
+                        </div>
+                    </div>
+
+                    <!-- Viewing Your Metrics Section -->
+                    <div class="help-section" id="viewing-metrics">
+                        <h2 class="help-section-title"><i class="fas fa-desktop me-2"></i>Viewing Your Metrics</h2>
+                        <p>Linkyoh provides several ways to access and view your metrics:</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Dashboard Overview</h5>
+                        <p>Your dashboard (My Gigs page) shows basic metrics for each of your gigs:</p>
+                        <ol>
+                            <li>Go to your dashboard by clicking on your profile picture and selecting "My Gigs"</li>
+                            <li>Each gig card displays key metrics like views and likes</li>
+                            <li>These metrics give you a quick overview of each gig's performance</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Detailed Metrics View</h5>
+                        <p>For more detailed metrics and analytics:</p>
+                        <ol>
+                            <li>From your dashboard, find the gig you want to analyze</li>
+                            <li>Click on the "Stats" or "Analytics" link (if available)</li>
+                            <li>This will take you to a detailed metrics page for that specific gig</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">3</span>Time Period Selection</h5>
+                        <p>You can view metrics for different time periods:</p>
+                        <ol>
+                            <li>On the detailed metrics page, look for time period options</li>
+                            <li>Select from options like "Last 7 days," "Last 30 days," "Last 90 days," or "All time"</li>
+                            <li>This helps you analyze trends and changes over different time frames</li>
+                        </ol>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Check your metrics regularly, but don't obsess over daily fluctuations. Weekly or monthly reviews are usually more meaningful for identifying trends and making strategic decisions.</p>
+                        </div>
+                    </div>
+
+                    <!-- Interpreting Data Section -->
+                    <div class="help-section" id="interpreting-data">
+                        <h2 class="help-section-title"><i class="fas fa-chart-line me-2"></i>Interpreting Data</h2>
+                        <p>Understanding what your metrics mean is key to making informed decisions about your gigs. Here's how to interpret common patterns:</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0"><i class="fas fa-thumbs-up me-2"></i>Positive Indicators</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="mb-0">
+                                            <li><strong>Increasing views over time</strong> - Your gig is gaining visibility</li>
+                                            <li><strong>High like-to-view ratio</strong> - Users find your gig appealing</li>
+                                            <li><strong>Long average view times</strong> - Users are engaged with your content</li>
+                                            <li><strong>High click-through rate</strong> - Your listing stands out in search results</li>
+                                            <li><strong>Consistent growth in metrics</strong> - Your gig is performing well long-term</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-header bg-danger text-white">
+                                        <h5 class="mb-0"><i class="fas fa-thumbs-down me-2"></i>Areas for Improvement</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="mb-0">
+                                            <li><strong>High search appearances but low clicks</strong> - Your title or thumbnail may need improvement</li>
+                                            <li><strong>Many views but few likes</strong> - Your gig content may not meet expectations</li>
+                                            <li><strong>Short average view times</strong> - Users aren't finding what they need quickly</li>
+                                            <li><strong>Declining metrics over time</strong> - Your gig may need refreshing or updating</li>
+                                            <li><strong>Sudden drops in metrics</strong> - Check for technical issues or category changes</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Reading Trend Charts</h5>
+                        <p>Trend charts show how your metrics change over time. Here's what to look for:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-arrow-up me-2 text-success"></i>Upward Trends</h5>
+                                        <p>An upward trend indicates growing interest in your gig. This could be due to:</p>
+                                        <ul>
+                                            <li>Seasonal demand for your service</li>
+                                            <li>Improvements you've made to your gig</li>
+                                            <li>Increased visibility from external sharing</li>
+                                            <li>Better search ranking due to positive engagement</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-arrow-down me-2 text-danger"></i>Downward Trends</h5>
+                                        <p>A downward trend may indicate decreasing interest. This could be due to:</p>
+                                        <ul>
+                                            <li>Outdated information or images</li>
+                                            <li>Increased competition in your category</li>
+                                            <li>Seasonal fluctuations in demand</li>
+                                            <li>Changes in search algorithms or categories</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">When analyzing trends, always consider external factors like holidays, seasonal changes, or local events that might affect demand for your services. This context helps you interpret the data more accurately.</p>
+                        </div>
+                    </div>
+
+                    <!-- Improving Your Metrics Section -->
+                    <div class="help-section" id="improving-metrics">
+                        <h2 class="help-section-title"><i class="fas fa-chart-bar me-2"></i>Improving Your Metrics</h2>
+                        <p>Based on your metrics analysis, here are strategies to improve different aspects of your gig's performance:</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Increasing Views</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-search me-2 text-primary"></i>Optimize for Search</h5>
+                                        <ul>
+                                            <li>Use relevant keywords in your title and description</li>
+                                            <li>Select the most appropriate category and subcategory</li>
+                                            <li>Add multiple service areas to increase visibility</li>
+                                            <li>Keep your gig information complete and up-to-date</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-share-alt me-2 text-primary"></i>Promote Your Gig</h5>
+                                        <ul>
+                                            <li>Share your gig link on social media</li>
+                                            <li>Include your gig link in your email signature</li>
+                                            <li>Ask satisfied customers to share your gig</li>
+                                            <li>Cross-promote with complementary service providers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Improving Click-through Rate</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-heading me-2 text-primary"></i>Compelling Title</h5>
+                                        <ul>
+                                            <li>Be clear and specific about what you offer</li>
+                                            <li>Highlight unique selling points</li>
+                                            <li>Include location if relevant to your service</li>
+                                            <li>Use action words that encourage clicks</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-image me-2 text-primary"></i>Eye-catching Main Image</h5>
+                                        <ul>
+                                            <li>Use high-quality, professional images</li>
+                                            <li>Show your work or service clearly</li>
+                                            <li>Ensure the image is bright and well-lit</li>
+                                            <li>Make sure the image represents your service accurately</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">3</span>Increasing Engagement (Likes and Shares)</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-file-alt me-2 text-primary"></i>Detailed Description</h5>
+                                        <ul>
+                                            <li>Provide comprehensive information about your service</li>
+                                            <li>Highlight benefits, not just features</li>
+                                            <li>Include pricing information or ranges</li>
+                                            <li>Use bullet points for easy scanning</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-images me-2 text-primary"></i>Multiple Quality Images</h5>
+                                        <ul>
+                                            <li>Include before/after photos if applicable</li>
+                                            <li>Show different aspects of your service</li>
+                                            <li>Add images of your tools or workspace</li>
+                                            <li>Include photos of yourself or your team</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-card">
+                            <h5><i class="fas fa-exclamation-triangle me-2"></i>Important</h5>
+                            <p class="mb-0">Always make honest and accurate claims about your services. While it's important to present your gig in the best light, misleading information will lead to disappointed customers and negative outcomes.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tracking Progress Section -->
+                    <div class="help-section" id="tracking-progress">
+                        <h2 class="help-section-title"><i class="fas fa-tasks me-2"></i>Tracking Progress</h2>
+                        <p>After making changes to improve your metrics, it's important to track your progress systematically:</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Before and After Comparisons</h5>
+                        <ol>
+                            <li>Before making significant changes, note your current metrics</li>
+                            <li>Make one change at a time when possible</li>
+                            <li>Wait at least 1-2 weeks to allow the change to have an effect</li>
+                            <li>Compare metrics before and after the change</li>
+                        </ol>
+                        
+                        <div class="metric-example p-4 bg-light border rounded">
+                            <h6 class="text-primary mb-3">Example Tracking Sheet:</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Change Made</th>
+                                            <th>Views Before</th>
+                                            <th>Views After</th>
+                                            <th>CTR Before</th>
+                                            <th>CTR After</th>
+                                            <th>Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Jan 5</td>
+                                            <td>Updated main image</td>
+                                            <td>45/week</td>
+                                            <td>62/week</td>
+                                            <td>3.2%</td>
+                                            <td>4.8%</td>
+                                            <td class="text-success">Positive</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jan 20</td>
+                                            <td>Rewrote title with keywords</td>
+                                            <td>62/week</td>
+                                            <td>85/week</td>
+                                            <td>4.8%</td>
+                                            <td>5.7%</td>
+                                            <td class="text-success">Positive</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Feb 3</td>
+                                            <td>Added service areas</td>
+                                            <td>85/week</td>
+                                            <td>110/week</td>
+                                            <td>5.7%</td>
+                                            <td>5.5%</td>
+                                            <td class="text-warning">Mixed</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Setting Realistic Goals</h5>
+                        <p>Set specific, measurable goals for your metrics improvement:</p>
+                        <ul>
+                            <li><strong>Specific:</strong> "Increase views by 20%" rather than "Get more views"</li>
+                            <li><strong>Measurable:</strong> Focus on metrics you can track in your dashboard</li>
+                            <li><strong>Achievable:</strong> Set realistic targets based on your current performance</li>
+                            <li><strong>Relevant:</strong> Focus on metrics that matter most for your type of service</li>
+                            <li><strong>Time-bound:</strong> Set a timeframe for achieving your goals (e.g., 30 days)</li>
+                        </ul>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Don't try to improve all metrics at once. Focus on one or two key areas that will have the biggest impact on your gig's success. For most gigs, increasing views and click-through rate should be the initial focus.</p>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Tips Section -->
+                    <div class="help-section" id="tips">
+                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Metrics Tips</h2>
+                        <p>Here are some additional tips to help you make the most of your metrics:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-calendar-alt me-2 text-primary"></i>Check Regularly</h5>
+                                        <p class="card-text">Set a regular schedule to review your metrics, such as weekly or bi-weekly. This helps you spot trends and issues early.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-balance-scale me-2 text-primary"></i>Compare Similar Gigs</h5>
+                                        <p class="card-text">If you have multiple gigs in the same category, compare their metrics to identify what works best for your specific audience.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-sync-alt me-2 text-primary"></i>Refresh Content</h5>
+                                        <p class="card-text">Even small updates to your gig can improve metrics. Try updating images, refreshing your description, or adding seasonal information.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-user-friends me-2 text-primary"></i>Learn from Competitors</h5>
+                                        <p class="card-text">Look at successful gigs in your category to understand what might be working for them, then adapt those strategies for your own gigs.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-clipboard-list me-2 text-primary"></i>Keep Notes</h5>
+                                        <p class="card-text">Document changes you make and their effects on metrics. This creates a valuable reference for future optimization.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-bullseye me-2 text-primary"></i>Focus on Conversion</h5>
+                                        <p class="card-text">While views are important, focus on metrics that indicate real interest, like contact clicks or time spent on your gig page.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="help-section" id="faq">
+                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How often are metrics updated?
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Most metrics on Linkyoh are updated daily. However, some more complex metrics might have a slight delay of up to 48 hours. Real-time metrics like views and likes are typically updated more frequently.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Why did my metrics suddenly drop?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Sudden drops in metrics can happen for several reasons:
+                                        <ul>
+                                            <li>System updates or data corrections</li>
+                                            <li>Seasonal changes in demand</li>
+                                            <li>New competition in your category</li>
+                                            <li>Changes to search algorithms</li>
+                                            <li>Technical issues (temporary)</li>
+                                        </ul>
+                                        If the drop persists for more than a week, consider updating your gig information or reaching out to support.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        What's a good view-to-like ratio?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        A good view-to-like ratio varies by category, but generally:
+                                        <ul>
+                                            <li>1-3% is average</li>
+                                            <li>3-5% is good</li>
+                                            <li>Above 5% is excellent</li>
+                                        </ul>
+                                        Remember that some services naturally generate more likes than others. Focus on improving your ratio over time rather than comparing to gigs in different categories.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        Do my own views count in the metrics?
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Linkyoh's system is designed to filter out repeated views from the same user, including your own views of your gigs. This ensures that the metrics you see reflect genuine interest from potential customers rather than your own activity.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        How long should I wait after making changes to see results?
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        After making changes to your gig, you should typically wait:
+                                        <ul>
+                                            <li><strong>Minor changes</strong> (updating description, adding images): 3-7 days</li>
+                                            <li><strong>Major changes</strong> (new title, category, complete overhaul): 7-14 days</li>
+                                        </ul>
+                                        The platform needs time to reindex your gig, and users need time to discover and interact with your updated listing. Be patient and avoid making additional changes too quickly, as this can make it difficult to determine which changes had an impact.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="text-center mt-5">
+                        <h4 class="mb-4">Ready to analyze your metrics?</h4>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'my_gigs' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-chart-line me-2"></i>View My Metrics
+                        </a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login to View Metrics
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make the sidebar navigation sticky and highlight the current section
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.help-section');
+        
+        // Highlight the active section when scrolling
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll to section when clicking on nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

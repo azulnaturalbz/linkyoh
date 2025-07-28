@@ -926,6 +926,65 @@ def privacy(request):
     return render(request, 'privacy.html')
 
 
+def help_center(request):
+    """
+    View function for the help center landing page.
+    This page serves as a central hub for all help topics and guides.
+    """
+    return render(request, 'help_center.html')
+
+
+def help_add_gig(request):
+    """
+    View function for the help page that explains how to add a gig.
+    This page provides detailed guidance on creating gigs, explaining form fields,
+    and offering tips for success.
+
+    Note: If the gig form structure changes, this help page should be updated accordingly.
+    """
+    return render(request, 'help_add_gig.html')
+
+
+def help_search(request):
+    """
+    View function for the help page that explains how to use the search functionality.
+    This page provides guidance on using search filters and finding services.
+    """
+    return render(request, 'help_search.html')
+
+
+def help_profile(request):
+    """
+    View function for the help page that explains how to manage your profile.
+    This page provides guidance on updating profile information, adding a profile picture, etc.
+    """
+    return render(request, 'help_profile.html')
+
+
+def help_dashboard(request):
+    """
+    View function for the help page that explains how to use the dashboard/my gigs page.
+    This page provides guidance on managing gigs, viewing metrics, etc.
+    """
+    return render(request, 'help_dashboard.html')
+
+
+def help_metrics(request):
+    """
+    View function for the help page that explains how to interpret metrics and analytics.
+    This page provides guidance on understanding view counts, likes, etc.
+    """
+    return render(request, 'help_metrics.html')
+
+
+def help_faq(request):
+    """
+    View function for the frequently asked questions page.
+    This page provides answers to common questions about using Linkyoh.
+    """
+    return render(request, 'help_faq.html')
+
+
 def thanks(request):
     return render(request, 'thanks.html')
 

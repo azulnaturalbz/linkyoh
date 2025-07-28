@@ -1,0 +1,580 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}How to Search | Linkyoh Help{% endblock %}
+
+{% block head %}
+<style>
+    .help-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .help-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .help-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .help-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .help-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .help-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .help-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        font-weight: 600;
+        margin-right: 0.75rem;
+    }
+
+    .tip-card {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .warning-card {
+        background-color: rgba(231, 76, 60, 0.1);
+        border-left: 4px solid #e74c3c;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .quick-start-card {
+        background-color: rgba(46, 204, 113, 0.1);
+        border-left: 4px solid #2ecc71;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .screenshot {
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin: 1.5rem 0;
+        max-width: 100%;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: var(--primary-color);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="help-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Finding Services on Linkyoh</h1>
+                <p class="lead mb-0">Learn how to search, filter, and find the perfect service for your needs</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <a href="{% url 'search' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-search me-2"></i>Search Now
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3 mb-4">
+            <div class="card sticky-top" style="top: 6rem; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                </div>
+                <div class="card-body p-0">
+                    <nav class="nav flex-column nav-pills p-3">
+                        <a class="nav-link" href="#introduction">Introduction</a>
+                        <a class="nav-link" href="#quick-search">Quick Search Guide</a>
+                        <a class="nav-link" href="#search-bar">Using the Search Bar</a>
+                        <a class="nav-link" href="#advanced-search">Advanced Search</a>
+                        <a class="nav-link" href="#filters">Using Filters</a>
+                        <a class="nav-link" href="#categories">Browsing Categories</a>
+                        <a class="nav-link" href="#tips">Search Tips</a>
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="help-card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-search me-2"></i>Search Guide</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Introduction Section -->
+                    <div class="help-section" id="introduction">
+                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <p>Welcome to the Linkyoh search guide! Finding the right service provider is easy with our powerful search tools. Whether you're looking for a specific service or just browsing what's available in your area, this guide will help you navigate our search features effectively.</p>
+                        <p>Linkyoh offers multiple ways to find services:</p>
+                        <ul>
+                            <li>Quick search using the search bar</li>
+                            <li>Advanced search with filters</li>
+                            <li>Browsing by categories</li>
+                            <li>Location-based searching</li>
+                        </ul>
+                        <p>This guide will walk you through each method to help you find exactly what you're looking for.</p>
+                    </div>
+
+                    <!-- Quick Search Guide Section -->
+                    <div class="help-section" id="quick-search">
+                        <h2 class="help-section-title"><i class="fas fa-bolt me-2"></i>Quick Search Guide</h2>
+                        <p>If you're looking to find services quickly, here's how to get started:</p>
+                        
+                        <div class="quick-start-card">
+                            <h5><i class="fas fa-rocket me-2"></i>Find Services in 3 Simple Steps</h5>
+                            <ol class="mb-0">
+                                <li class="mb-2"><strong>Use the search bar</strong> at the top of any page</li>
+                                <li class="mb-2"><strong>Enter keywords</strong> related to the service you need (e.g., "plumber", "electrician", "tutor")</li>
+                                <li class="mb-2"><strong>Press Enter or click the search icon</strong> to see results</li>
+                            </ol>
+                        </div>
+                        
+                        <p class="mt-3">For more specific results, continue reading to learn about our advanced search features and filters.</p>
+                    </div>
+
+                    <!-- Using the Search Bar Section -->
+                    <div class="help-section" id="search-bar">
+                        <h2 class="help-section-title"><i class="fas fa-search me-2"></i>Using the Search Bar</h2>
+                        <p>The search bar is available at the top of every page on Linkyoh, making it easy to search from anywhere on the site.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Effective Search Terms</h5>
+                        <p>Our search engine looks for matches in multiple fields, including:</p>
+                        <ul>
+                            <li>Service titles</li>
+                            <li>Service descriptions</li>
+                            <li>Categories and subcategories</li>
+                            <li>Locations and districts</li>
+                        </ul>
+                        
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Search For</th>
+                                        <th>Example Search Terms</th>
+                                        <th>What It Will Find</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Service Type</td>
+                                        <td>"plumber", "electrician", "tutor"</td>
+                                        <td>Services with these words in their title or description</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Specific Need</td>
+                                        <td>"leaky faucet", "math tutor", "house painting"</td>
+                                        <td>Services that mention these specific needs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td>"Belize City", "San Pedro", "Orange Walk"</td>
+                                        <td>Services available in these locations</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tip-card mt-4">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Use specific terms for better results. For example, instead of searching for "home repair," try "kitchen cabinet installation" or "bathroom tile repair" to find more specialized service providers.</p>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Search Section -->
+                    <div class="help-section" id="advanced-search">
+                        <h2 class="help-section-title"><i class="fas fa-sliders-h me-2"></i>Advanced Search</h2>
+                        <p>For more precise results, use our advanced search page which offers additional filtering options.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Accessing Advanced Search</h5>
+                        <p>You can access the advanced search page in two ways:</p>
+                        <ul>
+                            <li>Click on the search icon in the navigation bar</li>
+                            <li>Enter a search term and then refine your results using the filters on the search results page</li>
+                        </ul>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Advanced Search Features</h5>
+                        <p>The advanced search page offers several powerful features:</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-filter"></i>
+                                        </div>
+                                        <h5>Multiple Filters</h5>
+                                        <p>Combine different filters to narrow down results exactly as needed</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <h5>Location-Based Search</h5>
+                                        <p>Find services available in specific districts or locations</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-th-list"></i>
+                                        </div>
+                                        <h5>Category Filtering</h5>
+                                        <p>Browse services by main categories and subcategories</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </div>
+                                        <h5>Price Range</h5>
+                                        <p>Set minimum and maximum price ranges for services</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Using Filters Section -->
+                    <div class="help-section" id="filters">
+                        <h2 class="help-section-title"><i class="fas fa-filter me-2"></i>Using Filters</h2>
+                        <p>Filters help you narrow down search results to find exactly what you're looking for. Here's how to use them effectively:</p>
+                        
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Filter</th>
+                                        <th>Description</th>
+                                        <th>How to Use</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Category</td>
+                                        <td>Filter by main service category</td>
+                                        <td>Select from the dropdown menu to see services in that category only</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subcategory</td>
+                                        <td>Filter by more specific service type</td>
+                                        <td>First select a category, then choose from available subcategories</td>
+                                    </tr>
+                                    <tr>
+                                        <td>District</td>
+                                        <td>Filter by district in Belize</td>
+                                        <td>Select a district to see services available in that area</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td>Filter by specific location within a district</td>
+                                        <td>First select a district, then choose from available locations</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Price Range</td>
+                                        <td>Filter by minimum and maximum price</td>
+                                        <td>Enter minimum and/or maximum price values to see services within that range</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="tip-card mt-4">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">You can combine multiple filters for more precise results. For example, you can search for "plumbers" in "Belize City" with prices between "$50" and "$100".</p>
+                        </div>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Applying Filters</h5>
+                        <ol>
+                            <li>Enter your search term in the search bar (optional)</li>
+                            <li>Select filters from the available options</li>
+                            <li>The results will update automatically as you apply filters</li>
+                            <li>To remove a filter, click the "Clear" button next to it or select a different option</li>
+                        </ol>
+                    </div>
+
+                    <!-- Browsing Categories Section -->
+                    <div class="help-section" id="categories">
+                        <h2 class="help-section-title"><i class="fas fa-th-list me-2"></i>Browsing Categories</h2>
+                        <p>If you're not sure exactly what you're looking for, browsing by category can help you discover available services.</p>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">1</span>Using the Category Navigation</h5>
+                        <p>The category navigation bar is located just below the main navigation on every page:</p>
+                        <ol>
+                            <li>Click on any category in the navigation bar to see all services in that category</li>
+                            <li>On the category page, you can further filter by subcategory, location, and price</li>
+                            <li>You can also sort results by newest, oldest, price (low to high), or price (high to low)</li>
+                        </ol>
+                        
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Popular Categories</h5>
+                        <p>On the home page, you'll find a section showcasing popular categories:</p>
+                        <ol>
+                            <li>Click on any category card to see all services in that category</li>
+                            <li>These categories are determined by the number of available services and user activity</li>
+                        </ol>
+                        
+                        <div class="tip-card">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <p class="mb-0">Browsing categories is a great way to discover services you might not have thought to search for directly. Take some time to explore different categories to see what's available in your area.</p>
+                        </div>
+                    </div>
+
+                    <!-- Search Tips Section -->
+                    <div class="help-section" id="tips">
+                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Search Tips</h2>
+                        <p>Here are some tips to help you get the most out of Linkyoh's search features:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-keyboard me-2 text-primary"></i>Use Specific Keywords</h5>
+                                        <p class="card-text">The more specific your search terms, the more relevant your results will be. For example, "kitchen plumber" instead of just "plumber".</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-map-marked-alt me-2 text-primary"></i>Start with Location</h5>
+                                        <p class="card-text">If proximity is important, start by filtering for your district or location before applying other filters.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-sort-amount-down me-2 text-primary"></i>Use Sorting Options</h5>
+                                        <p class="card-text">After searching, use the sort options to arrange results by newest, price, or other criteria that matter most to you.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-expand-alt me-2 text-primary"></i>Broaden Your Search</h5>
+                                        <p class="card-text">If you're not finding what you need, try using more general terms or fewer filters to see more options.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-heart me-2 text-primary"></i>Save Favorites</h5>
+                                        <p class="card-text">When you find services you like, click the heart icon to save them to your favorites for easy access later.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-history me-2 text-primary"></i>Check Recently Viewed</h5>
+                                        <p class="card-text">Your recently viewed services are saved automatically, making it easy to return to listings you've already seen.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Section -->
+                    <div class="help-section" id="faq">
+                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        How do I search for services in my area?
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="faqOne" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Use the District and Location filters on the search page to find services in your specific area. You can select your district first, then choose a more specific location within that district.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Can I search for multiple keywords at once?
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="faqTwo" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, you can enter multiple keywords separated by spaces. Our search will find listings that match any of the keywords you enter. For example, searching for "plumber electrician" will show results for both plumbers and electricians.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Why am I not seeing any results for my search?
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="faqThree" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        If you're not seeing any results, try these troubleshooting steps:
+                                        <ul>
+                                            <li>Use more general search terms</li>
+                                            <li>Remove some filters that might be too restrictive</li>
+                                            <li>Check if you've selected a location where the service might not be available</li>
+                                            <li>Try searching by category instead of keywords</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        How do I find the newest listings?
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="faqFour" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        After performing a search, look for the "Sort by" dropdown menu above the search results. Select "Newest" to see the most recently added listings first.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        Can I save my search filters for later?
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="faqFive" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Currently, search filters are not saved between sessions. However, you can bookmark the search results page in your browser to save a specific search with all its filters.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Call to Action -->
+                    <div class="text-center mt-5">
+                        <h4 class="mb-4">Ready to find the perfect service?</h4>
+                        <a href="{% url 'search' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-search me-2"></i>Start Searching
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make the sidebar navigation sticky and highlight the current section
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.help-section');
+        
+        // Highlight the active section when scrolling
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll to section when clicking on nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,838 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Frequently Asked Questions | Linkyoh Help{% endblock %}
+
+{% block head %}
+<style>
+    .help-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .help-card {
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .help-card .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .help-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .help-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .help-section:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .help-section-title {
+        margin-bottom: 1.25rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .tip-card {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .warning-card {
+        background-color: rgba(231, 76, 60, 0.1);
+        border-left: 4px solid #e74c3c;
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0.5rem;
+    }
+
+    .nav-pills .nav-link {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: var(--primary-color);
+    }
+
+    .faq-category-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .accordion-button:not(.collapsed) {
+        background-color: rgba(52, 152, 219, 0.1);
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+
+    .accordion-button:focus {
+        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+    }
+
+    .search-box {
+        background-color: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="help-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Frequently Asked Questions</h1>
+                <p class="lead mb-0">Find answers to common questions about using Linkyoh</p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <a href="{% url 'help_center' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Help Center
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Search Box -->
+        <div class="col-12 mb-4">
+            <div class="search-box">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="fas fa-search text-primary"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0" id="faqSearch" placeholder="Search for questions...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-lg-3 mb-4">
+            <div class="card sticky-top" style="top: 6rem; z-index: 999;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Categories</h5>
+                </div>
+                <div class="card-body p-0">
+                    <nav class="nav flex-column nav-pills p-3">
+                        <a class="nav-link" href="#account">Account & Profile</a>
+                        <a class="nav-link" href="#gigs">Creating & Managing Gigs</a>
+                        <a class="nav-link" href="#search">Searching & Browsing</a>
+                        <a class="nav-link" href="#payments">Payments & Pricing</a>
+                        <a class="nav-link" href="#technical">Technical Issues</a>
+                        <a class="nav-link" href="#policies">Policies & Guidelines</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="help-card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Account & Profile Section -->
+                    <div class="help-section" id="account">
+                        <h2 class="help-section-title"><i class="fas fa-user-circle me-2"></i>Account & Profile</h2>
+                        
+                        <div class="accordion" id="accountAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accountOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAccountOne" aria-expanded="true" aria-controls="collapseAccountOne">
+                                        How do I create an account on Linkyoh?
+                                    </button>
+                                </h2>
+                                <div id="collapseAccountOne" class="accordion-collapse collapse show" aria-labelledby="accountOne" data-bs-parent="#accountAccordion">
+                                    <div class="accordion-body">
+                                        <p>Creating an account on Linkyoh is simple:</p>
+                                        <ol>
+                                            <li>Click the "Register" button in the top-right corner of any page</li>
+                                            <li>Fill out the registration form with your name, email, and password</li>
+                                            <li>Verify your email address by clicking the link sent to your inbox</li>
+                                            <li>Complete your profile by adding a profile picture and additional information</li>
+                                        </ol>
+                                        <p>Once registered, you can immediately start browsing services or create your own gig listings.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accountTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAccountTwo" aria-expanded="false" aria-controls="collapseAccountTwo">
+                                        How do I update my profile information?
+                                    </button>
+                                </h2>
+                                <div id="collapseAccountTwo" class="accordion-collapse collapse" aria-labelledby="accountTwo" data-bs-parent="#accountAccordion">
+                                    <div class="accordion-body">
+                                        <p>To update your profile information:</p>
+                                        <ol>
+                                            <li>Log in to your Linkyoh account</li>
+                                            <li>Click on your profile picture in the top-right corner</li>
+                                            <li>Select "My Profile" from the dropdown menu</li>
+                                            <li>Click the "Edit Profile" button</li>
+                                            <li>Update your information in the form</li>
+                                            <li>Click "Save Changes" when you're done</li>
+                                        </ol>
+                                        <p>For more detailed guidance, check out our <a href="{% url 'help_profile' %}">Profile Management Guide</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accountThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAccountThree" aria-expanded="false" aria-controls="collapseAccountThree">
+                                        How do I change my password?
+                                    </button>
+                                </h2>
+                                <div id="collapseAccountThree" class="accordion-collapse collapse" aria-labelledby="accountThree" data-bs-parent="#accountAccordion">
+                                    <div class="accordion-body">
+                                        <p>To change your password:</p>
+                                        <ol>
+                                            <li>Log in to your Linkyoh account</li>
+                                            <li>Click on your profile picture in the top-right corner</li>
+                                            <li>Select "Password Change" from the dropdown menu</li>
+                                            <li>Enter your current password</li>
+                                            <li>Enter your new password twice to confirm</li>
+                                            <li>Click "Change Password"</li>
+                                        </ol>
+                                        <p>If you've forgotten your password, click the "Forgot Password" link on the login page to reset it.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accountFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAccountFour" aria-expanded="false" aria-controls="collapseAccountFour">
+                                        Can I delete my account?
+                                    </button>
+                                </h2>
+                                <div id="collapseAccountFour" class="accordion-collapse collapse" aria-labelledby="accountFour" data-bs-parent="#accountAccordion">
+                                    <div class="accordion-body">
+                                        <p>Yes, you can delete your account, but please note that this action is permanent and will remove all your gigs and profile information from Linkyoh.</p>
+                                        <p>To delete your account:</p>
+                                        <ol>
+                                            <li>Contact our support team through the <a href="{% url 'contact' %}">Contact Us</a> page</li>
+                                            <li>Include your username and the email address associated with your account</li>
+                                            <li>Specify that you want to delete your account</li>
+                                        </ol>
+                                        <p>Our team will process your request and confirm when your account has been deleted.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="accountFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAccountFive" aria-expanded="false" aria-controls="collapseAccountFive">
+                                        Why should I verify my phone number?
+                                    </button>
+                                </h2>
+                                <div id="collapseAccountFive" class="accordion-collapse collapse" aria-labelledby="accountFive" data-bs-parent="#accountAccordion">
+                                    <div class="accordion-body">
+                                        <p>Verifying your phone number provides several benefits:</p>
+                                        <ul>
+                                            <li>Adds an extra layer of security to your account</li>
+                                            <li>Helps build trust with potential customers</li>
+                                            <li>Allows us to contact you if there are issues with your account or gigs</li>
+                                            <li>Verified accounts are often seen as more trustworthy and legitimate</li>
+                                        </ul>
+                                        <p>To verify your phone number, go to your profile settings and look for the "Verify Phone" option.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Creating & Managing Gigs Section -->
+                    <div class="help-section" id="gigs">
+                        <h2 class="help-section-title"><i class="fas fa-clipboard-list me-2"></i>Creating & Managing Gigs</h2>
+                        
+                        <div class="accordion" id="gigsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="gigsOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGigsOne" aria-expanded="true" aria-controls="collapseGigsOne">
+                                        How do I create a new gig?
+                                    </button>
+                                </h2>
+                                <div id="collapseGigsOne" class="accordion-collapse collapse show" aria-labelledby="gigsOne" data-bs-parent="#gigsAccordion">
+                                    <div class="accordion-body">
+                                        <p>To create a new gig:</p>
+                                        <ol>
+                                            <li>Log in to your Linkyoh account</li>
+                                            <li>Click the "Post a Gig" button in the navigation bar</li>
+                                            <li>Fill out the gig creation form with all required information</li>
+                                            <li>Add images, contact information, and service areas (optional)</li>
+                                            <li>Click "Publish Gig" to make your gig live</li>
+                                        </ol>
+                                        <p>For detailed guidance on creating gigs, check out our <a href="{% url 'help_add_gig' %}">How to Add a Gig</a> guide.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="gigsTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGigsTwo" aria-expanded="false" aria-controls="collapseGigsTwo">
+                                        How many gigs can I create?
+                                    </button>
+                                </h2>
+                                <div id="collapseGigsTwo" class="accordion-collapse collapse" aria-labelledby="gigsTwo" data-bs-parent="#gigsAccordion">
+                                    <div class="accordion-body">
+                                        <p>You can create as many gigs as you want on Linkyoh. There is no limit to the number of services you can list.</p>
+                                        <p>However, we recommend focusing on quality over quantity. It's better to have a few well-crafted, detailed gigs than many incomplete or low-quality ones. Each gig should represent a specific service you offer.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="gigsThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGigsThree" aria-expanded="false" aria-controls="collapseGigsThree">
+                                        How do I edit or update my gig?
+                                    </button>
+                                </h2>
+                                <div id="collapseGigsThree" class="accordion-collapse collapse" aria-labelledby="gigsThree" data-bs-parent="#gigsAccordion">
+                                    <div class="accordion-body">
+                                        <p>To edit an existing gig:</p>
+                                        <ol>
+                                            <li>Go to your dashboard by clicking on your profile picture and selecting "My Gigs"</li>
+                                            <li>Find the gig you want to edit</li>
+                                            <li>Click the "Edit" button (pencil icon) on the gig card</li>
+                                            <li>Make your changes in the edit form</li>
+                                            <li>Click "Save Changes" to update your gig</li>
+                                        </ol>
+                                        <p>We recommend regularly updating your gigs with fresh information, new photos, or updated pricing to keep them relevant and attractive to potential customers.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="gigsFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGigsFour" aria-expanded="false" aria-controls="collapseGigsFour">
+                                        What's the difference between deactivating and deleting a gig?
+                                    </button>
+                                </h2>
+                                <div id="collapseGigsFour" class="accordion-collapse collapse" aria-labelledby="gigsFour" data-bs-parent="#gigsAccordion">
+                                    <div class="accordion-body">
+                                        <p><strong>Deactivating a gig:</strong></p>
+                                        <ul>
+                                            <li>Hides it from search results and category listings</li>
+                                            <li>Keeps the gig in your dashboard</li>
+                                            <li>Allows you to reactivate it later</li>
+                                            <li>Preserves all gig data, metrics, and history</li>
+                                        </ul>
+                                        <p><strong>Deleting a gig:</strong></p>
+                                        <ul>
+                                            <li>Permanently removes the gig from Linkyoh</li>
+                                            <li>Cannot be undone</li>
+                                            <li>Removes all associated data and metrics</li>
+                                        </ul>
+                                        <p>We recommend deactivating gigs if you're temporarily unavailable or updating information, and only deleting gigs you no longer offer at all.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="gigsFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGigsFive" aria-expanded="false" aria-controls="collapseGigsFive">
+                                        How can I increase views and engagement for my gigs?
+                                    </button>
+                                </h2>
+                                <div id="collapseGigsFive" class="accordion-collapse collapse" aria-labelledby="gigsFive" data-bs-parent="#gigsAccordion">
+                                    <div class="accordion-body">
+                                        <p>To increase views and engagement for your gigs:</p>
+                                        <ul>
+                                            <li>Use clear, descriptive titles with relevant keywords</li>
+                                            <li>Add high-quality images that showcase your services</li>
+                                            <li>Provide detailed descriptions of what you offer</li>
+                                            <li>Keep your gig information up-to-date</li>
+                                            <li>Add multiple service areas to reach more customers</li>
+                                            <li>Share your gig links on social media or with your network</li>
+                                            <li>Respond promptly to inquiries to build a good reputation</li>
+                                        </ul>
+                                        <p>For more detailed strategies, check out our <a href="{% url 'help_metrics' %}">Metrics Guide</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Searching & Browsing Section -->
+                    <div class="help-section" id="search">
+                        <h2 class="help-section-title"><i class="fas fa-search me-2"></i>Searching & Browsing</h2>
+                        
+                        <div class="accordion" id="searchAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="searchOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearchOne" aria-expanded="true" aria-controls="collapseSearchOne">
+                                        How do I search for services on Linkyoh?
+                                    </button>
+                                </h2>
+                                <div id="collapseSearchOne" class="accordion-collapse collapse show" aria-labelledby="searchOne" data-bs-parent="#searchAccordion">
+                                    <div class="accordion-body">
+                                        <p>There are several ways to search for services on Linkyoh:</p>
+                                        <ul>
+                                            <li><strong>Quick Search:</strong> Use the search bar at the top of any page to search by keyword</li>
+                                            <li><strong>Category Browsing:</strong> Click on a category in the navigation bar to browse services by category</li>
+                                            <li><strong>Advanced Search:</strong> Use the search page with filters for category, location, and price range</li>
+                                        </ul>
+                                        <p>For detailed guidance on searching, check out our <a href="{% url 'help_search' %}">Search Guide</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="searchTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearchTwo" aria-expanded="false" aria-controls="collapseSearchTwo">
+                                        How do I filter search results?
+                                    </button>
+                                </h2>
+                                <div id="collapseSearchTwo" class="accordion-collapse collapse" aria-labelledby="searchTwo" data-bs-parent="#searchAccordion">
+                                    <div class="accordion-body">
+                                        <p>To filter search results:</p>
+                                        <ol>
+                                            <li>Perform a search using the search bar or by clicking on a category</li>
+                                            <li>On the search results page, you'll see filter options in the sidebar</li>
+                                            <li>Filter by category, subcategory, district, location, or price range</li>
+                                            <li>The results will update automatically as you apply filters</li>
+                                            <li>To remove a filter, click the "Clear" button next to it or select a different option</li>
+                                        </ol>
+                                        <p>You can combine multiple filters for more precise results. For example, you can search for "plumbers" in "Belize City" with prices between "$50" and "$100".</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="searchThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearchThree" aria-expanded="false" aria-controls="collapseSearchThree">
+                                        How do I save or bookmark services I'm interested in?
+                                    </button>
+                                </h2>
+                                <div id="collapseSearchThree" class="accordion-collapse collapse" aria-labelledby="searchThree" data-bs-parent="#searchAccordion">
+                                    <div class="accordion-body">
+                                        <p>You can save services you're interested in by "liking" them:</p>
+                                        <ol>
+                                            <li>Log in to your Linkyoh account</li>
+                                            <li>Navigate to the gig you want to save</li>
+                                            <li>Click the heart icon on the gig card or gig detail page</li>
+                                            <li>The heart will turn solid to indicate you've liked the gig</li>
+                                        </ol>
+                                        <p>To view your liked gigs later, go to your profile and look for the "Liked Gigs" or "Favorites" section.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="searchFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearchFour" aria-expanded="false" aria-controls="collapseSearchFour">
+                                        Why am I not seeing any results for my search?
+                                    </button>
+                                </h2>
+                                <div id="collapseSearchFour" class="accordion-collapse collapse" aria-labelledby="searchFour" data-bs-parent="#searchAccordion">
+                                    <div class="accordion-body">
+                                        <p>If you're not seeing any results for your search, try these troubleshooting steps:</p>
+                                        <ul>
+                                            <li>Use more general search terms (e.g., "plumber" instead of "bathroom plumber")</li>
+                                            <li>Remove some filters that might be too restrictive</li>
+                                            <li>Check if you've selected a location where the service might not be available</li>
+                                            <li>Try searching by category instead of keywords</li>
+                                            <li>Check your spelling for any errors</li>
+                                        </ul>
+                                        <p>If you still can't find what you're looking for, it's possible that no service providers in that category are currently listed on Linkyoh in your area.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="searchFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearchFive" aria-expanded="false" aria-controls="collapseSearchFive">
+                                        How do I find services in my specific area?
+                                    </button>
+                                </h2>
+                                <div id="collapseSearchFive" class="accordion-collapse collapse" aria-labelledby="searchFive" data-bs-parent="#searchAccordion">
+                                    <div class="accordion-body">
+                                        <p>To find services in your specific area:</p>
+                                        <ol>
+                                            <li>Perform a search for the type of service you need</li>
+                                            <li>On the search results page, look for the location filters in the sidebar</li>
+                                            <li>First select your district from the "District" dropdown</li>
+                                            <li>Then select your specific location from the "Location" dropdown</li>
+                                            <li>The results will update to show only services available in your selected area</li>
+                                        </ol>
+                                        <p>You can also include your location in the search term, such as "plumber Belize City" or "electrician San Pedro".</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payments & Pricing Section -->
+                    <div class="help-section" id="payments">
+                        <h2 class="help-section-title"><i class="fas fa-dollar-sign me-2"></i>Payments & Pricing</h2>
+                        
+                        <div class="accordion" id="paymentsAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="paymentsOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePaymentsOne" aria-expanded="true" aria-controls="collapsePaymentsOne">
+                                        Is it free to list my services on Linkyoh?
+                                    </button>
+                                </h2>
+                                <div id="collapsePaymentsOne" class="accordion-collapse collapse show" aria-labelledby="paymentsOne" data-bs-parent="#paymentsAccordion">
+                                    <div class="accordion-body">
+                                        <p>Yes, it is completely free to create an account and list your services on Linkyoh. There are no fees for:</p>
+                                        <ul>
+                                            <li>Creating a user account</li>
+                                            <li>Setting up your profile</li>
+                                            <li>Creating and publishing gigs</li>
+                                            <li>Receiving inquiries from potential customers</li>
+                                        </ul>
+                                        <p>Linkyoh is a platform that connects service providers with customers, and we do not charge any commission or fees for this connection.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="paymentsTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePaymentsTwo" aria-expanded="false" aria-controls="collapsePaymentsTwo">
+                                        How do I set pricing for my services?
+                                    </button>
+                                </h2>
+                                <div id="collapsePaymentsTwo" class="accordion-collapse collapse" aria-labelledby="paymentsTwo" data-bs-parent="#paymentsAccordion">
+                                    <div class="accordion-body">
+                                        <p>When creating or editing a gig, you have two options for pricing:</p>
+                                        <ol>
+                                            <li><strong>Set a specific price:</strong> Enter the cost of your service in the "Price" field. This is good for services with standard pricing.</li>
+                                            <li><strong>Call for pricing:</strong> Check the "Call for pricing" option if your pricing varies based on the specific job. This is good for services where you need to assess the work before providing a quote.</li>
+                                        </ol>
+                                        <p>Tips for effective pricing:</p>
+                                        <ul>
+                                            <li>Research what similar services charge in your area</li>
+                                            <li>Consider your experience, expertise, and the quality of your service</li>
+                                            <li>Be transparent about what is included in your price</li>
+                                            <li>If you offer different service levels or packages, mention this in your description</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="paymentsThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePaymentsThree" aria-expanded="false" aria-controls="collapsePaymentsThree">
+                                        Does Linkyoh handle payments between customers and service providers?
+                                    </button>
+                                </h2>
+                                <div id="collapsePaymentsThree" class="accordion-collapse collapse" aria-labelledby="paymentsThree" data-bs-parent="#paymentsAccordion">
+                                    <div class="accordion-body">
+                                        <p>No, Linkyoh does not currently handle payments between customers and service providers. All payment arrangements are made directly between you and your customers.</p>
+                                        <p>This means:</p>
+                                        <ul>
+                                            <li>You can accept whatever payment methods work best for you and your customers</li>
+                                            <li>You are responsible for collecting payment for your services</li>
+                                            <li>You should clearly communicate your payment terms and accepted methods to your customers</li>
+                                        </ul>
+                                        <p>We recommend discussing payment details with customers before beginning any work to avoid misunderstandings.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="paymentsFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePaymentsFour" aria-expanded="false" aria-controls="collapsePaymentsFour">
+                                        Are there any premium or featured listing options?
+                                    </button>
+                                </h2>
+                                <div id="collapsePaymentsFour" class="accordion-collapse collapse" aria-labelledby="paymentsFour" data-bs-parent="#paymentsAccordion">
+                                    <div class="accordion-body">
+                                        <p>Currently, Linkyoh offers featured listing opportunities for select gigs. Featured gigs receive increased visibility on the platform, including placement on the homepage and at the top of category listings.</p>
+                                        <p>Featured gigs are selected by our admin team based on several factors:</p>
+                                        <ul>
+                                            <li>Completeness and quality of the gig listing</li>
+                                            <li>Professional presentation with high-quality images</li>
+                                            <li>Positive customer feedback and engagement</li>
+                                            <li>Consistent activity and responsiveness</li>
+                                        </ul>
+                                        <p>If you're interested in having your gig featured, focus on creating a complete, professional listing and providing excellent service. You can also contact our support team to inquire about featured opportunities.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Technical Issues Section -->
+                    <div class="help-section" id="technical">
+                        <h2 class="help-section-title"><i class="fas fa-wrench me-2"></i>Technical Issues</h2>
+                        
+                        <div class="accordion" id="technicalAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="technicalOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTechnicalOne" aria-expanded="true" aria-controls="collapseTechnicalOne">
+                                        I can't upload images to my gig. What should I do?
+                                    </button>
+                                </h2>
+                                <div id="collapseTechnicalOne" class="accordion-collapse collapse show" aria-labelledby="technicalOne" data-bs-parent="#technicalAccordion">
+                                    <div class="accordion-body">
+                                        <p>If you're having trouble uploading images to your gig, try these troubleshooting steps:</p>
+                                        <ol>
+                                            <li><strong>Check image format:</strong> Make sure your images are in a supported format (JPG, JPEG, PNG, or GIF)</li>
+                                            <li><strong>Check image size:</strong> Images should be less than 5MB in size</li>
+                                            <li><strong>Try a different browser:</strong> Sometimes browser issues can affect uploads</li>
+                                            <li><strong>Clear your browser cache:</strong> Cached data can sometimes cause upload problems</li>
+                                            <li><strong>Check your internet connection:</strong> A stable connection is needed for uploads</li>
+                                        </ol>
+                                        <p>If you're still having issues after trying these steps, please contact our support team for assistance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="technicalTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTechnicalTwo" aria-expanded="false" aria-controls="collapseTechnicalTwo">
+                                        I'm not receiving email notifications. What's wrong?
+                                    </button>
+                                </h2>
+                                <div id="collapseTechnicalTwo" class="accordion-collapse collapse" aria-labelledby="technicalTwo" data-bs-parent="#technicalAccordion">
+                                    <div class="accordion-body">
+                                        <p>If you're not receiving email notifications from Linkyoh, try these troubleshooting steps:</p>
+                                        <ol>
+                                            <li><strong>Check your spam/junk folder:</strong> Our emails might be filtered there</li>
+                                            <li><strong>Add our email to your contacts:</strong> Add support@linkyoh.com to your email contacts</li>
+                                            <li><strong>Check your email address:</strong> Make sure the email address in your profile is correct</li>
+                                            <li><strong>Check notification settings:</strong> Ensure you haven't disabled notifications in your account settings</li>
+                                        </ol>
+                                        <p>If you've tried these steps and still aren't receiving emails, please contact our support team for assistance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="technicalThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTechnicalThree" aria-expanded="false" aria-controls="collapseTechnicalThree">
+                                        The website is loading slowly. How can I fix this?
+                                    </button>
+                                </h2>
+                                <div id="collapseTechnicalThree" class="accordion-collapse collapse" aria-labelledby="technicalThree" data-bs-parent="#technicalAccordion">
+                                    <div class="accordion-body">
+                                        <p>If Linkyoh is loading slowly for you, try these troubleshooting steps:</p>
+                                        <ol>
+                                            <li><strong>Check your internet connection:</strong> Run a speed test to ensure your connection is stable</li>
+                                            <li><strong>Clear your browser cache:</strong> Accumulated cache data can slow down website loading</li>
+                                            <li><strong>Try a different browser:</strong> Some browsers may perform better than others</li>
+                                            <li><strong>Disable browser extensions:</strong> Some extensions can affect website performance</li>
+                                            <li><strong>Try a different device:</strong> If possible, see if the site loads faster on another device</li>
+                                        </ol>
+                                        <p>If the site is consistently slow across different devices and browsers, please let us know so we can investigate potential server issues.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="technicalFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTechnicalFour" aria-expanded="false" aria-controls="collapseTechnicalFour">
+                                        Is Linkyoh mobile-friendly?
+                                    </button>
+                                </h2>
+                                <div id="collapseTechnicalFour" class="accordion-collapse collapse" aria-labelledby="technicalFour" data-bs-parent="#technicalAccordion">
+                                    <div class="accordion-body">
+                                        <p>Yes, Linkyoh is fully responsive and mobile-friendly. You can access and use all features of the platform on smartphones, tablets, and desktop computers.</p>
+                                        <p>Our responsive design automatically adjusts to fit your screen size, providing an optimal viewing and interaction experience across all devices.</p>
+                                        <p>While we don't currently have a dedicated mobile app, our mobile website offers the full functionality of the desktop version, allowing you to:</p>
+                                        <ul>
+                                            <li>Browse and search for services</li>
+                                            <li>Create and manage your gigs</li>
+                                            <li>Update your profile</li>
+                                            <li>Contact service providers</li>
+                                            <li>View metrics and analytics</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Policies & Guidelines Section -->
+                    <div class="help-section" id="policies">
+                        <h2 class="help-section-title"><i class="fas fa-shield-alt me-2"></i>Policies & Guidelines</h2>
+                        
+                        <div class="accordion" id="policiesAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="policiesOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoliciesOne" aria-expanded="true" aria-controls="collapsePoliciesOne">
+                                        What types of services are allowed on Linkyoh?
+                                    </button>
+                                </h2>
+                                <div id="collapsePoliciesOne" class="accordion-collapse collapse show" aria-labelledby="policiesOne" data-bs-parent="#policiesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Linkyoh welcomes a wide range of legal services that comply with our terms of service. Generally, we allow:</p>
+                                        <ul>
+                                            <li>Professional services (accounting, legal, consulting, etc.)</li>
+                                            <li>Home services (plumbing, electrical, cleaning, etc.)</li>
+                                            <li>Creative services (design, photography, writing, etc.)</li>
+                                            <li>Educational services (tutoring, coaching, training, etc.)</li>
+                                            <li>Health and wellness services (fitness, nutrition, etc.)</li>
+                                            <li>Technical services (IT support, web development, etc.)</li>
+                                            <li>And many other legal service categories</li>
+                                        </ul>
+                                        <p>Services that are not allowed include those that:</p>
+                                        <ul>
+                                            <li>Are illegal or promote illegal activities</li>
+                                            <li>Violate intellectual property rights</li>
+                                            <li>Involve adult content or services</li>
+                                            <li>Promote discrimination or hate speech</li>
+                                            <li>Involve the sale of prohibited items</li>
+                                        </ul>
+                                        <p>For a complete list, please refer to our <a href="{% url 'terms' %}">Terms of Service</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="policiesTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoliciesTwo" aria-expanded="false" aria-controls="collapsePoliciesTwo">
+                                        What are the guidelines for gig content?
+                                    </button>
+                                </h2>
+                                <div id="collapsePoliciesTwo" class="accordion-collapse collapse" aria-labelledby="policiesTwo" data-bs-parent="#policiesAccordion">
+                                    <div class="accordion-body">
+                                        <p>When creating gigs on Linkyoh, please follow these content guidelines:</p>
+                                        <ul>
+                                            <li><strong>Accuracy:</strong> Provide truthful and accurate information about your services</li>
+                                            <li><strong>Clarity:</strong> Clearly describe what you offer, including any limitations or requirements</li>
+                                            <li><strong>Professionalism:</strong> Use professional language and avoid slang, excessive capitalization, or symbols</li>
+                                            <li><strong>Images:</strong> Use high-quality, relevant images that you have the right to use</li>
+                                            <li><strong>Contact Info:</strong> Keep contact information in the designated fields (don't put phone numbers in titles)</li>
+                                            <li><strong>Categorization:</strong> List your gig in the most appropriate category and subcategory</li>
+                                        </ul>
+                                        <p>Content that violates these guidelines may be removed, and repeated violations could result in account suspension.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="policiesThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoliciesThree" aria-expanded="false" aria-controls="collapsePoliciesThree">
+                                        How does Linkyoh handle privacy and data protection?
+                                    </button>
+                                </h2>
+                                <div id="collapsePoliciesThree" class="accordion-collapse collapse" aria-labelledby="policiesThree" data-bs-parent="#policiesAccordion">
+                                    <div class="accordion-body">
+                                        <p>Linkyoh takes privacy and data protection seriously. Here's how we handle your information:</p>
+                                        <ul>
+                                            <li>We collect only the information necessary to provide our services</li>
+                                            <li>We use industry-standard security measures to protect your data</li>
+                                            <li>We do not sell your personal information to third parties</li>
+                                            <li>We give you control over your privacy settings and what information is visible to others</li>
+                                            <li>We comply with applicable data protection regulations</li>
+                                        </ul>
+                                        <p>For complete details on how we collect, use, and protect your information, please review our <a href="{% url 'privacy' %}">Privacy Policy</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="policiesFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoliciesFour" aria-expanded="false" aria-controls="collapsePoliciesFour">
+                                        How do I report inappropriate content or behavior?
+                                    </button>
+                                </h2>
+                                <div id="collapsePoliciesFour" class="accordion-collapse collapse" aria-labelledby="policiesFour" data-bs-parent="#policiesAccordion">
+                                    <div class="accordion-body">
+                                        <p>If you encounter content or behavior that violates our terms of service or community guidelines, please report it to us:</p>
+                                        <ol>
+                                            <li>Contact our support team through the <a href="{% url 'contact' %}">Contact Us</a> page</li>
+                                            <li>Include the URL or specific details of the content you're reporting</li>
+                                            <li>Explain why you believe it violates our policies</li>
+                                            <li>Provide any additional relevant information</li>
+                                        </ol>
+                                        <p>Our team will review your report promptly and take appropriate action. We appreciate your help in keeping Linkyoh a safe and positive platform for everyone.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Still Need Help Section -->
+                    <div class="text-center mt-5">
+                        <h4 class="mb-4">Still have questions?</h4>
+                        <p class="mb-4">If you couldn't find the answer you were looking for, our support team is here to help.</p>
+                        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Make the sidebar navigation sticky and highlight the current section
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.help-section');
+        
+        // Highlight the active section when scrolling
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scroll to section when clicking on nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // FAQ Search functionality
+        const searchInput = document.getElementById('faqSearch');
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        
+        searchInput.addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            accordionItems.forEach(item => {
+                const questionText = item.querySelector('.accordion-button').textContent.toLowerCase();
+                const answerText = item.querySelector('.accordion-body').textContent.toLowerCase();
+                
+                if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
