@@ -14,15 +14,35 @@ from django.urls import reverse_lazy, reverse
 from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 
 import credentials
+import json
+import re
 
 from .auth_views import CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
 
-from .models import Gig, Profile, Location, District, Category, SubCategory, Review, GigImage, GigContact, GigServiceArea, Stats, GigClaimRequest
+# Helper function to get client IP address
+def _get_client_ip(request):
+    """Get the client IP address from the request"""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
+    return ip_address
+
+from .models import (
+    Gig, Profile, Location, District, Category, SubCategory, Review, 
+    GigImage, GigContact, GigServiceArea, Stats, GigClaimRequest,
+    Conversation, Message, MessageFile
+)
 from .forms import (
     GigForm, ReviewForm, ContactForm, UserRegistrationForm, ProfileForm,
-    GigImageFormSet, GigContactFormSet, GigServiceAreaFormSet, GigClaimRequestForm
+    GigImageFormSet, GigContactFormSet, GigServiceAreaFormSet, GigClaimRequestForm,
+    ConversationForm, MessageForm, MessageFileForm
 )
 
 
@@ -1433,3 +1453,443 @@ def track_event(request):
 
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+
+# Messaging System Views
+
+class ConversationListView(LoginRequiredMixin, ListView):
+    """
+    View for listing all conversations for the current user.
+    """
+    model = Conversation
+    template_name = 'messaging/conversation_list.html'
+    context_object_name = 'conversations'
+    paginate_by = 20
+
+    def get_queryset(self):
+        """Get all conversations for the current user that haven't been deleted by them"""
+        return Conversation.get_conversations_for_user(self.request.user).select_related(
+            'initiator', 'recipient', 'gig', 'initiator__profile', 'recipient__profile'
+        ).prefetch_related('messages')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Add unread message count
+        context['unread_count'] = Message.get_unread_count_for_user(self.request.user)
+
+        # Add conversations with last message and other participant info
+        conversations_with_details = []
+        for conversation in context['conversations']:
+            last_message = conversation.get_last_message()
+            other_participant = conversation.get_other_participant(self.request.user)
+
+            # Skip if there's no last message (shouldn't happen in practice)
+            if not last_message:
+                continue
+
+            conversations_with_details.append({
+                'conversation': conversation,
+                'last_message': last_message,
+                'other_participant': other_participant,
+                'unread': last_message.sender != self.request.user and not last_message.is_read,
+                'profile': getattr(other_participant, 'profile', None),
+            })
+
+        context['conversations_with_details'] = conversations_with_details
+        return context
+
+
+class ConversationDetailView(LoginRequiredMixin, DetailView):
+    """
+    View for displaying a single conversation with all its messages.
+    """
+    model = Conversation
+    template_name = 'messaging/conversation_detail.html'
+    context_object_name = 'conversation'
+
+    def get_queryset(self):
+        """Only allow access to conversations the user is part of"""
+        return Conversation.objects.filter(
+            (Q(initiator=self.request.user) & Q(deleted_by_initiator=False)) |
+            (Q(recipient=self.request.user) & Q(deleted_by_recipient=False))
+        ).select_related('initiator', 'recipient', 'gig', 'initiator__profile', 'recipient__profile')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        conversation = self.get_object()
+
+        # Get all messages for this conversation
+        messages = conversation.messages.select_related('sender', 'sender__profile').prefetch_related(
+            'files', 'mentioned_gigs'
+        ).order_by('created_at')
+
+        # Mark unread messages as read if the current user is the recipient
+        unread_messages = messages.exclude(
+            sender=self.request.user
+        ).filter(
+            is_read=False
+        )
+        for message in unread_messages:
+            message.mark_as_read()
+
+        # Add the message form for replying
+        context['message_form'] = MessageForm(conversation=conversation, sender=self.request.user)
+        context['file_form'] = MessageFileForm()
+        context['messages'] = messages
+        context['other_participant'] = conversation.get_other_participant(self.request.user)
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """Handle message submission from the conversation detail page"""
+        conversation = self.get_object()
+        message_form = MessageForm(request.POST, conversation=conversation, sender=request.user)
+
+        if message_form.is_valid():
+            message = message_form.save()
+
+            # Track message sent metrics
+            Stats.track_message_sent(
+                message=message,
+                user=request.user,
+                ip_address=_get_client_ip(request)
+            )
+
+            # Handle file uploads if any
+            files = request.FILES.getlist('file')
+            for file in files:
+                file_form = MessageFileForm({'file': file})
+                if file_form.is_valid():
+                    message_file = file_form.save(commit=False)
+                    message_file.message = message
+                    message_file.save()
+
+                    # Track file shared metrics
+                    Stats.track_file_shared(
+                        message_file=message_file,
+                        user=request.user,
+                        ip_address=_get_client_ip(request)
+                    )
+
+            # Process any gig mentions in the message content
+            self._process_gig_mentions(message)
+
+            # Fetch the message again to ensure we have all related data
+            message = Message.objects.select_related('sender', 'sender__profile').prefetch_related(
+                'files', 'mentioned_gigs'
+            ).get(pk=message.pk)
+
+            # If this is an HTMX request, return just the new message
+            if request.headers.get('HX-Request'):
+                return render(request, 'messaging/partials/message.html', {
+                    'message': message,
+                    'user': request.user,
+                })
+
+            # Otherwise redirect back to the conversation
+            return redirect('conversation_detail', pk=conversation.pk)
+
+        # If form is invalid, re-render the page with the form errors
+        return self.get(request, *args, **kwargs)
+
+    def _process_gig_mentions(self, message):
+        """Process @gig mentions in the message content"""
+        # Regular expression to find @gig mentions
+        # Format: @gig[gig_id]
+        mention_pattern = r'@gig\[(\d+)\]'
+
+        # Find all mentions in the message content
+        mentions = re.findall(mention_pattern, message.content)
+
+        # Add mentioned gigs to the message
+        for gig_id in mentions:
+            try:
+                gig = Gig.objects.get(id=gig_id)
+                message.mentioned_gigs.add(gig)
+
+                # Track gig mention metrics
+                Stats.track_gig_mentioned(
+                    message=message,
+                    gig=gig,
+                    user=self.request.user,
+                    ip_address=_get_client_ip(self.request)
+                )
+            except Gig.DoesNotExist:
+                # Skip if the gig doesn't exist
+                pass
+
+
+class CreateConversationView(LoginRequiredMixin, CreateView):
+    """
+    View for starting a new conversation with another user.
+    """
+    model = Conversation
+    form_class = ConversationForm
+    template_name = 'messaging/create_conversation.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['initiator'] = self.request.user
+        return kwargs
+
+    def get_initial(self):
+        initial = super().get_initial()
+
+        # Set recipient from URL parameter if provided
+        recipient_id = self.kwargs.get('recipient_id')
+        if recipient_id:
+            try:
+                initial['recipient'] = User.objects.get(id=recipient_id)
+            except User.DoesNotExist:
+                pass
+
+        # Set gig from URL parameter if provided
+        gig_id = self.kwargs.get('gig_id')
+        if gig_id:
+            try:
+                initial['gig'] = Gig.objects.get(id=gig_id)
+            except Gig.DoesNotExist:
+                pass
+
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Add recipient and gig details to context if available
+        recipient_id = self.kwargs.get('recipient_id')
+        if recipient_id:
+            try:
+                recipient = User.objects.select_related('profile').get(id=recipient_id)
+                context['recipient'] = recipient
+            except User.DoesNotExist:
+                pass
+
+        gig_id = self.kwargs.get('gig_id')
+        if gig_id:
+            try:
+                gig = Gig.objects.get(id=gig_id)
+                context['gig'] = gig
+            except Gig.DoesNotExist:
+                pass
+
+        return context
+
+    def get_success_url(self):
+        return reverse('conversation_detail', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        """Track metrics when a conversation is started"""
+        response = super().form_valid(form)
+
+        # Track the conversation started event
+        Stats.track_conversation_started(
+            conversation=self.object,
+            user=self.request.user,
+            ip_address=_get_client_ip(self.request)
+        )
+
+        return response
+
+
+@login_required
+def start_conversation(request, recipient_id=None, gig_id=None):
+    """
+    View for starting a new conversation from a user profile or gig detail page.
+    This is a wrapper around CreateConversationView for easier URL configuration.
+    """
+    view = CreateConversationView.as_view()
+    return view(request, recipient_id=recipient_id, gig_id=gig_id)
+
+
+@login_required
+def delete_conversation(request, pk):
+    """
+    View for "deleting" (hiding) a conversation for the current user.
+    """
+    conversation = get_object_or_404(Conversation, pk=pk)
+
+    # Check if the user is a participant in this conversation
+    if not conversation.is_participant(request.user):
+        messages.error(request, _("You don't have permission to delete this conversation."))
+        return redirect('conversation_list')
+
+    # Mark the conversation as deleted for this user
+    conversation.mark_as_deleted(request.user)
+
+    messages.success(request, _("Conversation deleted successfully."))
+    return redirect('conversation_list')
+
+
+@login_required
+@require_POST
+def send_message(request, conversation_id):
+    """
+    HTMX endpoint for sending a message in a conversation.
+    """
+    conversation = get_object_or_404(
+        Conversation.objects.filter(
+            (Q(initiator=request.user) & Q(deleted_by_initiator=False)) |
+            (Q(recipient=request.user) & Q(deleted_by_recipient=False))
+        ),
+        pk=conversation_id
+    )
+
+    # Process the message form
+    form = MessageForm(request.POST, conversation=conversation, sender=request.user)
+
+    if form.is_valid():
+        message = form.save()
+
+        # Process any gig mentions in the message content
+        mention_pattern = r'@gig\[(\d+)\]'
+        mentions = re.findall(mention_pattern, message.content)
+
+        for gig_id in mentions:
+            try:
+                gig = Gig.objects.get(id=gig_id)
+                message.mentioned_gigs.add(gig)
+
+                # Track gig mention metrics
+                Stats.track_gig_mentioned(
+                    message=message,
+                    gig=gig,
+                    user=request.user,
+                    ip_address=_get_client_ip(request)
+                )
+            except Gig.DoesNotExist:
+                pass
+
+        # Track message sent metrics
+        Stats.track_message_sent(
+            message=message,
+            user=request.user,
+            ip_address=_get_client_ip(request)
+        )
+
+        # Fetch the message again to ensure we have all related data
+        message = Message.objects.select_related('sender', 'sender__profile').prefetch_related(
+            'files', 'mentioned_gigs'
+        ).get(pk=message.pk)
+
+        # Return the new message HTML
+        return render(request, 'messaging/partials/message.html', {
+            'message': message,
+            'user': request.user,
+        })
+
+    # Return form errors
+    return JsonResponse({'errors': form.errors}, status=400)
+
+
+@login_required
+@require_POST
+def upload_message_file(request, conversation_id):
+    """
+    HTMX endpoint for uploading a file in a conversation.
+    """
+    conversation = get_object_or_404(
+        Conversation.objects.filter(
+            (Q(initiator=request.user) & Q(deleted_by_initiator=False)) |
+            (Q(recipient=request.user) & Q(deleted_by_recipient=False))
+        ),
+        pk=conversation_id
+    )
+
+    # First create a message to attach the file to
+    message_form = MessageForm({
+        'content': request.POST.get('content', _('Shared a file'))
+    }, conversation=conversation, sender=request.user)
+
+    if message_form.is_valid():
+        message = message_form.save()
+
+        # Track message sent metrics
+        Stats.track_message_sent(
+            message=message,
+            user=request.user,
+            ip_address=_get_client_ip(request)
+        )
+
+        # Process the file upload
+        file = request.FILES.get('file')
+        if file:
+            file_form = MessageFileForm({'file': file})
+            if file_form.is_valid():
+                message_file = file_form.save(commit=False)
+                message_file.message = message
+                message_file.save()
+
+                # Track file shared metrics
+                Stats.track_file_shared(
+                    message_file=message_file,
+                    user=request.user,
+                    ip_address=_get_client_ip(request)
+                )
+
+                # Fetch the message again to ensure we have all related data
+                message = Message.objects.select_related('sender', 'sender__profile').prefetch_related(
+                    'files', 'mentioned_gigs'
+                ).get(pk=message.pk)
+
+                # Return the new message HTML
+                return render(request, 'messaging/partials/message.html', {
+                    'message': message,
+                    'user': request.user,
+                })
+
+    # Return form errors
+    errors = {}
+    if not message_form.is_valid():
+        errors.update(message_form.errors)
+
+    return JsonResponse({'errors': errors}, status=400)
+
+
+@login_required
+@require_http_methods(["GET"])
+def search_gigs_for_mention(request):
+    """
+    HTMX endpoint for searching gigs to mention in a message.
+    Used for the @mention functionality.
+    """
+    query = request.GET.get('q', '')
+    if not query or len(query) < 2:
+        return JsonResponse({'results': []})
+
+    # Search for gigs matching the query
+    gigs = Gig.objects.filter(
+        Q(title__icontains=query) | 
+        Q(description__icontains=query)
+    ).filter(status=True)[:10]
+
+    results = [{
+        'id': gig.id,
+        'title': gig.title,
+        'photo_url': gig.get_photo_url(),
+        'category': gig.category.category,
+        'mention_text': f'@gig[{gig.id}]'
+    } for gig in gigs]
+
+    return JsonResponse({'results': results})
+
+
+@login_required
+def messages_index(request):
+    """
+    View for the messages index page.
+    This is a wrapper around ConversationListView for easier URL configuration.
+    """
+    view = ConversationListView.as_view()
+    return view(request)
+
+
+@login_required
+def conversation_detail(request, pk):
+    """
+    View for the conversation detail page.
+    This is a wrapper around ConversationDetailView for easier URL configuration.
+    """
+    view = ConversationDetailView.as_view()
+    return view(request, pk=pk)

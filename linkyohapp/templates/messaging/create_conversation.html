@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Start a New Conversation | Linkyoh{% endblock %}
+
+{% block page %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h1 class="h3 mb-0">Start a New Conversation</h1>
+                </div>
+                <div class="card-body">
+                    {% if recipient %}
+                        <div class="mb-4">
+                            <h5>Sending message to:</h5>
+                            <div class="d-flex align-items-center">
+                                {% if recipient.profile.avatar %}
+                                    <img src="{{ recipient.profile.avatar.url }}" alt="{{ recipient.username }}" 
+                                         class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <div class="rounded-circle bg-secondary me-3 d-flex align-items-center justify-content-center" 
+                                         style="width: 50px; height: 50px; color: white;">
+                                        {{ recipient.username|first|upper }}
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <h5 class="mb-1">{{ recipient.profile.get_display_name }}</h5>
+                                    <p class="text-muted mb-0">{{ recipient.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if gig %}
+                        <div class="mb-4">
+                            <h5>Regarding:</h5>
+                            <div class="card mb-3">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="{{ gig.get_photo_url }}" class="img-fluid rounded-start" alt="{{ gig.title }}">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ gig.title }}</h5>
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-tag me-1"></i> {{ gig.category.category }} > {{ gig.sub_category.subcategory }}
+                                                </small>
+                                            </p>
+                                            <a href="{% url 'gig_detail' gig.id %}" class="btn btn-sm btn-outline-primary">
+                                                View Gig
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if not recipient %}
+                            <div class="mb-3">
+                                <label for="id_recipient" class="form-label">Recipient</label>
+                                <select name="recipient" id="id_recipient" class="form-select" required>
+                                    <option value="">Select a user</option>
+                                    {% for user in users %}
+                                        <option value="{{ user.id }}">{{ user.profile.get_display_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if form.recipient.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.recipient.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <input type="hidden" name="recipient" value="{{ recipient.id }}">
+                        {% endif %}
+
+                        {% if not gig %}
+                            <div class="mb-3">
+                                <label for="id_gig" class="form-label">Regarding Gig (Optional)</label>
+                                <select name="gig" id="id_gig" class="form-select">
+                                    <option value="">Select a gig (optional)</option>
+                                    {% for g in gigs %}
+                                        <option value="{{ g.id }}">{{ g.title }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if form.gig.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {% for error in form.gig.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            <input type="hidden" name="gig" value="{{ gig.id }}">
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="id_initial_message" class="form-label">{{ form.initial_message.label }}</label>
+                            <textarea name="initial_message" id="id_initial_message" 
+                                      class="form-control {% if form.initial_message.errors %}is-invalid{% endif %}" 
+                                      rows="5" required>{{ form.initial_message.value|default:'' }}</textarea>
+                            {% if form.initial_message.help_text %}
+                                <div class="form-text">{{ form.initial_message.help_text }}</div>
+                            {% endif %}
+                            {% if form.initial_message.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.initial_message.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'conversation_list' %}" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-1"></i> Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

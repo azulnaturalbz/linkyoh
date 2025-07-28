@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Messages | Linkyoh{% endblock %}
+
+{% block page %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">Messages</h1>
+
+            {% if conversations %}
+                <div class="card shadow-sm">
+                    <div class="list-group list-group-flush">
+                        {% for item in conversations_with_details %}
+                            <a href="{% url 'conversation_detail' item.conversation.id %}" 
+                               class="list-group-item list-group-item-action {% if item.unread %}fw-bold{% endif %}">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        {% if item.profile.avatar %}
+                                            <img src="{{ item.profile.avatar.url }}" alt="{{ item.other_participant.username }}" 
+                                                 class="rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                        {% else %}
+                                            <div class="rounded-circle bg-secondary me-3 d-flex align-items-center justify-content-center" 
+                                                 style="width: 50px; height: 50px; color: white;">
+                                                {{ item.other_participant.username|first|upper }}
+                                            </div>
+                                        {% endif %}
+                                        <div>
+                                            <h5 class="mb-1">
+                                                {{ item.profile.get_display_name }}
+                                                {% if item.unread %}
+                                                    <span class="badge bg-primary rounded-pill ms-2">New</span>
+                                                {% endif %}
+                                            </h5>
+                                            <p class="mb-1 text-truncate" style="max-width: 500px;">
+                                                {% if item.last_message.sender == user %}
+                                                    <span class="text-muted">You: </span>
+                                                {% endif %}
+                                                {{ item.last_message.content }}
+                                            </p>
+                                            {% if item.conversation.gig %}
+                                                <small class="text-muted">
+                                                    <i class="fas fa-tag me-1"></i> {{ item.conversation.gig.title }}
+                                                </small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">
+                                        {{ item.last_message.created_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="card shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-comments fa-4x mb-3 text-muted"></i>
+                        <h3>No messages yet</h3>
+                        <p class="text-muted">
+                            When you start conversations with other users, they'll appear here.
+                        </p>
+                        <a href="{% url 'home' %}" class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i> Find Gigs
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

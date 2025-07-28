@@ -25,6 +25,9 @@ from django_extensions.db import fields as extension_fields
 from django.core.validators import RegexValidator
 from phonenumber_field.modelfields import PhoneNumberField
 
+# Import for file upload validation
+from django.core.validators import FileExtensionValidator
+
 # Import image processing utilities
 from .image_utils import process_avatar, process_cover, process_gig_photo, process_image, ImageProcessingError
 
@@ -760,6 +763,12 @@ class Stats(models.Model):
     SUBCATEGORY_VIEW = 'subcategory_view'
     SEARCH = 'search'
 
+    # Messaging metrics
+    CONVERSATION_STARTED = 'conversation_started'
+    MESSAGE_SENT = 'message_sent'
+    FILE_SHARED = 'file_shared'
+    GIG_MENTIONED = 'gig_mentioned'
+
     METRIC_TYPE_CHOICES = [
         (VIEW, 'View'),
         (CONTACT_CLICK, 'Contact Click'),
@@ -768,6 +777,12 @@ class Stats(models.Model):
         (CATEGORY_VIEW, 'Category View'),
         (SUBCATEGORY_VIEW, 'Subcategory View'),
         (SEARCH, 'Search'),
+
+        # Messaging metrics
+        (CONVERSATION_STARTED, 'Conversation Started'),
+        (MESSAGE_SENT, 'Message Sent'),
+        (FILE_SHARED, 'File Shared'),
+        (GIG_MENTIONED, 'Gig Mentioned'),
     ]
 
     # Fields
@@ -902,6 +917,76 @@ class Stats(models.Model):
         )
 
     @classmethod
+    def track_conversation_started(cls, conversation, user=None, ip_address=None):
+        """Track when a new conversation is started"""
+        metadata = {
+            'recipient_id': conversation.recipient.id,
+            'has_gig': bool(conversation.gig)
+        }
+
+        if conversation.gig:
+            metadata['gig_id'] = conversation.gig.id
+            metadata['gig_title'] = conversation.gig.title
+
+        return cls.objects.create(
+            metric_type=cls.CONVERSATION_STARTED,
+            user=user,
+            ip_address=ip_address,
+            metadata=metadata
+        )
+
+    @classmethod
+    def track_message_sent(cls, message, user=None, ip_address=None):
+        """Track when a message is sent"""
+        metadata = {
+            'conversation_id': str(message.conversation.id),
+            'recipient_id': message.conversation.recipient.id if message.sender == message.conversation.initiator else message.conversation.initiator.id,
+            'content_length': len(message.content),
+            'has_files': message.files.exists(),
+            'has_mentions': message.mentioned_gigs.exists()
+        }
+
+        return cls.objects.create(
+            metric_type=cls.MESSAGE_SENT,
+            user=user,
+            ip_address=ip_address,
+            metadata=metadata
+        )
+
+    @classmethod
+    def track_file_shared(cls, message_file, user=None, ip_address=None):
+        """Track when a file is shared in a message"""
+        metadata = {
+            'conversation_id': str(message_file.message.conversation.id),
+            'file_type': message_file.file_type,
+            'file_size': message_file.file_size
+        }
+
+        return cls.objects.create(
+            metric_type=cls.FILE_SHARED,
+            user=user,
+            ip_address=ip_address,
+            metadata=metadata
+        )
+
+    @classmethod
+    def track_gig_mentioned(cls, message, gig, user=None, ip_address=None):
+        """Track when a gig is mentioned in a message"""
+        metadata = {
+            'conversation_id': str(message.conversation.id),
+            'gig_id': gig.id,
+            'gig_title': gig.title
+        }
+
+        return cls.objects.create(
+            metric_type=cls.GIG_MENTIONED,
+            user=user,
+            gig=gig,  # Direct foreign key for easier querying
+            ip_address=ip_address,
+            metadata=metadata
+        )
+
+    @classmethod
     def get_stats(cls, obj, metric_type=None, days=30):
         """Get stats for an object, optionally filtered by metric type and time period"""
         start_date = timezone.now() - timezone.timedelta(days=days)
@@ -960,3 +1045,152 @@ class Stats(models.Model):
             metric_type=cls.VIEW,
             gig=gig
         ).count()
+
+
+class Conversation(models.Model):
+    """
+    Model representing a conversation between two users.
+    A conversation can optionally be linked to a gig.
+    """
+    initiator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='initiated_conversations')
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_conversations')
+    gig = models.ForeignKey(Gig, on_delete=models.SET_NULL, null=True, blank=True, related_name='conversations')
+
+    # Deletion flags (for hiding conversations from users without actually deleting them)
+    deleted_by_initiator = models.BooleanField(default=False)
+    deleted_by_recipient = models.BooleanField(default=False)
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-updated_at']
+        # Ensure we don't have duplicate conversations between the same users about the same gig
+        unique_together = [['initiator', 'recipient', 'gig']]
+
+    def __str__(self):
+        gig_str = f" about {self.gig.title}" if self.gig else ""
+        return f"Conversation between {self.initiator.username} and {self.recipient.username}{gig_str}"
+
+    def get_absolute_url(self):
+        return reverse('conversation_detail', args=[self.id])
+
+    def get_last_message(self):
+        """Return the last message in this conversation"""
+        return self.messages.order_by('-created_at').first()
+
+    def mark_as_deleted(self, user):
+        """Mark the conversation as deleted for a specific user"""
+        if user == self.initiator:
+            self.deleted_by_initiator = True
+            self.save(update_fields=['deleted_by_initiator'])
+            return True
+        elif user == self.recipient:
+            self.deleted_by_recipient = True
+            self.save(update_fields=['deleted_by_recipient'])
+            return True
+        return False
+
+    def is_deleted_for(self, user):
+        """Check if the conversation is deleted for a specific user"""
+        if user == self.initiator:
+            return self.deleted_by_initiator
+        elif user == self.recipient:
+            return self.deleted_by_recipient
+        return False
+
+    def is_participant(self, user):
+        """Check if a user is a participant in this conversation"""
+        return user == self.initiator or user == self.recipient
+
+    def get_other_participant(self, user):
+        """Get the other participant in the conversation"""
+        if user == self.initiator:
+            return self.recipient
+        elif user == self.recipient:
+            return self.initiator
+        return None
+
+    @classmethod
+    def get_conversations_for_user(cls, user):
+        """Get all conversations for a user that haven't been deleted by them"""
+        return cls.objects.filter(
+            (models.Q(initiator=user) & models.Q(deleted_by_initiator=False)) |
+            (models.Q(recipient=user) & models.Q(deleted_by_recipient=False))
+        ).order_by('-updated_at')
+
+
+class Message(models.Model):
+    """
+    Model representing an individual message within a conversation.
+    """
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    content = models.TextField()
+
+    # For tracking read status
+    is_read = models.BooleanField(default=False)
+    read_at = models.DateTimeField(null=True, blank=True)
+
+    # For tracking gig mentions
+    mentioned_gigs = models.ManyToManyField(Gig, related_name='mentioned_in_messages', blank=True)
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"Message from {self.sender.username} at {self.created_at.strftime('%Y-%m-%d %H:%M')}"
+
+    def mark_as_read(self):
+        """Mark the message as read"""
+        if not self.is_read:
+            self.is_read = True
+            self.read_at = timezone.now()
+            self.save(update_fields=['is_read', 'read_at'])
+            return True
+        return False
+
+    @classmethod
+    def get_unread_count_for_user(cls, user):
+        """Get the count of unread messages for a user"""
+        return cls.objects.filter(
+            conversation__recipient=user,
+            is_read=False,
+            conversation__deleted_by_recipient=False
+        ).exclude(sender=user).count()
+
+
+class MessageFile(models.Model):
+    """
+    Model for file attachments in messages.
+    """
+    message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='files')
+    file = models.FileField(
+        upload_to='message_files/%Y/%m/%d/',
+        validators=[FileExtensionValidator(
+            allowed_extensions=['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'mp4', 'zip']
+        )]
+    )
+    file_name = models.CharField(max_length=255)
+    file_size = models.PositiveIntegerField(help_text="File size in bytes")
+    file_type = models.CharField(max_length=100, help_text="MIME type of the file")
+
+    # Timestamps
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['uploaded_at']
+
+    def __str__(self):
+        return self.file_name
+
+    def get_file_url(self):
+        """Return the URL of the file"""
+        if self.file and file_exists(self.file.name):
+            return self.file.url
+        return None

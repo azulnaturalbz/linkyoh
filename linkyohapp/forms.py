@@ -7,7 +7,10 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .models import Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea, Profile, District, GigClaimRequest
+from .models import (
+    Gig, Location, Review, Contact, GigImage, GigContact, GigServiceArea, 
+    Profile, District, GigClaimRequest, Conversation, Message, MessageFile
+)
 from .image_utils import validate_image, ImageValidationError
 
 
@@ -499,3 +502,167 @@ class GigClaimRequestForm(forms.ModelForm):
                 raise forms.ValidationError(f'Only {", ".join(allowed_extensions)} files are allowed.')
 
         return document
+
+
+class ConversationForm(forms.ModelForm):
+    """
+    Form for starting a new conversation with another user.
+    This form is used when initiating a conversation from a user's profile or a gig.
+    """
+    initial_message = forms.CharField(
+        widget=forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
+        label=_('Message'),
+        help_text=_('Write your initial message to start the conversation'),
+        required=True
+    )
+
+    class Meta:
+        model = Conversation
+        fields = ['recipient', 'gig']
+        widgets = {
+            'recipient': forms.HiddenInput(),
+            'gig': forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        # The user initiating the conversation
+        self.initiator = kwargs.pop('initiator', None)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        recipient = cleaned_data.get('recipient')
+        gig = cleaned_data.get('gig')
+
+        # Check if a conversation already exists between these users about this gig
+        if recipient and self.initiator:
+            existing_conversation = Conversation.objects.filter(
+                initiator=self.initiator,
+                recipient=recipient,
+                gig=gig
+            ).first()
+
+            if not existing_conversation:
+                existing_conversation = Conversation.objects.filter(
+                    initiator=recipient,
+                    recipient=self.initiator,
+                    gig=gig
+                ).first()
+
+            if existing_conversation:
+                raise forms.ValidationError(
+                    _('A conversation already exists with this user about this gig.')
+                )
+
+        # Prevent starting a conversation with yourself
+        if recipient and self.initiator and recipient == self.initiator:
+            raise forms.ValidationError(_('You cannot start a conversation with yourself.'))
+
+        return cleaned_data
+
+    def save(self, commit=True):
+        conversation = super().save(commit=False)
+        conversation.initiator = self.initiator
+
+        if commit:
+            conversation.save()
+
+            # Create the initial message
+            initial_message = self.cleaned_data.get('initial_message')
+            if initial_message:
+                Message.objects.create(
+                    conversation=conversation,
+                    sender=self.initiator,
+                    content=initial_message
+                )
+
+        return conversation
+
+
+class MessageForm(forms.ModelForm):
+    """
+    Form for sending a message within an existing conversation.
+    """
+    class Meta:
+        model = Message
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'rows': 2, 
+                'class': 'form-control',
+                'placeholder': _('Type your message here...'),
+                'x-model': 'messageContent',
+                'x-on:keydown.enter.prevent': 'if(!$event.shiftKey) { sendMessage(); }'
+            }),
+        }
+        labels = {
+            'content': _(''),  # No label for cleaner UI
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.conversation = kwargs.pop('conversation', None)
+        self.sender = kwargs.pop('sender', None)
+        super().__init__(*args, **kwargs)
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if not content or content.strip() == '':
+            raise forms.ValidationError(_('Message cannot be empty.'))
+        return content
+
+    def save(self, commit=True):
+        message = super().save(commit=False)
+        message.conversation = self.conversation
+        message.sender = self.sender
+
+        if commit:
+            message.save()
+
+            # Update the conversation's updated_at timestamp
+            self.conversation.save(update_fields=['updated_at'])
+
+            # Process any gig mentions in the message content
+            # This would be implemented in a separate function
+            # process_gig_mentions(message)
+
+        return message
+
+
+class MessageFileForm(forms.ModelForm):
+    """
+    Form for uploading files with a message.
+    """
+    class Meta:
+        model = MessageFile
+        fields = ['file']
+        widgets = {
+            'file': forms.FileInput(attrs={
+                'class': 'form-control',
+                'accept': '.pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.mp3,.mp4,.zip'
+            }),
+        }
+        help_texts = {
+            'file': _('Upload a file to share (max 10MB)'),
+        }
+
+    def clean_file(self):
+        file = self.cleaned_data.get('file')
+        if file:
+            # Check file size (limit to 10MB)
+            if file.size > 10 * 1024 * 1024:
+                raise forms.ValidationError(_('File size must be under 10MB.'))
+
+            # Check file extension
+            allowed_extensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'mp4', 'zip']
+            ext = file.name.split('.')[-1].lower()
+            if ext not in allowed_extensions:
+                raise forms.ValidationError(
+                    _('Only %(extensions)s files are allowed.') % {'extensions': ', '.join(allowed_extensions)}
+                )
+
+            # Set additional fields based on the file
+            self.instance.file_name = file.name
+            self.instance.file_size = file.size
+            self.instance.file_type = file.content_type
+
+        return file

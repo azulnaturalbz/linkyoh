@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Conversation with {{ other_participant.username }} | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    .message-container {
+        height: 60vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .message {
+        max-width: 75%;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        border-radius: 18px;
+        position: relative;
+    }
+    .message-sent {
+        align-self: flex-end;
+        background-color: #dcf8c6;
+        margin-left: auto;
+    }
+    .message-received {
+        align-self: flex-start;
+        background-color: #f1f0f0;
+        margin-right: auto;
+    }
+    .message-time {
+        font-size: 0.75rem;
+        color: #999;
+        margin-top: 5px;
+        text-align: right;
+    }
+    .message-file {
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+    .message-file-icon {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+    .message-file-info {
+        flex-grow: 1;
+    }
+    .message-file-name {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+    .message-file-size {
+        font-size: 0.75rem;
+        color: #6c757d;
+    }
+    .gig-mention {
+        background-color: #e6f7ff;
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 5px;
+        border-left: 3px solid #1890ff;
+    }
+    .gig-mention-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .mention-dropdown {
+        position: absolute;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        z-index: 1000;
+    }
+    .mention-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .mention-item:hover {
+        background-color: #f8f9fa;
+    }
+    .mention-item-img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 4px;
+    }
+    .mention-item-info {
+        flex-grow: 1;
+    }
+    .mention-item-title {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+    .mention-item-category {
+        font-size: 0.75rem;
+        color: #6c757d;
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'conversation_list' %}" class="btn btn-outline-secondary me-3">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div>
+                        <h1 class="mb-0">{{ other_participant.profile.get_display_name }}</h1>
+                        {% if conversation.gig %}
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-tag me-1"></i> 
+                                <a href="{% url 'gig_detail' conversation.gig.id %}">{{ conversation.gig.title }}</a>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <a href="{% url 'delete_conversation' conversation.id %}" 
+                       class="btn btn-outline-danger"
+                       onclick="return confirm('Are you sure you want to delete this conversation? This action cannot be undone.');">
+                        <i class="fas fa-trash-alt me-1"></i> Delete
+                    </a>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- Messages container -->
+                    <div class="message-container mb-4" id="message-container">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% include "messaging/partials/message.html" %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center text-muted my-5">
+                                <i class="fas fa-comments fa-3x mb-3"></i>
+                                <p>No messages yet. Start the conversation!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Message input form -->
+                    <div x-data="messageForm()" class="mt-3">
+                        <form hx-post="{% url 'send_message' conversation.id %}" 
+                              hx-target="#message-container" 
+                              hx-swap="beforeend" 
+                              hx-trigger="submit"
+                              x-ref="messageForm">
+                            {% csrf_token %}
+
+                            <div class="position-relative">
+                                <textarea name="content" 
+                                          class="form-control" 
+                                          placeholder="Type your message..." 
+                                          rows="2"
+                                          x-model="messageContent"
+                                          @keydown.enter.prevent="if(!$event.shiftKey) { sendMessage(); }"
+                                          @keydown="handleKeydown($event)"
+                                          @keyup="handleKeyup($event)"></textarea>
+
+                                <!-- Mention dropdown -->
+                                <div class="mention-dropdown" x-show="showMentionDropdown" x-cloak>
+                                    <template x-for="gig in mentionResults" :key="gig.id">
+                                        <div class="mention-item" @click="selectMention(gig)">
+                                            <img :src="gig.photo_url" class="mention-item-img" :alt="gig.title">
+                                            <div class="mention-item-info">
+                                                <p class="mention-item-title" x-text="gig.title"></p>
+                                                <p class="mention-item-category" x-text="gig.category"></p>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <div>
+                                    <button type="button" class="btn btn-outline-secondary me-2" @click="toggleFileUpload">
+                                        <i class="fas fa-paperclip"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" @click="insertMentionTrigger">
+                                        <i class="fas fa-at"></i>
+                                    </button>
+                                </div>
+                                <button type="button" class="btn btn-primary" :disabled="!messageContent.trim()" @click="sendMessage()">
+                                    <i class="fas fa-paper-plane me-1"></i> Send
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- File upload form -->
+                        <form hx-post="{% url 'upload_message_file' conversation.id %}" 
+                              hx-target="#message-container" 
+                              hx-swap="beforeend" 
+                              hx-trigger="submit"
+                              hx-encoding="multipart/form-data"
+                              x-show="showFileUpload"
+                              x-cloak
+                              class="mt-3 p-3 border rounded">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Upload a file</label>
+                                <input type="file" name="file" id="file" class="form-control" required>
+                                <div class="form-text">Max file size: 10MB. Allowed file types: PDF, DOC, DOCX, JPG, JPEG, PNG, GIF, MP3, MP4, ZIP</div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-secondary me-2" @click="toggleFileUpload">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-upload me-1"></i> Upload
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Scroll to bottom of message container on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const messageContainer = document.getElementById('message-container');
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+
+        // Also scroll to bottom when new messages are added via HTMX
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            if (event.detail.target.id === 'message-container') {
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+
+                // Reset the form after successful message submission
+                const messageForm = document.querySelector('[x-data="messageForm()"]');
+                if (messageForm && messageForm.__x) {
+                    messageForm.__x.$data.resetForm();
+                }
+            }
+        });
+    });
+
+    // Alpine.js component for message form
+    function messageForm() {
+        return {
+            messageContent: '',
+            showFileUpload: false,
+            showMentionDropdown: false,
+            mentionResults: [],
+            mentionQuery: '',
+            mentionPosition: null,
+
+            resetForm() {
+                this.messageContent = '';
+                this.$refs.messageForm.reset();
+            },
+
+            sendMessage() {
+                if (this.messageContent.trim()) {
+                    // Ensure the form is submitted with the current message content
+                    const form = this.$refs.messageForm;
+                    const contentField = form.querySelector('textarea[name="content"]');
+                    if (contentField) {
+                        contentField.value = this.messageContent.trim();
+                    }
+                    form.dispatchEvent(new Event('submit', { cancelable: true }));
+                }
+            },
+
+            toggleFileUpload() {
+                this.showFileUpload = !this.showFileUpload;
+            },
+
+            insertMentionTrigger() {
+                this.messageContent += '@';
+                this.showMentionDropdown = true;
+                this.searchGigs('');
+            },
+
+            handleKeydown(event) {
+                // Check if we're in a mention context
+                if (this.messageContent.includes('@') && !this.showMentionDropdown) {
+                    const lastAtPos = this.messageContent.lastIndexOf('@');
+                    const textAfterAt = this.messageContent.substring(lastAtPos + 1);
+
+                    // If there's no space after @, we're in a mention context
+                    if (!textAfterAt.includes(' ')) {
+                        this.mentionPosition = lastAtPos;
+                        this.mentionQuery = textAfterAt;
+                        this.showMentionDropdown = true;
+                        this.searchGigs(this.mentionQuery);
+                    }
+                }
+            },
+
+            handleKeyup(event) {
+                // If we're in a mention context, update the search
+                if (this.showMentionDropdown && this.mentionPosition !== null) {
+                    const currentPos = this.mentionPosition;
+                    const textAfterAt = this.messageContent.substring(currentPos + 1);
+
+                    // If there's a space after @, close the dropdown
+                    if (textAfterAt.includes(' ')) {
+                        this.showMentionDropdown = false;
+                        this.mentionPosition = null;
+                        return;
+                    }
+
+                    this.mentionQuery = textAfterAt;
+                    this.searchGigs(this.mentionQuery);
+                }
+            },
+
+            searchGigs(query) {
+                // Use HTMX to search for gigs
+                fetch(`{% url 'search_gigs_for_mention' %}?q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.mentionResults = data.results;
+                    });
+            },
+
+            selectMention(gig) {
+                // Replace the @query with the selected gig mention
+                if (this.mentionPosition !== null) {
+                    const beforeMention = this.messageContent.substring(0, this.mentionPosition);
+                    const afterMention = this.messageContent.substring(this.mentionPosition + this.mentionQuery.length + 1);
+                    this.messageContent = beforeMention + gig.mention_text + ' ' + afterMention;
+                } else {
+                    this.messageContent += gig.mention_text + ' ';
+                }
+
+                this.showMentionDropdown = false;
+                this.mentionPosition = null;
+            }
+        };
+    }
+</script>
+{% endblock %}

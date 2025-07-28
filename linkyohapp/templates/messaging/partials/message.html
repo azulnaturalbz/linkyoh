@@ -1,0 +1,68 @@
+<div class="message {% if message.sender == user %}message-sent{% else %}message-received{% endif %}">
+    <div class="message-content">
+        {{ message.content|linebreaksbr }}
+    </div>
+    
+    {% if message.files.all %}
+        {% for file in message.files.all %}
+            <div class="message-file">
+                <div class="message-file-icon">
+                    {% if file.file_type == 'application/pdf' %}
+                        <i class="far fa-file-pdf"></i>
+                    {% elif file.file_type == 'application/msword' or file.file_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %}
+                        <i class="far fa-file-word"></i>
+                    {% elif file.file_type == 'image/jpeg' or file.file_type == 'image/png' or file.file_type == 'image/gif' %}
+                        <i class="far fa-file-image"></i>
+                    {% elif file.file_type == 'audio/mpeg' %}
+                        <i class="far fa-file-audio"></i>
+                    {% elif file.file_type == 'video/mp4' %}
+                        <i class="far fa-file-video"></i>
+                    {% elif file.file_type == 'application/zip' %}
+                        <i class="far fa-file-archive"></i>
+                    {% else %}
+                        <i class="far fa-file"></i>
+                    {% endif %}
+                </div>
+                <div class="message-file-info">
+                    <p class="message-file-name">{{ file.file_name }}</p>
+                    <p class="message-file-size">
+                        {% if file.file_size < 1024 %}
+                            {{ file.file_size }} bytes
+                        {% elif file.file_size < 1048576 %}
+                            {{ file.file_size|divisibleby:1024 }} KB
+                        {% else %}
+                            {{ file.file_size|divisibleby:1048576 }} MB
+                        {% endif %}
+                    </p>
+                </div>
+                <a href="{{ file.get_file_url }}" class="btn btn-sm btn-outline-primary" target="_blank">
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    {% if message.mentioned_gigs.all %}
+        {% for gig in message.mentioned_gigs.all %}
+            <div class="gig-mention">
+                <div class="gig-mention-title">
+                    <a href="{% url 'gig_detail' gig.id %}">{{ gig.title }}</a>
+                </div>
+                <div class="gig-mention-category">
+                    <small class="text-muted">
+                        <i class="fas fa-tag me-1"></i> {{ gig.category.category }} > {{ gig.sub_category.subcategory }}
+                    </small>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <div class="message-time">
+        {{ message.created_at|date:"M d, Y g:i A" }}
+        {% if message.sender == user and message.is_read %}
+            <i class="fas fa-check-double text-primary ms-1" title="Read"></i>
+        {% elif message.sender == user %}
+            <i class="fas fa-check text-muted ms-1" title="Sent"></i>
+        {% endif %}
+    </div>
+</div>

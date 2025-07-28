@@ -71,5 +71,19 @@ urlpatterns = [
     path('password-reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('reset/done/', views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete')
+    path('reset/done/', views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    # Messaging System
+    path('messages/', views.messages_index, name='conversation_list'),
+    path('messages/<int:pk>/', views.conversation_detail, name='conversation_detail'),
+    path('messages/new/', views.start_conversation, name='create_conversation'),
+    path('messages/new/user/<int:recipient_id>/', views.start_conversation, name='create_conversation_with_user'),
+    path('messages/new/gig/<int:gig_id>/', views.start_conversation, name='create_conversation_about_gig'),
+    path('messages/new/user/<int:recipient_id>/gig/<int:gig_id>/', views.start_conversation, name='create_conversation_with_user_about_gig'),
+    path('messages/<int:pk>/delete/', views.delete_conversation, name='delete_conversation'),
+
+    # HTMX endpoints for messaging
+    path('messages/<int:conversation_id>/send/', views.send_message, name='send_message'),
+    path('messages/<int:conversation_id>/upload/', views.upload_message_file, name='upload_message_file'),
+    path('messages/search-gigs/', views.search_gigs_for_mention, name='search_gigs_for_mention'),
 ]
