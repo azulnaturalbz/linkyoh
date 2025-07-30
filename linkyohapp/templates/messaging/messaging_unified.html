@@ -1,0 +1,519 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Messages | Linkyoh{% endblock %}
+
+{% block head %}
+<style>
+    /* Sidebar styles */
+    .messaging-container {
+        display: flex;
+        height: calc(100vh - 72px); /* Adjust based on your navbar height */
+        overflow: hidden;
+    }
+
+    .conversation-sidebar {
+        width: 350px;
+        border-right: 1px solid #dee2e6;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .conversation-list {
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+
+    .conversation-item {
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .conversation-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .conversation-item.active {
+        background-color: #e9ecef;
+    }
+
+    .conversation-item-unread {
+        font-weight: bold;
+        background-color: #f0f8ff;
+    }
+
+    /* Message area styles */
+    .message-area {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .message-header {
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .message-container {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-input-container {
+        padding: 15px;
+        border-top: 1px solid #dee2e6;
+    }
+
+    /* Message styles */
+    .message {
+        max-width: 75%;
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        border-radius: 18px;
+        position: relative;
+    }
+
+    .message-sent {
+        align-self: flex-end;
+        background-color: #dcf8c6;
+        margin-left: auto;
+    }
+
+    .message-received {
+        align-self: flex-start;
+        background-color: #f1f0f0;
+        margin-right: auto;
+    }
+
+    .message-time {
+        font-size: 0.75rem;
+        color: #999;
+        margin-top: 5px;
+        text-align: right;
+    }
+
+    .message-file {
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+
+    .message-file-icon {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    .message-file-info {
+        flex-grow: 1;
+    }
+
+    .message-file-name {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .message-file-size {
+        font-size: 0.75rem;
+        color: #6c757d;
+    }
+
+    .gig-mention {
+        background-color: #e6f7ff;
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 5px;
+        border-left: 3px solid #1890ff;
+    }
+
+    .gig-mention-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .mention-dropdown {
+        position: absolute;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        z-index: 1000;
+    }
+
+    .mention-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .mention-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .mention-item-img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 4px;
+    }
+
+    .mention-item-info {
+        flex-grow: 1;
+    }
+
+    .mention-item-title {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .mention-item-category {
+        font-size: 0.75rem;
+        color: #6c757d;
+    }
+
+    /* Empty state */
+    .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #6c757d;
+    }
+
+    /* New conversation form */
+    .new-conversation-form {
+        display: none;
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    /* Three dots menu */
+    .conversation-actions {
+        position: relative;
+    }
+
+    .conversation-actions-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: white;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 1000;
+        min-width: 150px;
+        display: none;
+    }
+
+    .conversation-actions-menu.show {
+        display: block;
+    }
+
+    .conversation-actions-menu a {
+        display: block;
+        padding: 8px 15px;
+        color: #212529;
+        text-decoration: none;
+    }
+
+    .conversation-actions-menu a:hover {
+        background-color: #f8f9fa;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .messaging-container {
+            flex-direction: column;
+            height: auto;
+        }
+
+        .conversation-sidebar {
+            width: 100%;
+            border-right: none;
+            border-bottom: 1px solid #dee2e6;
+            max-height: 300px;
+        }
+
+        .message-area {
+            height: calc(100vh - 372px); /* Adjust based on your layout */
+        }
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+<div class="messaging-container">
+    <!-- Conversation Sidebar -->
+    <div class="conversation-sidebar">
+        <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+            <h5 class="mb-0">Messages</h5>
+        </div>
+
+        <!-- Conversation List -->
+        <div class="conversation-list">
+            {% if conversations_with_details %}
+                {% for item in conversations_with_details %}
+                    <div class="conversation-item {% if active_conversation_id == item.conversation.id %}active{% endif %} {% if item.unread_count > 0 %}conversation-item-unread{% endif %}"
+                         hx-get="{% url 'messaging_unified_with_conversation' conversation_id=item.conversation.id %}" 
+                         hx-target="#message-area" 
+                         hx-swap="innerHTML"
+                         hx-trigger="click"
+                         data-conversation-id="{{ item.conversation.id }}">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="d-flex">
+                                {% if item.profile.avatar %}
+                                    <img src="{{ item.profile.avatar.url }}" alt="{{ item.other_participant.username }}" 
+                                         class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                {% else %}
+                                    <div class="rounded-circle bg-secondary me-3 d-flex align-items-center justify-content-center" 
+                                         style="width: 40px; height: 40px; color: white;">
+                                        {{ item.other_participant.username|first|upper }}
+                                    </div>
+                                {% endif %}
+                                <div>
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="mb-0">{{ item.profile.get_display_name }}</h6>
+                                        {% if item.unread_count > 0 %}
+                                            <span class="badge bg-primary rounded-pill ms-2">{{ item.unread_count }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <p class="mb-1 text-truncate" style="max-width: 200px; font-size: 0.85rem;">
+                                        {% if item.last_message.sender == user %}
+                                            <span class="text-muted">You: </span>
+                                        {% endif %}
+                                        {{ item.last_message.content }}
+                                    </p>
+                                    <small class="text-muted" style="font-size: 0.75rem;">
+                                        {{ item.last_message.created_at|date:"M d, Y" }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="conversation-actions">
+                                <button class="btn btn-sm btn-link text-muted p-0 conversation-actions-toggle">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="conversation-actions-menu">
+                                    <a href="{% url 'delete_conversation' item.conversation.id %}" 
+                                       onclick="return confirm('Are you sure you want to delete this conversation? This action cannot be undone.');">
+                                        <i class="fas fa-trash-alt me-2"></i> Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% if item.conversation.gig %}
+                            <div class="mt-1">
+                                <small class="text-muted">
+                                    <i class="fas fa-tag me-1"></i> {{ item.conversation.gig.title }}
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="p-4 text-center text-muted">
+                    <i class="fas fa-comments fa-3x mb-3"></i>
+                    <p>No messages yet</p>
+                    <p class="small">
+                        When you start conversations with other users, they'll appear here.
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Message Area -->
+    <div id="message-area" class="message-area">
+        {% include 'messaging/partials/message_area.html' %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Alpine.js component for message form
+    function messageForm() {
+        return {
+            messageContent: '',
+            showFileUpload: false,
+            showMentionDropdown: false,
+            mentionResults: [],
+            mentionQuery: '',
+            mentionPosition: null,
+
+            resetForm() {
+                this.messageContent = '';
+                this.$refs.messageForm.reset();
+            },
+
+            sendMessage() {
+                // This function is no longer needed as we're using a submit button
+                // Keeping it for backward compatibility
+                if (this.messageContent.trim()) {
+                    const form = this.$refs.messageForm;
+                    form.submit();
+                }
+            },
+
+            toggleFileUpload() {
+                this.showFileUpload = !this.showFileUpload;
+            },
+
+            insertMentionTrigger() {
+                this.messageContent += '@';
+                this.showMentionDropdown = true;
+                this.searchGigs('');
+            },
+
+            handleKeydown(event) {
+                // Check if we're in a mention context
+                if (this.messageContent.includes('@') && !this.showMentionDropdown) {
+                    const lastAtPos = this.messageContent.lastIndexOf('@');
+                    const textAfterAt = this.messageContent.substring(lastAtPos + 1);
+
+                    // If there's no space after @, we're in a mention context
+                    if (!textAfterAt.includes(' ')) {
+                        this.mentionPosition = lastAtPos;
+                        this.mentionQuery = textAfterAt;
+                        this.showMentionDropdown = true;
+                        this.searchGigs(this.mentionQuery);
+                    }
+                }
+            },
+
+            handleKeyup(event) {
+                // If we're in a mention context, update the search
+                if (this.showMentionDropdown && this.mentionPosition !== null) {
+                    const currentPos = this.mentionPosition;
+                    const textAfterAt = this.messageContent.substring(currentPos + 1);
+
+                    // If there's a space after @, close the dropdown
+                    if (textAfterAt.includes(' ')) {
+                        this.showMentionDropdown = false;
+                        this.mentionPosition = null;
+                        return;
+                    }
+
+                    this.mentionQuery = textAfterAt;
+                    this.searchGigs(this.mentionQuery);
+                }
+            },
+
+            searchGigs(query) {
+                // Use HTMX to search for gigs
+                fetch(`{% url 'search_gigs_for_mention' %}?q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.mentionResults = data.results;
+                    });
+            },
+
+            selectMention(gig) {
+                // Replace the @query with the selected gig mention
+                if (this.mentionPosition !== null) {
+                    const beforeMention = this.messageContent.substring(0, this.mentionPosition);
+                    const afterMention = this.messageContent.substring(this.mentionPosition + this.mentionQuery.length + 1);
+                    this.messageContent = beforeMention + gig.mention_text + ' ' + afterMention;
+                } else {
+                    this.messageContent += gig.mention_text + ' ';
+                }
+
+                this.showMentionDropdown = false;
+                this.mentionPosition = null;
+            }
+        };
+    }
+
+    // Document ready
+    document.addEventListener('DOMContentLoaded', function() {
+        // Scroll to bottom of message container
+        const messageContainer = document.getElementById('message-container');
+        if (messageContainer) {
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+
+        // Three dots menu
+        const actionToggles = document.querySelectorAll('.conversation-actions-toggle');
+        actionToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const menu = this.nextElementSibling;
+                menu.classList.toggle('show');
+
+                // Close other menus
+                document.querySelectorAll('.conversation-actions-menu.show').forEach(openMenu => {
+                    if (openMenu !== menu) {
+                        openMenu.classList.remove('show');
+                    }
+                });
+            });
+        });
+
+        // Close menus when clicking elsewhere
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.conversation-actions-menu.show').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        });
+
+        // HTMX events
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            if (event.detail.target.id === 'message-container') {
+                // Scroll to bottom when new messages are added
+                const messageContainer = document.getElementById('message-container');
+                if (messageContainer) {
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                }
+
+                // Reset the form after successful message submission
+                const messageForm = document.querySelector('[x-data="messageForm()"]');
+                if (messageForm && messageForm.__x) {
+                    messageForm.__x.$data.resetForm();
+                }
+            }
+
+            if (event.detail.target.id === 'message-area') {
+                // Initialize Alpine.js components after HTMX swap
+                if (window.Alpine) {
+                    window.Alpine.initTree(document.getElementById('message-area'));
+                }
+
+                // Scroll to bottom of message container
+                const messageContainer = document.getElementById('message-container');
+                if (messageContainer) {
+                    messageContainer.scrollTop = messageContainer.scrollHeight;
+                }
+
+                // Update active conversation in sidebar
+                const conversationId = event.detail.requestConfig.parameters.pk;
+                if (conversationId) {
+                    document.querySelectorAll('.conversation-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.dataset.conversationId === conversationId) {
+                            item.classList.add('active');
+                            item.classList.remove('conversation-item-unread');
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

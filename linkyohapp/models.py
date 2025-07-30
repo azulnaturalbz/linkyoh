@@ -1120,6 +1120,19 @@ class Conversation(models.Model):
             (models.Q(recipient=user) & models.Q(deleted_by_recipient=False))
         ).order_by('-updated_at')
 
+    def get_unread_count_for_user(self, user):
+        """Get the count of unread messages in this conversation for a specific user"""
+        if not self.is_participant(user):
+            return 0
+
+        return self.messages.filter(
+            sender__in=[self.initiator, self.recipient]
+        ).exclude(
+            sender=user
+        ).filter(
+            is_read=False
+        ).count()
+
 
 class Message(models.Model):
     """

@@ -1488,11 +1488,15 @@ class ConversationListView(LoginRequiredMixin, ListView):
             if not last_message:
                 continue
 
+            # Get the count of unread messages for this conversation
+            unread_count = conversation.get_unread_count_for_user(self.request.user)
+
             conversations_with_details.append({
                 'conversation': conversation,
                 'last_message': last_message,
                 'other_participant': other_participant,
                 'unread': last_message.sender != self.request.user and not last_message.is_read,
+                'unread_count': unread_count,
                 'profile': getattr(other_participant, 'profile', None),
             })
 
@@ -1648,7 +1652,16 @@ class CreateConversationView(LoginRequiredMixin, CreateView):
         gig_id = self.kwargs.get('gig_id')
         if gig_id:
             try:
-                initial['gig'] = Gig.objects.get(id=gig_id)
+                gig = Gig.objects.get(id=gig_id)
+                initial['gig'] = gig
+
+                # Pre-load the initial message with the gig ID
+                initial_message = f"I'm interested in your gig: {gig.title}"
+                if gig.category and gig.sub_category:
+                    initial_message += f" in {gig.category.category} > {gig.sub_category.subcategory}"
+                initial_message += "\n\n"  # Add some space for the user to type their message
+
+                initial['initial_message'] = initial_message
             except Gig.DoesNotExist:
                 pass
 
@@ -1677,7 +1690,7 @@ class CreateConversationView(LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return reverse('conversation_detail', kwargs={'pk': self.object.pk})
+        return reverse('messaging_unified_with_conversation', kwargs={'conversation_id': self.object.pk})
 
     def form_valid(self, form):
         """Track metrics when a conversation is started"""
@@ -1698,7 +1711,23 @@ def start_conversation(request, recipient_id=None, gig_id=None):
     """
     View for starting a new conversation from a user profile or gig detail page.
     This is a wrapper around CreateConversationView for easier URL configuration.
+
+    Note: This view now only accepts requests from gigs and profiles, not from the unified messaging interface.
     """
+    # Ensure we have either a recipient_id or a gig_id
+    if not recipient_id and not gig_id:
+        messages.error(request, _("You must specify a recipient or a gig to start a conversation."))
+        return redirect('messaging_unified')
+
+    # If we have a gig_id but no recipient_id, get the gig owner as the recipient
+    if gig_id and not recipient_id:
+        try:
+            gig = Gig.objects.get(id=gig_id)
+            recipient_id = gig.user.id
+        except Gig.DoesNotExist:
+            messages.error(request, _("The specified gig does not exist."))
+            return redirect('messaging_unified')
+
     view = CreateConversationView.as_view()
     return view(request, recipient_id=recipient_id, gig_id=gig_id)
 
@@ -1719,7 +1748,7 @@ def delete_conversation(request, pk):
     conversation.mark_as_deleted(request.user)
 
     messages.success(request, _("Conversation deleted successfully."))
-    return redirect('conversation_list')
+    return redirect('messaging_unified')
 
 
 @login_required
@@ -1879,17 +1908,112 @@ def search_gigs_for_mention(request):
 def messages_index(request):
     """
     View for the messages index page.
-    This is a wrapper around ConversationListView for easier URL configuration.
+    Redirects to the unified messaging interface.
     """
-    view = ConversationListView.as_view()
-    return view(request)
+    return redirect('messaging_unified')
 
 
 @login_required
 def conversation_detail(request, pk):
     """
     View for the conversation detail page.
-    This is a wrapper around ConversationDetailView for easier URL configuration.
+    Redirects to the unified messaging interface with the conversation ID.
     """
-    view = ConversationDetailView.as_view()
-    return view(request, pk=pk)
+    return redirect('messaging_unified_with_conversation', conversation_id=pk)
+
+
+@login_required
+def messaging_unified(request, conversation_id=None):
+    """
+    Unified messaging view that combines conversation list and detail views.
+    Shows the conversation list in a sidebar and the selected conversation in the main area.
+    """
+    # Get all conversations for the current user
+    conversations = Conversation.get_conversations_for_user(request.user).select_related(
+        'initiator', 'recipient', 'gig', 'initiator__profile', 'recipient__profile'
+    ).prefetch_related('messages')
+
+    # Add conversations with last message and other participant info
+    conversations_with_details = []
+    for conversation in conversations:
+        last_message = conversation.get_last_message()
+        other_participant = conversation.get_other_participant(request.user)
+
+        # Skip if there's no last message (shouldn't happen in practice)
+        if not last_message:
+            continue
+
+        # Get the count of unread messages for this conversation
+        unread_count = conversation.get_unread_count_for_user(request.user)
+
+        conversations_with_details.append({
+            'conversation': conversation,
+            'last_message': last_message,
+            'other_participant': other_participant,
+            'unread': last_message.sender != request.user and not last_message.is_read,
+            'unread_count': unread_count,
+            'profile': getattr(other_participant, 'profile', None),
+        })
+
+    # Get users for the new conversation form
+    users = User.objects.exclude(id=request.user.id).select_related('profile')
+
+    # Get gigs for the new conversation form
+    gigs = Gig.objects.filter(status=True)
+
+    context = {
+        'conversations_with_details': conversations_with_details,
+        'users': users,
+        'gigs': gigs,
+        'unread_count': Message.get_unread_count_for_user(request.user),
+    }
+
+    # If a conversation ID is provided, load that conversation
+    if conversation_id:
+        try:
+            active_conversation = Conversation.objects.filter(
+                (Q(initiator=request.user) & Q(deleted_by_initiator=False)) |
+                (Q(recipient=request.user) & Q(deleted_by_recipient=False)),
+                pk=conversation_id
+            ).select_related('initiator', 'recipient', 'gig', 'initiator__profile', 'recipient__profile').get()
+
+            # Get all messages for this conversation
+            messages = active_conversation.messages.select_related('sender', 'sender__profile').prefetch_related(
+                'files', 'mentioned_gigs'
+            ).order_by('created_at')
+
+            # Mark unread messages as read if the current user is the recipient
+            unread_messages = messages.exclude(
+                sender=request.user
+            ).filter(
+                is_read=False
+            )
+            for message in unread_messages:
+                message.mark_as_read()
+
+            # Add the message form for replying
+            context['active_conversation'] = active_conversation
+            context['active_conversation_id'] = int(conversation_id)
+            context['messages'] = messages
+            context['other_participant'] = active_conversation.get_other_participant(request.user)
+
+        except Conversation.DoesNotExist:
+            # If the conversation doesn't exist or user doesn't have access, just show the list
+            pass
+
+    # If this is an HTMX request (e.g. the user clicked a conversation in the
+    # sidebar) we only need to return the HTML for the message area so that the
+    # client can replace the existing contents of the `#message-area` div. This
+    # prevents the entire messaging page – including the sidebar – from being
+    # rendered inside the message area, which previously caused the "infinity
+    # mirror" effect.
+
+    # Robust HTMX detection – header appears as HX-Request: true and is exposed
+    # in Django either via request.headers or request.META['HTTP_HX_REQUEST']
+    is_htmx = request.headers.get('HX-Request') or request.headers.get('Hx-Request') or \
+        request.META.get('HTTP_HX_REQUEST') == 'true'
+
+    if is_htmx:
+        return render(request, 'messaging/partials/message_area.html', context)
+
+    return render(request, 'messaging/messaging_unified.html', context)
