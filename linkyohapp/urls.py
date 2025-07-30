@@ -76,15 +76,13 @@ urlpatterns = [
     # Messaging System
     path('messages/', views.messages_index, name='conversation_list'),
     path('messages/<int:pk>/', views.conversation_detail, name='conversation_detail'),
-    path('messages/new/', views.start_conversation, name='create_conversation'),
-    path('messages/new/user/<int:recipient_id>/', views.start_conversation, name='create_conversation_with_user'),
-    path('messages/new/gig/<int:gig_id>/', views.start_conversation, name='create_conversation_about_gig'),
-    path('messages/new/user/<int:recipient_id>/gig/<int:gig_id>/', views.start_conversation, name='create_conversation_with_user_about_gig'),
+
     path('messages/<int:pk>/delete/', views.delete_conversation, name='delete_conversation'),
 
     # Unified Messaging Interface
     path('messaging/', views.messaging_unified, name='messaging_unified'),
     path('messaging/<int:conversation_id>/', views.messaging_unified, name='messaging_unified_with_conversation'),
+    path('messaging/send_first_message/', views.send_first_message, name='send_first_message'),
 
     # HTMX endpoints for messaging
     path('messages/<int:conversation_id>/send/', views.send_message, name='send_message'),

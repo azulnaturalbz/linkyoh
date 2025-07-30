@@ -11,6 +11,7 @@ from django.core.exceptions import ValidationError
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
+from urllib.parse import urlencode
 from django.db import transaction
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -1728,8 +1729,32 @@ def start_conversation(request, recipient_id=None, gig_id=None):
             messages.error(request, _("The specified gig does not exist."))
             return redirect('messaging_unified')
 
-    view = CreateConversationView.as_view()
-    return view(request, recipient_id=recipient_id, gig_id=gig_id)
+    # If a conversation with this user (and gig, if specified) already exists
+    # and hasn't been deleted by the current user, jump straight into that
+    # conversation.
+
+    existing_q = Q()
+    if gig_id:
+        existing_q &= Q(gig_id=gig_id)
+
+    # Participants regardless of order
+    existing_q &= (
+        (Q(initiator=request.user) & Q(recipient_id=recipient_id) & Q(deleted_by_initiator=False)) |
+        (Q(recipient=request.user) & Q(initiator_id=recipient_id) & Q(deleted_by_recipient=False))
+    )
+
+    existing_conv = Conversation.objects.filter(existing_q).order_by('-updated_at').first()
+
+    if existing_conv:
+        return redirect('messaging_unified_with_conversation', conversation_id=existing_conv.id)
+
+    # Otherwise redirect to unified messaging with draft parameters
+    query_params = {'recipient_id': recipient_id}
+    if gig_id:
+        query_params['gig_id'] = gig_id
+
+    url = reverse('messaging_unified') + '?' + urlencode(query_params)
+    return redirect(url)
 
 
 @login_required
@@ -1876,6 +1901,68 @@ def upload_message_file(request, conversation_id):
     return JsonResponse({'errors': errors}, status=400)
 
 
+# ---------------------------------------------------------------------------
+# First-message endpoint - creates conversation with first message
+# ---------------------------------------------------------------------------
+
+
+@login_required
+@require_POST
+def send_first_message(request):
+    """HTMX endpoint that creates a conversation when the first message is sent."""
+
+    recipient_id = request.GET.get('recipient_id')
+    gig_id = request.GET.get('gig_id')
+
+    # Validate recipient
+    if not recipient_id:
+        return JsonResponse({'errors': {'recipient': 'Recipient is required.'}}, status=400)
+
+    try:
+        recipient = User.objects.get(pk=recipient_id)
+    except User.DoesNotExist:
+        return JsonResponse({'errors': {'recipient': 'Recipient not found.'}}, status=404)
+
+    content = request.POST.get('content', '').strip()
+    if not content:
+        return JsonResponse({'errors': {'content': 'Message cannot be empty.'}}, status=400)
+
+    gig = None
+    if gig_id:
+        gig = Gig.objects.filter(pk=gig_id).first()
+
+    conversation = Conversation.objects.create(
+        initiator=request.user,
+        recipient=recipient,
+        gig=gig
+    )
+
+    message = Message.objects.create(
+        conversation=conversation,
+        sender=request.user,
+        content=content
+    )
+
+    # Metric tracking (if Stats helper has these methods)
+    if hasattr(Stats, 'track_conversation_started'):
+        Stats.track_conversation_started(
+            conversation=conversation,
+            user=request.user,
+            ip_address=_get_client_ip(request)
+        )
+
+    if hasattr(Stats, 'track_message_sent'):
+        Stats.track_message_sent(
+            message=message,
+            user=request.user,
+            ip_address=_get_client_ip(request)
+        )
+
+    response = HttpResponse(status=204)
+    response['HX-Redirect'] = reverse('messaging_unified_with_conversation', kwargs={'conversation_id': conversation.pk})
+    return response
+
+
 @login_required
 @require_http_methods(["GET"])
 def search_gigs_for_mention(request):
@@ -1968,7 +2055,34 @@ def messaging_unified(request, conversation_id=None):
         'unread_count': Message.get_unread_count_for_user(request.user),
     }
 
-    # If a conversation ID is provided, load that conversation
+    # If no explicit conversation_id but recipient/gig query params are given,
+    # resolve to an existing conversation if one is present.
+    if not conversation_id:
+        draft_recipient_id = request.GET.get('recipient_id')
+        draft_gig_id = request.GET.get('gig_id')
+
+        if draft_recipient_id:
+            existing_q = Q()
+            if draft_gig_id:
+                existing_q &= Q(gig_id=draft_gig_id)
+
+            existing_q &= (
+                (Q(initiator=request.user) & Q(recipient_id=draft_recipient_id) & Q(deleted_by_initiator=False)) |
+                (Q(recipient=request.user) & Q(initiator_id=draft_recipient_id) & Q(deleted_by_recipient=False))
+            )
+
+            existing_conv = Conversation.objects.filter(existing_q).order_by('-updated_at').first()
+            if existing_conv:
+                # If we have found an existing conversation we can immediately
+                # redirect the user to the canonical URL that contains the
+                # conversation id in the path ("/messaging/<id>/"). Using a
+                # redirect avoids having to rely on server-side context magic
+                # to decide which conversation should be presented and also
+                # guarantees that a page refresh will always reopen the same
+                # conversation.
+                return redirect('messaging_unified_with_conversation', conversation_id=existing_conv.pk)
+
+    # If a conversation ID is now determined, load that conversation
     if conversation_id:
         try:
             active_conversation = Conversation.objects.filter(
@@ -1996,10 +2110,38 @@ def messaging_unified(request, conversation_id=None):
             context['active_conversation_id'] = int(conversation_id)
             context['messages'] = messages
             context['other_participant'] = active_conversation.get_other_participant(request.user)
+            # Remove any draft keys to avoid draft state if we resolved to an existing conversation
+            context.pop('draft_recipient', None)
+            context.pop('draft_gig', None)
+            context.pop('initial_message', None)
 
         except Conversation.DoesNotExist:
             # If the conversation doesn't exist or user doesn't have access, just show the list
             pass
+
+    # Handle draft conversation (recipient or gig specified via query params)
+    if not conversation_id:
+        draft_recipient_id = request.GET.get('recipient_id')
+        draft_gig_id = request.GET.get('gig_id')
+
+        if draft_recipient_id:
+            try:
+                draft_recipient = User.objects.select_related('profile').get(id=draft_recipient_id)
+                context['draft_recipient'] = draft_recipient
+            except User.DoesNotExist:
+                pass
+
+        if draft_gig_id:
+            try:
+                draft_gig = Gig.objects.get(id=draft_gig_id)
+                context['draft_gig'] = draft_gig
+            except Gig.DoesNotExist:
+                pass
+
+        # Provide default initial message when coming from a gig
+        if 'draft_gig' in context and 'draft_recipient' in context:
+            context['initial_message'] = f"I'm interested in your gig: {context['draft_gig'].title}"
+
 
     # If this is an HTMX request (e.g. the user clicked a conversation in the
     # sidebar) we only need to return the HTML for the message area so that the

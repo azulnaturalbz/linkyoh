@@ -895,11 +895,11 @@
 
                     <div class="mt-4">
                         {% if is_authenticated %}
-                            <a href="{% url 'create_conversation_with_user' recipient_id=profile.user.id %}" class="btn btn-outline-primary mb-2 w-100">
+                            <a href="{% url 'messaging_unified' %}?recipient_id={{ profile.user.id }}" class="btn btn-outline-primary mb-2 w-100">
                                 <i class="fas fa-paper-plane me-2"></i>Send Message to {{ profile.get_display_name }}
                             </a>
                         {% else %}
-                            <a href="{% url 'login' %}?next={% url 'create_conversation_with_user' recipient_id=profile.user.id %}" class="btn btn-outline-primary mb-2 w-100">
+                            <a href="{% url 'login' %}?next={% url 'messaging_unified' %}%3Frecipient_id={{ profile.user.id }}" class="btn btn-outline-primary mb-2 w-100">
                                 <i class="fas fa-paper-plane me-2"></i>Sign in to Message {{ profile.get_display_name }}
                             </a>
                         {% endif %}

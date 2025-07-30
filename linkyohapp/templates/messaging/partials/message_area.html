@@ -51,7 +51,8 @@
                   hx-target="#message-container"
                   hx-swap="beforeend"
                   hx-trigger="submit"
-                  x-ref="messageForm">
+                  x-ref="messageForm"
+                  hx-on::afterRequest="messageContent='';">
                 {% csrf_token %}
 
                 <div class="position-relative">
@@ -120,11 +121,95 @@
         </div>
     </div>
 {% else %}
-    <!-- Empty State -->
-    <div class="empty-state">
-        <i class="fas fa-comments fa-4x mb-3 text-muted"></i>
-        <h3>Select a conversation</h3>
-        <p class="text-muted">Choose a conversation from the sidebar or start a new one.</p>
-    </div>
-{% endif %}
+    {% if draft_recipient %}
+        <!-- Draft Conversation (has not been created yet) -->
+        <!-- Message Header -->
+        <div class="message-header">
+            <div class="d-flex align-items-center">
+                {% if draft_recipient.profile.avatar %}
+                    <img src="{{ draft_recipient.profile.avatar.url }}" alt="{{ draft_recipient.username }}"
+                         class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                {% else %}
+                    <div class="rounded-circle bg-secondary me-3 d-flex align-items-center justify-content-center"
+                         style="width: 40px; height: 40px; color: white;">
+                        {{ draft_recipient.username|first|upper }}
+                    </div>
+                {% endif %}
+                <div>
+                    <h5 class="mb-0">{{ draft_recipient.profile.get_display_name }}</h5>
+                    {% if draft_gig %}
+                        <p class="text-muted mb-0 small">
+                            <i class="fas fa-tag me-1"></i>
+                            {{ draft_gig.title }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
 
+        <div class="message-container" id="message-container">
+            <div class="text-center text-muted my-5">
+                <i class="fas fa-comments fa-3x mb-3"></i>
+                <p>Start your conversation by sending a message.</p>
+            </div>
+        </div>
+
+        <!-- Message Input -->
+        <div class="message-input-container">
+            <div x-data="messageForm()" x-init="messageContent = '{{ initial_message|default:''|escapejs }}'">
+                <form hx-post="{% url 'send_first_message' %}?recipient_id={{ draft_recipient.id }}{% if draft_gig %}&gig_id={{ draft_gig.id }}{% endif %}"
+                      hx-target="#message-area"
+                      hx-swap="outerHTML"
+                      x-ref="messageForm"
+                      hx-on::afterRequest="messageContent='';">
+                    {% csrf_token %}
+
+                    <div class="position-relative">
+                        <textarea name="content"
+                                  class="form-control"
+                                  placeholder="Type your message..."
+                                  rows="2"
+                                  x-model="messageContent"
+                                  @keydown.enter.prevent="if(!$event.shiftKey) { sendMessage(); }"
+                                  @keydown="handleKeydown($event)"
+                                  @keyup="handleKeyup($event)"></textarea>
+
+                        <!-- Mention dropdown -->
+                        <div class="mention-dropdown" x-show="showMentionDropdown" x-cloak>
+                            <template x-for="gig in mentionResults" :key="gig.id">
+                                <div class="mention-item" @click="selectMention(gig)">
+                                    <img :src="gig.photo_url" class="mention-item-img" :alt="gig.title">
+                                    <div class="mention-item-info">
+                                        <p class="mention-item-title" x-text="gig.title"></p>
+                                        <p class="mention-item-category" x-text="gig.category"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <div>
+                            <button type="button" class="btn btn-outline-secondary me-2" @click="toggleFileUpload">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" @click="insertMentionTrigger">
+                                <i class="fas fa-at"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary" :disabled="!messageContent.trim()">
+                            <i class="fas fa-paper-plane me-1"></i> Send
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <!-- Empty State -->
+        <div class="empty-state">
+            <i class="fas fa-comments fa-4x mb-3 text-muted"></i>
+            <h3>Select a conversation</h3>
+            <p class="text-muted">Choose a conversation from the sidebar or start a new one.</p>
+        </div>
+    {% endif %}
+{% endif %}
