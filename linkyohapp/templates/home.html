@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static custom_filters %}
 
 {% block head %}
 <style>
@@ -18,10 +18,13 @@
         transition: all 0.3s;
         position: relative;
         overflow: hidden;
+        border: none;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
 
     .category-card img {
-        height: 160px;
+        height: 140px;
         object-fit: cover;
         transition: transform 0.5s;
     }
@@ -30,14 +33,164 @@
         transform: scale(1.05);
     }
 
+    .category-card:hover {
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    .category-card:hover .category-overlay {
+        background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    }
+
     .category-card .category-overlay {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(transparent, rgba(0,0,0,0.7));
-        padding: 1rem;
-        color: white;
+        background: linear-gradient(transparent, rgba(0,0,0,0.75));
+        padding: 0.75rem 1rem;
+        color: #fff;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    /* How it works improved */
+    .how-step {
+        background: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 0.75rem;
+        padding: 2rem 1.25rem;
+        height: 100%;
+        transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .how-step:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .how-step .icon-wrapper {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem auto;
+        color: #fff;
+        font-size: 1.75rem;
+    }
+
+    /* Provider jumbotron */
+    .provider-jumbo {
+        background: linear-gradient(135deg,#0062ff 0%,#0062ff 30%, #0a58ca 100%);
+        color: #fff;
+        border-radius: 0.75rem;
+        padding: 3rem 1.5rem;
+        margin-bottom: 4rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .provider-jumbo::after {
+        content: '';
+        position: absolute;
+        right: -80px;
+        bottom: -80px;
+        width: 220px;
+        height: 220px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 50%;
+    }
+
+    /* ------------------------------------------------------------
+       Circular category wheel styles
+    ------------------------------------------------------------ */
+    .category-wheel-wrapper {
+        position: relative;
+        width: 340px;   /* Control overall size – adjust for break-points */
+        height: 340px;
+        margin: 0 auto 2rem auto;
+    }
+
+    .category-wheel {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: center center;
+        animation: spin 25s linear infinite;
+    }
+
+    /* Pause rotation on hover for easier interaction */
+    .category-wheel-wrapper:hover .category-wheel {
+        animation-play-state: paused;
+    }
+
+    .wheel-item {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 90px; /* icon + label footprint */
+        color: var(--bs-body-color, #212529);
+    }
+
+    .wheel-item .icon-circle {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--bs-primary, #0d6efd);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.5rem;
+        transition: background 0.3s, transform 0.3s;
+        margin: 0 auto;
+    }
+
+    .wheel-item:hover .icon-circle {
+        background: #0b5ed7; /* Slightly darker primary */
+        transform: scale(1.1);
+    }
+
+    /* Label at top */
+    .board-label {
+        position: absolute;
+        top: -48px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 6px 16px;
+        background: #fff;
+        color: var(--bs-primary, #0d6efd);
+        border: 2px solid var(--bs-primary, #0d6efd);
+        border-radius: 30px;
+        min-width: 120px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        font-size: 0.9rem;
+        pointer-events: none;
+    }
+
+    .category-label {
+        white-space: nowrap;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+    }
+
+    .provider-jumbo h2 {
+        font-weight: 700;
+    }
+
+    .provider-jumbo p.lead {
+        font-size: 1.1rem;
+        max-width: 640px;
+        margin: 0 auto 2rem auto;
     }
 
     .featured-gig-card {
@@ -140,6 +293,57 @@
 </style>
 {% endblock %}
 
+{% block scripts %}
+<script>
+// Dynamically position category items around a circle
+document.addEventListener('DOMContentLoaded', function () {
+    const wheel = document.querySelector('.category-wheel');
+    if (!wheel) return;
+
+    const items = wheel.querySelectorAll('.wheel-item');
+    const radius = wheel.offsetWidth / 2 - 70; // leave space for icons
+    const total = items.length;
+
+    items.forEach(function (item, index) {
+        const angle = (index / total) * 2 * Math.PI;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+
+        // Position each item – translate(-50%, -50%) keeps center alignment
+        item.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+    });
+
+    // Live category label update
+    const labelEl = document.querySelector('.category-current');
+    if (labelEl) {
+        const start = performance.now();
+        const duration = 25000; // Duration of one full rotation in ms (match CSS)
+
+        function updateLabel() {
+            const now = performance.now();
+            const elapsed = (now - start) % duration;
+            const rotationDeg = (elapsed / duration) * 360;
+
+            // 0deg points right; adjust so 0 is top
+            const adjustedDeg = (rotationDeg + 90) % 360;
+            const indexFloat = (total - (adjustedDeg / 360) * total) % total;
+            const index = Math.round(indexFloat) % total;
+
+            const currentItem = items[index];
+            if (currentItem) {
+                const text = currentItem.querySelector('.category-name').textContent;
+                labelEl.textContent = text;
+            }
+
+            requestAnimationFrame(updateLabel);
+        }
+
+        updateLabel();
+    }
+});
+</script>
+{% endblock %}
+
 {% block page %}
     <!-- Hero Section -->
     <div class="hero-section">
@@ -160,8 +364,8 @@
                                             <i class="fas fa-search text-primary"></i>
                                         </span>
                                         <input type="text" class="form-control border-start-0" placeholder="What service are you looking for?" name="param">
-                                    </div>
-                                </div>
+    </div>
+    </div>
 
                                 <!-- Category, Subcategory, and District Filters -->
                                 <div class="col-md-4">
@@ -212,7 +416,7 @@
     {% if featured_gigs %}
     <section class="mb-5">
         <h2 class="section-title">Featured Services</h2>
-        <div class="row">
+        <div class="row g-3">
             {% for gig in featured_gigs %}
                 <div class="col-md-4 mb-4">
                     <div class="card featured-gig-card">
@@ -260,67 +464,72 @@
     </section>
     {% endif %}
 
-    <!-- Popular Categories Section -->
+        <!-- Provider Marketing Jumbotron -->
+    <section class="provider-jumbo text-center">
+        <div class="container position-relative">
+            <h2 class="display-5 mb-3">Turn Your Skills Into Income</h2>
+            <p class="lead mb-4">In the AI era full-time jobs are changing fast. Build your own future by listing a service on Linkyoh and get discovered by customers across Belize. Stand out, be seen and get hired for that next project.</p>
+            <a href="{% url 'create_gig' %}" class="btn btn-light btn-lg fw-semibold me-2"><i class="fas fa-plus-circle me-2"></i>Post Your Service</a>
+            <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg"><i class="fas fa-user-plus me-2"></i>Join as Freelancer</a>
+        </div>
+    </section>
+
+    <!-- Popular Categories – Circular Wheel Carousel -->
     {% if popular_categories %}
     <section class="mb-5">
-        <h2 class="section-title">Popular Categories</h2>
-        <div class="row">
-            {% for category in popular_categories %}
-                <div class="col-md-2 col-sm-4 col-6 mb-4">
-                    <a href="{% url 'category_listing' category.id %}" class="text-decoration-none">
-                        <div class="card category-card">
-                            <img src="{{ category.get_photo_url }}" class="card-img" alt="{{ category.category }}">
-                            <div class="category-overlay">
-                                <h6 class="mb-0">{{ category.category }}</h6>
-                            </div>
+        <h2 class="section-title text-center">Popular Categories</h2>
+
+        <div class="category-wheel-wrapper d-flex justify-content-center position-relative">
+            <div class="category-current board-label text-center fw-semibold" style="margin-top: 1rem"></div>
+            <div class="category-wheel position-relative">
+                {% for category in popular_categories %}
+                    <a href="{% url 'category_listing' category.id %}"
+                       class="wheel-item text-decoration-none text-center"
+                       title="{{ category.category }}">
+                        <div class="icon-circle">
+                            <i class="{{ category|get_icon_class }}"></i>
                         </div>
+                        <small class="d-block fw-semibold mt-1 category-label">{{ category.short_category|default:category.category }}</small>
+                        <small class="category-name" style="display: none">{{ category.category }}</small>
                     </a>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </section>
     {% endif %}
 
     <!-- How It Works Section -->
-    <section class="mb-5 bg-light p-4 rounded">
+    <section class="mb-5">
         <h2 class="section-title">How Linkyoh Works</h2>
-        <div class="row text-center">
-            <div class="col-md-3 mb-3">
-                <div class="p-3">
-                    <div class="display-4 text-primary mb-3">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h4>Find Services</h4>
-                    <p>Search for services by category or location to find the perfect provider for your needs.</p>
+        <div class="row g-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="how-step text-center">
+                    <div class="icon-wrapper mb-3"><i class="fas fa-search"></i></div>
+                    <h5 class="fw-semibold">1. Find Services</h5>
+                    <p class="mb-0">Search by category, keyword or location and discover trusted providers ready to help.</p>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="p-3">
-                    <div class="display-4 text-primary mb-3">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h4>Read Reviews</h4>
-                    <p>Check ratings and reviews from real customers to make informed decisions.</p>
+            <div class="col-md-3 col-sm-6">
+                <div class="how-step text-center">
+                    <div class="icon-wrapper mb-3"><i class="fas fa-star"></i></div>
+                    <h5 class="fw-semibold">2. Compare Reviews</h5>
+                    <p class="mb-0">Review real ratings & feedback so you can hire with confidence every time.</p>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="p-3">
-                    <div class="display-4 text-primary mb-3">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <h4>Connect Directly</h4>
-                    <p>Contact service providers directly through phone or WhatsApp to discuss your needs.</p>
+            <div class="col-md-3 col-sm-6">
+                <div class="how-step text-center">
+                    <div class="icon-wrapper mb-3"><i class="fas fa-comments"></i></div>
+                    <h5 class="fw-semibold">3. Chat & Agree</h5>
+                    <p class="mb-0">Message providers, share details and lock-in pricing directly—no middleman fees.</p>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="p-3">
-                    <div class="display-4 text-primary mb-3">
-                        <i class="fas fa-plus-circle"></i>
-                    </div>
-                    <h4>Offer Your Services</h4>
-                    <p>Create your own gig listing to showcase your services to potential customers.</p>
-                    <a href="{% url 'help_add_gig' %}" class="btn btn-outline-primary mt-2">
-                        <i class="fas fa-question-circle me-1"></i> How to Add a Gig
+            <div class="col-md-3 col-sm-6">
+                <div class="how-step text-center">
+                    <div class="icon-wrapper mb-3"><i class="fas fa-briefcase"></i></div>
+                    <h5 class="fw-semibold">4. Offer Your Talent</h5>
+                    <p>Create a gig and tap into Belize’s growing freelance economy—future-proof your income.</p>
+                    <a href="{% url 'help_add_gig' %}" class="btn btn-outline-primary btn-sm mt-2">
+                        How to post a gig
                     </a>
                 </div>
             </div>
