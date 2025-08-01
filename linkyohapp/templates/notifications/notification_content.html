@@ -1,0 +1,146 @@
+{% if notifications %}
+    <div class="card shadow-sm">
+        <div class="list-group list-group-flush">
+            {% for notification in notifications %}
+                <div class="list-group-item list-group-item-action {% if not notification.is_read %}bg-light{% endif %}"
+                     x-show="!showUnreadOnly || {% if not notification.is_read %}true{% else %}false{% endif %}">
+                    <div class="d-flex w-100 justify-content-between align-items-center">
+                        <div>
+                            <div class="d-flex align-items-center">
+                                {% if notification.notification_type == 'message' %}
+                                    <div class="notification-icon bg-primary text-white me-3">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                {% elif notification.notification_type == 'claim_request' %}
+                                    <div class="notification-icon bg-info text-white me-3">
+                                        <i class="fas fa-hand-paper"></i>
+                                    </div>
+                                {% elif notification.notification_type == 'claim_approved' %}
+                                    <div class="notification-icon bg-success text-white me-3">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                {% elif notification.notification_type == 'claim_rejected' %}
+                                    <div class="notification-icon bg-danger text-white me-3">
+                                        <i class="fas fa-times-circle"></i>
+                                    </div>
+                                {% elif notification.notification_type == 'mention' %}
+                                    <div class="notification-icon bg-warning text-white me-3">
+                                        <i class="fas fa-at"></i>
+                                    </div>
+                                {% else %}
+                                    <div class="notification-icon bg-secondary text-white me-3">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                {% endif %}
+                                
+                                <div>
+                                    <h6 class="mb-1">{{ notification.title }}</h6>
+                                    <p class="mb-1">{{ notification.message }}</p>
+                                    <small class="text-muted">{{ notification.get_timesince }} ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex">
+                            {% if not notification.is_read %}
+                                <a href="{% url 'mark_notification_as_read' notification.id %}" 
+                                   class="btn btn-sm btn-outline-secondary me-2"
+                                   hx-post="{% url 'mark_notification_as_read' notification.id %}"
+                                   hx-target="closest .list-group-item"
+                                   hx-swap="outerHTML">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                            {% endif %}
+                            <a href="{{ notification.get_absolute_url }}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-eye me-1"></i> View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div class="card shadow-sm">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-bell fa-3x text-muted mb-3"></i>
+            <h5>No notifications yet</h5>
+            <p class="text-muted">You don't have any notifications at the moment.</p>
+            <div class="mt-4">
+                <p class="text-muted">You'll receive notifications for:</p>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="notification-icon bg-primary text-white me-3" style="width: 32px; height: 32px;">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span>New messages</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="notification-icon bg-info text-white me-3" style="width: 32px; height: 32px;">
+                                <i class="fas fa-hand-paper"></i>
+                            </div>
+                            <span>Gig claim requests</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="notification-icon bg-success text-white me-3" style="width: 32px; height: 32px;">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span>Approved claims</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="notification-icon bg-warning text-white me-3" style="width: 32px; height: 32px;">
+                                <i class="fas fa-at"></i>
+                            </div>
+                            <span>Gig mentions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if is_paginated %}
+<nav aria-label="Notification pagination" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
