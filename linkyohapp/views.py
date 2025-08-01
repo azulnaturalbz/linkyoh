@@ -38,7 +38,7 @@ def _get_client_ip(request):
 from .models import (
     Gig, Profile, Location, District, Category, SubCategory, Review, 
     GigImage, GigContact, GigServiceArea, Stats, GigClaimRequest,
-    Conversation, Message, MessageFile
+    Conversation, Message, MessageFile, Notification
 )
 from .forms import (
     GigForm, ReviewForm, ContactForm, UserRegistrationForm, ProfileForm,
@@ -1032,6 +1032,64 @@ def thanks(request):
     return render(request, 'thanks.html')
 
 
+class NotificationListView(LoginRequiredMixin, ListView):
+    """
+    View for displaying a user's notifications.
+    """
+    model = Notification
+    template_name = 'notifications/notification_list.html'
+    context_object_name = 'notifications'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return Notification.objects.filter(user=self.request.user).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['unread_count'] = Notification.get_unread_count(self.request.user)
+        return context
+
+
+@login_required
+def notification_list(request):
+    """
+    Function-based view for the notification list.
+    """
+    view = NotificationListView.as_view()
+    return view(request)
+
+
+@login_required
+def mark_notification_as_read(request, notification_id):
+    """
+    Mark a notification as read.
+    """
+    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+    notification.mark_as_read()
+    
+    # If AJAX request, return JSON response
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'status': 'success'})
+    
+    # Otherwise redirect back to the notification list
+    return redirect('notification_list')
+
+
+@login_required
+def mark_all_notifications_as_read(request):
+    """
+    Mark all notifications as read.
+    """
+    Notification.mark_all_as_read(request.user)
+    
+    # If AJAX request, return JSON response
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'status': 'success'})
+    
+    # Otherwise redirect back to the notification list
+    return redirect('notification_list')
+
+
 class GigClaimRequestView(LoginRequiredMixin, FormView):
     """
     View for users to submit a claim request for a gig that was created by an admin.
@@ -1070,6 +1128,9 @@ class GigClaimRequestView(LoginRequiredMixin, FormView):
 
         # Save the claim request
         claim_request.save()
+        
+        # Create notification for the gig owner
+        Notification.create_claim_request_notification(claim_request)
 
         # Show success message
         messages.success(self.request, 
@@ -1821,6 +1882,9 @@ def send_message(request, conversation_id):
             user=request.user,
             ip_address=_get_client_ip(request)
         )
+        
+        # Create notification for the message recipient
+        Notification.create_message_notification(message)
 
         # Fetch the message again to ensure we have all related data
         message = Message.objects.select_related('sender', 'sender__profile').prefetch_related(

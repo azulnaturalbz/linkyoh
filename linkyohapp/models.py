@@ -31,6 +31,9 @@ from django.core.validators import FileExtensionValidator
 # Import image processing utilities
 from .image_utils import process_avatar, process_cover, process_gig_photo, process_image, ImageProcessingError
 
+# Import for notification timestamps
+from django.utils.timesince import timesince
+
 # Define claim request status choices
 GIG_CLAIM_STATUS_CHOICES = [
     ('pending', 'Pending'),
@@ -736,6 +739,9 @@ class GigClaimRequest(models.Model):
             # Update the request status
             self.status = 'approved'
             self.save()
+            
+            # Create notification for the user
+            Notification.create_claim_status_notification(self)
 
             return True
         return False
@@ -745,6 +751,10 @@ class GigClaimRequest(models.Model):
         if self.status != 'rejected':
             self.status = 'rejected'
             self.save()
+            
+            # Create notification for the user
+            Notification.create_claim_status_notification(self)
+            
             return True
         return False
 
@@ -1207,3 +1217,137 @@ class MessageFile(models.Model):
         if self.file and file_exists(self.file.name):
             return self.file.url
         return None
+
+
+class Notification(models.Model):
+    """
+    Model for user notifications.
+    """
+    NOTIFICATION_TYPES = (
+        ('message', 'New Message'),
+        ('claim_request', 'Gig Claim Request'),
+        ('claim_approved', 'Gig Claim Approved'),
+        ('claim_rejected', 'Gig Claim Rejected'),
+        ('mention', 'Gig Mention'),
+        ('system', 'System Notification'),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPES)
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    
+    # For linking to related objects
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey('content_type', 'object_id')
+    
+    # For email/WhatsApp notification tracking
+    email_sent = models.BooleanField(default=False)
+    whatsapp_sent = models.BooleanField(default=False)
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['user', 'is_read']),
+            models.Index(fields=['user', 'notification_type']),
+        ]
+    
+    def __str__(self):
+        return f"{self.get_notification_type_display()} for {self.user.username}"
+    
+    def mark_as_read(self):
+        """Mark the notification as read"""
+        if not self.is_read:
+            self.is_read = True
+            self.save(update_fields=['is_read', 'updated_at'])
+            return True
+        return False
+    
+    def get_absolute_url(self):
+        """Get the URL to view the related object"""
+        if self.notification_type == 'message' and self.content_object:
+            return reverse('conversation_detail', kwargs={'pk': self.object_id})
+        elif self.notification_type in ['claim_request', 'claim_approved', 'claim_rejected'] and self.content_object:
+            return reverse('gig_detail', kwargs={'id': self.object_id})
+        return reverse('notification_list')
+    
+    def get_timesince(self):
+        """Get the time since the notification was created"""
+        return timesince(self.created_at)
+    
+    @classmethod
+    def get_unread_count(cls, user):
+        """Get the count of unread notifications for a user"""
+        return cls.objects.filter(user=user, is_read=False).count()
+    
+    @classmethod
+    def mark_all_as_read(cls, user):
+        """Mark all notifications as read for a user"""
+        return cls.objects.filter(user=user, is_read=False).update(is_read=True, updated_at=timezone.now())
+    
+    @classmethod
+    def create_message_notification(cls, message):
+        """Create a notification for a new message"""
+        # Only create notification for the recipient
+        recipient = message.conversation.recipient if message.sender == message.conversation.initiator else message.conversation.initiator
+        
+        # Create the notification
+        notification = cls.objects.create(
+            user=recipient,
+            notification_type='message',
+            title='New Message',
+            message=f"You have a new message from {message.sender.profile.get_display_name()}",
+            content_type=ContentType.objects.get_for_model(message.conversation),
+            object_id=message.conversation.id
+        )
+        return notification
+    
+    @classmethod
+    def create_claim_request_notification(cls, claim_request):
+        """Create a notification for a new claim request"""
+        # Notify the gig owner
+        notification = cls.objects.create(
+            user=claim_request.gig.user,
+            notification_type='claim_request',
+            title='New Gig Claim Request',
+            message=f"{claim_request.user.profile.get_display_name()} has requested to claim your gig: {claim_request.gig.title}",
+            content_type=ContentType.objects.get_for_model(claim_request.gig),
+            object_id=claim_request.gig.id
+        )
+        return notification
+    
+    @classmethod
+    def create_claim_status_notification(cls, claim_request):
+        """Create a notification for a claim request status change"""
+        notification_type = 'claim_approved' if claim_request.status == 'approved' else 'claim_rejected'
+        title = 'Gig Claim Approved' if claim_request.status == 'approved' else 'Gig Claim Rejected'
+        
+        notification = cls.objects.create(
+            user=claim_request.user,
+            notification_type=notification_type,
+            title=title,
+            message=f"Your claim request for '{claim_request.gig.title}' has been {claim_request.status}.",
+            content_type=ContentType.objects.get_for_model(claim_request.gig),
+            object_id=claim_request.gig.id
+        )
+        return notification
+    
+    @classmethod
+    def create_mention_notification(cls, message, gig):
+        """Create a notification for a gig mention"""
+        # Notify the gig owner
+        notification = cls.objects.create(
+            user=gig.user,
+            notification_type='mention',
+            title='Your Gig Was Mentioned',
+            message=f"{message.sender.profile.get_display_name()} mentioned your gig '{gig.title}' in a message.",
+            content_type=ContentType.objects.get_for_model(gig),
+            object_id=gig.id
+        )
+        return notification

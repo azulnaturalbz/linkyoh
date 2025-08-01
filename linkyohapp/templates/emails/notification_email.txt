@@ -1,0 +1,32 @@
+Hello {{ user.profile.get_display_name }},
+
+You have {{ notification_count }} new notifications on Linkyoh:
+
+{% if message_count > 0 %}
+- {{ message_count }} new message{% if message_count > 1 %}s{% endif %}
+{% endif %}
+{% if claim_request_count > 0 %}
+- {{ claim_request_count }} new gig claim request{% if claim_request_count > 1 %}s{% endif %}
+{% endif %}
+{% if claim_approved_count > 0 %}
+- {{ claim_approved_count }} gig claim{% if claim_approved_count > 1 %}s{% endif %} approved
+{% endif %}
+{% if claim_rejected_count > 0 %}
+- {{ claim_rejected_count }} gig claim{% if claim_rejected_count > 1 %}s{% endif %} rejected
+{% endif %}
+{% if mention_count > 0 %}
+- {{ mention_count }} new mention{% if mention_count > 1 %}s{% endif %} of your gig
+{% endif %}
+{% if system_count > 0 %}
+- {{ system_count }} system notification{% if system_count > 1 %}s{% endif %}
+{% endif %}
+
+Please log in to your account to view these notifications:
+{{ protocol }}://{{ domain }}/notifications/
+
+Thank you for using Linkyoh!
+
+--
+Linkyoh Team
+© {% now "Y" %} Linkyoh. All rights reserved.
+If you have any questions, please contact us at {{ support_email }}

@@ -88,4 +88,9 @@ urlpatterns = [
     path('messages/<int:conversation_id>/send/', views.send_message, name='send_message'),
     path('messages/<int:conversation_id>/upload/', views.upload_message_file, name='upload_message_file'),
     path('messages/search-gigs/', views.search_gigs_for_mention, name='search_gigs_for_mention'),
+    
+    # Notifications
+    path('notifications/', views.notification_list, name='notification_list'),
+    path('notifications/<int:notification_id>/mark-read/', views.mark_notification_as_read, name='mark_notification_as_read'),
+    path('notifications/mark-all-read/', views.mark_all_notifications_as_read, name='mark_all_notifications_as_read'),
 ]
