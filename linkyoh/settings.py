@@ -67,7 +67,7 @@ MIDDLEWARE = [
 if credentials.DEPLOYMENT_MODE == 'app':
     # Insert WhiteNoiseMiddleware right after SecurityMiddleware
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 ROOT_URLCONF = 'linkyoh.urls'
 
@@ -222,4 +222,37 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'linkyohapp.tasks.cleanup_old_notifications',
         'schedule': 86400,  # Run daily (86400 seconds = 24 hours)
     },
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'mysite.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'linkyohapp': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
 }
