@@ -26,123 +26,20 @@
                 </div>
             </div>
 
-            <div id="notification-list">
-                {% if notifications %}
-                    <div class="card shadow-sm">
-                        <div class="list-group list-group-flush">
-                            {% for notification in notifications %}
-                                <div class="list-group-item list-group-item-action {% if not notification.is_read %}bg-light{% endif %}"
-                                     x-show="!showUnreadOnly || {% if not notification.is_read %}true{% else %}false{% endif %}">
-                                    <div class="d-flex w-100 justify-content-between align-items-center">
-                                        <div>
-                                            <div class="d-flex align-items-center">
-                                                {% if notification.notification_type == 'message' %}
-                                                    <div class="notification-icon bg-primary text-white me-3">
-                                                        <i class="fas fa-envelope"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'claim_request' %}
-                                                    <div class="notification-icon bg-info text-white me-3">
-                                                        <i class="fas fa-hand-paper"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'claim_approved' %}
-                                                    <div class="notification-icon bg-success text-white me-3">
-                                                        <i class="fas fa-check-circle"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'claim_rejected' %}
-                                                    <div class="notification-icon bg-danger text-white me-3">
-                                                        <i class="fas fa-times-circle"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'mention' %}
-                                                    <div class="notification-icon bg-warning text-white me-3">
-                                                        <i class="fas fa-at"></i>
-                                                    </div>
-                                                {% else %}
-                                                    <div class="notification-icon bg-secondary text-white me-3">
-                                                        <i class="fas fa-bell"></i>
-                                                    </div>
-                                                {% endif %}
-                                                
-                                                <div>
-                                                    <h6 class="mb-1">{{ notification.title }}</h6>
-                                                    <p class="mb-1">{{ notification.message }}</p>
-                                                    <small class="text-muted">{{ notification.get_timesince }} ago</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="d-flex">
-                                            {% if not notification.is_read %}
-                                                <a href="{% url 'mark_notification_as_read' notification.id %}" 
-                                                   class="btn btn-sm btn-outline-secondary me-2"
-                                                   hx-post="{% url 'mark_notification_as_read' notification.id %}"
-                                                   hx-target="closest .list-group-item"
-                                                   hx-swap="outerHTML">
-                                                    <i class="fas fa-check"></i>
-                                                </a>
-                                            {% endif %}
-                                            <a href="{{ notification.get_absolute_url }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-eye me-1"></i> View
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
+            <div id="notification-list" 
+                 hx-get="{% url 'notification_list' %}" 
+                 hx-trigger="every 60s"
+                 hx-swap="innerHTML"
+                 hx-indicator="#notification-loading">
+                <div id="notification-loading" class="htmx-indicator text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                {% else %}
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center py-5">
-                            <i class="fas fa-bell fa-3x text-muted mb-3"></i>
-                            <h5>No notifications yet</h5>
-                            <p class="text-muted">You don't have any notifications at the moment.</p>
-                        </div>
-                    </div>
-                {% endif %}
+                    <p class="mt-2 text-muted">Loading notifications...</p>
+                </div>
+                
+                {% include "notifications/notification_content.html" %}
             </div>
-            
-            {% if is_paginated %}
-            <nav aria-label="Notification pagination" class="mt-4">
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page=1" aria-label="First">
-                                <span aria-hidden="true">&laquo;&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                    
-                    {% for num in page_obj.paginator.page_range %}
-                        {% if page_obj.number == num %}
-                            <li class="page-item active">
-                                <span class="page-link">{{ num }}</span>
-                            </li>
-                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                    
-                    {% if page_obj.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
-                                <span aria-hidden="true">&raquo;&raquo;</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
         </div>
     </div>
 </div>
@@ -161,6 +58,36 @@
     
     .bg-light {
         background-color: rgba(13, 110, 253, 0.05) !important;
+    }
+    
+    /* HTMX Loading Indicator */
+    .htmx-indicator {
+        opacity: 0;
+        transition: opacity 200ms ease-in;
+    }
+    .htmx-request .htmx-indicator {
+        opacity: 1;
+    }
+    .htmx-request.htmx-indicator {
+        opacity: 1;
+    }
+    
+    /* Notification list loading animation */
+    #notification-loading {
+        padding: 2rem;
+        border-radius: 0.5rem;
+        background-color: var(--gray-100);
+    }
+    
+    /* Pulse animation for the loading spinner */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    
+    #notification-loading .spinner-border {
+        animation: pulse 1.5s infinite ease-in-out, spinner-border 0.75s linear infinite;
     }
 </style>
 {% endblock %}

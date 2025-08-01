@@ -235,6 +235,29 @@
         .notification-dropdown .dropdown-item.bg-light:hover {
             background-color: rgba(13, 110, 253, 0.1) !important;
         }
+        
+        /* HTMX Loading Indicator */
+        .htmx-indicator {
+            opacity: 0;
+            transition: opacity 200ms ease-in;
+        }
+        .htmx-request .htmx-indicator {
+            opacity: 1;
+        }
+        .htmx-request.htmx-indicator {
+            opacity: 1;
+        }
+        
+        /* Dropdown loading animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        #dropdown-loading .spinner-border {
+            animation: pulse 1.5s infinite ease-in-out, spinner-border 0.75s linear infinite;
+        }
 
         footer .btn-outline-light.btn-sm.rounded-circle {
             width: 36px;
@@ -350,6 +373,8 @@
                                 {% endif %}
                                 </div>
                             </a>
+                            <!-- Direct link to notifications page -->
+                            <a href="{% url 'notification_list' %}" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: -1;"></a>
                             <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationsDropdown" style="width: 320px; max-height: 400px; overflow-y: auto;">
                                 <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
                                     <h6 class="dropdown-header m-0 p-0">Notifications</h6>
@@ -366,13 +391,16 @@
                                 
                                 <div id="notification-dropdown-content" 
                                      hx-get="{% url 'notification_list' %}?dropdown=1"
-                                     hx-trigger="load, every 30s">
-                                    <!-- Content will be loaded via HTMX -->
-                                    <div class="text-center p-3">
+                                     hx-trigger="load, every 30s"
+                                     hx-indicator="#dropdown-loading">
+                                    <!-- Loading indicator -->
+                                    <div id="dropdown-loading" class="htmx-indicator text-center p-3">
                                         <div class="spinner-border spinner-border-sm text-primary" role="status">
-                                            <span class="visually-hidden">Loading...</span>
+                                            <span class="visually-hidden">Loading notifications...</span>
                                         </div>
+                                        <p class="small text-muted mt-2 mb-0">Loading notifications...</p>
                                     </div>
+                                    <!-- Content will be loaded via HTMX -->
                                 </div>
                             </div>
                         </li>
@@ -395,6 +423,7 @@
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'my_gigs' %}"><i class="fas fa-list me-2"></i>My Gigs</a></li>
                                 <li><a class="dropdown-item" href="{% url 'messaging_unified' %}"><i class="fas fa-envelope me-2"></i>Messages</a></li>
+                                <li><a class="dropdown-item" href="{% url 'notification_list' %}"><i class="fas fa-bell me-2"></i>Notifications</a></li>
                                 <li><a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="fas fa-user me-2"></i>My Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
