@@ -1,0 +1,49 @@
+{% if notifications %}
+    {% for notification in notifications %}
+        <a href="{% url 'view_notification' notification.id %}" class="dropdown-item d-flex align-items-center py-2 {% if not notification.is_read %}bg-light{% endif %}">
+            <div class="flex-shrink-0 me-2">
+                {% if notification.notification_type == 'message' %}
+                    <div class="notification-icon bg-primary text-white">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                {% elif notification.notification_type == 'claim_request' %}
+                    <div class="notification-icon bg-info text-white">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                {% elif notification.notification_type == 'claim_approved' %}
+                    <div class="notification-icon bg-success text-white">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                {% elif notification.notification_type == 'claim_rejected' %}
+                    <div class="notification-icon bg-danger text-white">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                {% elif notification.notification_type == 'mention' %}
+                    <div class="notification-icon bg-warning text-white">
+                        <i class="fas fa-at"></i>
+                    </div>
+                {% else %}
+                    <div class="notification-icon bg-secondary text-white">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="flex-grow-1">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-0 text-truncate" style="max-width: 200px;">{{ notification.title }}</h6>
+                    <small class="text-muted">{{ notification.get_timesince }}</small>
+                </div>
+                <p class="mb-0 small text-truncate" style="max-width: 240px;">{{ notification.message }}</p>
+            </div>
+        </a>
+    {% endfor %}
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item text-center small text-primary" href="{% url 'notification_list' %}">
+        View all notifications
+    </a>
+{% else %}
+    <div class="dropdown-item text-center py-4">
+        <i class="fas fa-bell fa-2x text-muted mb-2"></i>
+        <p class="mb-0">No notifications yet</p>
+    </div>
+{% endif %}

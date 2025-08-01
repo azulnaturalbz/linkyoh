@@ -330,7 +330,7 @@
                     {% if user and not user.is_anonymous %}
                         <li class="nav-item me-2">
                             <a class="nav-link btn btn-sm btn-success text-white" href="{% url 'create_gig' %}">
-                                <i class="fas fa-plus-circle me-1"></i> Post a Gig
+                                <i class="fas fa-plus-circle me-1"></i>
                             </a>
                         </li>
                         <!-- Notifications -->
@@ -338,72 +338,42 @@
                             <a class="nav-link position-relative" href="#" id="notificationsDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-bell fa-lg"></i>
+                                <div id="notification-badge" 
+                                     hx-get="{% url 'notification_list' %}?count_only=1"
+                                     hx-trigger="load, every 30s"
+                                     hx-swap="innerHTML">
                                 {% if user.notifications.exists %}
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                         {{ user.notifications.count }}
                                         <span class="visually-hidden">unread notifications</span>
                                     </span>
                                 {% endif %}
+                                </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationsDropdown" style="width: 320px; max-height: 400px; overflow-y: auto;">
                                 <div class="d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
                                     <h6 class="dropdown-header m-0 p-0">Notifications</h6>
                                     {% if user.notifications.exists %}
-                                        <a href="{% url 'mark_all_notifications_as_read' %}" class="text-decoration-none small">
+                                        <a href="{% url 'mark_all_notifications_as_read' %}" 
+                                           class="text-decoration-none small"
+                                           hx-post="{% url 'mark_all_notifications_as_read' %}"
+                                           hx-target="#notification-dropdown-content"
+                                           hx-swap="innerHTML">
                                             Mark all as read
                                         </a>
                                     {% endif %}
                                 </div>
                                 
-                                {% if user.notifications.exists %}
-                                    {% for notification in user.notifications.all|slice:":5" %}
-                                        <a href="{{ notification.get_absolute_url }}" class="dropdown-item d-flex align-items-center py-2 {% if not notification.is_read %}bg-light{% endif %}">
-                                            <div class="flex-shrink-0 me-2">
-                                                {% if notification.notification_type == 'message' %}
-                                                    <div class="notification-icon bg-primary text-white">
-                                                        <i class="fas fa-envelope"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'claim_request' %}
-                                                    <div class="notification-icon bg-info text-white">
-                                                        <i class="fas fa-hand-paper"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'claim_approved' %}
-                                                    <div class="notification-icon bg-success text-white">
-                                                        <i class="fas fa-check-circle"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'claim_rejected' %}
-                                                    <div class="notification-icon bg-danger text-white">
-                                                        <i class="fas fa-times-circle"></i>
-                                                    </div>
-                                                {% elif notification.notification_type == 'mention' %}
-                                                    <div class="notification-icon bg-warning text-white">
-                                                        <i class="fas fa-at"></i>
-                                                    </div>
-                                                {% else %}
-                                                    <div class="notification-icon bg-secondary text-white">
-                                                        <i class="fas fa-bell"></i>
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h6 class="mb-0 text-truncate" style="max-width: 200px;">{{ notification.title }}</h6>
-                                                    <small class="text-muted">{{ notification.get_timesince }}</small>
-                                                </div>
-                                                <p class="mb-0 small text-truncate" style="max-width: 240px;">{{ notification.message }}</p>
-                                            </div>
-                                        </a>
-                                    {% endfor %}
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-center small text-primary" href="{% url 'notification_list' %}">
-                                        View all notifications
-                                    </a>
-                                {% else %}
-                                    <div class="dropdown-item text-center py-4">
-                                        <i class="fas fa-bell fa-2x text-muted mb-2"></i>
-                                        <p class="mb-0">No notifications yet</p>
+                                <div id="notification-dropdown-content" 
+                                     hx-get="{% url 'notification_list' %}?dropdown=1"
+                                     hx-trigger="load, every 30s">
+                                    <!-- Content will be loaded via HTMX -->
+                                    <div class="text-center p-3">
+                                        <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
                                     </div>
-                                {% endif %}
+                                </div>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

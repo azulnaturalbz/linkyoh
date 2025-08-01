@@ -211,3 +211,15 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_WORKER_STATE_DB = os.path.join(BASE_DIR, 'celery_worker_state.db')
+
+# Celery Beat Schedule
+CELERY_BEAT_SCHEDULE = {
+    'send-notification-emails': {
+        'task': 'linkyohapp.tasks.send_notification_emails',
+        'schedule': 1800,  # Run every 30 minutes (1800 seconds)
+    },
+    'cleanup-old-notifications': {
+        'task': 'linkyohapp.tasks.cleanup_old_notifications',
+        'schedule': 86400,  # Run daily (86400 seconds = 24 hours)
+    },
+}

@@ -1042,12 +1042,32 @@ class NotificationListView(LoginRequiredMixin, ListView):
     paginate_by = 20
 
     def get_queryset(self):
+        # Filter by unread if requested
+        if self.request.GET.get('unread_only'):
+            return Notification.objects.filter(user=self.request.user, is_read=False).order_by('-created_at')
         return Notification.objects.filter(user=self.request.user).order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['unread_count'] = Notification.get_unread_count(self.request.user)
         return context
+        
+    def get(self, request, *args, **kwargs):
+        # Handle count-only requests for HTMX
+        if request.GET.get('count_only'):
+            unread_count = Notification.get_unread_count(request.user)
+            if unread_count > 0:
+                html = f'<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{unread_count}<span class="visually-hidden">unread notifications</span></span>'
+            else:
+                html = ''
+            return HttpResponse(html)
+            
+        # Handle dropdown-only requests for HTMX
+        if request.GET.get('dropdown'):
+            self.template_name = 'notifications/notification_dropdown.html'
+            self.paginate_by = 5
+            
+        return super().get(request, *args, **kwargs)
 
 
 @login_required
@@ -1088,6 +1108,32 @@ def mark_all_notifications_as_read(request):
     
     # Otherwise redirect back to the notification list
     return redirect('notification_list')
+
+
+# ---------------------------------------------------------------------------
+# Notification redirect helper
+# ---------------------------------------------------------------------------
+
+
+@login_required
+def view_notification(request, notification_id):
+    """Helper view that marks a notification as read *and* redirects the user
+    to the resource represented by the notification. This guarantees that a
+    notification is immediately marked as read once the user clicks on it from
+    any page (dropdown, notification list, e-mail, etc.).
+
+    The target URL is determined via ``Notification.get_absolute_url`` – the
+    same helper already used throughout the code-base – so we keep the redirect
+    logic in a single place.
+    """
+
+    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+
+    # Mark the notification as read if it hasn't been already
+    notification.mark_as_read()
+
+    # Redirect the user to the final destination (conversation, gig, …)
+    return redirect(notification.get_absolute_url())
 
 
 class GigClaimRequestView(LoginRequiredMixin, FormView):

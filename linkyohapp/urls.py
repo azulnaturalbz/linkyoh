@@ -93,4 +93,8 @@ urlpatterns = [
     path('notifications/', views.notification_list, name='notification_list'),
     path('notifications/<int:notification_id>/mark-read/', views.mark_notification_as_read, name='mark_notification_as_read'),
     path('notifications/mark-all-read/', views.mark_all_notifications_as_read, name='mark_all_notifications_as_read'),
+
+    # Helper that marks a single notification as read and then forwards the
+    # user to the resource the notification refers to.
+    path('notifications/<int:notification_id>/view/', views.view_notification, name='view_notification'),
 ]
