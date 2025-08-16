@@ -117,6 +117,48 @@ class GigForm(ModelForm):
 
         return cleaned_data
 
+    # ------------------------------------------------------------------
+    # Custom cleaning for the "status" field
+    # ------------------------------------------------------------------
+    #
+    # The status field is stored in the database as a BooleanField. In the
+    # HTML template, however, we render the control as a <select> element
+    # whose options have the string values "1" (Active) and "0" (Disabled).
+    #
+    # When a form is submitted, Django's default BooleanField cleaning logic
+    # treats *any* non-empty string as ``True``.  As a result, both "1" and
+    # "0" are converted to ``True`` and a gig can never be set to
+    # *inactive* from the UI.
+    #
+    # We work around this by explicitly normalising common string
+    # representations of truthy / falsy values to a real boolean.
+    # ------------------------------------------------------------------
+    def clean_status(self):
+        """Coerce the status value coming from the form to a real boolean."""
+
+        raw_value = self.data.get(self.add_prefix('status'))
+
+        # When the field is missing from the payload (e.g. unchecked checkbox)
+        # ``raw_value`` will be ``None`` – treat that as *False*.
+        if raw_value is None:
+            return False
+
+        # Accept a variety of representations so templates can use either a
+        # checkbox, radio buttons or the existing <select> element.
+        truthy = {'1', 'true', 't', 'yes', 'on'}
+        falsy = {'0', 'false', 'f', 'no', 'off'}
+
+        value_lower = str(raw_value).lower().strip()
+
+        if value_lower in truthy:
+            return True
+        if value_lower in falsy:
+            return False
+
+        # Fallback – let Django decide (raises ValidationError on invalid
+        # input).
+        return bool(raw_value)
+
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
         if photo == 'gigs_img/empty_cover.jpg':
