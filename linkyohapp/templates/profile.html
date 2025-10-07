@@ -740,8 +740,8 @@
                             </div>
                         </div>
 
-                        <div class="d-grid gap-2 mt-4">
-                            <button class="btn btn-primary" type="submit">
+                        <div class="d-grid mt-4">
+                            <button class="btn btn-primary btn-lg" type="submit">
                                 <i class="fas fa-save me-2"></i>Save Profile
                             </button>
                         </div>
@@ -893,13 +893,13 @@
                     </div>
                     {% endif %}
 
-                    <div class="mt-4">
+                    <div class="mt-4 d-grid">
                         {% if is_authenticated %}
-                            <a href="{% url 'messaging_unified' %}?recipient_id={{ profile.user.id }}" class="btn btn-outline-primary mb-2 w-100">
+                            <a href="{% url 'messaging_unified' %}?recipient_id={{ profile.user.id }}" class="btn btn-outline-primary">
                                 <i class="fas fa-paper-plane me-2"></i>Send Message to {{ profile.get_display_name }}
                             </a>
                         {% else %}
-                            <a href="{% url 'login' %}?next={% url 'messaging_unified' %}%3Frecipient_id={{ profile.user.id }}" class="btn btn-outline-primary mb-2 w-100">
+                            <a href="{% url 'login' %}?next={% url 'messaging_unified' %}%3Frecipient_id={{ profile.user.id }}" class="btn btn-outline-primary">
                                 <i class="fas fa-paper-plane me-2"></i>Sign in to Message {{ profile.get_display_name }}
                             </a>
                         {% endif %}

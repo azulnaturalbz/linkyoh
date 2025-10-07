@@ -1,0 +1,944 @@
+/* ============================================================
+   LINKYOH DESIGN SYSTEM
+   Inspired by Angie's List - Professional Service Marketplace
+   ============================================================ */
+
+/* ============================================================
+   COLOR PALETTE
+   ============================================================ */
+:root {
+    /* Primary Brand Colors - Angie's List inspired */
+    --primary-green: #28a745;        /* Trust green - primary CTA */
+    --primary-green-dark: #218838;   /* Hover state */
+    --primary-green-light: #d4edda;  /* Light backgrounds */
+
+    --secondary-orange: #ff6b35;     /* Accent/urgency */
+    --secondary-orange-dark: #e85a28;
+    --secondary-orange-light: #ffe5dc;
+
+    /* Professional Grays */
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eeeeee;
+    --gray-300: #e0e0e0;
+    --gray-400: #bdbdbd;
+    --gray-500: #9e9e9e;
+    --gray-600: #757575;
+    --gray-700: #616161;
+    --gray-800: #424242;
+    --gray-900: #212121;
+
+    /* Semantic Colors */
+    --success-green: #28a745;
+    --info-blue: #17a2b8;
+    --warning-yellow: #ffc107;
+    --danger-red: #dc3545;
+
+    /* Text Colors */
+    --text-primary: #212121;
+    --text-secondary: #616161;
+    --text-muted: #9e9e9e;
+    --text-white: #ffffff;
+
+    /* Background Colors */
+    --bg-body: #fafafa;
+    --bg-white: #ffffff;
+    --bg-light: #f5f5f5;
+    --bg-dark: #212121;
+
+    /* Border Colors */
+    --border-light: #e0e0e0;
+    --border-medium: #bdbdbd;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+
+    /* Spacing Scale */
+    --space-xs: 0.25rem;  /* 4px */
+    --space-sm: 0.5rem;   /* 8px */
+    --space-md: 1rem;     /* 16px */
+    --space-lg: 1.5rem;   /* 24px */
+    --space-xl: 2rem;     /* 32px */
+    --space-2xl: 3rem;    /* 48px */
+    --space-3xl: 4rem;    /* 64px */
+
+    /* Typography Scale */
+    --font-size-xs: 0.75rem;   /* 12px */
+    --font-size-sm: 0.875rem;  /* 14px */
+    --font-size-base: 1rem;    /* 16px */
+    --font-size-lg: 1.125rem;  /* 18px */
+    --font-size-xl: 1.25rem;   /* 20px */
+    --font-size-2xl: 1.5rem;   /* 24px */
+    --font-size-3xl: 1.875rem; /* 30px */
+    --font-size-4xl: 2.25rem;  /* 36px */
+    --font-size-5xl: 3rem;     /* 48px */
+
+    /* Font Weights */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 250ms ease-in-out;
+    --transition-slow: 350ms ease-in-out;
+}
+
+/* ============================================================
+   GLOBAL RESETS & BASE STYLES
+   ============================================================ */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+    color: var(--text-primary);
+}
+
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-base); }
+
+p {
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+}
+
+.text-primary { color: var(--primary-green) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-orange { color: var(--secondary-orange) !important; }
+
+.font-weight-normal { font-weight: var(--font-weight-normal) !important; }
+.font-weight-medium { font-weight: var(--font-weight-medium) !important; }
+.font-weight-semibold { font-weight: var(--font-weight-semibold) !important; }
+.font-weight-bold { font-weight: var(--font-weight-bold) !important; }
+
+/* ============================================================
+   BUTTONS - Angie's List Style
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-md);
+    border: 2px solid transparent;
+    transition: all var(--transition-base);
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
+}
+
+/* Primary Button - Trust Green */
+.btn-primary {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: var(--text-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-green-dark);
+    border-color: var(--primary-green-dark);
+    color: var(--text-white);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Secondary Button - Orange Accent */
+.btn-secondary {
+    background-color: var(--secondary-orange);
+    border-color: var(--secondary-orange);
+    color: var(--text-white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-orange-dark);
+    border-color: var(--secondary-orange-dark);
+    color: var(--text-white);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Outline Buttons */
+.btn-outline-primary {
+    background-color: transparent;
+    border-color: var(--primary-green);
+    color: var(--primary-green);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: var(--text-white);
+}
+
+.btn-outline-secondary {
+    background-color: transparent;
+    border-color: var(--secondary-orange);
+    color: var(--secondary-orange);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--secondary-orange);
+    border-color: var(--secondary-orange);
+    color: var(--text-white);
+}
+
+/* Success Button */
+.btn-success {
+    background-color: var(--success-green);
+    border-color: var(--success-green);
+    color: var(--text-white);
+}
+
+.btn-success:hover {
+    background-color: var(--primary-green-dark);
+    border-color: var(--primary-green-dark);
+    color: var(--text-white);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Button Sizes */
+.btn-sm {
+    font-size: var(--font-size-sm);
+    padding: 0.375rem 0.875rem;
+}
+
+.btn-lg {
+    font-size: var(--font-size-lg);
+    padding: 0.875rem 1.75rem;
+}
+
+.btn-xl {
+    font-size: var(--font-size-xl);
+    padding: 1rem 2rem;
+}
+
+/* Button with icon spacing */
+.btn i {
+    margin-right: 0.5rem;
+}
+
+.btn i:last-child {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+/* ============================================================
+   CARDS - Professional Service Cards
+   ============================================================ */
+.card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    padding: var(--space-lg);
+    background-color: var(--bg-light);
+    border-bottom: 1px solid var(--border-light);
+    font-weight: var(--font-weight-semibold);
+}
+
+.card-body {
+    padding: var(--space-lg);
+}
+
+.card-footer {
+    padding: var(--space-lg);
+    background-color: var(--bg-light);
+    border-top: 1px solid var(--border-light);
+}
+
+/* Gig Cards - Special styling for service listings */
+.gig-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.gig-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.gig-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.gig-card .card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.gig-card .card-title:hover {
+    color: var(--primary-green);
+}
+
+.gig-card .card-text {
+    flex: 1;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* Featured Gig Badge */
+.featured-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background-color: var(--secondary-orange);
+    color: var(--text-white);
+    padding: 0.375rem 0.875rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    z-index: 10;
+    box-shadow: var(--shadow-md);
+}
+
+/* ============================================================
+   BADGES & LABELS
+   ============================================================ */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.badge-primary {
+    background-color: var(--primary-green-light);
+    color: var(--primary-green-dark);
+}
+
+.badge-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.badge-warning {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.badge-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.badge-orange {
+    background-color: var(--secondary-orange-light);
+    color: var(--secondary-orange-dark);
+}
+
+/* Verified Badge - Trust Signal */
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--primary-green-light);
+    color: var(--primary-green-dark);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-left: var(--space-sm);
+}
+
+.verified-badge i {
+    margin-right: 0.25rem;
+}
+
+/* ============================================================
+   NAVIGATION - Professional Header
+   ============================================================ */
+.navbar {
+    background-color: var(--bg-white);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.navbar-brand {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-xl);
+    color: var(--primary-green);
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-primary);
+    font-weight: var(--font-weight-medium);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-green);
+    background-color: var(--primary-green-light);
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--primary-green);
+    background-color: var(--primary-green-light);
+}
+
+/* ============================================================
+   FORMS & INPUTS
+   ============================================================ */
+.form-control,
+.form-select {
+    padding: 0.625rem 1rem;
+    font-size: var(--font-size-base);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15);
+    outline: none;
+}
+
+.form-label {
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero-section {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: var(--text-white);
+    padding: var(--space-3xl) 0;
+    margin-bottom: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section h1 {
+    color: var(--text-white);
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+}
+
+.hero-section .lead {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: var(--space-xl);
+}
+
+/* ============================================================
+   SEARCH BAR - Prominent Call to Action
+   ============================================================ */
+.search-card {
+    background-color: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: var(--space-xl);
+}
+
+.search-input-group {
+    position: relative;
+}
+
+.search-input-group input {
+    padding-left: 3rem;
+    height: 3.5rem;
+    font-size: var(--font-size-lg);
+    border: 2px solid var(--border-light);
+}
+
+.search-input-group input:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15);
+}
+
+.search-input-group .search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: var(--font-size-xl);
+    z-index: 10;
+}
+
+/* ============================================================
+   SECTION TITLES
+   ============================================================ */
+.section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-xl);
+    position: relative;
+    padding-bottom: var(--space-md);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-green);
+    border-radius: var(--radius-sm);
+}
+
+.section-title.text-center::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ============================================================
+   TRUST SIGNALS & RATINGS
+   ============================================================ */
+.rating-stars {
+    color: var(--warning-yellow);
+    font-size: var(--font-size-lg);
+}
+
+.rating-stars i {
+    margin-right: 0.125rem;
+}
+
+.review-count {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin-left: var(--space-sm);
+}
+
+/* ============================================================
+   PROVIDER/USER PROFILES
+   ============================================================ */
+.provider-card {
+    text-align: center;
+    padding: var(--space-xl);
+}
+
+.provider-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--primary-green-light);
+    box-shadow: var(--shadow-md);
+    margin: 0 auto var(--space-lg);
+}
+
+.provider-name {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-sm);
+}
+
+.provider-title {
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-md);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+    background-color: var(--bg-dark);
+    color: rgba(255, 255, 255, 0.8);
+    padding: var(--space-3xl) 0 var(--space-xl);
+    margin-top: var(--space-3xl);
+}
+
+footer h6 {
+    color: var(--text-white);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+footer a:hover {
+    color: var(--text-white);
+}
+
+/* ============================================================
+   BUTTON GROUPS & TOOLBARS - Proper Spacing & Alignment
+   ============================================================ */
+/* Button Group - No gaps between buttons */
+.btn-group {
+    display: inline-flex;
+    gap: 0;
+}
+
+.btn-group .btn {
+    border-radius: 0;
+    margin: 0;
+}
+
+.btn-group .btn:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+}
+
+.btn-group .btn:last-child {
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+}
+
+/* Button Toolbar - Groups of buttons with proper spacing */
+.btn-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+/* Action Buttons Container - Proper spacing between individual buttons */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+}
+
+.action-buttons .btn {
+    margin: 0 !important; /* Override any conflicting margins */
+}
+
+/* Flexbox Button Container - Horizontal spacing */
+.d-flex.gap-2 {
+    gap: var(--space-sm) !important;
+}
+
+.d-flex.gap-3 {
+    gap: var(--space-md) !important;
+}
+
+.d-flex.gap-4 {
+    gap: var(--space-lg) !important;
+}
+
+/* Grid Button Container - Stacked buttons with consistent spacing */
+.d-grid.gap-2 {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.d-grid.gap-3 {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.d-grid.gap-4 {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+/* Card Footer Actions - Buttons in card footers */
+.card-footer .action-buttons,
+.card-footer .btn-group,
+.card-footer .d-flex {
+    margin: 0;
+}
+
+.card-footer .btn {
+    white-space: nowrap;
+}
+
+/* Form Navigation Buttons - Bottom of forms */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border-light);
+}
+
+.form-navigation .btn {
+    min-width: 120px;
+}
+
+/* Badge Groups - Consistent spacing */
+.badge + .badge {
+    margin-left: var(--space-sm);
+}
+
+.d-flex .badge {
+    margin: 0 var(--space-xs);
+}
+
+.d-flex .badge:first-child {
+    margin-left: 0;
+}
+
+.d-flex .badge:last-child {
+    margin-right: 0;
+}
+
+/* Contact Badge Groups */
+.contact-badge,
+.service-area-badge {
+    margin-right: var(--space-sm) !important;
+    margin-bottom: var(--space-sm) !important;
+}
+
+/* Ensure proper alignment in flexbox containers */
+.d-flex.align-items-center {
+    align-items: center;
+}
+
+.d-flex.justify-content-between {
+    justify-content: space-between;
+}
+
+.d-flex.justify-content-end {
+    justify-content: flex-end;
+}
+
+.d-flex.justify-content-center {
+    justify-content: center;
+}
+
+/* Fix for buttons touching other elements */
+.btn + .btn {
+    margin-left: var(--space-sm);
+}
+
+.btn-group .btn + .btn,
+.action-buttons .btn + .btn,
+.d-flex.gap-2 .btn + .btn,
+.d-flex.gap-3 .btn + .btn {
+    margin-left: 0; /* Remove if parent handles spacing */
+}
+
+/* Mobile Responsive Button Spacing */
+@media (max-width: 768px) {
+    .action-buttons {
+        gap: var(--space-xs);
+    }
+
+    .btn-toolbar {
+        gap: var(--space-xs);
+    }
+
+    .form-navigation {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .form-navigation .btn {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+.bg-light { background-color: var(--bg-light); }
+.bg-white { background-color: var(--bg-white); }
+.bg-green-light { background-color: var(--primary-green-light); }
+.bg-orange-light { background-color: var(--secondary-orange-light); }
+
+/* Margin and Padding Utilities for Precise Control */
+.m-0 { margin: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.mr-0, .me-0 { margin-right: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.ml-0, .ms-0 { margin-left: 0 !important; }
+
+.p-0 { padding: 0 !important; }
+.pt-0 { padding-top: 0 !important; }
+.pr-0, .pe-0 { padding-right: 0 !important; }
+.pb-0 { padding-bottom: 0 !important; }
+.pl-0, .ps-0 { padding-left: 0 !important; }
+
+/* Gap Utilities */
+.gap-0 { gap: 0 !important; }
+.gap-1 { gap: var(--space-xs) !important; }
+.gap-2 { gap: var(--space-sm) !important; }
+.gap-3 { gap: var(--space-md) !important; }
+.gap-4 { gap: var(--space-lg) !important; }
+.gap-5 { gap: var(--space-xl) !important; }
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: var(--font-size-3xl);
+    }
+
+    .hero-section .lead {
+        font-size: var(--font-size-lg);
+    }
+
+    .section-title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: var(--font-size-base);
+    }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+    outline: 2px solid var(--primary-green);
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.4s ease-out;
+}
