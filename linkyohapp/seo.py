@@ -13,9 +13,9 @@ PARENT_ORG_NAME = 'Silvatech'
 PARENT_ORG_URL = 'https://silvatech.bz'
 DEFAULT_TITLE = 'Linkyoh | Find Services and Local Businesses in Belize'
 DEFAULT_DESCRIPTION = (
-    'Find service providers and local businesses across Belize. Browse categories, '
-    'compare listings, contact providers, and claim your business on Linkyoh, a '
-    'Silvatech product.'
+    'Find local services and businesses across Belize. Browse categories, compare '
+    'listings, contact providers, and claim your business on Linkyoh, a Silvatech '
+    'product.'
 )
 DEFAULT_KEYWORDS = (
     'Belize services, local businesses Belize, service providers Belize, Belize '
