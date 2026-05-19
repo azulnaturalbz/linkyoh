@@ -656,6 +656,26 @@ CORS_ALLOWED_ORIGINS=http://localhost:3000
 
 ## AI Agent Instructions
 
+### Spec-Driven Delivery (Required)
+
+For any non-trivial feature, architectural change, cross-cutting refactor,
+workflow change, or behavior-changing bug fix:
+
+1. **Start in Spec Kit first**
+   - Use the repository's Spec Kit workflow before writing implementation code
+   - Treat artifacts in `specs/<NNN-short-name>/` as the source of truth for scope and execution
+
+2. **Use the repo-local Codex skills**
+   - Run `$speckit-specify` to create the numbered feature branch and `spec.md`
+   - Run `$speckit-plan` before implementation
+   - Run `$speckit-tasks` before substantial implementation work
+   - Run `$speckit-implement` when executing the planned work
+
+3. **Keep governance in sync**
+   - If delivery rules change, update `.specify/memory/constitution.md`
+   - If agent workflow changes, update `AGENTS.md` and `README.md` in the same change set
+
+
 ### Project Initialization
 
 When asked to scaffold a new project:
@@ -677,6 +697,8 @@ When asked to scaffold a new project:
    - `Makefile` (with standard commands)
    - `requirements.txt` or `package.json`
    - Framework-specific files (manage.py, app.py, index.ts)
+   - Initialize GitHub Spec Kit for Codex after the core files exist:
+     `uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai codex --ai-skills --script ps
 
 3. **Set up default services:**
    - Application container
@@ -824,6 +846,8 @@ AWS_STORAGE_BUCKET_NAME=
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [React Documentation](https://react.dev/)
 - [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
+- [GitHub Spec Kit Repository](https://github.com/github/spec-kit)
+- [Spec Kit Documentation](https://github.github.com/spec-kit/)
 - [AGENTS.md Specification](https://agents.md/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 - [Python PEP 8](https://peps.python.org/pep-0008/)
@@ -831,8 +855,8 @@ AWS_STORAGE_BUCKET_NAME=
 
 ---
 
-**Last Updated:** 2025-12-02
-**Version:** 1.0.0
+**Last Updated:** 2026-05-19
+**Version:** 1.1.0
 
 ---
 
