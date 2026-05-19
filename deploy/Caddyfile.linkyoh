@@ -1,0 +1,8 @@
+linkyoh.com, www.linkyoh.com {
+	encode gzip
+	request_body {
+		max_size 50MB
+	}
+
+	reverse_proxy linkyoh-web:8000
+}

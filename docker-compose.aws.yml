@@ -1,0 +1,88 @@
+services:
+  web:
+    build:
+      context: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      LYDEPLOYMENT_MODE: app
+      LYSTATIC_ROOT: /linkyoh/staticfiles
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-amqp://linkyoh:linkyoh@rabbitmq:5672//}
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             exec gunicorn linkyoh.wsgi:application --bind 0.0.0.0:8000 --workers ${GUNICORN_WORKERS:-2}"
+    volumes:
+      - static_volume:/linkyoh/staticfiles
+      - media_volume:/linkyoh/media
+    expose:
+      - "8000"
+    networks:
+      linkyoh_network:
+      wop_wop_network:
+        aliases:
+          - linkyoh-web
+    depends_on:
+      rabbitmq:
+        condition: service_started
+
+  celery_worker:
+    build:
+      context: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      LYDEPLOYMENT_MODE: app
+      LYSTATIC_ROOT: /linkyoh/staticfiles
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-amqp://linkyoh:linkyoh@rabbitmq:5672//}
+    command: celery -A linkyoh worker -l info
+    volumes:
+      - media_volume:/linkyoh/media
+    networks:
+      - linkyoh_network
+    depends_on:
+      - web
+      - rabbitmq
+
+  celery_beat:
+    build:
+      context: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      LYDEPLOYMENT_MODE: app
+      LYSTATIC_ROOT: /linkyoh/staticfiles
+      CELERY_BROKER_URL: ${CELERY_BROKER_URL:-amqp://linkyoh:linkyoh@rabbitmq:5672//}
+    command: celery -A linkyoh beat -l info
+    volumes:
+      - media_volume:/linkyoh/media
+    networks:
+      - linkyoh_network
+    depends_on:
+      - web
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-linkyoh}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-linkyoh}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - linkyoh_network
+
+volumes:
+  static_volume:
+  media_volume:
+  rabbitmq_data:
+
+networks:
+  linkyoh_network:
+    driver: bridge
+  wop_wop_network:
+    external: true

@@ -40,3 +40,15 @@ TWILIO_VERIFY_SERVICE_SID = os.environ.get('TWILIO_VERIFY_SERVICE_SID', '')
 
 # Celery Configuration
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'amqp://guest:guest@localhost:5672//')
+
+# Optional AWS/S3 media storage settings. These are optional so existing VM and
+# local deployments can continue using filesystem media.
+USE_S3_MEDIA = os.environ.get('LYUSE_S3_MEDIA', 'False') == 'True'
+AWS_STORAGE_BUCKET_NAME = os.environ.get('LYAWS_STORAGE_BUCKET_NAME', '')
+AWS_S3_REGION_NAME = os.environ.get('LYAWS_S3_REGION_NAME', 'us-east-1')
+AWS_S3_MEDIA_PREFIX = os.environ.get('LYAWS_S3_MEDIA_PREFIX', 'media')
+AWS_S3_CUSTOM_DOMAIN = os.environ.get('LYAWS_S3_CUSTOM_DOMAIN', '')
+AWS_QUERYSTRING_AUTH = os.environ.get('LYAWS_QUERYSTRING_AUTH', 'False') == 'True'
+CSRF_TRUSTED_ORIGINS = os.environ.get('LYCSRF_TRUSTED_ORIGINS', '')
+SECURE_SSL_REDIRECT = os.environ.get('LYSECURE_SSL_REDIRECT', 'False') == 'True'
+STATIC_ROOT = os.environ.get('LYSTATIC_ROOT', '')

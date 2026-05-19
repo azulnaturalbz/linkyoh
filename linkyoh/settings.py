@@ -17,6 +17,11 @@ import credentials
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+def csv_env(value):
+    """Parse comma-separated environment values, dropping blanks."""
+    return [item.strip() for item in value.split(',') if item.strip()]
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -52,6 +57,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_celery_results'
 ]
+
+if credentials.USE_S3_MEDIA:
+    INSTALLED_APPS.append('storages')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -160,7 +168,12 @@ if credentials.DEPLOYMENT_MODE == 'dev':
 elif credentials.DEPLOYMENT_MODE == 'app':
     # App-only mode - Django needs to serve static files directly
     # Use absolute paths for app mode since we're mapping to host paths
-    STATIC_ROOT = '/linkyoh/static'
+    STATIC_ROOT = credentials.STATIC_ROOT or '/linkyoh/static'
+    project_static_dir = os.path.join(BASE_DIR, 'static')
+    if os.path.abspath(STATIC_ROOT) != os.path.abspath(project_static_dir):
+        STATICFILES_DIRS = [
+            project_static_dir,
+        ]
     MEDIA_ROOT = '/linkyoh/media'
 else:  # 'standalone' or any other value
     # Standalone mode with Nginx - use Docker volumes
@@ -171,8 +184,25 @@ else:  # 'standalone' or any other value
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
-# Media URL is the same for all deployment modes
-MEDIA_URL = '/media/'
+# Media URL/storage can be backed by S3 in AWS production.
+if credentials.USE_S3_MEDIA:
+    AWS_STORAGE_BUCKET_NAME = credentials.AWS_STORAGE_BUCKET_NAME
+    AWS_S3_REGION_NAME = credentials.AWS_S3_REGION_NAME
+    AWS_S3_CUSTOM_DOMAIN = (
+        credentials.AWS_S3_CUSTOM_DOMAIN
+        or f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    )
+    AWS_LOCATION = credentials.AWS_S3_MEDIA_PREFIX.strip('/')
+    AWS_DEFAULT_ACL = None
+    AWS_QUERYSTRING_AUTH = credentials.AWS_QUERYSTRING_AUTH
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+else:
+    MEDIA_URL = '/media/'
 
 # Email Settings
 
@@ -186,8 +216,10 @@ DEFAULT_FROM_EMAIL = credentials.DEFAULT_FROM_EMAIL
 
 #EMAIL_USE_SSL = credentials.EMAIL_USE_SSL
 
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+SECURE_SSL_REDIRECT = credentials.SECURE_SSL_REDIRECT
+CSRF_TRUSTED_ORIGINS = csv_env(credentials.CSRF_TRUSTED_ORIGINS)
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
