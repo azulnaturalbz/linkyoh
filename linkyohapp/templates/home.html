@@ -366,8 +366,8 @@ document.addEventListener('DOMContentLoaded', function () {
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="container text-center">
-            <h1 class="display-4 mb-4">Find Local Services in Belize</h1>
-            <p class="lead mb-4">Connect with trusted service providers from painters to carpenters to computer repair specialists</p>
+            <h1 class="display-4 mb-4">Find Services and Local Businesses in Belize</h1>
+            <p class="lead mb-4">Linkyoh uses AI-assisted curation and community claims to make Belize businesses easier to discover, contact, and grow.</p>
 
             <!-- Enhanced Search Form -->
             <div class="row justify-content-center mb-4">
@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         <span class="input-group-text bg-white border-end-0">
                                             <i class="fas fa-search text-primary"></i>
                                         </span>
-                                        <input type="text" class="form-control border-start-0" placeholder="What service are you looking for?" name="param">
+                                        <input type="text" class="form-control border-start-0" placeholder="Search plumbers, mechanics, salons, restaurants..." name="param">
     </div>
     </div>
 
@@ -424,8 +424,8 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
 
             <div class="d-flex justify-content-center gap-3">
-                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Join Now</a>
-                <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">Learn More</a>
+                <a href="{% url 'search' %}" class="btn btn-primary btn-lg">Browse Businesses</a>
+                <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">How Linkyoh Works</a>
             </div>
         </div>
     </div>
@@ -485,10 +485,10 @@ document.addEventListener('DOMContentLoaded', function () {
         <!-- Provider Marketing Jumbotron -->
     <section class="provider-jumbo text-center">
         <div class="container position-relative">
-            <h2 class="display-5 mb-3">Turn Your Skills Into Income</h2>
-            <p class="lead mb-4">In the AI era full-time jobs are changing fast. Build your own future by listing a service on Linkyoh and get discovered by customers across Belize. Stand out, be seen and get hired for that next project.</p>
-            <a href="{% url 'create_gig' %}" class="btn btn-light btn-lg fw-semibold me-2"><i class="fas fa-plus-circle me-2"></i>Post Your Service</a>
-            <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg"><i class="fas fa-user-plus me-2"></i>Join as Freelancer</a>
+            <h2 class="display-5 mb-3">Own Your Business Profile</h2>
+            <p class="lead mb-4">Linkyoh helps surface real Belize service businesses from ads, pages, images, and community sources. If a listing is yours, claim it, improve it, and turn discovery into calls, messages, and customers.</p>
+            <a href="{% url 'create_gig' %}" class="btn btn-light btn-lg fw-semibold me-2"><i class="fas fa-plus-circle me-2"></i>Add Your Business</a>
+            <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg"><i class="fas fa-user-plus me-2"></i>Create Account</a>
         </div>
     </section>
 
@@ -523,31 +523,31 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="col-md-3 col-sm-6">
                 <div class="how-step text-center">
                     <div class="icon-wrapper mb-3"><i class="fas fa-search"></i></div>
-                    <h5 class="fw-semibold">1. Find Services</h5>
-                    <p class="mb-0">Search by category, keyword or location and discover trusted providers ready to help.</p>
+                    <h5 class="fw-semibold">1. Discover</h5>
+                    <p class="mb-0">Search by category, keyword, or location to find Belize businesses and service providers.</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="how-step text-center">
                     <div class="icon-wrapper mb-3"><i class="fas fa-star"></i></div>
-                    <h5 class="fw-semibold">2. Compare Reviews</h5>
-                    <p class="mb-0">Review real ratings & feedback so you can hire with confidence every time.</p>
+                    <h5 class="fw-semibold">2. Compare</h5>
+                    <p class="mb-0">Use photos, contact details, categories, and community feedback to decide who fits your need.</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="how-step text-center">
                     <div class="icon-wrapper mb-3"><i class="fas fa-comments"></i></div>
-                    <h5 class="fw-semibold">3. Chat & Agree</h5>
-                    <p class="mb-0">Message providers, share details and lock-in pricing directly—no middleman fees.</p>
+                    <h5 class="fw-semibold">3. Contact</h5>
+                    <p class="mb-0">Call, WhatsApp, message, or share a listing directly from Linkyoh.</p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="how-step text-center">
                     <div class="icon-wrapper mb-3"><i class="fas fa-briefcase"></i></div>
-                    <h5 class="fw-semibold">4. Offer Your Talent</h5>
-                    <p>Create a gig and tap into Belize’s growing freelance economy—future-proof your income.</p>
+                    <h5 class="fw-semibold">4. Claim or Add</h5>
+                    <p>Claim an AI-assisted listing that belongs to you or add your business yourself.</p>
                     <a href="{% url 'help_add_gig' %}" class="btn btn-outline-primary btn-sm mt-2">
-                        How to post a gig
+                        How listings work
                     </a>
                 </div>
             </div>

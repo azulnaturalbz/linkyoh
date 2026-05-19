@@ -35,6 +35,8 @@ ALLOWED_HOSTS = [credentials.ALLOWED_HOST,credentials.ALLOWED_HOST1,credentials.
 
 LINKYOH_SITE_URL = os.environ.get('LYSITE_URL', 'https://linkyoh.com').rstrip('/')
 LINKYOH_SITE_NAME = os.environ.get('LYSITE_NAME', 'Linkyoh')
+LINKYOH_IMPORT_API_KEY = credentials.IMPORT_API_KEY
+LINKYOH_IMPORT_USER_USERNAME = credentials.IMPORT_USER_USERNAME
 
 
 # Also add localhost and 127.0.0.1 for local development

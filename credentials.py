@@ -52,3 +52,8 @@ AWS_QUERYSTRING_AUTH = os.environ.get('LYAWS_QUERYSTRING_AUTH', 'False') == 'Tru
 CSRF_TRUSTED_ORIGINS = os.environ.get('LYCSRF_TRUSTED_ORIGINS', '')
 SECURE_SSL_REDIRECT = os.environ.get('LYSECURE_SSL_REDIRECT', 'False') == 'True'
 STATIC_ROOT = os.environ.get('LYSTATIC_ROOT', '')
+
+# Optional API access for trusted import agents. Leave blank to disable API-key
+# imports and allow staff-authenticated imports only.
+IMPORT_API_KEY = os.environ.get('LYIMPORT_API_KEY', '')
+IMPORT_USER_USERNAME = os.environ.get('LYIMPORT_USER_USERNAME', 'linkyoh-ai-admin')

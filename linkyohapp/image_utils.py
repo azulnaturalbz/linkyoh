@@ -169,13 +169,18 @@ def process_image(image_field, max_size, format=None):
     if not image_field:
         return False
 
-    # Get the original image path and name
-    original_path = image_field.path
+    # Get the original image path and name. S3-backed storage does not expose
+    # a filesystem path, so fall back to reading through Django storage.
+    try:
+        original_path = image_field.path
+    except (AttributeError, NotImplementedError):
+        original_path = None
     original_name = image_field.name
+    original_content = None
 
     # Check if this is a HEIC/HEIF image that needs conversion
     try:
-        if is_heic_image(original_path):
+        if original_path and is_heic_image(original_path):
             logger.info(f"Detected HEIC/HEIF image: {original_name}")
             # Convert to JPEG first
             converted_path = convert_heic_to_jpeg(original_path)
@@ -194,7 +199,13 @@ def process_image(image_field, max_size, format=None):
 
     try:
         # Open the image using PIL
-        img = Image.open(original_path)
+        if original_path:
+            img = Image.open(original_path)
+        else:
+            image_field.open('rb')
+            original_content = image_field.read()
+            image_field.close()
+            img = Image.open(BytesIO(original_content))
 
         # Auto-detect format if not specified
         if format is None:
@@ -239,21 +250,26 @@ def process_image(image_field, max_size, format=None):
             # Fallback for other formats
             img.save(output, format=format)
 
-        # Move the original file to the originals directory
-        originals_dir = os.path.join(os.path.dirname(original_path), ORIGINALS_DIR)
-        os.makedirs(originals_dir, exist_ok=True)
+        if original_path:
+            # Move the original file to the originals directory
+            originals_dir = os.path.join(os.path.dirname(original_path), ORIGINALS_DIR)
+            os.makedirs(originals_dir, exist_ok=True)
 
-        original_filename = os.path.basename(original_path)
-        original_dest = os.path.join(originals_dir, original_filename)
+            original_filename = os.path.basename(original_path)
+            original_dest = os.path.join(originals_dir, original_filename)
 
-        # Only copy to originals if it doesn't already exist there
-        if not os.path.exists(original_dest):
-            # Create a copy of the original file
-            with open(original_path, 'rb') as f:
-                original_content = f.read()
+            # Only copy to originals if it doesn't already exist there
+            if not os.path.exists(original_dest):
+                # Create a copy of the original file
+                with open(original_path, 'rb') as f:
+                    original_content = f.read()
 
-            with open(original_dest, 'wb') as f:
-                f.write(original_content)
+                with open(original_dest, 'wb') as f:
+                    f.write(original_content)
+        else:
+            original_storage_name = get_original_path(original_name)
+            if original_content is not None and not image_field.storage.exists(original_storage_name):
+                image_field.storage.save(original_storage_name, ContentFile(original_content))
 
         # Determine the output extension based on format
         ext_map = {'JPEG': '.jpg', 'PNG': '.png', 'WEBP': '.webp'}

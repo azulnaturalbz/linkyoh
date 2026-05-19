@@ -198,7 +198,7 @@
                 <div class="gig-form-card card">
                     <div class="card-header text-white d-flex align-items-center" style="background-color: var(--primary-green);">
                         <i class="fas fa-plus-circle me-2 fa-lg"></i>
-                        <h4 class="mb-0">Create a New Gig</h4>
+                        <h4 class="mb-0">Create a Business Listing</h4>
                     </div>
                     <div class="card-body">
                         <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
@@ -308,12 +308,12 @@
 
                             <div class="row mb-3">
                                 <label for="title" class="col-sm-3 col-form-label">
-                                    <i class="fas fa-heading me-2 text-primary"></i>Gig Title
+                                    <i class="fas fa-heading me-2 text-primary"></i>Listing Title
                                 </label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" placeholder="Enter your listing title"
                                            id="title" name="title" required>
-                                    <small class="form-text text-muted">Enter a clear, descriptive title for your gig (max 500 characters)</small>
+                                    <small class="form-text text-muted">Enter a clear business or service title (max 500 characters)</small>
                                 </div>
                             </div>
 
@@ -478,7 +478,7 @@
                                         <span class="input-group-text"><i class="fas fa-upload"></i></span>
                                         <input type="file" class="form-control" name="photo" accept="image/*">
                                     </div>
-                                    <small class="form-text text-muted">Upload a main image for your gig (jpg, jpeg, png, gif only)</small>
+                                    <small class="form-text text-muted">Upload a main image for your listing (jpg, jpeg, png, gif only)</small>
                                 </div>
                             </div>
                         </div>
@@ -489,14 +489,14 @@
 
                             <div class="row mb-3">
                                 <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-check-circle me-2 text-primary"></i>Gig Status
+                                    <i class="fas fa-check-circle me-2 text-primary"></i>Listing Status
                                 </label>
                                 <div class="col-sm-9">
                                     <select name="status" class="form-select" required>
                                         <option value="1">Active</option>
                                         <option value="0">Disabled</option>
                                     </select>
-                                    <small class="form-text text-muted">Set your gig as active to make it visible to customers, or disabled to hide it temporarily</small>
+                                    <small class="form-text text-muted">Set your listing as active to make it visible to customers, or disabled to hide it temporarily</small>
                                 </div>
                             </div>
                         </div>
@@ -555,7 +555,7 @@
                                                     <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
                                                         <i class="fas fa-star me-1 text-warning"></i> Set as primary image
                                                     </label>
-                                                    <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check this to make this image the main image for your gig" }}</small>
+                                                    <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check this to make this image the main image for your listing" }}</small>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">
@@ -786,7 +786,7 @@
                                 <i class="fas fa-arrow-left me-2"></i>Previous
                             </button>
                             <button type="submit" class="btn btn-nav btn-lg btn-success" id="submit-btn">
-                                <i class="fas fa-check-circle me-2"></i>Publish Gig
+                                <i class="fas fa-check-circle me-2"></i>Publish Listing
                             </button>
                         </div>
                         <button type="button" class="btn btn-nav btn-lg btn-primary" id="next-tab" @click="nextTab()" x-show="!isLastTab">
@@ -796,7 +796,7 @@
 
                     <div class="text-center text-muted mt-3">
                         <small>
-                            <span x-show="currentTab === 'basic'">Step 1 of 4: Fill in the basic information about your gig</span>
+                            <span x-show="currentTab === 'basic'">Step 1 of 4: Fill in the basic information about your listing</span>
                             <span x-show="currentTab === 'images'">Step 2 of 4: Add images to showcase your service</span>
                             <span x-show="currentTab === 'contacts'">Step 3 of 4: Add additional contact information</span>
                             <span x-show="currentTab === 'locations'">Step 4 of 4: Specify additional service areas</span>

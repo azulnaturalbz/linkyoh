@@ -2,7 +2,7 @@
 {% load static %}
 {% load bootstrap4 %}
 
-{% block title %}Claim Gig: {{ gig.title }} | Linkyoh{% endblock %}
+{% block title %}Claim Listing: {{ gig.title }} | Linkyoh{% endblock %}
 
 {% block head %}
 <style>
@@ -52,13 +52,13 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{ gig.get_absolute_url }}">{{ gig.title }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Claim Gig</li>
+                    <li class="breadcrumb-item active" aria-current="page">Claim Listing</li>
                 </ol>
             </nav>
             
             <div class="claim-form-container">
                 <div class="claim-form-header">
-                    <h2 class="mb-0"><i class="fas fa-flag me-2"></i>Claim This Gig</h2>
+                    <h2 class="mb-0"><i class="fas fa-flag me-2"></i>Claim This Listing</h2>
                 </div>
                 
                 <div class="claim-form-body">
@@ -73,9 +73,9 @@
                     </div>
                     
                     <div class="info-card">
-                        <h5><i class="fas fa-info-circle me-2"></i>About Claiming a Gig</h5>
-                        <p>This gig was created by an administrator. If you are the rightful owner of this business or service, you can submit a claim request.</p>
-                        <p>Please provide the requested information below. An administrator will review your claim and may contact you for verification. If approved, ownership of this gig will be transferred to your account.</p>
+                        <h5><i class="fas fa-info-circle me-2"></i>About Claiming a Listing</h5>
+                        <p>This business listing was curated by Linkyoh through AI-assisted tools or administrator review. If you are the rightful owner or authorized representative, submit a claim request.</p>
+                        <p>Please provide the requested information below. An administrator will review your claim and may contact you for verification. If approved, ownership of this listing will be transferred to your account.</p>
                     </div>
                     
                     <form method="post" enctype="multipart/form-data">
@@ -94,7 +94,7 @@
                         
                         <div class="d-flex justify-content-between mt-4">
                             <a href="{{ gig.get_absolute_url }}" class="btn btn-outline-secondary">
-                                <i class="fas fa-arrow-left me-2"></i>Back to Gig
+                                <i class="fas fa-arrow-left me-2"></i>Back to Listing
                             </a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-paper-plane me-2"></i>Submit Claim Request

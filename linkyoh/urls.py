@@ -23,5 +23,6 @@ urlpatterns = [
     path('robots.txt', app_views.robots_txt, name='robots_txt'),
     path('sitemap.xml', app_views.sitemap_xml, name='sitemap_xml'),
     path('admin/', admin.site.urls),
+    path('api/v1/', include('linkyohapp.api.urls')),
     path('', include('linkyohapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -61,6 +61,24 @@ def sanitize_filename(filename):
     # Generate a random filename with the original extension
     return f"{uuid4().hex}.{ext}"
 
+
+def move_storage_file(file_field, new_name):
+    """Move a stored file using the configured Django storage backend."""
+    old_name = file_field.name
+    if not old_name or old_name == new_name:
+        return False
+
+    storage = file_field.storage
+    if not storage.exists(old_name):
+        file_field.name = new_name
+        return True
+
+    with storage.open(old_name, 'rb') as source_file:
+        saved_name = storage.save(new_name, source_file)
+    storage.delete(old_name)
+    file_field.name = saved_name
+    return True
+
 def cover_upload_path(instance, filename):
     """
     Upload path for the main gig cover image
@@ -621,23 +639,12 @@ def update_gig_image_paths(sender, instance, created, **kwargs):
     if instance.photo:
         # For new instances or when the path contains 'new'
         if (created and 'new' in instance.photo.name) or (not created and 'new' in instance.photo.name):
-            # Get the old file path
-            old_path = instance.photo.path
-
             # Generate the new path with the correct ID
             filename = os.path.basename(instance.photo.name)
             new_path = os.path.join('gigs_img', str(instance.user_id), str(instance.id), 'cover', filename)
 
-            # Update the file path in the database
-            instance.photo.name = new_path
-            instance.save(update_fields=['photo'])
-
-            # If the old file exists, move it to the new location
-            if os.path.exists(old_path):
-                # Ensure the directory exists
-                os.makedirs(os.path.dirname(instance.photo.path), exist_ok=True)
-                # Move the file
-                os.rename(old_path, instance.photo.path)
+            if move_storage_file(instance.photo, new_path):
+                instance.save(update_fields=['photo'])
 
         # Process the gig photo
         try:
@@ -660,23 +667,12 @@ def update_gig_additional_image_paths(sender, instance, created, **kwargs):
     if instance.image:
         # For new instances or when the path contains 'unknown'
         if (created and 'unknown' in instance.image.name) or (not created and 'unknown' in instance.image.name):
-            # Get the old file path
-            old_path = instance.image.path
-
             # Generate the new path with the correct ID
             filename = os.path.basename(instance.image.name)
             new_path = os.path.join('gigs_img', str(instance.gig.user_id), str(instance.gig.id), 'additional', filename)
 
-            # Update the file path in the database
-            instance.image.name = new_path
-            instance.save(update_fields=['image'])
-
-            # If the old file exists, move it to the new location
-            if os.path.exists(old_path):
-                # Ensure the directory exists
-                os.makedirs(os.path.dirname(instance.image.path), exist_ok=True)
-                # Move the file
-                os.rename(old_path, instance.image.path)
+            if move_storage_file(instance.image, new_path):
+                instance.save(update_fields=['image'])
 
         # Process the additional image
         try:
@@ -763,12 +759,49 @@ class GigClaimRequest(models.Model):
         if self.status != 'rejected':
             self.status = 'rejected'
             self.save()
-            
+
             # Create notification for the user
             Notification.create_claim_status_notification(self)
-            
+
             return True
         return False
+
+
+class ImportedGigSource(models.Model):
+    """
+    Internal attribution for listings created through Linkyoh's AI-assisted
+    import workflow. This is not rendered publicly, but it lets admins audit
+    where a curated listing came from.
+    """
+    gig = models.OneToOneField(Gig, on_delete=models.CASCADE, related_name='import_source')
+    source_url = models.URLField(max_length=500, blank=True)
+    source_notes = models.TextField(blank=True)
+    raw_payload = JSONField(default=dict, blank=True)
+    imported_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='imported_gig_sources',
+    )
+    duplicate_of = models.ForeignKey(
+        Gig,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='duplicate_import_sources',
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Imported Gig Source'
+        verbose_name_plural = 'Imported Gig Sources'
+
+    def __str__(self):
+        source = self.source_url or 'manual import'
+        return f'{self.gig.title} from {source}'
 
 
 class Stats(models.Model):

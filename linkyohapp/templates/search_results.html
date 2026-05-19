@@ -177,8 +177,8 @@
                 <h1 class="display-5 mb-2">Search Results</h1>
                 <p class="lead mb-0">Results for: "{{ search_query }}"</p>
             {% else %}
-                <h1 class="display-5 mb-2">Find Services</h1>
-                <p class="lead mb-0">Browse all services or use filters to narrow your search</p>
+                <h1 class="display-5 mb-2">Find Belize Services</h1>
+                <p class="lead mb-0">Browse curated businesses, claimed profiles, and local service listings by category or location.</p>
             {% endif %}
 
             <!-- Enhanced Search Form in Header -->
@@ -193,7 +193,7 @@
                                             <i class="fas fa-search text-primary"></i>
                                         </span>
                                         <input type="text" class="form-control border-start-0" 
-                                               placeholder="What service are you looking for?" 
+                                               placeholder="Search business names, services, locations..."
                                                name="param" 
                                                value="{{ search_query }}">
                                     </div>
@@ -352,7 +352,7 @@
                                         hx-trigger="load, change from:#districtSelect"
                                         hx-target="#locationSelect"
                                         hx-include="#districtSelect"
-                                        {% if selected_district %}hx-vals='{"district": "{{ selected_district|default_if_none:"" }}", "location": "{{ selected_location|default_if_none:"" }}"}'{% endif %}
+                                        {% if selected_district %}hx-vals='{"district": "{{ selected_district|default_if_none:"" }}", "location": "{{ selected_location|default_if_none:"" }}"}'{% endif %}>
 
                                     <option value="">All Locations</option>
                                 </select>

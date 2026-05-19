@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.db.models import Count
 from django.utils import timezone
-from .models import Profile, Gig, Country, District, Local, LocalType, Location, Category, SubCategory, Review, Rating, Contact, Stats, GigClaimRequest
+from .models import (
+    Profile, Gig, Country, District, Local, LocalType, Location, Category,
+    SubCategory, Review, Rating, Contact, Stats, GigClaimRequest,
+    ImportedGigSource,
+)
 
 
 # Register your models here.
@@ -96,6 +100,14 @@ class GigAdmin(admin.ModelAdmin):
         updated = queryset.update(featured=False)
         self.message_user(request, f'{updated} gigs have been unmarked as featured.')
     unfeature_gigs.short_description = 'Remove featured status from selected gigs'
+
+
+@admin.register(ImportedGigSource)
+class ImportedGigSourceAdmin(admin.ModelAdmin):
+    list_display = ('gig', 'source_url', 'imported_by', 'duplicate_of', 'created_at')
+    list_filter = ('created_at', 'imported_by')
+    search_fields = ('gig__title', 'source_url', 'source_notes', 'imported_by__username')
+    readonly_fields = ('created_at', 'updated_at')
 
 
 @admin.register(Country)

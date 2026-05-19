@@ -1,5 +1,5 @@
 {% for category in categories %}
 <li class="nav-item">
-        <a class="nav-link" href="{{ category.get_absolute_url }}">{{ category.category }}</a>
+        <a class="nav-link category-chip" href="{{ category.get_absolute_url }}">{{ category.category }}</a>
 </li>
 {% endfor %}

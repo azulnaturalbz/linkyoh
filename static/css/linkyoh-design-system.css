@@ -7,14 +7,19 @@
    COLOR PALETTE
    ============================================================ */
 :root {
-    /* Primary Brand Colors - Angie's List inspired */
-    --primary-green: #28a745;        /* Trust green - primary CTA */
-    --primary-green-dark: #218838;   /* Hover state */
-    --primary-green-light: #d4edda;  /* Light backgrounds */
+    /* Primary Brand Colors - service marketplace, Belize-ready */
+    --primary-green: #0f766e;        /* Trust teal - primary CTA */
+    --primary-green-dark: #0b5f59;   /* Hover state */
+    --primary-green-light: #e6fffb;  /* Light backgrounds */
 
-    --secondary-orange: #ff6b35;     /* Accent/urgency */
-    --secondary-orange-dark: #e85a28;
-    --secondary-orange-light: #ffe5dc;
+    --secondary-orange: #f97316;     /* Warm accent */
+    --secondary-orange-dark: #c2410c;
+    --secondary-orange-light: #ffedd5;
+
+    --primary-color: var(--primary-green);
+    --secondary-color: var(--secondary-orange);
+    --dark-color: #0f172a;
+    --light-color: #f8fafc;
 
     /* Professional Grays */
     --gray-50: #fafafa;
@@ -29,8 +34,8 @@
     --gray-900: #212121;
 
     /* Semantic Colors */
-    --success-green: #28a745;
-    --info-blue: #17a2b8;
+    --success-green: #16a34a;
+    --info-blue: #0284c7;
     --warning-yellow: #ffc107;
     --danger-red: #dc3545;
 
@@ -41,10 +46,10 @@
     --text-white: #ffffff;
 
     /* Background Colors */
-    --bg-body: #fafafa;
+    --bg-body: #f8fafc;
     --bg-white: #ffffff;
     --bg-light: #f5f5f5;
-    --bg-dark: #212121;
+    --bg-dark: #0f172a;
 
     /* Border Colors */
     --border-light: #e0e0e0;
@@ -59,8 +64,8 @@
     /* Border Radius */
     --radius-sm: 4px;
     --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
+    --radius-lg: 10px;
+    --radius-xl: 12px;
     --radius-full: 9999px;
 
     /* Spacing Scale */
@@ -941,4 +946,454 @@ footer a:hover {
 
 .slide-in-right {
     animation: slideInRight 0.4s ease-out;
+}
+
+/* ============================================================
+   LINKYOH 2026 UI REFRESH
+   ============================================================ */
+html {
+    scroll-padding-top: 8.5rem;
+}
+
+body {
+    padding-top: 0 !important;
+}
+
+a {
+    color: var(--primary-green);
+}
+
+a:hover {
+    color: var(--primary-green-dark);
+}
+
+.site-header {
+    z-index: 1030;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.site-navbar {
+    min-height: 72px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.site-navbar .container {
+    gap: 1rem;
+}
+
+.site-brand-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}
+
+.site-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+}
+
+.site-brand-name {
+    color: var(--primary-green);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.site-brand-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.site-navbar .navbar-toggler,
+.site-category-navbar .navbar-toggler {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    min-width: 42px;
+    min-height: 42px;
+    box-shadow: none;
+}
+
+.site-navbar .navbar-toggler:focus,
+.site-category-navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
+}
+
+.site-nav-link {
+    color: var(--text-primary) !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 40px;
+    font-weight: 700 !important;
+    white-space: nowrap;
+}
+
+.site-nav-link:hover,
+.site-nav-link:focus {
+    color: var(--primary-green) !important;
+    background: var(--primary-green-light) !important;
+}
+
+.site-search-form {
+    flex: 0 0 30rem;
+    min-width: 30rem;
+    width: 30rem;
+}
+
+.site-search-form .input-group {
+    align-items: stretch;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-white);
+}
+
+.site-search-form .input-group-text,
+.site-search-form .form-control,
+.site-search-form .btn {
+    border: 0 !important;
+    min-height: 42px !important;
+    height: 42px !important;
+    box-shadow: none !important;
+}
+
+.site-search-form .form-control {
+    background: var(--bg-white);
+}
+
+.site-search-form .btn {
+    min-width: 6.5rem;
+    border-radius: 0 !important;
+}
+
+.site-auth-actions {
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.site-auth-actions .btn,
+.nav-cta {
+    min-height: 40px;
+    padding: 0.5rem 0.95rem !important;
+}
+
+.nav-cta {
+    color: var(--text-white) !important;
+    background: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+    border-radius: var(--radius-md) !important;
+    white-space: nowrap;
+}
+
+.nav-cta:hover,
+.nav-cta:focus {
+    color: var(--text-white) !important;
+    background: var(--primary-green-dark) !important;
+    border-color: var(--primary-green-dark) !important;
+}
+
+.site-auth-actions .btn-primary {
+    background-color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+    color: #ffffff !important;
+}
+
+.site-auth-actions .btn-primary:hover,
+.site-auth-actions .btn-primary:focus {
+    background-color: var(--primary-green-dark) !important;
+    border-color: var(--primary-green-dark) !important;
+    color: #ffffff !important;
+}
+
+.site-category-navbar {
+    min-height: 48px;
+    padding: 0.35rem 0;
+    background: #ffffff !important;
+    border-top: 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.site-category-navbar .container {
+    min-height: 40px;
+}
+
+.category-title {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.category-container {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.category-menu {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0.15rem 0;
+    white-space: nowrap;
+}
+
+.category-chip {
+    align-items: center;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-full) !important;
+    color: #334155 !important;
+    display: inline-flex;
+    font-size: 0.88rem;
+    font-weight: 800;
+    min-height: 34px;
+    padding: 0.35rem 0.85rem !important;
+}
+
+.category-chip:hover,
+.category-chip:focus {
+    background: var(--primary-green-light) !important;
+    border-color: rgba(15, 118, 110, 0.3);
+    color: var(--primary-green-dark) !important;
+}
+
+#body {
+    background: var(--bg-body);
+    min-height: 70vh;
+}
+
+#body > .container {
+    padding-top: 1.5rem;
+}
+
+.btn-primary,
+.btn-success {
+    color: #ffffff !important;
+}
+
+.btn-primary,
+.btn-primary:visited {
+    background-color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--primary-green-dark) !important;
+    border-color: var(--primary-green-dark) !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-primary {
+    color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-secondary {
+    border-color: #ea580c !important;
+    color: #9a3412 !important;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-outline-secondary.active {
+    background-color: #ea580c !important;
+    border-color: #ea580c !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-info {
+    border-color: #0369a1 !important;
+    color: #0369a1 !important;
+}
+
+.btn-outline-info:hover,
+.btn-outline-info:focus {
+    background-color: #0369a1 !important;
+    border-color: #0369a1 !important;
+    color: #ffffff !important;
+}
+
+.hero-section .btn-outline-light,
+.provider-jumbo .btn-outline-light,
+.register-image .btn-outline-light {
+    background-color: rgba(15, 23, 42, 0.72) !important;
+    border-color: rgba(255, 255, 255, 0.9) !important;
+    color: #ffffff !important;
+}
+
+.hero-section .btn-outline-light:hover,
+.hero-section .btn-outline-light:focus,
+.provider-jumbo .btn-outline-light:hover,
+.provider-jumbo .btn-outline-light:focus,
+.register-image .btn-outline-light:hover,
+.register-image .btn-outline-light:focus {
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+    color: var(--text-primary) !important;
+}
+
+.form-control,
+.form-select,
+.select2-container--bootstrap-5 .select2-selection {
+    min-height: 44px !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--text-primary) !important;
+    background-color: #ffffff !important;
+}
+
+.form-control:focus,
+.form-select:focus,
+.select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.select2-container--bootstrap-5.select2-container--open .select2-selection {
+    border-color: var(--primary-green) !important;
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15) !important;
+}
+
+.input-group-text {
+    min-height: 44px;
+    border-color: #cbd5e1;
+    color: var(--text-secondary);
+}
+
+.select2-container--bootstrap-5 .select2-selection__rendered {
+    line-height: 42px !important;
+    padding-left: 0.875rem !important;
+}
+
+.select2-dropdown {
+    border-color: var(--primary-green) !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden;
+}
+
+.dropdown-menu {
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    min-height: 38px;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background: var(--primary-green-light);
+    color: var(--primary-green-dark);
+}
+
+.footer-social-link {
+    align-items: center !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    height: 38px !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    width: 38px !important;
+}
+
+.footer-social-link i,
+footer .rounded-circle i {
+    margin: 0 !important;
+    line-height: 1;
+}
+
+@media (max-width: 1399.98px) {
+    .site-navbar .navbar-collapse {
+        background: #ffffff;
+        border-top: 1px solid var(--border-light);
+        margin-top: 0.75rem;
+        padding: 0.75rem 0 0.25rem;
+    }
+
+    .site-navbar .navbar-nav {
+        gap: 0.25rem;
+    }
+
+    .site-search-form {
+        flex: 1 1 100%;
+        min-width: 0;
+        margin: 0.75rem 0;
+        width: 100%;
+    }
+
+    .site-auth-actions {
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .site-auth-actions .nav-item,
+    .site-auth-actions .btn,
+    .site-auth-actions .nav-link {
+        width: 100%;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .category-menu {
+        align-items: stretch;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 0.5rem 0 0;
+    }
+
+    .category-chip {
+        border-radius: var(--radius-md) !important;
+        justify-content: flex-start;
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .site-brand-subtitle {
+        display: none;
+    }
+
+    #body > .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .hero-section {
+        border-radius: 0;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .category-wheel-wrapper {
+        height: min(320px, calc(100vw - 2rem));
+        overflow: hidden;
+        width: min(320px, calc(100vw - 2rem));
+    }
+
+    .category-wheel {
+        animation: none !important;
+        transform: none !important;
+    }
+
+    .provider-jumbo .btn {
+        margin: 0.25rem 0;
+        width: 100%;
+    }
 }
