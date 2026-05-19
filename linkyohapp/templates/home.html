@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                                      alt="Provider" class="rounded-circle me-2" width="30" height="30">
                                 <a href="{{ gig.user.profile.get_absolute_url }}" class="text-decoration-none text-muted">
-                                    {{ gig.user.get_full_name|default:gig.user.username }}
+                                    {{ gig.user.profile.get_display_name }}
                                 </a>
                             </div>
                             <p class="card-text">{{ gig.description | truncatechars:80 }}</p>
@@ -605,7 +605,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                                      alt="Provider">
                                 <a href="{{ gig.user.profile.get_absolute_url }}" class="text-decoration-none text-muted">
-                                    {{ gig.user.get_full_name|default:gig.user.username }}
+                                    {{ gig.user.profile.get_display_name }}
                                 </a>
                             </div>
                             <p class="card-text">{{ gig.description | truncatechars:60 }}</p>
