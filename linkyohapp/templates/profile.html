@@ -318,6 +318,75 @@
         margin-left: 0.5rem;
     }
 
+    .profile-hero-panel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        width: min(100%, 980px);
+        margin: 0 auto;
+        padding: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 1rem;
+        background: rgba(15, 23, 42, 0.68);
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.28);
+        text-align: left;
+    }
+
+    .profile-identity {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        min-width: 0;
+    }
+
+    .profile-heading {
+        min-width: 0;
+    }
+
+    .profile-heading h1,
+    .profile-heading .lead {
+        color: #ffffff !important;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .profile-heading h1 {
+        overflow-wrap: anywhere;
+        line-height: 1.08;
+    }
+
+    .profile-heading .lead {
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .profile-header-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .profile-header .verified-badge,
+    .profile-header .business-badge {
+        margin-left: 0;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: #ffffff;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.22);
+    }
+
+    .profile-header .verified-badge {
+        background-color: rgba(22, 163, 74, 0.94);
+    }
+
+    .profile-header .business-badge {
+        background-color: rgba(15, 118, 110, 0.96);
+    }
+
+    .profile-header .qr-code-container {
+        flex: 0 0 auto;
+        margin-left: 0;
+    }
+
     .profile-type-toggle {
         margin-bottom: 1.5rem;
     }
@@ -356,6 +425,22 @@
     .alert-success {
         border-left: 4px solid #27ae60;
     }
+
+    @media (max-width: 768px) {
+        .profile-hero-panel,
+        .profile-identity {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .profile-hero-panel {
+            padding: 1.25rem 1rem;
+        }
+
+        .profile-header-badges {
+            justify-content: center;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -365,18 +450,37 @@
         <div class="container text-center">
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <div class="d-flex justify-content-center align-items-center flex-wrap">
-                        <!-- Avatar Container -->
-                        <div class="text-center">
-                            <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}" 
-                                 alt="{{ profile.get_display_name }}" class="profile-avatar mb-4">
+                    <div class="profile-hero-panel">
+                        <div class="profile-identity">
+                            <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+                                 alt="{{ profile.get_display_name }}" class="profile-avatar">
+                            <div class="profile-heading">
+                                <h1 class="display-5 mb-2">{{ profile.get_display_name }}</h1>
+                                {% if profile.slogan %}
+                                <p class="lead mb-0">{{ profile.slogan }}</p>
+                                {% endif %}
+                                {% if profile.is_verified or profile.profile_type == 'business' %}
+                                <div class="profile-header-badges">
+                                    {% if profile.is_verified %}
+                                    <span class="verified-badge">
+                                        <i class="fas fa-check-circle me-1"></i> Verified
+                                    </span>
+                                    {% endif %}
+                                    {% if profile.profile_type == 'business' %}
+                                    <span class="business-badge">
+                                        <i class="fas fa-building me-1"></i> Business
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
 
                         <!-- QR Code (only shown if enabled) -->
                         {% if profile.show_qr_code %}
                         <div class="qr-code-container" x-data="{ showQrCard: false }" x-cloak>
                             <div class="qr-code">
-                                <div id="profile-qr-code" data-profile-url="{{ request.scheme }}://{{ request.get_host }}{% url 'profile' profile.user.id %}"></div>
+                                <div id="profile-qr-code" data-profile-url="{{ canonical_profile_url }}"></div>
                                 <button class="btn btn-sm btn-outline-light qr-download-btn" @click="showQrCard = true">
                                     <i class="fas fa-download me-1"></i> Download QR Card
                                 </button>
@@ -426,21 +530,6 @@
                         </div>
                         {% endif %}
                     </div>
-
-                    <h1 class="display-5 mb-2">
-                        {{ profile.get_display_name }}
-                        {% if profile.is_verified %}
-                        <span class="verified-badge">
-                            <i class="fas fa-check-circle me-1"></i> Verified
-                        </span>
-                        {% endif %}
-                        {% if profile.profile_type == 'business' %}
-                        <span class="business-badge">
-                            <i class="fas fa-building me-1"></i> Business
-                        </span>
-                        {% endif %}
-                    </h1>
-                    <p class="lead mb-0">{{ profile.slogan }}</p>
                 </div>
             </div>
         </div>

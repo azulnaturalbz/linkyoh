@@ -1317,6 +1317,45 @@ footer .rounded-circle i {
     line-height: 1;
 }
 
+.gig-card .gig-meta-row {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+    min-width: 0;
+}
+
+.gig-card .gig-price-badge {
+    flex: 0 1 auto;
+    max-width: 100%;
+    white-space: normal;
+}
+
+.gig-card .gig-taxonomy-badges {
+    display: flex;
+    flex: 1 1 9rem;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    justify-content: flex-end;
+    min-width: 0;
+}
+
+.gig-card .gig-taxonomy-badges .badge {
+    line-height: 1.25;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: left;
+    white-space: normal;
+}
+
+@media (max-width: 575.98px) {
+    .gig-card .gig-meta-row,
+    .gig-card .gig-taxonomy-badges {
+        justify-content: flex-start;
+    }
+}
+
 @media (max-width: 1399.98px) {
     .site-navbar .navbar-collapse {
         background: #ffffff;

@@ -2,7 +2,7 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 
 from django.utils import timezone
 
-from .models import Category, Gig, SubCategory
+from .models import Category, Gig, Profile, SubCategory
 from .seo import to_absolute_url
 
 
@@ -65,6 +65,18 @@ def build_sitemap_xml():
             changefreq='weekly',
             priority='0.9' if gig.featured else '0.7',
             lastmod=gig.create_time,
+        )
+
+    profiles = Profile.objects.filter(user__gig__status=True).select_related(
+        'user', 'district', 'location'
+    ).distinct().order_by('user_id')
+    for profile in profiles:
+        _add_url(
+            urlset,
+            profile.get_absolute_url(),
+            changefreq='weekly',
+            priority='0.6',
+            lastmod=today,
         )
 
     return b'<?xml version="1.0" encoding="UTF-8"?>\n' + tostring(urlset, encoding='utf-8')

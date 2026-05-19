@@ -408,7 +408,7 @@
                     <img src="{% if gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                          class="rounded-circle mb-3 border shadow-sm" height="120" width="120" alt="Provider avatar">
                     <h5>
-                        <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none">
+                        <a href="{{ gig.user.profile.get_absolute_url }}" class="text-decoration-none">
                             {{ gig.user.profile.get_display_name }}
                             {% if gig.user.profile.is_verified %}
                             <span class="verified-badge">

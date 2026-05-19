@@ -83,6 +83,11 @@ def gig_path(gig):
     return f'/belize/{category_slug}/{district_slug}/{location_slug}/{title_slug}-{gig.pk}/'
 
 
+def profile_path(profile):
+    profile_slug = seo_slug(profile.get_display_name(), 'provider')
+    return f'/belize/providers/{profile_slug}-{profile.user_id}/'
+
+
 def facebook_share_url(url):
     return f'https://www.facebook.com/sharer/sharer.php?{urlencode({"u": url})}'
 
@@ -306,6 +311,87 @@ def gig_seo_context(gig):
                 (gig.category.category, gig.category.get_absolute_url()),
                 (gig.sub_category.subcategory, gig.sub_category.get_absolute_url()),
                 (gig.title, gig.get_absolute_url()),
+            ]),
+        ),
+    )
+
+
+def profile_seo_context(profile):
+    display_name = profile.get_display_name()
+    location_parts = []
+    if profile.location:
+        location_parts.append(str(profile.location))
+    if profile.district:
+        location_parts.append(str(profile.district))
+    location_label = ', '.join(location_parts) or 'Belize'
+
+    title = f'{display_name} | Belize Service Provider on Linkyoh'
+    if location_parts:
+        title = f'{display_name} in {location_label} | Linkyoh'
+
+    description_source = (
+        profile.business_description
+        or profile.about
+        or profile.slogan
+        or f'View {display_name} services, contact details, and business profile on Linkyoh.'
+    )
+    description = (
+        f'{display_name}: {description_source} Discover services and local businesses '
+        'in Belize on Linkyoh, a Silvatech product.'
+    )
+    canonical_url = to_absolute_url(profile.get_absolute_url())
+    image_url = profile.get_cover_image_url()
+    same_as = [
+        url for url in (
+            profile.website,
+            profile.facebook,
+            profile.twitter,
+            profile.instagram,
+            profile.linkedin,
+        )
+        if url
+    ]
+
+    schema_type = 'LocalBusiness' if profile.profile_type == 'business' else 'Person'
+    profile_schema = {
+        '@type': schema_type,
+        '@id': f'{canonical_url}#profile',
+        'name': display_name,
+        'description': clean_text(description_source, 500),
+        'url': canonical_url,
+        'image': to_absolute_url(image_url),
+        'areaServed': 'Belize',
+        'parentOrganization': {'@id': f'{PARENT_ORG_URL}#organization'},
+    }
+    if same_as:
+        profile_schema['sameAs'] = same_as
+    if profile.phone_number:
+        profile_schema['telephone'] = profile.phone_number
+    if profile.location or profile.district or profile.address:
+        profile_schema['address'] = {
+            '@type': 'PostalAddress',
+            'streetAddress': clean_text(profile.address, 160),
+            'addressLocality': str(profile.location) if profile.location else '',
+            'addressRegion': str(profile.district) if profile.district else '',
+            'addressCountry': 'BZ',
+        }
+    if profile.profile_type == 'business':
+        profile_schema['category'] = profile.business_type or 'Local service provider'
+        if profile.year_established:
+            profile_schema['foundingDate'] = str(profile.year_established)
+
+    return build_seo_context(
+        title=title,
+        description=description,
+        url=profile.get_absolute_url(),
+        image=image_url,
+        image_alt=f'{display_name} profile on Linkyoh',
+        og_type='profile',
+        json_ld_payload=graph_schema(
+            profile_schema,
+            breadcrumb_schema([
+                ('Home', '/'),
+                (display_name, profile.get_absolute_url()),
             ]),
         ),
     )

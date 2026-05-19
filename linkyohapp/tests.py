@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.html import escape
 from rest_framework.test import APIClient
 from PIL import Image
 
@@ -135,3 +136,46 @@ class GigImportApiTests(TestCase):
         gig = Gig.objects.get()
         self.assertTrue(gig.photo.name)
         self.assertIn('/media/', response.data['image_url'])
+
+
+class ProfileSeoUrlTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='belize-builder',
+            email='builder@example.com',
+            password='password',
+            first_name='Belize',
+            last_name='Builder',
+        )
+        self.profile = Profile.objects.create(
+            user=self.user,
+            profile_type='business',
+            company_name='Belize Builder Services',
+            slogan='Construction and repairs across Belize.',
+            business_description='Reliable construction, repairs, and maintenance services.',
+        )
+
+    def test_profile_has_canonical_provider_url(self):
+        self.assertEqual(
+            self.profile.get_absolute_url(),
+            f'/belize/providers/belize-builder-services-{self.user.id}/',
+        )
+
+    def test_legacy_numeric_profile_redirects_to_canonical_url(self):
+        response = self.client.get(reverse('profile_legacy', kwargs={'pid': self.user.id}))
+
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response['Location'], self.profile.get_absolute_url())
+
+    @override_settings(LINKYOH_SITE_URL='http://testserver')
+    def test_profile_renders_profile_seo_metadata(self):
+        response = self.client.get(self.profile.get_absolute_url())
+
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode()
+        self.assertIn(f'<link rel="canonical" href="http://testserver{self.profile.get_absolute_url()}">', html)
+        self.assertIn(
+            escape('Belize Builder Services | Belize Service Provider on Linkyoh'),
+            html,
+        )
+        self.assertIn('og:image', html)

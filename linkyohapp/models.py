@@ -342,6 +342,10 @@ class Profile(models.Model):
             return self.cover_image.url
         return os.path.join(settings.STATIC_URL, 'img/linkyoh_banner_web.png')
 
+    def get_absolute_url(self):
+        from .seo import profile_path
+        return profile_path(self)
+
 
 class Category(models.Model):
     category = models.CharField(max_length=128)

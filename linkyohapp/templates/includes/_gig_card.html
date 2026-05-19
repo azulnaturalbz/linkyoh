@@ -30,7 +30,7 @@
         <div class="provider-name">
             <img src="{% if gig.user.profile and gig.user.profile.avatar %}{{ gig.user.profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
                  alt="Provider">
-            <a href="{% url 'profile' gig.user.id %}" class="text-decoration-none text-muted">
+            <a href="{{ gig.user.profile.get_absolute_url }}" class="text-decoration-none text-muted">
                 {{ gig.user.profile.get_display_name }}
                 {% if gig.user.profile.is_verified %}
                 <span class="verified-badge" style="font-size: 0.7rem; padding: 0.15rem 0.5rem;">
@@ -40,14 +40,14 @@
             </a>
         </div>
         <p class="card-text">{{ gig.description | truncatechars:60 }}</p>
-        <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="gig-meta-row mt-3">
             {% if gig.call_for_pricing or gig.price == -1 %}
-            <span class="badge bg-info"><i class="fas fa-phone-alt me-1"></i> Call for pricing</span>
+            <span class="badge bg-info gig-price-badge"><i class="fas fa-phone-alt me-1"></i> Call for pricing</span>
             {% else %}
-            <span class="badge bg-success">${{ gig.price }}</span>
+            <span class="badge bg-success gig-price-badge">${{ gig.price }}</span>
             {% endif %}
-            <div>
-                <a href="{{ gig.category.get_absolute_url }}" class="badge bg-light text-dark text-decoration-none me-1">
+            <div class="gig-taxonomy-badges">
+                <a href="{{ gig.category.get_absolute_url }}" class="badge bg-light text-dark text-decoration-none">
                     <i class="fas fa-folder me-1"></i>{{ gig.category }}
                 </a>
                 {% if gig.sub_category %}

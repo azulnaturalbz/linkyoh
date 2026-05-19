@@ -134,7 +134,7 @@
             </div>
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                 {% if user.is_authenticated %}
-                <a href="{% url 'profile' user.id %}" class="btn btn-success btn-lg">
+                <a href="{{ user.profile.get_absolute_url }}" class="btn btn-success btn-lg">
                     <i class="fas fa-user-circle me-2"></i>View My Profile
                 </a>
                 {% else %}
@@ -205,7 +205,7 @@
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">2</span>Direct URL</h5>
                         <p>You can also access your profile directly by going to:</p>
-                        <code>https://linkyoh.com/profile/[your-user-id]/</code>
+                        <code>https://linkyoh.com/belize/providers/[your-profile-name]-[your-user-id]/</code>
                         
                         <div class="tip-card mt-4">
                             <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
@@ -600,7 +600,7 @@
                     <div class="text-center mt-5">
                         <h4 class="mb-4">Ready to update your profile?</h4>
                         {% if user.is_authenticated %}
-                        <a href="{% url 'profile' user.id %}" class="btn btn-success btn-lg">
+                        <a href="{{ user.profile.get_absolute_url }}" class="btn btn-success btn-lg">
                             <i class="fas fa-user-edit me-2"></i>Edit My Profile
                         </a>
                         {% else %}

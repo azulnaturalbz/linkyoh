@@ -19,7 +19,8 @@ urlpatterns = [
     path('create-gig/', views.create_gig, name="create_gig"),
     path('my-gigs/edit/<int:id>/', views.edit_gig, name="edit_gig"),
     path('gigs/<int:gig_id>/claim/', views.claim_gig, name="claim_gig"),
-    path('profile/<int:pid>/', views.profile, name="profile"),
+    path('belize/providers/<slug:profile_slug>-<int:pid>/', views.profile, name="profile"),
+    path('profile/<int:pid>/', views.profile, name="profile_legacy"),
 
     # AJAX endpoints
     path('ajax/load-district/', views.load_districts, name="ajax_load_states"),

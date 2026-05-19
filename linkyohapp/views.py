@@ -28,6 +28,7 @@ from .seo import (
     category_seo_context,
     gig_seo_context,
     home_seo_context,
+    profile_seo_context,
     subcategory_seo_context,
     to_absolute_url,
 )
@@ -948,7 +949,7 @@ def my_gigs(request):
     return view(request)
 
 
-def profile(request, pid):
+def profile(request, pid, profile_slug=None):
     # Check if user is authenticated
     is_authenticated = request.user.is_authenticated
 
@@ -960,6 +961,10 @@ def profile(request, pid):
     except Profile.DoesNotExist:
         return redirect('/')
 
+    redirect_response = _redirect_to_canonical_path(request, profile.get_absolute_url())
+    if redirect_response:
+        return redirect_response
+
     # If it's the user's own profile and they're submitting the form
     if is_own_profile and request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
@@ -967,7 +972,7 @@ def profile(request, pid):
             form.save()
             # Add a success message
             messages.success(request, 'Your profile has been updated successfully.')
-            return redirect('profile', pid=request.user.id)
+            return redirect(profile.get_absolute_url())
     # If it's the user's own profile, show the form
     elif is_own_profile:
         form = ProfileForm(instance=profile)
@@ -1003,7 +1008,9 @@ def profile(request, pid):
         "is_authenticated": is_authenticated,
         "has_more_gigs": has_more_gigs,
         "all_gigs_count": all_gigs_count,
+        "canonical_profile_url": to_absolute_url(profile.get_absolute_url()),
     }
+    context.update(profile_seo_context(profile))
 
     return render(request, 'profile.html', context)
 
