@@ -24,6 +24,14 @@ import json
 import re
 
 from .auth_views import CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
+from .seo import (
+    category_seo_context,
+    gig_seo_context,
+    home_seo_context,
+    subcategory_seo_context,
+    to_absolute_url,
+)
+from .sitemaps import build_sitemap_xml
 
 # Helper function to get client IP address
 def _get_client_ip(request):
@@ -48,6 +56,40 @@ from .forms import (
 
 
 # Create your views here.
+
+def _redirect_to_canonical_path(request, canonical_path):
+    if request.method not in ('GET', 'HEAD') or request.path == canonical_path:
+        return None
+
+    redirect_to = canonical_path
+    query_string = request.META.get('QUERY_STRING')
+    if query_string:
+        redirect_to = f'{redirect_to}?{query_string}'
+    return redirect(redirect_to, permanent=True)
+
+
+@require_http_methods(["GET", "HEAD"])
+def robots_txt(request):
+    lines = [
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /admin/',
+        'Disallow: /login/',
+        'Disallow: /register/',
+        'Disallow: /my-gigs/',
+        'Disallow: /messages/',
+        'Disallow: /messaging/',
+        'Disallow: /notifications/',
+        'Disallow: /password-reset/',
+        'Disallow: /password-change/',
+        f'Sitemap: {to_absolute_url("/sitemap.xml")}',
+    ]
+    return HttpResponse('\n'.join(lines) + '\n', content_type='text/plain; charset=utf-8')
+
+
+@require_http_methods(["GET", "HEAD"])
+def sitemap_xml(request):
+    return HttpResponse(build_sitemap_xml(), content_type='application/xml; charset=utf-8')
 
 def load_districts(request, did=None):
     """HTMX view to load districts"""
@@ -299,6 +341,7 @@ class CategoryListView(ListView):
 
         # Add flag to show featured badges
         context['show_featured'] = True
+        context.update(category_seo_context(self._category))
 
         return context
 
@@ -321,7 +364,12 @@ class CategoryListView(ListView):
         Stats.track_view(category, user=user, ip_address=ip_address, user_agent=user_agent)
 
 # Keep the function-based view as a wrapper for backward compatibility
-def category_listings(request, id):
+def category_listings(request, id, **kwargs):
+    category = get_object_or_404(Category, pk=id)
+    redirect_response = _redirect_to_canonical_path(request, category.get_absolute_url())
+    if redirect_response:
+        return redirect_response
+
     view = CategoryListView.as_view()
     return view(request, id=id)
 
@@ -395,6 +443,7 @@ class SubCategoryListView(ListView):
 
         # Add flag to show featured badges
         context['show_featured'] = True
+        context.update(subcategory_seo_context(self._sub_category))
 
         return context
 
@@ -417,7 +466,12 @@ class SubCategoryListView(ListView):
         Stats.track_view(subcategory, user=user, ip_address=ip_address, user_agent=user_agent)
 
 # Keep the function-based view as a wrapper for backward compatibility
-def sub_category_listings(request, id):
+def sub_category_listings(request, id, **kwargs):
+    sub_category = get_object_or_404(SubCategory.objects.select_related('category'), pk=id)
+    redirect_response = _redirect_to_canonical_path(request, sub_category.get_absolute_url())
+    if redirect_response:
+        return redirect_response
+
     view = SubCategoryListView.as_view()
     return view(request, id=id)
 
@@ -431,7 +485,7 @@ class HomeView(ListView):
     def get_queryset(self):
         # Optimize query by prefetching related objects
         return Gig.objects.filter(status=True).select_related(
-            'user', 'category', 'sub_category', 'user__profile'
+            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
         ).order_by("-featured", "-create_time")
 
     def get_context_data(self, **kwargs):
@@ -445,18 +499,20 @@ class HomeView(ListView):
 
         # Add featured gigs (using the featured flag)
         featured_gigs = Gig.objects.filter(status=True, featured=True).select_related(
-            'user', 'category', 'sub_category', 'user__profile'
+            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
         ).order_by('-create_time')[:3]
         context['featured_gigs'] = featured_gigs
 
         # Add recent reviews
         recent_reviews = Review.objects.select_related(
-            'user', 'gig', 'rating', 'user__profile'
+            'user', 'gig', 'gig__category', 'gig__sub_category', 'gig__district',
+            'gig__location', 'rating', 'user__profile'
         ).order_by('-create_time')[:3]
         context['recent_reviews'] = recent_reviews
 
         # Add flag to show featured badges
         context['show_featured'] = True
+        context.update(home_seo_context(self.request))
 
         return context
 
@@ -514,7 +570,7 @@ class GigDetailView(DetailView):
         ).exclude(
             id=gig.id
         ).select_related(
-            'category', 'sub_category'
+            'category', 'sub_category', 'district', 'location'
         ).order_by('-create_time')[:5]
 
         # Check if this gig was created by an admin/staff user
@@ -538,6 +594,7 @@ class GigDetailView(DetailView):
 
         context['can_claim'] = can_claim
         context['has_pending_claim'] = has_pending_claim
+        context.update(gig_seo_context(gig))
 
         return context
 
@@ -576,7 +633,15 @@ class GigDetailView(DetailView):
         return self.get(request, *args, **kwargs)
 
 # Keep the function-based view as a wrapper for backward compatibility
-def gig_detail(request, id):
+def gig_detail(request, id, **kwargs):
+    gig = get_object_or_404(
+        Gig.objects.select_related('category', 'sub_category', 'district', 'location'),
+        pk=id
+    )
+    redirect_response = _redirect_to_canonical_path(request, gig.get_absolute_url())
+    if redirect_response:
+        return redirect_response
+
     view = GigDetailView.as_view()
     return view(request, id=id)
 
@@ -1150,12 +1215,12 @@ class GigClaimRequestView(LoginRequiredMixin, FormView):
         # Check if this gig was created by an admin/staff user
         if not self.gig.user.is_staff:
             messages.error(request, "This gig cannot be claimed as it was not created by an administrator.")
-            return redirect('gig_detail', id=self.gig.id)
+            return redirect(self.gig.get_absolute_url())
 
         # Check if the user already has a pending claim for this gig
         if GigClaimRequest.objects.filter(gig=self.gig, user=request.user, status='pending').exists():
             messages.info(request, "You already have a pending claim request for this gig.")
-            return redirect('gig_detail', id=self.gig.id)
+            return redirect(self.gig.get_absolute_url())
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -1186,7 +1251,7 @@ class GigClaimRequestView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('gig_detail', kwargs={'id': self.gig.id})
+        return self.gig.get_absolute_url()
 
 
 # Function-based view wrapper for backward compatibility

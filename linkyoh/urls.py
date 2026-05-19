@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from linkyohapp import views as app_views
 
 urlpatterns = [
+    path('robots.txt', app_views.robots_txt, name='robots_txt'),
+    path('sitemap.xml', app_views.sitemap_xml, name='sitemap_xml'),
     path('admin/', admin.site.urls),
     path('', include('linkyohapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

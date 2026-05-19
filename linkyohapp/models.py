@@ -343,6 +343,10 @@ class Category(models.Model):
             return self.photo.url
         return os.path.join(settings.MEDIA_URL, DEFAULT_CATEGORY_IMAGE)
 
+    def get_absolute_url(self):
+        from .seo import category_path
+        return category_path(self)
+
 
 class SubCategory(models.Model):
     subcategory = models.CharField(max_length=128)
@@ -353,6 +357,10 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return self.subcategory
+
+    def get_absolute_url(self):
+        from .seo import subcategory_path
+        return subcategory_path(self)
 
 
 class Gig(models.Model):
@@ -448,6 +456,10 @@ class Gig(models.Model):
             }
             areas.insert(0, main_area)
         return areas
+
+    def get_absolute_url(self):
+        from .seo import gig_path
+        return gig_path(self)
 
 
 class Rating(models.Model):
@@ -1273,8 +1285,8 @@ class Notification(models.Model):
         """Get the URL to view the related object"""
         if self.notification_type == 'message' and self.content_object:
             return reverse('conversation_detail', kwargs={'pk': self.object_id})
-        elif self.notification_type in ['claim_request', 'claim_approved', 'claim_rejected'] and self.content_object:
-            return reverse('gig_detail', kwargs={'id': self.object_id})
+        elif self.notification_type in ['claim_request', 'claim_approved', 'claim_rejected', 'mention'] and self.content_object:
+            return self.content_object.get_absolute_url()
         return reverse('notification_list')
     
     def get_timesince(self):

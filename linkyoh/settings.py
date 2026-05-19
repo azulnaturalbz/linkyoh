@@ -33,6 +33,9 @@ DEBUG = credentials.DEBUG
 
 ALLOWED_HOSTS = [credentials.ALLOWED_HOST,credentials.ALLOWED_HOST1,credentials.ALLOWED_HOST2,credentials.ALLOWED_HOST3]
 
+LINKYOH_SITE_URL = os.environ.get('LYSITE_URL', 'https://linkyoh.com').rstrip('/')
+LINKYOH_SITE_NAME = os.environ.get('LYSITE_NAME', 'Linkyoh')
+
 
 # Also add localhost and 127.0.0.1 for local development
 if '127.0.0.1' not in ALLOWED_HOSTS:
@@ -91,6 +94,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'linkyohapp.context_processors.seo',
             ],
         },
     },

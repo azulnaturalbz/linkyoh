@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ category.category }} | Linkyoh{% endblock %}
+{% block title %}{{ seo_title }}{% endblock %}
 
 {% block head %}
 <style>
@@ -173,7 +173,7 @@
                                             <i class="fas fa-search me-2"></i>Search
                                         </button>
                                         {% if has_filters or has_search %}
-                                        <a href="{% url 'category_listing' category.id %}" class="btn btn-outline-secondary">
+                                        <a href="{{ category.get_absolute_url }}" class="btn btn-outline-secondary">
                                             <i class="fas fa-times"></i>
                                         </a>
                                         {% endif %}
@@ -229,7 +229,7 @@
                     {% endif %}
                 </p>
             </div>
-            <a href="{% url 'category_listing' category.id %}" class="btn btn-sm btn-outline-secondary">
+            <a href="{{ category.get_absolute_url }}" class="btn btn-sm btn-outline-secondary">
                 <i class="fas fa-times me-1"></i>Clear Search
             </a>
         </div>

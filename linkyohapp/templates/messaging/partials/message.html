@@ -46,7 +46,7 @@
         {% for gig in message.mentioned_gigs.all %}
             <div class="gig-mention">
                 <div class="gig-mention-title">
-                    <a href="{% url 'gig_detail' gig.id %}">{{ gig.title }}</a>
+                    <a href="{{ gig.get_absolute_url }}">{{ gig.title }}</a>
                 </div>
                 <div class="gig-mention-category">
                     <small class="text-muted">

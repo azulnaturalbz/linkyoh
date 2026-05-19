@@ -9,7 +9,12 @@ urlpatterns = [
 
     # Home and listings
     path('', views.home, name="home"),
-    path('gigs/<int:id>/', views.gig_detail, name='gig_detail'),
+    path(
+        'belize/<slug:category_slug>/<slug:district_slug>/<slug:location_slug>/<slug:gig_slug>-<int:id>/',
+        views.gig_detail,
+        name='gig_detail'
+    ),
+    path('gigs/<int:id>/', views.gig_detail, name='gig_detail_legacy'),
     path('my-gigs/', views.my_gigs, name="my_gigs"),
     path('create-gig/', views.create_gig, name="create_gig"),
     path('my-gigs/edit/<int:id>/', views.edit_gig, name="edit_gig"),
@@ -36,8 +41,14 @@ urlpatterns = [
     path('track-event/', views.track_event, name="track_event"),
 
     # Category and search
-    path('category/<int:id>/', views.category_listings, name="category_listing"),
-    path('sub-category/<int:id>/', views.sub_category_listings, name="sub_category_listing"),
+    path('belize/services/<slug:category_slug>-<int:id>/', views.category_listings, name="category_listing"),
+    path(
+        'belize/services/<slug:category_slug>/<slug:subcategory_slug>-<int:id>/',
+        views.sub_category_listings,
+        name="sub_category_listing"
+    ),
+    path('category/<int:id>/', views.category_listings, name="category_listing_legacy"),
+    path('sub-category/<int:id>/', views.sub_category_listings, name="sub_category_listing_legacy"),
     path('search/', views.search, name="search"),
 
     # Static pages

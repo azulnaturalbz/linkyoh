@@ -16,7 +16,7 @@
                 {% if active_conversation.gig %}
                     <p class="text-muted mb-0 small">
                         <i class="fas fa-tag me-1"></i>
-                        <a href="{% url 'gig_detail' active_conversation.gig.id %}">{{ active_conversation.gig.title }}</a>
+                        <a href="{{ active_conversation.gig.get_absolute_url }}">{{ active_conversation.gig.title }}</a>
                     </p>
                 {% endif %}
             </div>

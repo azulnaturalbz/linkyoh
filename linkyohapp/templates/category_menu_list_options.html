@@ -1,6 +1,5 @@
 {% for category in categories %}
 <li class="nav-item">
-        <a class="nav-link" href="{% url 'category_listing' category.id %}">{{ category.category }}</a>
+        <a class="nav-link" href="{{ category.get_absolute_url }}">{{ category.category }}</a>
 </li>
 {% endfor %}
-

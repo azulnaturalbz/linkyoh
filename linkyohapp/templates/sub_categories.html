@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ sub_category.subcategory }} | {{ sub_category.category.category }} | Linkyoh{% endblock %}
+{% block title %}{{ seo_title }}{% endblock %}
 
 {% block head %}
 <style>
@@ -163,7 +163,7 @@
                                             <i class="fas fa-search me-2"></i>Search
                                         </button>
                                         {% if has_filters or has_search %}
-                                        <a href="{% url 'sub_category_listing' sub_category.id %}" class="btn btn-outline-secondary">
+                                        <a href="{{ sub_category.get_absolute_url }}" class="btn btn-outline-secondary">
                                             <i class="fas fa-times"></i>
                                         </a>
                                         {% endif %}
@@ -181,7 +181,7 @@
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'category_listing' sub_category.category.id %}">{{ sub_category.category.category }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ sub_category.category.get_absolute_url }}">{{ sub_category.category.category }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ sub_category.subcategory }}</li>
         </ol>
     </nav>
@@ -213,7 +213,7 @@
                     {% endif %}
                 </p>
             </div>
-            <a href="{% url 'sub_category_listing' sub_category.id %}" class="btn btn-sm btn-outline-secondary">
+            <a href="{{ sub_category.get_absolute_url }}" class="btn btn-sm btn-outline-secondary">
                 <i class="fas fa-times me-1"></i>Clear Filters
             </a>
         </div>
