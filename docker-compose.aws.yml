@@ -20,7 +20,7 @@ services:
       - "8000"
     networks:
       linkyoh_network:
-      wop_wop_network:
+      edge:
         aliases:
           - linkyoh-web
     depends_on:
@@ -84,5 +84,6 @@ volumes:
 networks:
   linkyoh_network:
     driver: bridge
-  wop_wop_network:
+  edge:
     external: true
+    name: edge
