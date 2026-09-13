@@ -7,4 +7,4 @@
 - [x] Add and verify shared-worker per-IP directory limits.
 - [x] Run regression and responsive checks with synthetic data.
 - [x] Write REVAMP.md; reconcile hub reference and record evidence.
-- [ ] Commit locally; update only Linkyoh ledger row/record; append handoff; HOLD.
+- [x] Commit locally (6b62c61); update only Linkyoh ledger row/record; append handoff; HOLD.
