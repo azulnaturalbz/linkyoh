@@ -1,0 +1,243 @@
+{
+  "utc": "2026-09-13T20:07:00.631096+00:00",
+  "burst_duration_seconds": 4.779500457923859,
+  "burst": [
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    {
+      "status": 429,
+      "retry_after": "6",
+      "cache_control": "no-store",
+      "robots": "noindex, nofollow"
+    },
+    {
+      "status": 429,
+      "retry_after": "6",
+      "cache_control": "no-store",
+      "robots": "noindex, nofollow"
+    }
+  ],
+  "forged_xff_after_limit": {
+    "status": 429,
+    "retry_after": "6",
+    "cache_control": "no-store",
+    "robots": "noindex, nofollow"
+  },
+  "independent_host_ip_status": 200,
+  "excluded": {
+    "/login/": {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": "max-age=0, no-cache, no-store, must-revalidate, private",
+      "robots": null
+    },
+    "/robots.txt": {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    "/llms.txt": {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    "/sitemap.xml": {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": null,
+      "robots": null
+    },
+    "/static/css/ecosystem-strip.css": {
+      "status": 200,
+      "retry_after": null,
+      "cache_control": "max-age=60, public",
+      "robots": null
+    }
+  },
+  "recovery": {
+    "status": 200,
+    "retry_after": null,
+    "cache_control": null,
+    "robots": null
+  }
+}

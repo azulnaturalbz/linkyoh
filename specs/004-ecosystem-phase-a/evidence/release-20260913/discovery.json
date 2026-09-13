@@ -1,0 +1,49 @@
+{
+  "/robots.txt": {
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "sha256": "38b8e7b4f096ce927088ee82a60cf143520b2dafa11e2ec1ba6defd0bba46ee0"
+  },
+  "/llms.txt": {
+    "status": 200,
+    "content_type": "text/plain; charset=utf-8",
+    "sha256": "3bc8c92f30090cfea12a859b9ab1a1e4b371e28a1f17c4de6ad51964a2c05833"
+  },
+  "/sitemap.xml": {
+    "status": 200,
+    "content_type": "application/xml; charset=utf-8",
+    "sha256": "03dc934819f7fc3593c7dddbcff0cc5e56743f28cea787ea34164415e73da525"
+  },
+  "/static/css/ecosystem-strip.css": {
+    "status": 200,
+    "content_type": "text/css; charset=\"utf-8\"",
+    "sha256": "4ddf53b7d4459f9b53c72d169c782bc14c785aa0241d7c5c0e190ffeea542425"
+  },
+  "/static/js/ecosystem-tracking.js": {
+    "status": 200,
+    "content_type": "text/javascript; charset=\"utf-8\"",
+    "sha256": "51f15c54adb1ebbcfb532416b5cfd3844ce4b5b82e476a9fcce0cbd1f9d1c142"
+  },
+  "/belize/services/services-5/": {
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "sha256": "8ea528fc5a66da7c554856b20b7171b3256b11673fdb45c373719457020a59ee"
+  },
+  "/gigs/110/": {
+    "status": 301,
+    "location": "/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+  },
+  "/profile/218/": {
+    "status": 301,
+    "location": "/belize/providers/linkyoh-ai-admin-218/"
+  },
+  "/category/5/": {
+    "status": 301,
+    "location": "/belize/services/services-5/"
+  },
+  "schema": {
+    "six_pages_verified": true,
+    "organization_sisters": true,
+    "provider_service_types": true
+  }
+}

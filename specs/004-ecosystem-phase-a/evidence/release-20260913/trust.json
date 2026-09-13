@@ -1,0 +1,12 @@
+{
+  "edge_subnets": [
+    {
+      "Subnet": "172.20.0.0/16",
+      "Gateway": "172.20.0.1"
+    }
+  ],
+  "caddy_peer": "172.20.0.2",
+  "trusted_proxy_cidrs": [
+    "172.20.0.2/32"
+  ]
+}

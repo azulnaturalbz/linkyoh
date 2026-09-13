@@ -1,0 +1,244 @@
+{
+  "utc": "2026-09-13T20:04:06.164040+00:00",
+  "containers": {
+    "ecommerce-tenant-celery-beat-1": {
+      "id": "7286bb262221a01998867cb66a4f51de5f57f18aa517cf5de28b47c93a4223ab",
+      "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+      "started": "2026-09-13T20:02:21.396382855Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "ecommerce-tenant-web-1": {
+      "id": "8f9e953d50479b21065aaedd1b41a2cbca70f9b79c6014c96c2b444204bd2ab2",
+      "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+      "started": "2026-09-13T20:01:18.414548905Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "ecommerce-tenant-celery-1": {
+      "id": "c56870d34d62e3fe7beadaa5b58c758db55f7234cae6a5ae6ac3df0e25ee55a7",
+      "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+      "started": "2026-09-13T20:00:25.870595724Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "wop-api-1": {
+      "id": "deb866f124b092bad39d7d41958aa2bcdaa61e76e5990fc130ef016a8694abd0",
+      "image": "sha256:249cecf82b5ef9914b03af55678794f817d9e3e4121d682591a8a0edfe44a87b",
+      "started": "2026-09-09T19:04:43.536203325Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "wop-frontend-1": {
+      "id": "209ffdf78ad96ae6751d9c4a1ce5bd56f43f0dc1c814f51d839fa1365779cea8",
+      "image": "sha256:9e79741ef2c81e3b9e17d4d2ad4d953075ad86e73d536c1488a414b39209e144",
+      "started": "2026-09-09T00:35:31.268213597Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "wop-agent-runtime-worker-1": {
+      "id": "3c3f47313f1bdbf281d4f21bb6c99f2c353270affd17793ae486e28ae0753338",
+      "image": "sha256:1d38e27deeccbbc88dd37d3805880bc050890c4b4f00348d2af534c659bfece8",
+      "started": "2026-09-09T00:35:30.814419736Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "wop-celery-1": {
+      "id": "232264bbdd41e3b33513f0a020094cc65efac5a18c95b2608282d57a9a02143e",
+      "image": "sha256:1792193595ef1dc7ac7966c335ea0ab1c1cf6cce4c458492c58c05276a9cd0d2",
+      "started": "2026-09-09T00:36:00.154782483Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "wop-celery-beat-1": {
+      "id": "a7f31debbec51bc3226275ac54577c860d54dd84467bcd349b6dff23160d7748",
+      "image": "sha256:5ed2d3fd7c8f3786deac8219fdd1dea0b2b71c6f9f3f1970e01997da83d5e202",
+      "started": "2026-09-09T00:35:31.447884163Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "marketday-web-1": {
+      "id": "f661ea49ca272bd190a73c4c064c559ae525f5ce3e996fbd9c3e4b08d7bebdab",
+      "image": "sha256:6b371839228dd531a8a60581cbbda36797b33c73dc4b3f755680472cea044fde",
+      "started": "2026-09-08T14:12:02.447331948Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "marketday-maintenance-1": {
+      "id": "48c29bf8d6d57c9d0f6ad568aaa8450f1615598260c649060b9fcf56c9227456",
+      "image": "sha256:6b371839228dd531a8a60581cbbda36797b33c73dc4b3f755680472cea044fde",
+      "started": "2026-09-08T14:12:02.518978408Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "n8n-n8n-1": {
+      "id": "67a7ef12012e07453eb46ac223f35b6391f0a05d5c85cee65039fc3c0edc72ed",
+      "image": "sha256:738daec855e02c6aa502cd4ab99c8f00b6402200d58c9e63b01be8fea438248e",
+      "started": "2026-09-06T07:27:53.230866515Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "rybbit-client": {
+      "id": "d35d96726b167e717cf433cddf64c8388be84db856a422654df08250f8583f54",
+      "image": "sha256:4b32b15ef214d95392df3f13ebd8feaa97b1a17d6f21a51e9d2aa6db6aa52d72",
+      "started": "2026-08-25T19:41:11.665423382Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "rybbit-backend": {
+      "id": "d92befa474cebed63ab69663bff2a696b2560e0189a33266bbaecc05eae52761",
+      "image": "sha256:5548325c5673f5f605c9d9a786911af426cd0ce5561c16ba4c784ef0301cc675",
+      "started": "2026-08-25T19:41:10.963950102Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "rybbit-clickhouse": {
+      "id": "fc53e9829f8b982f64bdcea5e84a9d5f6ca0963e7e39cbfa8c3a03838272d5ec",
+      "image": "sha256:400ba3e942e8175ea44a41f0b745239ffbf424b8af5b343c6cf9dcf0be7141c6",
+      "started": "2026-08-25T19:41:06.844791046Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "rybbit-postgres": {
+      "id": "3e521734cfa75078f4634bfb37e1d5ee0582cd5e0266989fb7454078a2d548a6",
+      "image": "sha256:45a04d02adcf690e908ccaa1bfeceddbd1a7156107f2fca0534ad5c473b7ec59",
+      "started": "2026-08-25T19:41:06.659681438Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "nationalperspective-web-1": {
+      "id": "50f114d68a9d84a083baab8c93e385a4effa4ba92a3ab6cd77ba6709308036a2",
+      "image": "sha256:f5b9914852ab20789a14bb76256317e66dfa4f6b4c567bb5680824dd138e2b11",
+      "started": "2026-08-25T14:05:53.120979716Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "ecommerce-tenant-redis-1": {
+      "id": "9e8f32999aef2e16f961676354fb2c1afdf2266d71abba7a3b1cf44ec54ecb7b",
+      "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+      "started": "2026-08-25T04:08:16.122844844Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    },
+    "edge-caddy-1": {
+      "id": "d5ce06c2d910335e3b2317fe41c430c801e50d19a8a228be3d283343c930aa69",
+      "image": "sha256:5190456911cee510988a5fb9996188ef866fbcca3235cad19bf05f5f8f33386f",
+      "started": "2026-08-25T19:43:45.525261655Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {
+        "443/tcp": [
+          {
+            "HostIp": "",
+            "HostPort": "443"
+          }
+        ],
+        "443/udp": [
+          {
+            "HostIp": "",
+            "HostPort": "443"
+          }
+        ],
+        "80/tcp": [
+          {
+            "HostIp": "",
+            "HostPort": "80"
+          }
+        ]
+      }
+    },
+    "linkyoh-web-1": {
+      "id": "197fcf89eb5d9d235e0b8fc6933cdb2f96db0860d2821c5913f1fd149ac14127",
+      "image": "sha256:811a1128956bfddcdd227427e64fb807c06d180c6fdc9b9b36dd68a985e90202",
+      "started": "2026-08-25T02:29:58.395391071Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "linkyoh-celery_worker-1": {
+      "id": "e0d93a398eb2f9d8f206c8d15374c61bd3a6e051687fdb0b7db88c9c99f12fd5",
+      "image": "sha256:a9d65fd626e91d88abe340820ac9a0fe1ad81565f1dac86ada934d0470dddd0a",
+      "started": "2026-08-25T02:29:55.620409991Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "linkyoh-celery_beat-1": {
+      "id": "8fd405670459e4c6fa09c78826a0626947aa4a441ffb68553887042ef8899bd6",
+      "image": "sha256:1a0b52b67af705bcdc37294fb81311bc7a3500d26e94382553904ecf8ebd5c24",
+      "started": "2026-08-25T02:29:57.382447879Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "linkyoh-rabbitmq-1": {
+      "id": "1baabce8dad023379fe29f51aa34146b3db7d711f033abdb4c8a8c11d9746e98",
+      "image": "sha256:5f3394787e6c8e30dbe74334e06fca9426943d21dbf1e5abd38b234c5ec1a5cd",
+      "started": "2026-08-25T02:29:56.682096289Z",
+      "restarts": 0,
+      "status": "running",
+      "health": null,
+      "ports": {}
+    },
+    "wop-redis-1": {
+      "id": "109757699aa70269b2be2994eff2ffabc2f6ccbd1f742404fd699b8513cbbde5",
+      "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+      "started": "2026-08-25T02:29:56.818064289Z",
+      "restarts": 0,
+      "status": "running",
+      "health": "healthy",
+      "ports": {}
+    }
+  },
+  "edge_config_sha256": "e513d8cf3545ba9cbf36663841e6926b670e5e1f433d1d7d57d1ab72fd52784b",
+  "edge_network": [
+    {
+      "Subnet": "172.20.0.0/16",
+      "Gateway": "172.20.0.1"
+    }
+  ],
+  "memory": {
+    "MemTotal": "        8033840 kB",
+    "MemAvailable": "    2404172 kB",
+    "SwapFree": "        1869564 kB"
+  },
+  "disk": "Filesystem       1B-blocks        Used   Available Use% Mounted on\n/dev/nvme0n1p1 42869960704 29843259392 13026701312  70% /"
+}

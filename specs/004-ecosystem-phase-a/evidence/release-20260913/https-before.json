@@ -1,0 +1,50 @@
+{
+  "utc": "2026-09-13T20:03:50.848111+00:00",
+  "checks": [
+    {
+      "url": "https://linkyoh.com/",
+      "status": 200,
+      "final_url": "https://linkyoh.com/"
+    },
+    {
+      "url": "https://www.linkyoh.com/",
+      "status": 200,
+      "final_url": "https://www.linkyoh.com/"
+    },
+    {
+      "url": "https://wop.silvatech.bz/health/",
+      "status": 200,
+      "final_url": "https://wop.silvatech.bz/health/"
+    },
+    {
+      "url": "https://n8n.silvatech.bz/",
+      "status": 200,
+      "final_url": "https://n8n.silvatech.bz/"
+    },
+    {
+      "url": "https://payments.silvatech.bz/",
+      "status": 200,
+      "final_url": "https://payments.silvatech.bz/"
+    },
+    {
+      "url": "https://nationalperspectivebz.com/",
+      "status": 200,
+      "final_url": "https://nationalperspectivebz.com/"
+    },
+    {
+      "url": "https://analytics.silvatech.bz/api/health",
+      "status": 200,
+      "final_url": "https://analytics.silvatech.bz/api/health"
+    },
+    {
+      "url": "https://marketday.silvatech.bz/",
+      "status": 200,
+      "final_url": "https://marketday.silvatech.bz/"
+    },
+    {
+      "url": "https://yardsale.marketday.silvatech.bz/",
+      "status": 200,
+      "final_url": "https://yardsale.marketday.silvatech.bz/"
+    }
+  ]
+}
