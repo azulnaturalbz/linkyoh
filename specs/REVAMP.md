@@ -1,7 +1,8 @@
 # Linkyoh Revamp
 
-Status: **HOLD - awaiting Cristian's sign-off on specs/REVAMP.md**.
-Prepared: 2026-09-13 UTC. This document proposes work; it does not authorize it.
+Status: **APPROVED WITH AMENDMENTS by Cristian, 2026-09-13**.
+Prepared and amended: 2026-09-13 UTC. Current authorization is the static prototype
+only. **STOP for Cristian's prototype review before editing Django templates.**
 Canonical contracts: [Silvatech Ecosystem Ledger](../../../Silvatech/silvatech/SILVATECH-ECOSYSTEM.md),
 especially sections 3 rule 6, 5.1 door 4, 7 and the Linkyoh property record.
 Deployment remains a separate gate under the shared-host ledger, even after design sign-off.
@@ -11,7 +12,9 @@ Deployment remains a separate gate under the shared-host ledger, even after desi
 Linkyoh becomes Belize's useful service-finding network: discover a relevant
 provider, understand what has been checked, contact them, and let an owner claim
 and maintain the business. The competitor copied functionality and a look-alike
-UI. A new color scheme alone does not address that problem.
+UI. Specifically, the competitor copied the retired green/orange design. Moving
+to the Lab register is itself a visible differentiation move; it accompanies,
+rather than replaces, the product and data differentiators below.
 
 The differentiators to deliver and measure are:
 
@@ -55,9 +58,130 @@ promise that robots, trademarks or rate limits make scraping impossible.
   390px (body 408px); removing all Phase A components leaves it unchanged. Include
   this in the mobile profile acceptance slice, not a silent Phase A redesign.
 
+## Parallel tracks and release order
+
+**Feasible: UI first, dependency modernization separately. No current blocker.**
+The current Django 3.2 app already renders ordinary HTML/CSS, supports GET query
+parameters, and includes Django's i18n machinery. The Lab CSS, local fonts, Lucide,
+htmx/Alpine enhancements and standard template tags need no new Python package.
+Built-in Django translation requires locale configuration, message catalogs and
+gettext tooling in the build environment, not a new Python runtime dependency.
+The existing mixed Bootstrap stack needs scoped CSS/parity testing, not an upgrade
+before the prototype or UI can work. Template APIs must stay in the 3.2/5.2 common
+subset; modernized auth/logout and storage behavior belongs to the upgrade track.
+
+- UI track: `codex/005-linkyoh-revamp-ui`, based on Phase A evidence commit
+  `c8c8126`. Current pass changes only this spec and static prototype artifacts.
+  After prototype approval, templates/static and existing read-only discovery
+  adapters can change, with **zero new Python dependencies**, no requirements,
+  Docker runtime or migration changes, and no claim/account transitions.
+- Modernization track: a separate `codex/006-linkyoh-modernization` branch from
+  the same baseline, not from unfinished UI work. Execute the checkpoints below
+  independently in parallel with the approved UI implementation. This prototype
+  pass does not start that implementation or create a second task.
+- Release UI first on the existing runtime after its own authorization. Reconcile
+  released UI into the upgrade candidate and rerun compatibility/browser tests.
+  Ship dependency modernization as a second, separately authorized release.
+  Never merge both into one deploy or silently move UI behind the upgrade.
+- If testing identifies a genuine compatibility/security blocker, record exact
+  failing evidence and a HOLD in this spec/ledger; ask Cristian before changing
+  order. The age of dependencies alone is not a demonstrated UI blocker, and this
+  separation is not a claim that the current runtime is supported.
+
+## Design concept
+
+**Ask, don't browse.** Linkyoh is a Belize service-finding product, not a wall of
+classified advertisements: express a need, inspect grounded matches and what has
+actually been checked, then contact the right provider. The main home input is
+"What do you need done?" / "¿Qué necesitas resolver?". Classic category and
+district/town filters remain the secondary path. Light Lab surfaces, Inter/Sora,
+Lucide and 16px repeated cards give the product its own recognizable identity.
+390px is the primary design width; 1440px derives from the same reading order.
+
+### Page inventory
+
+| Surface | Primary job and required content | Delivery |
+| --- | --- | --- |
+| Home | One ask-first input; contextual search examples; secondary classic filters; provider cards with Checked evidence; maker-to-MarketDay banner | EN/ES static prototype, then UI slice 2 |
+| Results | Editable need, shareable GET state, category/district/town filters, explicit match count, Checked cards, no-match/reset and unknown-availability states | EN/ES static prototype, then UI slice 2 |
+| Provider | Business identity separate from cover; Checked scope/date; WhatsApp-first contact; consented quote journey; photos; service areas; what we do/do not do; claim/correction; maker banner | EN/ES static prototype, then UI slice 2; quote transport gated to slice 5 |
+| Linkyoh for Pros | Claim -> verify -> manage; profile editor preview, review status, WOP leads inbox and WhatsApp quote-notification state | Prototype drawer within the three pages; actual claim logic slice 4, WOP leads slice 5 |
+| Supporting discovery | Category/service canonical pages, pagination, empty/error/loading states, EN/ES switch | Shared discovery components; later slice 2 parity |
+| Existing accounts/help/operator surfaces | Retain navigation, login/register, help, existing claims and ingestion behavior | Regression coverage; no account redesign/logic in prototype |
+
+### Ask-first search and endpoint gate
+
+Until WOP provisions and reviews the `linkyoh` website_chat endpoint, the home
+form performs **smart search**, not pretend conversation. Production fallback is
+server-side, deterministic category + district/town parsing over existing public
+records, ordinary GET and shareable URLs. Parse known EN/ES aliases into validated
+category/district/town identifiers; preserve unmatched words as the text query.
+Explicit filters win over inferred fields; conflicting or ambiguous towns require
+clarification/filter choice, not guessed coverage. Display interpreted filters so
+the user can correct them. Preserve q and filters across pagination/back/locale.
+"Tonight" is urgency to confirm, never an inferred availability badge. Keep the
+parser bounded and covered by no-match, ambiguity, Unicode and query-length tests.
+
+The prototype demonstrates the same GET interaction using local fictional
+fixtures; it does **not** implement the production server parser. No network
+finder or dead chat control is included. Once the reviewed endpoint is live,
+use WOP's canonical widget/first-send contract for the conversational mode while
+retaining search. WOP's 2026-09-13T20:35:39Z LIVE handoff still provisions only
+Visit Belize, not Linkyoh; no endpoint/binding is inferred from that release.
+
+### Checked: evidence, not decoration
+
+Every card and provider header has a Checked region with scope and date. Example
+display: "Phone confirmed · Owner claimed · Verified 2026-08-12" only when the
+corresponding records support each assertion. Missing scope, date or ownership
+stays explicitly unknown/not confirmed; do not convert the existing boolean into
+phone, identity, licensing, insurance, quality or availability guarantees. Dates
+are per check; expired/revoked evidence loses its positive chip. Imported does not
+mean claimed, and claimed does not mean verified. No invented rating/count fills.
+
+For design review only, fictional fixture businesses and synthetic check records
+are visibly labelled as samples and kept inside the prototype. They never become
+real provider evidence or enter the database. Include unknown and partial-check
+states as well as a scoped/date example. Production uses real records only; until
+slice 4 can record richer evidence, unsupported scopes remain unknown.
+
+### Provider and Pros journeys
+
+- WhatsApp is the primary contact action when a real public destination exists.
+  No fabricated number or claim of a message sent. Missing contact is explicit.
+- Request-a-quote captures a short need, service area, chosen contact method and
+  recipient-specific unchecked consent. Confirm summary before WOP accepts an
+  idempotent lead; only accepted state may say sent. Retries/errors preserve input.
+  Prototype preview is local and never submits or contacts anyone. In production,
+  this capture remains gated until WOP transport is reviewed; direct contact and
+  search remain usable in the UI-first release.
+- Photos show actual work when sourced; distinguish illustrative prototype images.
+  Show explicit service areas and what-we-do/what-we-do-not lists only from supplied
+  records. Missing exclusions are unknown, not invented limits. Maker providers
+  receive the approved MarketDay forward banner; preserve Phase A home placement.
+- "Linkyoh for Pros" has claim, verify and manage stages with pending/rejected/
+  approved semantics. Design the dashboard/profile and leads inbox now; no logic
+  changes before slice 4. Quote notifications via WhatsApp need WOP acceptance,
+  owner channel consent and idempotent delivery, not a visual toggle alone.
+- Discovery/provider copy is bilingual EN/ES using Django i18n in implementation:
+  `{% translate %}`, `{% blocktranslate %}`, translated form/error messages and
+  locale-aware links. Do not machine-translate business names or assert translated
+  provider facts that were never supplied. Preserve canonical/hreflang strategy.
+
+### Prototype review gate
+
+Deliver `specs/revamp-prototype/` with Home, Results and Provider in both languages,
+local assets, provenance, reproduction/QA instructions and 12 screenshots (three
+pages x two languages x 390/1440px). Review search/filter/back/no-match, locale
+switching, Checked states, provider photo/quote previews and Pros states. Verify
+actual WCAG AA foreground/background pairs, focus, labels, touch targets and
+overflow; screenshots alone do not establish accessibility. No telemetry, model
+calls, live credentials or contact submissions. **HOLD for Cristian's prototype
+review before any Django template work.**
+
 ## Lab brand and discovery layout
 
-Adopt the full Lab register only after this spec is approved. Consume the hub's
+The approved prototype adopts the full Lab register. Consume the hub's
 `public/brand/silvatech-ui.css` at a recorded version; use a local pinned copy or
 reviewed asset release so a remote stylesheet cannot change production silently.
 Do not create a competing brand token library.
@@ -84,8 +208,9 @@ Model discovery on MarketDay's root page, inspected in
 `main/templates/restaurant/home.html`, `main/discovery.py`, `static/css/discovery.css`
 and `docs/modernization/community-discovery.md`; adapt behavior, not merchant data.
 
-- First viewport: clear Linkyoh identity, search, district/town/category filters,
-  result count and the start of real provider/service cards. No oversized hero.
+- First viewport: clear Linkyoh identity, one ask-first input and a secondary
+  filter path, followed by the start of provider/service cards. Results expose
+  district/town/category filters and count. No oversized hero or dead chat UI.
 - Keep ordinary GET forms and meaningful labels. htmx progressively refreshes
   results; Alpine handles only local filter drawer/widget state. No second SPA.
 - On mobile, show search and compact active filters, with a reachable filter
@@ -107,6 +232,8 @@ and `docs/modernization/community-discovery.md`; adapt behavior, not merchant da
   generating an unbounded index of duplicate combinations.
 
 ## Verified-provider claim flow
+
+Contract approved unchanged; **implementation begins no earlier than slice 4**.
 
 Entry points: an unclaimed listing, provider page, or "Free verified provider
 profile" recruiting destination. An imported listing remains explicitly curated
@@ -206,12 +333,17 @@ release's deprecations. Do not mix the dependency upgrade with a visual rollout.
 
 ## Acceptance and release slices
 
-1. Approve this spec and record sign-off in the Handoff Log. Phase A deployment
-   is independently authorized and verified; no production changes are implied.
-2. Dependency modernization with recovery evidence; no cosmetic changes in that
-   release. Keep existing URLs, data and integrations compatible.
-3. Lab discovery/profiles with GET-first filters and responsive parity. No dead
-   chat buttons before an endpoint is available.
+1. Record amended approval, deliver the EN/ES static prototype and STOP for
+   Cristian's prototype review before Django templates. Phase A deployment is
+   independently authorized/verified; no production changes are implied.
+2. After prototype approval, Lab discovery/profiles, Django i18n and GET-first
+   smart search/filter parity on the UI branch; no new Python dependencies or
+   claim logic. **UI ships first** after its own release go. No dead chat/quote
+   controls before transport exists; use honest direct-contact/search fallbacks.
+3. Dependency modernization on its separate parallel branch with all checkpoints
+   and recovery evidence; no cosmetic changes in that release. Work can proceed
+   alongside slice 2, but its release follows the UI release. Reconcile and test
+   the released UI before the separately authorized upgrade deployment.
 4. Verified claim review with privacy, permissions, race/retry tests and a real
    owner/reviewer acceptance journey using approved data.
 5. Provisioned WOP finder with synthetic grounding/consent/no-match/failure tests,
@@ -234,9 +366,22 @@ behind shared mobile/carrier NAT; thresholds need actual traffic validation.
 
 ## Owner sign-off
 
-Pending: Cristian's acceptance of this scope and release ordering. Record exact
-decision/date in the canonical Handoff Log. Until then: **no redesign code, claim
-logic changes, endpoint embedding, dependency upgrades or campaign activation**.
+**2026-09-13: APPROVED WITH AMENDMENTS by Cristian.** The existing scope,
+differentiation, verification/claim contract, finder rules, funnel and Django
+checkpoints stand. Amendments: parallel independent UI/modernization branches,
+separate UI-first releases, no new UI Python dependencies, the Design concept
+above and bilingual three-page static prototype before Django templates.
+Decision recorded in the canonical Handoff Log at `2026-09-13T22:17:24Z`.
+
+Current gate: **HOLD for review of specs/revamp-prototype/ before Django templates**.
+Prototype delivered 2026-09-13: [Home](revamp-prototype/index.html),
+[Results](revamp-prototype/results.html), [Provider](revamp-prototype/provider.html),
+with EN/ES controls and [screenshot gallery](revamp-prototype/evidence/index.html).
+[Verification](revamp-prototype/README.md#verification-2026-09-13): 41 rendered
+page/state checks, 19 journeys, 40 screenshots, no tested AA text-contrast failures.
+This pass does not implement dependency upgrades, claims, WOP endpoints or
+campaigns. Claim logic remains slice 4; only a reviewed/provisioned WOP `linkyoh`
+endpoint can be embedded. Phase A and every later deployment keep separate gates.
 
 ## References
 

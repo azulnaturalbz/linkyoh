@@ -1,0 +1,10 @@
+.review { padding-block: 40px; }
+.review h1 { margin-bottom: 16px; }
+.review h2 { margin: 36px 0 20px; }
+.review nav { display: flex; flex-wrap: wrap; gap: 24px; margin: 20px 0; }
+.review a { display: inline-block; min-height: 44px; font-size: 14px; }
+.review-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+.review-grid a { min-width: 0; text-decoration: none; }
+.review-grid img { width: 100%; height: auto; border: 1px solid #c4cdd7; margin-bottom: 12px; }
+.review > p { margin-block: 24px; color: #536271; }
+@media (min-width: 800px) { .review-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
