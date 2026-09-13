@@ -1,11 +1,14 @@
 import json
 import re
+from itertools import islice
 from urllib.parse import urlencode
 
 from django.conf import settings
 from django.templatetags.static import static
 from django.utils.html import strip_tags
 from django.utils.text import Truncator, slugify
+
+from .ecosystem import SISTER_URLS
 
 
 SITE_NAME = 'Linkyoh'
@@ -102,6 +105,7 @@ def organization_schema():
         '@id': f'{PARENT_ORG_URL}#organization',
         'name': PARENT_ORG_NAME,
         'url': PARENT_ORG_URL,
+        'sameAs': list(SISTER_URLS),
     }
 
 
@@ -264,6 +268,42 @@ def subcategory_seo_context(sub_category):
     )
 
 
+def gig_service_areas(gig):
+    """Publish recorded coverage, never infer country-wide service."""
+    areas = []
+    seen = set()
+    for area in gig.get_all_service_areas():
+        location = area['location'] if isinstance(area, dict) else area.location
+        district = area['district'] if isinstance(area, dict) else area.district
+        label = ', '.join(str(value) for value in (location, district) if value)
+        if label and label not in seen:
+            seen.add(label)
+            areas.append({'@type': 'Place', 'name': label})
+    return areas
+
+
+def service_schema(gig, provider_id=None):
+    canonical_url = to_absolute_url(gig.get_absolute_url())
+    service = {
+        '@type': 'Service',
+        '@id': f'{canonical_url}#service',
+        'name': gig.title,
+        'description': clean_text(gig.description, 500),
+        'url': canonical_url,
+        'image': to_absolute_url(gig.get_photo_url()),
+        'serviceType': str(gig.sub_category),
+        'areaServed': gig_service_areas(gig),
+    }
+    if provider_id:
+        service['provider'] = {'@id': provider_id}
+    if not gig.call_for_pricing and gig.price > 0:
+        service['offers'] = {
+            '@type': 'Offer', 'price': gig.price, 'priceCurrency': 'BZD',
+            'url': canonical_url,
+        }
+    return service
+
+
 def gig_seo_context(gig):
     location_label = f'{gig.location}, {gig.district}'
     title = f'{gig.title} in {location_label} | Linkyoh'
@@ -279,7 +319,7 @@ def gig_seo_context(gig):
         'description': clean_text(gig.description, 500),
         'url': canonical_url,
         'image': to_absolute_url(gig.get_photo_url()),
-        'category': gig.category.category,
+        'knowsAbout': gig.category.category,
         'address': {
             '@type': 'PostalAddress',
             'streetAddress': clean_text(f'{gig.address_1} {gig.address_2}', 160),
@@ -287,14 +327,13 @@ def gig_seo_context(gig):
             'addressRegion': str(gig.district),
             'addressCountry': 'BZ',
         },
-        'areaServed': 'Belize',
-        'parentOrganization': {'@id': f'{PARENT_ORG_URL}#organization'},
+        'areaServed': gig_service_areas(gig),
     }
     if gig.phone_number:
         business_schema['telephone'] = gig.phone_number
     if gig.call_for_pricing or gig.price == -1:
         business_schema['priceRange'] = 'Call for pricing'
-    else:
+    elif gig.price > 0:
         business_schema['priceRange'] = f'BZD {gig.price}'
 
     return build_seo_context(
@@ -306,6 +345,7 @@ def gig_seo_context(gig):
         og_type='article',
         json_ld_payload=graph_schema(
             business_schema,
+            service_schema(gig, business_schema['@id']),
             breadcrumb_schema([
                 ('Home', '/'),
                 (gig.category.category, gig.category.get_absolute_url()),
@@ -316,7 +356,7 @@ def gig_seo_context(gig):
     )
 
 
-def profile_seo_context(profile):
+def profile_seo_context(profile, gigs=()):
     display_name = profile.get_display_name()
     location_parts = []
     if profile.location:
@@ -360,8 +400,6 @@ def profile_seo_context(profile):
         'description': clean_text(description_source, 500),
         'url': canonical_url,
         'image': to_absolute_url(image_url),
-        'areaServed': 'Belize',
-        'parentOrganization': {'@id': f'{PARENT_ORG_URL}#organization'},
     }
     if same_as:
         profile_schema['sameAs'] = same_as
@@ -376,7 +414,7 @@ def profile_seo_context(profile):
             'addressCountry': 'BZ',
         }
     if profile.profile_type == 'business':
-        profile_schema['category'] = profile.business_type or 'Local service provider'
+        profile_schema['knowsAbout'] = profile.business_type or 'Local service provider'
         if profile.year_established:
             profile_schema['foundingDate'] = str(profile.year_established)
 
@@ -389,6 +427,8 @@ def profile_seo_context(profile):
         og_type='profile',
         json_ld_payload=graph_schema(
             profile_schema,
+            # Match the anonymous profile preview and bound per-service metadata work.
+            *(service_schema(gig, profile_schema['@id']) for gig in islice(gigs, 3)),
             breadcrumb_schema([
                 ('Home', '/'),
                 (display_name, profile.get_absolute_url()),

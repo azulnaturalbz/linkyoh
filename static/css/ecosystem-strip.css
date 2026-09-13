@@ -1,0 +1,55 @@
+/* Shared by the React footer, standalone HTML reference, and silvatech-ui.css.
+   Deliberately scoped: safe to load without adopting the Lab register. */
+.svt-ecosystem-strip {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px;
+  background: #0f1c2b;
+  color: #eaf2f7;
+  font-family: Inter, "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  border-block: 1px solid #35516a;
+}
+.svt-ecosystem-strip ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 12px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.svt-ecosystem-strip li {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+.svt-ecosystem-strip li + li::before {
+  content: "\00b7";
+  color: #8ac5ea;
+}
+.svt-ecosystem-strip a,
+.svt-ecosystem-strip__inactive {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 2px 0;
+  color: #eaf2f7;
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+.svt-ecosystem-strip a { text-decoration: underline; text-underline-offset: 4px; }
+.svt-ecosystem-strip a:hover { color: #8ac5ea; }
+.svt-ecosystem-strip a:focus-visible { outline: 2px solid #8ac5ea; outline-offset: 4px; border-radius: 2px; }
+.svt-ecosystem-strip__inactive { color: #b6c6d2; }
+@media (max-width: 480px) {
+  .svt-ecosystem-strip ul { justify-content: flex-start; gap: 0 10px; }
+  .svt-ecosystem-strip li { gap: 10px; }
+}

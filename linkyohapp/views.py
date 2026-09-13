@@ -71,21 +71,8 @@ def _redirect_to_canonical_path(request, canonical_path):
 
 @require_http_methods(["GET", "HEAD"])
 def robots_txt(request):
-    lines = [
-        'User-agent: *',
-        'Allow: /',
-        'Disallow: /admin/',
-        'Disallow: /login/',
-        'Disallow: /register/',
-        'Disallow: /my-gigs/',
-        'Disallow: /messages/',
-        'Disallow: /messaging/',
-        'Disallow: /notifications/',
-        'Disallow: /password-reset/',
-        'Disallow: /password-change/',
-        f'Sitemap: {to_absolute_url("/sitemap.xml")}',
-    ]
-    return HttpResponse('\n'.join(lines) + '\n', content_type='text/plain; charset=utf-8')
+    from .ecosystem import robots_text
+    return HttpResponse(robots_text(to_absolute_url('/sitemap.xml')), content_type='text/plain; charset=utf-8')
 
 
 @require_http_methods(["GET", "HEAD"])
@@ -1010,7 +997,7 @@ def profile(request, pid, profile_slug=None):
         "all_gigs_count": all_gigs_count,
         "canonical_profile_url": to_absolute_url(profile.get_absolute_url()),
     }
-    context.update(profile_seo_context(profile))
+    context.update(profile_seo_context(profile, gigs=gigs))
 
     return render(request, 'profile.html', context)
 

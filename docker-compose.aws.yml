@@ -8,6 +8,9 @@ services:
     environment:
       LYDEPLOYMENT_MODE: app
       LYSTATIC_ROOT: /linkyoh/staticfiles
+      LYDIRECTORY_RATE_LIMIT: 'True'
+      LYRATE_LIMIT_REDIS_URL: redis://directory_limits:6379/0
+      LYTRUSTED_PROXY_NETWORKS: ${LYTRUSTED_PROXY_NETWORKS:?Set the verified shared edge network CIDR before deployment}
       CELERY_BROKER_URL: ${CELERY_BROKER_URL:-amqp://linkyoh:linkyoh@rabbitmq:5672//}
     command: >
       sh -c "python manage.py migrate &&
@@ -24,8 +27,24 @@ services:
         aliases:
           - linkyoh-web
     depends_on:
+      directory_limits:
+        condition: service_healthy
       rabbitmq:
         condition: service_started
+
+  directory_limits:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save "" --appendonly no --maxmemory 16mb --maxmemory-policy noeviction
+    mem_limit: 64m
+    cpus: 0.25
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 2s
+      retries: 3
+    networks:
+      - linkyoh_network
 
   celery_worker:
     build:

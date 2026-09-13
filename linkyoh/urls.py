@@ -18,8 +18,10 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 from linkyohapp import views as app_views
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('llms.txt', TemplateView.as_view(template_name='llms.txt', content_type='text/plain; charset=utf-8', http_method_names=['get', 'head']), name='llms_txt'),
     path('robots.txt', app_views.robots_txt, name='robots_txt'),
     path('sitemap.xml', app_views.sitemap_xml, name='sitemap_xml'),
     path('admin/', admin.site.urls),

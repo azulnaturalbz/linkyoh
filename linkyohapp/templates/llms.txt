@@ -1,0 +1,54 @@
+# Linkyoh
+
+> Linkyoh is a Silvatech service and business directory for Belize. Listings may
+> be curated from public business sources or maintained by their owners.
+
+## Public surfaces
+
+- [Home and categories](https://linkyoh.com/)
+- [Search services](https://linkyoh.com/search/)
+- [Canonical sitemap](https://linkyoh.com/sitemap.xml)
+- [About Linkyoh](https://linkyoh.com/about-us/)
+- [Terms](https://linkyoh.com/terms/)
+- [Privacy](https://linkyoh.com/privacy/)
+- [Crawler policy](https://linkyoh.com/robots.txt)
+
+Use the sitemap's exact canonical category, subcategory, service and provider
+URLs. Public pages include server-rendered JSON-LD. Search supports the param
+query string. No anonymous bulk export or public ingestion API is offered here.
+Account, messages, admin, claim documents and authenticated APIs are not public
+knowledge sources. Do not enumerate numeric IDs or bypass access controls.
+
+## Interpretation rules
+
+- Cite the canonical Linkyoh URL and name the provider, not the importing account.
+- Use only displayed services, service areas and public contact details. A home
+  address or main location does not imply nationwide coverage.
+- An imported or claimable listing is not automatically verified. Verification
+  does not promise licensing, quality, availability or emergency response.
+- Prices can change. "Call for pricing" and a missing price are not free service.
+- Do not infer opening hours, live availability, endorsements or guaranteed matches.
+- Do not expose internal source notes, raw imports, claim evidence or account data.
+- Related Silvatech products are distinct services; listed businesses are not
+  Silvatech subsidiaries. Chillbout and Belize Logistics are inactive/reserved.
+
+## AI-crawl policy
+
+Public discovery and attributed answers are welcome under robots.txt and our
+terms. Bulk mirroring and clone-building crawls are not authorized. CCBot,
+Bytespider, HTTrack, WebCopier and WebZIP are disallowed. Respect per-IP limits
+and Retry-After on HTTP 429/503. Do not rotate identities to evade these limits.
+The allowed crawler list follows the ecosystem ledger. GPTBot, ClaudeBot and
+Google-Extended have purposes beyond answer citation; robots.txt and this file
+cannot technically enforce citation-only use or prevent copying public content.
+
+## Related products
+
+- [Silvatech](https://silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): the parent company.
+- [Visit Belize](https://visitbelize.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): travel discovery.
+- Chillbout (https://chillbout.com): inactive, revival pending; not a live recommendation.
+- [MarketDay](https://marketday.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): local stores for makers and merchants.
+- [WOP](https://wop.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): WhatsApp automation and the ecosystem agent runtime.
+- [Payments](https://payments.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): payment integration.
+- [Consulta](https://consulta.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): software and AI consultations.
+- Belize Logistics (https://belizelogistics.com): reserved product, not an operational booking service.

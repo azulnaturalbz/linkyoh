@@ -1,5 +1,7 @@
 # AGENTS.md
 
+Canonical ecosystem contract and cross-agent gates: `/Users/cristiansilva/WorkSpace/Silvatech/silvatech/SILVATECH-ECOSYSTEM.md` (read in full, claim only Linkyoh, preserve handoffs).
+
 > **A README for AI Coding Assistants**
 > This file guides AI agents on project scaffolding, development workflows, coding standards, and deployment practices for Python (Django/Flask), Node.js, and React applications.
 

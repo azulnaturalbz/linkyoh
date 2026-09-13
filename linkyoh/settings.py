@@ -38,6 +38,11 @@ LINKYOH_SITE_NAME = os.environ.get('LYSITE_NAME', 'Linkyoh')
 LINKYOH_IMPORT_API_KEY = credentials.IMPORT_API_KEY
 LINKYOH_IMPORT_USER_USERNAME = credentials.IMPORT_USER_USERNAME
 
+LINKYOH_DIRECTORY_RATE_LIMIT_ENABLED = os.environ.get('LYDIRECTORY_RATE_LIMIT', 'False') == 'True'
+LINKYOH_RATE_LIMIT_REDIS_URL = os.environ.get('LYRATE_LIMIT_REDIS_URL', '')
+LINKYOH_TRUSTED_PROXY_NETWORKS = csv_env(os.environ.get('LYTRUSTED_PROXY_NETWORKS', ''))
+LINKYOH_DIRECTORY_RATE_WINDOWS = ((30, 10), (120, 60))
+
 
 # Also add localhost and 127.0.0.1 for local development
 if '127.0.0.1' not in ALLOWED_HOSTS:
@@ -70,6 +75,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'linkyohapp.directory_limits.DirectoryRateLimitMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
