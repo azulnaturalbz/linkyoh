@@ -30,7 +30,8 @@ knowledge sources. Do not enumerate numeric IDs or bypass access controls.
 - Do not infer opening hours, live availability, endorsements or guaranteed matches.
 - Do not expose internal source notes, raw imports, claim evidence or account data.
 - Related Silvatech products are distinct services; listed businesses are not
-  Silvatech subsidiaries. Chillbout and Belize Logistics are inactive/reserved.
+  Silvatech subsidiaries. A live product link does not establish availability
+  of its catalog, booking or other gated features.
 
 ## AI-crawl policy
 
@@ -46,9 +47,10 @@ cannot technically enforce citation-only use or prevent copying public content.
 
 - [Silvatech](https://silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): the parent company.
 - [Visit Belize](https://visitbelize.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): travel discovery.
-- Chillbout (https://chillbout.com): inactive, revival pending; not a live recommendation.
+- [Chillbout](https://chillbout.com?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): where Belize eats, drinks and goes out; do not infer catalog availability.
 - [MarketDay](https://marketday.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): local stores for makers and merchants.
 - [WOP](https://wop.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): WhatsApp automation and the ecosystem agent runtime.
 - [Payments](https://payments.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): payment integration.
 - [Consulta](https://consulta.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): software and AI consultations.
-- Belize Logistics (https://belizelogistics.com): reserved product, not an operational booking service.
+- [Belize Logistics](https://belizelogistics.com?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): transport discovery and route planning; not open for bookings.
+- [Games](https://games.silvatech.bz?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=llms): free browser games made in Belize.

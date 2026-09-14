@@ -10,6 +10,7 @@ SISTER_URLS = (
     'https://payments.silvatech.bz',
     'https://consulta.silvatech.bz',
     'https://belizelogistics.com',
+    'https://games.silvatech.bz',
 )
 
 PUBLIC_CRAWL_AGENTS = (

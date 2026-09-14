@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-09-14T17:58:26.539078+00:00",
+  "remote": {
+    "ecosystem-strip.html": {
+      "url": "https://silvatech.bz/brand/ecosystem-strip.html",
+      "status": 200,
+      "sha256": "d8ee28f64288652a04cf06b245f69e7f2924a88bac842f78c3cc901e8dd8a22a"
+    },
+    "silvatech-ui.css": {
+      "url": "https://silvatech.bz/brand/silvatech-ui.css",
+      "status": 200,
+      "sha256": "f9979278a41dfffb453987b5a5f4b1d5f4d5fe88d1256d79fe52ae0092202b1d"
+    }
+  },
+  "local_sha256": {
+    "static/lab/assets/silvatech-ui.css": "f9979278a41dfffb453987b5a5f4b1d5f4d5fe88d1256d79fe52ae0092202b1d",
+    "static/css/ecosystem-strip.css": "600cb62d6959a353f35457d1374ce60d380d6752e569a6d5737ff561363c0e59"
+  },
+  "reference_fixture": "linkyohapp/test_fixtures/ecosystem-strip-v2.html"
+}

@@ -1,3 +1,4 @@
+import hashlib
 import ipaddress
 import json
 import os
@@ -5,6 +6,7 @@ import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from html.parser import HTMLParser
+from pathlib import Path
 from unittest import skipUnless
 from unittest.mock import patch
 from urllib.robotparser import RobotFileParser
@@ -12,6 +14,7 @@ from urllib.robotparser import RobotFileParser
 import redis
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 from django.test import RequestFactory, SimpleTestCase, TestCase, override_settings
 from django.urls import resolve
 
@@ -25,10 +28,57 @@ class LinkParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.links = []
+        self.strip_links = []
+        self.strip_attrs = None
+        self.in_strip = False
 
     def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'nav' and 'svt-ecosystem-strip' in attrs.get('class', '').split():
+            self.in_strip = True
+            self.strip_attrs = attrs
         if tag == 'a':
-            self.links.append(dict(attrs))
+            self.links.append(attrs)
+            if self.in_strip:
+                self.strip_links.append(attrs)
+
+    def handle_endtag(self, tag):
+        if tag == 'nav':
+            self.in_strip = False
+
+
+class EcosystemStripContractTests(SimpleTestCase):
+    root = Path(__file__).resolve().parents[1]
+
+    def test_rendered_strip_matches_published_v2_with_local_attribution(self):
+        reference = LinkParser()
+        reference.feed((self.root / 'linkyohapp/test_fixtures/ecosystem-strip-v2.html').read_text())
+        expected = []
+        for link in reference.strip_links:
+            expected.append({
+                **link,
+                'href': link['href'].replace('utm_source=hub&', 'utm_source=linkyoh&'),
+                'rel': 'noreferrer',
+            })
+        actual = LinkParser()
+        html = render_to_string('includes/ecosystem_strip.html')
+        actual.feed(html)
+        self.assertEqual(actual.strip_attrs, reference.strip_attrs)
+        self.assertEqual(actual.strip_attrs['data-strip-version'], 'v2')
+        self.assertEqual(len(actual.strip_links), 10)
+        self.assertEqual(actual.strip_links, expected)
+        self.assertEqual(actual.strip_links[-1]['data-track'], 'games_clickout')
+        self.assertNotIn('svt-ecosystem-strip__inactive', html)
+
+    def test_vendored_css_matches_published_source_checksums(self):
+        # Published bytes independently checked in specs/008-ecosystem-strip-v2.
+        checksums = {
+            'static/lab/assets/silvatech-ui.css': 'f9979278a41dfffb453987b5a5f4b1d5f4d5fe88d1256d79fe52ae0092202b1d',
+            'static/css/ecosystem-strip.css': '600cb62d6959a353f35457d1374ce60d380d6752e569a6d5737ff561363c0e59',
+        }
+        for name, checksum in checksums.items():
+            with self.subTest(file=name):
+                self.assertEqual(hashlib.sha256((self.root / name).read_bytes()).hexdigest(), checksum)
 
 
 class EcosystemPageTests(TestCase):
@@ -59,13 +109,24 @@ class EcosystemPageTests(TestCase):
                 parser = LinkParser()
                 parser.feed(html)
                 ecosystem = [link for link in parser.links if link.get('href', '').startswith(SISTER_URLS)]
-                self.assertEqual(len(ecosystem), 9)  # seven strip, forward, powered-by
+                self.assertEqual(len(ecosystem), 12)  # ten strip, forward, powered-by
+                self.assertEqual(len(parser.strip_links), 10)
+                self.assertEqual(parser.strip_attrs['data-strip-version'], 'v2')
                 for link in ecosystem:
                     self.assertIn('utm_source=linkyoh', link['href'])
                     self.assertIn('utm_medium=ecosystem', link['href'])
                     self.assertTrue(link['data-track'].endswith('_clickout'))
-                    self.assertNotIn('chillbout.com', link['href'])
-                    self.assertNotIn('belizelogistics.com', link['href'])
+
+    def test_account_pages_keep_the_strip_and_referrer_privacy(self):
+        for url in ('/login/', '/register/', '/password-reset/'):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, 200)
+                parser = LinkParser()
+                parser.feed(response.content.decode())
+                self.assertEqual(len(parser.strip_links), 10)
+                for link in parser.strip_links:
+                    self.assertEqual(link['rel'], 'noreferrer')
 
     def test_llms_is_public_text_with_only_discovery_contract(self):
         response = self.client.get('/llms.txt')
@@ -73,6 +134,9 @@ class EcosystemPageTests(TestCase):
         self.assertIn('text/plain', response['Content-Type'])
         self.assertContains(response, '## Related products')
         self.assertContains(response, 'https://linkyoh.com/sitemap.xml')
+        self.assertContains(response, 'https://games.silvatech.bz?', count=1)
+        self.assertContains(response, 'not open for bookings')
+        self.assertNotContains(response, 'inactive/reserved')
         self.assertNotContains(response, 'LYIMPORT_API_KEY')
         self.assertEqual(self.client.head('/llms.txt').status_code, 200)
         self.assertEqual(self.client.post('/llms.txt').status_code, 405)
@@ -95,6 +159,7 @@ class EcosystemPageTests(TestCase):
         graph = json.loads(gig_seo_context(self.gig)['seo_json_ld'])['@graph']
         organization = next(item for item in graph if item['@type'] == 'Organization')
         self.assertEqual(organization['sameAs'], list(SISTER_URLS))
+        self.assertEqual(organization['sameAs'].count('https://games.silvatech.bz'), 1)
         business = next(item for item in graph if item['@type'] == 'LocalBusiness')
         service = next(item for item in graph if item['@type'] == 'Service')
         self.assertNotIn('parentOrganization', business)
