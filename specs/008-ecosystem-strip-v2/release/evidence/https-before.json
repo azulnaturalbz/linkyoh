@@ -1,0 +1,52 @@
+[
+  {
+    "url": "https://linkyoh.com/",
+    "status": 200,
+    "finalUrl": "https://linkyoh.com/"
+  },
+  {
+    "url": "https://www.linkyoh.com/",
+    "status": 200,
+    "finalUrl": "https://www.linkyoh.com/"
+  },
+  {
+    "url": "https://wop.silvatech.bz/health/",
+    "status": 200,
+    "finalUrl": "https://wop.silvatech.bz/health/"
+  },
+  {
+    "url": "https://n8n.silvatech.bz/",
+    "status": 200,
+    "finalUrl": "https://n8n.silvatech.bz/"
+  },
+  {
+    "url": "https://payments.silvatech.bz/",
+    "status": 200,
+    "finalUrl": "https://payments.silvatech.bz/"
+  },
+  {
+    "url": "https://nationalperspectivebz.com/",
+    "status": 200,
+    "finalUrl": "https://nationalperspectivebz.com/"
+  },
+  {
+    "url": "https://analytics.silvatech.bz/api/health",
+    "status": 200,
+    "finalUrl": "https://analytics.silvatech.bz/api/health"
+  },
+  {
+    "url": "https://marketday.silvatech.bz/",
+    "status": 200,
+    "finalUrl": "https://marketday.silvatech.bz/"
+  },
+  {
+    "url": "https://yardsale.marketday.silvatech.bz/",
+    "status": 200,
+    "finalUrl": "https://yardsale.marketday.silvatech.bz/"
+  },
+  {
+    "url": "https://chillbout.com/",
+    "status": 200,
+    "finalUrl": "https://chillbout.com/"
+  }
+]

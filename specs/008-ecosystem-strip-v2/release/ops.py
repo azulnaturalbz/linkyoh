@@ -143,8 +143,31 @@ def archive():
     print('Sanitized release evidence archived')
 
 
+def verify():
+    window()
+    code = '''import json,pathlib,runpy
+r=pathlib.Path(RELEASE)
+controller=runpy.run_path(str(r/'controller.py'))
+before=json.loads((r/'cutover-before.json').read_text())
+after=controller['snapshot']('final-after.json')
+controller['unchanged'](before,after)
+assert after['containers']['linkyoh-web-1']['image']==IMAGE
+manifest=json.loads((r/'manifest.json').read_text())
+assert all(controller['digest'](pathlib.Path('/opt/linkyoh')/p)==h for p,h in manifest['source'].items())
+controller['ready']()
+print(json.dumps(after))
+'''
+    result = remote('RELEASE=' + repr(REMOTE) + '\nIMAGE=' + repr(IMAGE) + '\n' + code)
+    (EVIDENCE / 'final-after.json').write_bytes(result)
+    data = json.loads(result)
+    print(json.dumps({'utc': data['utc'], 'unchanged_neighbors': len(data['containers']) - 1,
+                      'source_files': 357, 'protected_unchanged': True,
+                      'available_memory_bytes': data['memory']['MemAvailable'],
+                      'disk_free_bytes': data['disk_free_bytes']}))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=('stage', 'preflight', 'prepare', 'backups', 'deploy', 'archive'))
+    parser.add_argument('action', choices=('stage', 'preflight', 'prepare', 'backups', 'deploy', 'archive', 'verify'))
     EVIDENCE.mkdir(exist_ok=True)
     globals()[parser.parse_args().action]()

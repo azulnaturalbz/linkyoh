@@ -1,0 +1,8 @@
+{
+  "caddy_peer": "172.20.0.2",
+  "trusted_proxy_cidrs": [
+    "172.20.0.2/32"
+  ],
+  "private_redis": true,
+  "redis_memory_limit": "67108864"
+}
