@@ -6,4 +6,4 @@
 - [x] Implement approved Lab templates, i18n and progressive controls.
 - [x] Verify regression tests, five-width EN/ES browser matrix, no-JS/keyboard/AA.
 - [x] Review family Stitch design; adopt bounded elements and share remix brief.
-- [ ] Commit evidence and record deployment HOLD in ecosystem ledger.
+- [x] Commit evidence and record deployment HOLD in ecosystem ledger.
