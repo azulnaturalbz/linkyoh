@@ -1,6 +1,6 @@
 # Strip v2 Consumer Evidence
 
-2026-09-14. Local candidate on `codex/005-linkyoh-revamp-ui`.
+2026-09-14. Local candidate `60d5af7` on `codex/005-linkyoh-revamp-ui`.
 **HOLD: Cristian's explicit app-only deployment go is required.**
 The already-deployed sitewide UI is a separate release. No push, production
 mutation, host reservation, shared-edge change or campaign activation occurred.
@@ -65,3 +65,7 @@ Review-only artifacts are excluded from Docker packaging.
 
 The shared ecosystem ledger's Linkyoh-only delta is outside this repository;
 the hub owner retains responsibility for committing that shared document.
+Linkyoh's Session Directory, Register, Property Record and one Handoff entry
+were updated. The contract-completion notice was accepted by the hub task
+`019e3c4b-db00-7603-b929-5b5bb0b7e031`. The synthetic preview was stopped after
+QA; no local QA server or disposable container is left running.
