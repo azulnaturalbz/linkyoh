@@ -27,7 +27,7 @@ for this no-schema release; never restore a database for a template rollback.
 - [x] Read-only production check/migration plan, app-only switch and rollback guard.
 - [x] Public v2, CSS, llms/schema, SEO/legacy and responsive evidence.
 - [x] Neighbor/runtime preservation after browser QA.
-- [ ] Commit/push, ledger closure and owner notices.
+- [x] Commit/push, ledger closure and owner notices.
 
 ## Immutable Candidate
 
@@ -87,3 +87,13 @@ GitHub reported 71 existing default-branch dependency advisories during the
 UI branch push (2 critical, 34 high, 29 moderate, 6 low). This is a provider
 notification, not a fresh vulnerability audit. Dependencies are unchanged;
 modernization remains on its separate branch and release gate.
+
+## Handoff
+
+Release evidence `8899985` was pushed to the UI branch with `azulnaturalbz`;
+global GitHub authentication was unchanged. Both canonical ledgers record
+the window released at `2026-09-14T18:32:36Z`, with only Linkyoh's row,
+record/directory and one final handoff entry updated. Completion messages
+were accepted by WOP, Payments, MarketDay, Chillbout and the hub. No further
+host mutation is pending. Shared-ledger changes remain for their respective
+repository owners to commit; no foreign application code was changed.
