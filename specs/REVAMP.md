@@ -1,8 +1,11 @@
 # Linkyoh Revamp
 
 Status: **APPROVED WITH AMENDMENTS by Cristian, 2026-09-13**.
-Prepared and amended: 2026-09-13 UTC. Current authorization is the static prototype
-only. **STOP for Cristian's prototype review before editing Django templates.**
+Prototype review: **APPROVED by Cristian, 2026-09-13** (recorded 2026-09-14 UTC).
+Current authorization: slice 3 Lab discovery/profiles and server-side GET search
+on `codex/005-linkyoh-revamp-ui`. **STOP before deployment for Cristian's go.**
+The latest dispatch calls UI work slice 3, superseding the earlier slice-2 label;
+modernization remains an independent parallel track, never part of this UI release.
 Canonical contracts: [Silvatech Ecosystem Ledger](../../../Silvatech/silvatech/SILVATECH-ECOSYSTEM.md),
 especially sections 3 rule 6, 5.1 door 4, 7 and the Linkyoh property record.
 Deployment remains a separate gate under the shared-host ledger, even after design sign-off.
@@ -71,14 +74,14 @@ before the prototype or UI can work. Template APIs must stay in the 3.2/5.2 comm
 subset; modernized auth/logout and storage behavior belongs to the upgrade track.
 
 - UI track: `codex/005-linkyoh-revamp-ui`, based on Phase A evidence commit
-  `c8c8126`. Current pass changes only this spec and static prototype artifacts.
-  After prototype approval, templates/static and existing read-only discovery
-  adapters can change, with **zero new Python dependencies**, no requirements,
+  `c8c8126`. Prototype `3988d72` was approved on 2026-09-13. Slice 3 implements
+  templates/static and existing read-only discovery adapters, with
+  **zero new Python dependencies**, no requirements,
   Docker runtime or migration changes, and no claim/account transitions.
 - Modernization track: a separate `codex/006-linkyoh-modernization` branch from
   the same baseline, not from unfinished UI work. Execute the checkpoints below
-  independently in parallel with the approved UI implementation. This prototype
-  pass does not start that implementation or create a second task.
+  independently in parallel with the approved UI implementation. The branch is
+  established at `c8c8126`; this UI delivery does not implement its checkpoints.
 - Release UI first on the existing runtime after its own authorization. Reconcile
   released UI into the upgrade candidate and rerun compatibility/browser tests.
   Ship dependency modernization as a second, separately authorized release.
@@ -102,11 +105,11 @@ Lucide and 16px repeated cards give the product its own recognizable identity.
 
 | Surface | Primary job and required content | Delivery |
 | --- | --- | --- |
-| Home | One ask-first input; contextual search examples; secondary classic filters; provider cards with Checked evidence; maker-to-MarketDay banner | EN/ES static prototype, then UI slice 2 |
-| Results | Editable need, shareable GET state, category/district/town filters, explicit match count, Checked cards, no-match/reset and unknown-availability states | EN/ES static prototype, then UI slice 2 |
-| Provider | Business identity separate from cover; Checked scope/date; WhatsApp-first contact; consented quote journey; photos; service areas; what we do/do not do; claim/correction; maker banner | EN/ES static prototype, then UI slice 2; quote transport gated to slice 5 |
+| Home | One ask-first input; contextual search examples; secondary classic filters; provider cards with Checked evidence; maker-to-MarketDay banner | Approved EN/ES static prototype, then UI slice 3 |
+| Results | Editable need, shareable GET state, category/district/town filters, explicit match count, Checked cards, no-match/reset and unknown-availability states | Approved EN/ES static prototype, then UI slice 3 |
+| Provider | Business identity separate from cover; Checked scope/date; WhatsApp-first contact; consented quote journey; photos; service areas; what we do/do not do; claim/correction; maker banner | Approved EN/ES static prototype, then UI slice 3; quote transport gated to slice 5 |
 | Linkyoh for Pros | Claim -> verify -> manage; profile editor preview, review status, WOP leads inbox and WhatsApp quote-notification state | Prototype drawer within the three pages; actual claim logic slice 4, WOP leads slice 5 |
-| Supporting discovery | Category/service canonical pages, pagination, empty/error/loading states, EN/ES switch | Shared discovery components; later slice 2 parity |
+| Supporting discovery | Category/service canonical pages, pagination, empty/error/loading states, EN/ES switch | Shared discovery components; slice 3 parity |
 | Existing accounts/help/operator surfaces | Retain navigation, login/register, help, existing claims and ingestion behavior | Regression coverage; no account redesign/logic in prototype |
 
 ### Ask-first search and endpoint gate
@@ -176,8 +179,19 @@ pages x two languages x 390/1440px). Review search/filter/back/no-match, locale
 switching, Checked states, provider photo/quote previews and Pros states. Verify
 actual WCAG AA foreground/background pairs, focus, labels, touch targets and
 overflow; screenshots alone do not establish accessibility. No telemetry, model
-calls, live credentials or contact submissions. **HOLD for Cristian's prototype
-review before any Django template work.**
+calls, live credentials or contact submissions. **Gate passed: Cristian approved
+the prototype on 2026-09-13. Deployment remains a separate HOLD.**
+
+### Family-design reconciliation, 2026-09-13
+
+Cristian supplied his wife's Stitch design and authorized a bounded synthesis
+during slice 3. Adopt its icon-led category shortcuts, mobile bottom navigation
+with safe-area clearance, and compact icon-labelled provider facts. Keep the
+approved light Lab register, ask-first GET flow, real-data Checked evidence and
+canonical links. Unknown hours/verification stay unknown; do not copy generic
+Verified/Open Now claims, fabricated maps or broken placeholder media. Preserve
+the original Stitch project; share the synthesis in a separate remix. Source,
+brief, reconciliation notes and screenshots live in `005-lab-discovery/stitch/`.
 
 ## Lab brand and discovery layout
 
@@ -333,21 +347,20 @@ release's deprecations. Do not mix the dependency upgrade with a visual rollout.
 
 ## Acceptance and release slices
 
-1. Record amended approval, deliver the EN/ES static prototype and STOP for
-   Cristian's prototype review before Django templates. Phase A deployment is
-   independently authorized/verified; no production changes are implied.
-2. After prototype approval, Lab discovery/profiles, Django i18n and GET-first
-   smart search/filter parity on the UI branch; no new Python dependencies or
-   claim logic. **UI ships first** after its own release go. No dead chat/quote
-   controls before transport exists; use honest direct-contact/search fallbacks.
-3. Dependency modernization on its separate parallel branch with all checkpoints
-   and recovery evidence; no cosmetic changes in that release. Work can proceed
-   alongside slice 2, but its release follows the UI release. Reconcile and test
-   the released UI before the separately authorized upgrade deployment.
-4. Verified claim review with privacy, permissions, race/retry tests and a real
-   owner/reviewer acceptance journey using approved data.
-5. Provisioned WOP finder with synthetic grounding/consent/no-match/failure tests,
-   then reviewed lead handoff; recruiting campaign is the last explicit gate.
+- Completed gates: amended spec and EN/ES static prototype approved 2026-09-13.
+  Phase A deployment was independently authorized and verified.
+- **Slice 3 (UI):** Lab discovery/profiles, Django i18n and GET-first smart search
+  on the UI branch; no new Python dependencies or claim logic. **UI ships first**
+  after its own release go. Before transport exists, keep honest direct contact
+  and search, not dead chat/quote controls.
+- **Parallel modernization track:** independent branch and checkpoints/recovery
+  evidence; no cosmetic changes in that release. Reconcile and test released UI
+  before the separately authorized dependency release. This track does not
+  renumber or authorize the claim or finder slices.
+- **Slice 4:** verified claim review with privacy, permissions, race/retry tests
+  and a real owner/reviewer acceptance journey using approved data.
+- **Slice 5:** provisioned WOP finder with synthetic grounding/consent/no-match/
+  failure tests, then reviewed lead handoff; campaign activation is a final gate.
 
 For UI slices, verify 320/390/768/944/1440px widths, zoom, keyboard and no-JS use;
 WCAG AA text/focus contrast, label/error relationships, touch targets, no horizontal
@@ -373,7 +386,9 @@ separate UI-first releases, no new UI Python dependencies, the Design concept
 above and bilingual three-page static prototype before Django templates.
 Decision recorded in the canonical Handoff Log at `2026-09-13T22:17:24Z`.
 
-Current gate: **HOLD for review of specs/revamp-prototype/ before Django templates**.
+Current gate: **Prototype approved 2026-09-13; implementation authorized, deployment HOLD**.
+Implementation contract and acceptance checklist: `005-lab-discovery/spec.md`,
+`005-lab-discovery/plan.md` and `005-lab-discovery/tasks.md`.
 Prototype delivered 2026-09-13: [Home](revamp-prototype/index.html),
 [Results](revamp-prototype/results.html), [Provider](revamp-prototype/provider.html),
 with EN/ES controls and [screenshot gallery](revamp-prototype/evidence/index.html).

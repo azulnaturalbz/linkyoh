@@ -53,7 +53,8 @@ class EcosystemPageTests(TestCase):
                 html = response.content.decode()
                 self.assertIn('aria-label="Silvatech ecosystem"', html)
                 self.assertIn('Powered by Silvatech&trade;', html)
-                self.assertIn('Sell what you make. Open your own store on MarketDay', html)
+                from django.utils.html import strip_tags
+                self.assertIn('Sell what you make. Open your own store on MarketDay', strip_tags(html))
                 self.assertIn('trademarks of Silvatech, Belize City, Belize.', html)
                 parser = LinkParser()
                 parser.feed(html)

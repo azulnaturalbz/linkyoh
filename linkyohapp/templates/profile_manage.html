@@ -1,0 +1,1330 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block head %}
+<style>
+    /* QR Code styles */
+    .qr-code-container {
+        position: relative;
+        margin-left: 3rem;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .qr-code {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        display: inline-block;
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .qr-download-btn {
+        margin-top: 0.75rem;
+        font-size: 0.85rem;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: var(--primary-color);
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .qr-download-btn:hover {
+        background-color: white;
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .qr-card {
+        max-width: 100%;
+        width: 100%;
+        max-height: 80vh;
+        background-color: white;
+        border-radius: 1rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        padding: 1.5rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .qr-card-qr {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .qr-card-qr canvas {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .qr-card-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+    }
+
+    .qr-card-name {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .qr-card-tagline {
+        font-size: 1rem;
+        color: #6c757d;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .qr-card-business {
+        font-size: 1.2rem;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .qr-card-logo {
+        position: absolute;
+        bottom: 1rem;
+        width: 100px;
+    }
+
+    @media (max-width: 768px) {
+        .qr-code-container {
+            margin: 2rem 0 0 0;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .profile-header .d-flex {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code {
+            margin-top: 0;
+            width: 100%;
+        }
+
+        .profile-avatar {
+            margin-bottom: 1.5rem !important;
+        }
+    }
+
+    /* Fix for file input text overflow */
+    .form-control[type="file"] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Fix for image filename display */
+    .img-thumbnail + small {
+        display: block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .profile-header {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{{ profile.get_cover_image_url }}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        object-fit: cover;
+    }
+
+    .profile-info {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .profile-about {
+        background-color: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .profile-form .form-control {
+        margin-bottom: 1rem;
+    }
+
+    .gig-card {
+        height: 100%;
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gig-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .gig-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .section-title {
+        position: relative;
+        margin-bottom: 2rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background-color: var(--primary-color);
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        z-index: 10;
+    }
+
+
+    .viewing-banner {
+        background-color: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid var(--primary-color);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .verified-badge {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(46, 204, 113, 0.1);
+        color: #27ae60;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: var(--gray-700);
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.5rem;
+        margin-right: 0.5rem;
+        transition: all 0.2s;
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color: var(--gray-100);
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+    }
+
+    .tab-content {
+        padding: 1.5rem 0;
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-text {
+        color: var(--gray-600);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .social-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--gray-100);
+        border-radius: 50%;
+        margin-right: 0.75rem;
+        color: var(--gray-700);
+    }
+
+    .business-badge {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(52, 152, 219, 0.1);
+        color: var(--primary-color);
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+
+    .profile-hero-panel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.5rem;
+        width: min(100%, 980px);
+        margin: 0 auto;
+        padding: 1.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 1rem;
+        background: rgba(15, 23, 42, 0.68);
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.28);
+        text-align: left;
+    }
+
+    .profile-identity {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        min-width: 0;
+    }
+
+    .profile-heading {
+        min-width: 0;
+    }
+
+    .profile-heading h1,
+    .profile-heading .lead {
+        color: #ffffff !important;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    .profile-heading h1 {
+        overflow-wrap: anywhere;
+        line-height: 1.08;
+    }
+
+    .profile-heading .lead {
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .profile-header-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    .profile-header .verified-badge,
+    .profile-header .business-badge {
+        margin-left: 0;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: #ffffff;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.22);
+    }
+
+    .profile-header .verified-badge {
+        background-color: rgba(22, 163, 74, 0.94);
+    }
+
+    .profile-header .business-badge {
+        background-color: rgba(15, 118, 110, 0.96);
+    }
+
+    .profile-header .qr-code-container {
+        flex: 0 0 auto;
+        margin-left: 0;
+    }
+
+    .profile-type-toggle {
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-type-toggle .btn {
+        padding: 0.5rem 1.5rem;
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .contact-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--gray-100);
+        border-radius: 50%;
+        margin-right: 0.75rem;
+        color: var(--gray-700);
+    }
+
+    .form-check-input[type="checkbox"] {
+        width: 1.25em;
+        height: 1.25em;
+    }
+
+    .form-check-label {
+        padding-left: 0.5rem;
+    }
+
+    .alert-success {
+        border-left: 4px solid #27ae60;
+    }
+
+    @media (max-width: 768px) {
+        .profile-hero-panel,
+        .profile-identity {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .profile-hero-panel {
+            padding: 1.25rem 1rem;
+        }
+
+        .profile-header-badges {
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block page %}
+{% include 'includes/ecosystem_forward.html' %}
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="profile-hero-panel">
+                        <div class="profile-identity">
+                            <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+                                 alt="{{ profile.get_display_name }}" class="profile-avatar">
+                            <div class="profile-heading">
+                                <h1 class="display-5 mb-2">{{ profile.get_display_name }}</h1>
+                                {% if profile.slogan %}
+                                <p class="lead mb-0">{{ profile.slogan }}</p>
+                                {% endif %}
+                                {% if profile.is_verified or profile.profile_type == 'business' %}
+                                <div class="profile-header-badges">
+                                    {% if profile.is_verified %}
+                                    <span class="verified-badge">
+                                        <i class="fas fa-check-circle me-1"></i> Verified
+                                    </span>
+                                    {% endif %}
+                                    {% if profile.profile_type == 'business' %}
+                                    <span class="business-badge">
+                                        <i class="fas fa-building me-1"></i> Business
+                                    </span>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- QR Code (only shown if enabled) -->
+                        {% if profile.show_qr_code %}
+                        <div class="qr-code-container" x-data="{ showQrCard: false }" x-cloak>
+                            <div class="qr-code">
+                                <div id="profile-qr-code" data-profile-url="{{ canonical_profile_url }}"></div>
+                                <button class="btn btn-sm btn-outline-light qr-download-btn" @click="showQrCard = true">
+                                    <i class="fas fa-download me-1"></i> Download QR Card
+                                </button>
+                            </div>
+
+                            <!-- QR Card Modal -->
+                            <div x-show="showQrCard"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform scale-90"
+                                 x-transition:enter-end="opacity-100 transform scale-100"
+                                 x-transition:leave="transition ease-in duration-300"
+                                 x-transition:leave-start="opacity-100 transform scale-100"
+                                 x-transition:leave-end="opacity-0 transform scale-90"
+                                 class="modal-backdrop"
+                                 style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 1050; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+
+                                <div class="modal-dialog modal-dialog-centered" style="margin: 0 auto; max-width: 500px;">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Download QR Card</h5>
+                                            <button type="button" class="btn-close" @click="showQrCard = false" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center p-4">
+                                            <div id="qr-card-container" class="d-flex justify-content-center">
+                                                <div id="qr-card" class="qr-card">
+                                                    <div id="qr-card-qr-code" class="qr-card-qr"></div>
+                                                    <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/avatar.png' %}{% endif %}"
+                                                         alt="{{ profile.get_display_name }}" class="qr-card-avatar">
+                                                    <h2 class="qr-card-name">{{ profile.get_display_name }}</h2>
+                                                    <p class="qr-card-tagline">{{ profile.slogan }}</p>
+                                                    {% if profile.profile_type == 'business' and profile.company_name %}
+                                                    <p class="qr-card-business"><strong>{{ profile.company_name }}</strong></p>
+                                                    {% endif %}
+{#                                                    <img src="{% static 'img/logo.png' %}" alt="Linkyoh" class="qr-card-logo">#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-between">
+                                            <button type="button" class="btn btn-secondary" @click="showQrCard = false">Close</button>
+                                            <button id="download-qr-card" class="btn btn-primary" @click="downloadQrCard">
+                                                <i class="fas fa-download me-2"></i> Download PNG
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-4" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Viewing Banner (only when viewing someone else's profile) -->
+    {% if not is_own_profile and is_authenticated %}
+    <div class="viewing-banner d-flex align-items-center">
+        <i class="fas fa-info-circle me-3 fs-4 text-primary"></i>
+        <div>
+            <p class="mb-0">You are viewing <strong>{{ profile.get_display_name }}</strong>'s profile and listings.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Call-to-action for unauthenticated users -->
+    {% if not is_authenticated %}
+    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+        <i class="fas fa-user-lock me-3 fs-4"></i>
+        <div>
+            <h5 class="alert-heading mb-1">Limited Preview</h5>
+            <p class="mb-2">You're viewing a limited preview of {{ profile.get_display_name }}'s profile.</p>
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-sign-in-alt me-1"></i> Sign In
+                </a>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-user-plus me-1"></i> Create Account
+                </a>
+                <span class="ms-2 text-muted align-self-center">to see more services and information.</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Profile Content -->
+    <div class="row">
+        <!-- Left Column - Profile Info -->
+        <div class="col-lg-4 mb-4">
+            {% if is_own_profile %}
+                <!-- Edit Profile Form -->
+                <div class="profile-info">
+                    <h3 class="mb-4">Edit Profile</h3>
+
+                    <!-- Profile Type Toggle -->
+                    <div class="profile-type-toggle btn-group w-100 mb-4" role="group" aria-label="Profile Type">
+                        <input type="radio" class="btn-check" name="profile_type_view" id="individual_view" autocomplete="off" {% if profile.profile_type == 'individual' %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="individual_view">Individual</label>
+
+                        <input type="radio" class="btn-check" name="profile_type_view" id="business_view" autocomplete="off" {% if profile.profile_type == 'business' %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="business_view">Business</label>
+                    </div>
+
+                    <!-- Tabs for different sections -->
+                    <ul class="nav nav-tabs mb-3" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
+                                <i class="fas fa-user me-1"></i> Basic
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
+                                <i class="fas fa-address-card me-1"></i> Contact
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="social-tab" data-bs-toggle="tab" data-bs-target="#social" type="button" role="tab" aria-controls="social" aria-selected="false">
+                                <i class="fas fa-share-alt me-1"></i> Social
+                            </button>
+                        </li>
+                        <li class="nav-item business-tab" role="presentation" {% if profile.profile_type != 'business' %}style="display: none;"{% endif %}>
+                            <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab" aria-controls="business" aria-selected="false">
+                                <i class="fas fa-building me-1"></i> Business
+                            </button>
+                        </li>
+                    </ul>
+
+                    <form method="post" class="profile-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="tab-content" id="profileTabsContent">
+                            <!-- Basic Info Tab -->
+                            <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.profile_type.id_for_label }}" class="form-label">
+                                        <i class="fas fa-id-card me-2"></i>{{ form.profile_type.label }}
+                                    </label>
+                                    {% render_field form.profile_type class="form-select" %}
+                                    <div class="form-text">{{ form.profile_type.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.avatar.id_for_label }}" class="form-label">
+                                        <i class="fas fa-image me-2"></i>{{ form.avatar.label }}
+                                    </label>
+                                    {% render_field form.avatar class="form-control" %}
+                                    <div class="form-text">{{ form.avatar.help_text }}</div>
+                                    {% if profile.avatar %}
+                                    <div class="mt-2">
+                                        <img src="{{ profile.avatar.url }}" alt="Current profile picture" class="img-thumbnail" style="max-height: 100px;">
+                                        <small class="d-block text-muted">Current profile picture</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.cover_image.id_for_label }}" class="form-label">
+                                        <i class="fas fa-image me-2"></i>{{ form.cover_image.label }}
+                                    </label>
+                                    {% render_field form.cover_image class="form-control" %}
+                                    <div class="form-text">{{ form.cover_image.help_text }}</div>
+                                    {% if profile.cover_image %}
+                                    <div class="mt-2">
+                                        <img src="{{ profile.cover_image.url }}" alt="Current cover image" class="img-thumbnail" style="max-height: 100px;">
+                                        <small class="d-block text-muted">Current cover image</small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.gender.id_for_label }}" class="form-label">
+                                        <i class="fas fa-venus-mars me-2"></i>{{ form.gender.label }}
+                                    </label>
+                                    {% render_field form.gender %}
+                                    <div class="form-text">{{ form.gender.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.slogan.id_for_label }}" class="form-label">
+                                        <i class="fas fa-quote-left me-2"></i>{{ form.slogan.label }}
+                                    </label>
+                                    {% render_field form.slogan %}
+                                    <div class="form-text">{{ form.slogan.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.about.id_for_label }}" class="form-label">
+                                        <i class="fas fa-user me-2"></i>{{ form.about.label }}
+                                    </label>
+                                    {% render_field form.about %}
+                                    <div class="form-text">{{ form.about.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    {% url "toggle_qr_code" as toggle_qr_code_url %}
+                                    {% render_field form.show_qr_code class="form-check-input" hx-post=toggle_qr_code_url hx-trigger="change" hx-swap="none" %}
+                                    <label for="{{ form.show_qr_code.id_for_label }}" class="form-check-label">
+                                        <i class="fas fa-qrcode me-2"></i>{{ form.show_qr_code.label }}
+                                    </label>
+                                    <div class="form-text">{{ form.show_qr_code.help_text }}</div>
+                                    <div id="qr-toggle-status" class="mt-2 small text-success" style="display: none;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info Tab -->
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.phone_number.id_for_label }}" class="form-label">
+                                        <i class="fas fa-phone me-2"></i>{{ form.phone_number.label }}
+                                    </label>
+                                    {% render_field form.phone_number %}
+                                    <div class="form-text">{{ form.phone_number.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    {% render_field form.email_public class="form-check-input" %}
+                                    <label for="{{ form.email_public.id_for_label }}" class="form-check-label">
+                                        {{ form.email_public.label }}
+                                    </label>
+                                    <div class="form-text">{{ form.email_public.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.address.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map-marker-alt me-2"></i>{{ form.address.label }}
+                                    </label>
+                                    {% render_field form.address %}
+                                    <div class="form-text">{{ form.address.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.district.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map me-2"></i>{{ form.district.label }}
+                                    </label>
+                                    <select name="{{ form.district.html_name }}" id="{{ form.district.auto_id }}" class="form-select"
+                                            hx-get="{% url 'ajax_load_locations' %}"
+                                            hx-trigger="change"
+                                            hx-target="#id_location"
+                                            hx-swap="innerHTML">
+                                        {% for choice in form.district.field.choices %}
+                                            <option value="{{ choice.0 }}" {% if form.district.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="form-text">{{ form.district.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.location.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map-pin me-2"></i>{{ form.location.label }}
+                                    </label>
+                                    <select name="{{ form.location.html_name }}" id="id_location" class="form-select">
+                                        {% if form.instance.location %}
+                                            <option value="{{ form.instance.location.pk }}" selected>{{ form.instance.location.local }}</option>
+                                        {% endif %}
+                                    </select>
+                                    <div class="form-text">{{ form.location.help_text }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Social Media Tab -->
+                            <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.website.id_for_label }}" class="form-label">
+                                        <i class="fas fa-globe me-2"></i>{{ form.website.label }}
+                                    </label>
+                                    {% render_field form.website %}
+                                    <div class="form-text">{{ form.website.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.facebook.id_for_label }}" class="form-label">
+                                        <i class="fab fa-facebook me-2"></i>{{ form.facebook.label }}
+                                    </label>
+                                    {% render_field form.facebook %}
+                                    <div class="form-text">{{ form.facebook.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.twitter.id_for_label }}" class="form-label">
+                                        <i class="fab fa-twitter me-2"></i>{{ form.twitter.label }}
+                                    </label>
+                                    {% render_field form.twitter %}
+                                    <div class="form-text">{{ form.twitter.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.instagram.id_for_label }}" class="form-label">
+                                        <i class="fab fa-instagram me-2"></i>{{ form.instagram.label }}
+                                    </label>
+                                    {% render_field form.instagram %}
+                                    <div class="form-text">{{ form.instagram.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.linkedin.id_for_label }}" class="form-label">
+                                        <i class="fab fa-linkedin me-2"></i>{{ form.linkedin.label }}
+                                    </label>
+                                    {% render_field form.linkedin %}
+                                    <div class="form-text">{{ form.linkedin.help_text }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Business Info Tab -->
+                            <div class="tab-pane fade" id="business" role="tabpanel" aria-labelledby="business-tab">
+                                <div class="mb-3">
+                                    <label for="{{ form.company_name.id_for_label }}" class="form-label">
+                                        <i class="fas fa-building me-2"></i>{{ form.company_name.label }}
+                                    </label>
+                                    {% render_field form.company_name %}
+                                    <div class="form-text">{{ form.company_name.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.business_type.id_for_label }}" class="form-label">
+                                        <i class="fas fa-briefcase me-2"></i>{{ form.business_type.label }}
+                                    </label>
+                                    {% render_field form.business_type %}
+                                    <div class="form-text">{{ form.business_type.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.year_established.id_for_label }}" class="form-label">
+                                        <i class="fas fa-calendar-alt me-2"></i>{{ form.year_established.label }}
+                                    </label>
+                                    {% render_field form.year_established %}
+                                    <div class="form-text">{{ form.year_established.help_text }}</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.business_description.id_for_label }}" class="form-label">
+                                        <i class="fas fa-info-circle me-2"></i>{{ form.business_description.label }}
+                                    </label>
+                                    {% render_field form.business_description %}
+                                    <div class="form-text">{{ form.business_description.help_text }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button class="btn btn-primary btn-lg" type="submit">
+                                <i class="fas fa-save me-2"></i>Save Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {% else %}
+                <!-- View Profile -->
+                <div class="profile-about">
+                    <h3 class="mb-4">
+                        <i class="fas fa-user me-2"></i>
+                        About {{ profile.get_display_name }}
+                        {% if profile.is_verified %}
+                        <span class="verified-badge">
+                            <i class="fas fa-check-circle me-1"></i> Verified
+                        </span>
+                        {% endif %}
+                    </h3>
+
+                    {% if profile.about %}
+                        <p>{{ profile.about }}</p>
+                    {% else %}
+                        <p class="text-muted">This user hasn't added any information yet.</p>
+                    {% endif %}
+
+                    <!-- Contact Information -->
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="fas fa-address-card me-2"></i>Contact Information</h5>
+
+                        {% if profile.phone_number %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <a href="tel:{{ profile.phone_number }}" class="text-decoration-none">{{ profile.phone_number }}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.email_public %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <a href="mailto:{{ profile.user.email }}" class="text-decoration-none">{{ profile.user.email }}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.website %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.website }}" target="_blank" class="text-decoration-none">{{ profile.website }}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.address or profile.location %}
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                {% if profile.address %}
+                                    {{ profile.address }}
+                                {% endif %}
+                                {% if profile.location %}
+                                    {% if profile.address %}<br>{% endif %}
+                                    {{ profile.location.local }}, {{ profile.district.district_name }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Social Media Links -->
+                    {% if profile.facebook or profile.twitter or profile.instagram or profile.linkedin %}
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="fas fa-share-alt me-2"></i>Social Media</h5>
+
+                        {% if profile.facebook %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.facebook }}" target="_blank" class="text-decoration-none">Facebook</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.twitter %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.twitter }}" target="_blank" class="text-decoration-none">Twitter</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.instagram %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.instagram }}" target="_blank" class="text-decoration-none">Instagram</a>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if profile.linkedin %}
+                        <div class="social-link">
+                            <div class="social-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                            <div>
+                                <a href="{{ profile.linkedin }}" target="_blank" class="text-decoration-none">LinkedIn</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Business Information (if business profile) -->
+                    {% if profile.profile_type == 'business' and profile.company_name %}
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="fas fa-building me-2"></i>Business Information</h5>
+
+                        <p><strong>Company Name:</strong> {{ profile.company_name }}</p>
+
+                        {% if profile.business_type %}
+                        <p><strong>Business Type:</strong> {{ profile.business_type }}</p>
+                        {% endif %}
+
+                        {% if profile.year_established %}
+                        <p><strong>Established:</strong> {{ profile.year_established }}</p>
+                        {% endif %}
+
+                        {% if profile.business_description %}
+                        <p><strong>Description:</strong> {{ profile.business_description }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-4 d-grid">
+                        {% if is_authenticated %}
+                            <a href="{% url 'messaging_unified' %}?recipient_id={{ profile.user.id }}" class="btn btn-outline-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message to {{ profile.get_display_name }}
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}?next={% url 'messaging_unified' %}%3Frecipient_id={{ profile.user.id }}" class="btn btn-outline-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Sign in to Message {{ profile.get_display_name }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column - Gigs -->
+        <div class="col-lg-8">
+            <h2 class="section-title">
+                {% if is_own_profile %}
+                    Your Services
+                {% else %}
+                    {{ profile.get_display_name }}'s Services
+                {% endif %}
+            </h2>
+
+            {% if gigs %}
+                <div class="row">
+                    {% for gig in gigs %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            {% include 'includes/_gig_card.html' with show_price=True %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Message for unauthenticated users when there are more gigs -->
+                {% if not is_authenticated and has_more_gigs %}
+                    <div class="alert alert-light border text-center mt-3">
+                        <p class="mb-2"><i class="fas fa-info-circle me-2"></i>Showing {{ gigs|length }} of {{ all_gigs_count }} services</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-sign-in-alt me-1"></i> Sign In
+                            </a>
+                            <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-user-plus me-1"></i> Create Account
+                            </a>
+                            <span class="ms-2 text-muted align-self-center">to see all services.</span>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-info">
+                    {% if is_own_profile %}
+                        <p class="mb-0">You haven't created any services yet. <a href="{% url 'create_gig' %}" class="alert-link">Create your first service</a> to get started!</p>
+                    {% else %}
+                        <p class="mb-0">{{ profile.get_display_name }} hasn't created any services yet.</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<!-- QR Code, HTML-to-Image, and Alpine.js libraries -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // QR Code generation with improved error handling
+        function generateQRCode(elementId, url, size, callback) {
+            console.log(`Generating QR code for ${elementId} with URL: ${url}`);
+            const element = document.getElementById(elementId);
+
+            if (!element) {
+                console.error(`Element with ID ${elementId} not found`);
+                return;
+            }
+
+            // Clear any existing content
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+
+            try {
+                // Create a new canvas for the QR code
+                QRCode.toCanvas(null, url, {
+                    width: size,
+                    margin: 1,
+                    color: {
+                        dark: '#000000',
+                        light: '#FFFFFF'
+                    }
+                }, function(error, canvas) {
+                    if (error) {
+                        console.error(`Error generating QR code for ${elementId}:`, error);
+                        // Create an error message element
+                        const errorMsg = document.createElement('div');
+                        errorMsg.className = 'alert alert-danger';
+                        errorMsg.textContent = 'Failed to generate QR code';
+                        element.appendChild(errorMsg);
+                    } else {
+                        console.log(`Successfully generated QR code for ${elementId}`);
+                        // Append the canvas to the container
+                        element.appendChild(canvas);
+                        if (callback) callback(canvas);
+                    }
+                });
+            } catch (e) {
+                console.error(`Exception generating QR code for ${elementId}:`, e);
+                // Create an error message element
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'alert alert-danger';
+                errorMsg.textContent = 'Failed to generate QR code';
+                element.appendChild(errorMsg);
+            }
+        }
+
+        // Generate QR codes if the profile has QR enabled
+        const profileQrCode = document.getElementById('profile-qr-code');
+        if (profileQrCode) {
+            const profileUrl = profileQrCode.getAttribute('data-profile-url');
+
+            // Generate the profile header QR code
+            generateQRCode('profile-qr-code', profileUrl, 128);
+
+            // Generate the QR card code with a more reasonable size
+            generateQRCode('qr-card-qr-code', profileUrl, 250, function(canvas) {
+                // Ensure the canvas is properly styled
+                canvas.style.display = 'block';
+                canvas.style.margin = '0 auto';
+            });
+        }
+
+        // Show and hide QR toggle status message
+        document.body.addEventListener('htmx:afterSwap', function(event) {
+            if (event.detail.target.id === 'qr-toggle-status') {
+                const statusEl = document.getElementById('qr-toggle-status');
+                if (statusEl) {
+                    // Show the status message
+                    statusEl.style.display = 'block';
+                    statusEl.textContent = 'QR Code preference updated successfully';
+
+                    // Hide it after 3 seconds
+                    setTimeout(function() {
+                        statusEl.style.display = 'none';
+                    }, 3000);
+                }
+            }
+        });
+
+        // Alpine.js function to download QR card with improved error handling
+        window.downloadQrCard = function() {
+            console.log('Download QR card function called');
+            const qrCard = document.getElementById('qr-card');
+            const downloadBtn = document.getElementById('download-qr-card');
+            const qrCardContainer = document.getElementById('qr-card-container');
+
+            if (!qrCard) {
+                console.error('QR card element not found');
+                alert('Error: QR card element not found. Please try again.');
+                return;
+            }
+
+            if (!downloadBtn) {
+                console.error('Download button element not found');
+                return;
+            }
+
+            // Disable button during processing
+            downloadBtn.disabled = true;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+
+            // Ensure all images are loaded before capturing
+            const images = qrCard.querySelectorAll('img');
+            let imagesLoaded = 0;
+            const totalImages = images.length;
+
+            // If no images, proceed directly
+            if (totalImages === 0) {
+                captureAndDownload();
+                return;
+            }
+
+            // Check if all images are loaded
+            images.forEach(img => {
+                if (img.complete) {
+                    imagesLoaded++;
+                    if (imagesLoaded === totalImages) {
+                        captureAndDownload();
+                    }
+                } else {
+                    img.onload = function() {
+                        imagesLoaded++;
+                        if (imagesLoaded === totalImages) {
+                            captureAndDownload();
+                        }
+                    };
+                    img.onerror = function() {
+                        console.error('Error loading image:', img.src);
+                        imagesLoaded++;
+                        if (imagesLoaded === totalImages) {
+                            captureAndDownload();
+                        }
+                    };
+                }
+            });
+
+            function captureAndDownload() {
+                try {
+                    // Make sure the QR code is visible and fully rendered
+                    setTimeout(function() {
+                        console.log('Starting html2canvas conversion');
+
+                        // Temporarily add a border to help with debugging
+                        const originalStyle = qrCard.style.cssText;
+                        qrCard.style.border = '1px solid transparent';
+
+                        // Use html2canvas to convert the card to an image
+                        html2canvas(qrCard, {
+                            scale: 2, // Higher scale for better quality
+                            useCORS: true,
+                            logging: true, // Enable logging for debugging
+                            backgroundColor: 'white',
+                            allowTaint: true,
+                            onclone: function(clonedDoc) {
+                                // Make sure all elements are visible in the clone
+                                const clonedCard = clonedDoc.getElementById('qr-card');
+                                if (clonedCard) {
+                                    clonedCard.style.display = 'flex';
+                                    clonedCard.style.visibility = 'visible';
+                                    clonedCard.style.opacity = '1';
+
+                                    // Make sure all child elements are visible
+                                    const children = clonedCard.querySelectorAll('*');
+                                    children.forEach(child => {
+                                        child.style.display = '';
+                                        child.style.visibility = 'visible';
+                                        child.style.opacity = '1';
+                                    });
+                                }
+                            }
+                        }).then(function(canvas) {
+                            try {
+                                console.log('Canvas created successfully');
+                                // Restore original style
+                                qrCard.style.cssText = originalStyle;
+
+                                // Create download link
+                                const link = document.createElement('a');
+                                link.download = 'linkyoh-profile-card.png';
+                                link.href = canvas.toDataURL('image/png');
+                                document.body.appendChild(link);
+
+                                // Track download event
+                                if (typeof gtag !== 'undefined') {
+                                    gtag('event', 'qr_card_downloaded', {
+                                        'user_id': '{{ profile.user.id }}'
+                                    });
+                                }
+
+                                // Trigger download
+                                link.click();
+                                document.body.removeChild(link);
+
+                                // Show success message
+                                console.log('QR card downloaded successfully');
+                            } catch (e) {
+                                console.error('Error creating download link:', e);
+                                alert('Error creating download link. Please try again.');
+                            } finally {
+                                // Re-enable button
+                                downloadBtn.disabled = false;
+                                downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                            }
+                        }).catch(function(error) {
+                            console.error('Error generating card:', error);
+                            // Restore original style
+                            qrCard.style.cssText = originalStyle;
+                            downloadBtn.disabled = false;
+                            downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                            alert('Error generating card. Please try again.');
+                        });
+                    }, 1000); // Increased delay to ensure everything is rendered
+                } catch (e) {
+                    console.error('Exception in download process:', e);
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                    alert('An error occurred. Please try again.');
+                }
+            }
+        };
+        // Show/hide business tab based on profile type selection
+        const profileTypeSelect = document.getElementById('id_profile_type');
+        const businessTab = document.querySelector('.business-tab');
+
+        if (profileTypeSelect && businessTab) {
+            profileTypeSelect.addEventListener('change', function() {
+                if (this.value === 'business') {
+                    businessTab.style.display = 'block';
+                    // Update the radio buttons
+                    if (businessViewBtn) {
+                        businessViewBtn.checked = true;
+                    }
+                    // Click on the business tab to make it active
+                    document.getElementById('business-tab').click();
+                } else {
+                    businessTab.style.display = 'none';
+                    // Update the radio buttons
+                    if (individualViewBtn) {
+                        individualViewBtn.checked = true;
+                    }
+                    // Click on the basic tab to make it active
+                    document.getElementById('basic-tab').click();
+                }
+            });
+        }
+
+        // For the view toggle buttons
+        const individualViewBtn = document.getElementById('individual_view');
+        const businessViewBtn = document.getElementById('business_view');
+
+        if (individualViewBtn && businessViewBtn && profileTypeSelect) {
+            individualViewBtn.addEventListener('change', function() {
+                if (this.checked) {
+                    profileTypeSelect.value = 'individual';
+                    businessTab.style.display = 'none';
+                    // Click on the basic tab to make it active
+                    document.getElementById('basic-tab').click();
+                }
+            });
+
+            businessViewBtn.addEventListener('change', function() {
+                if (this.checked) {
+                    profileTypeSelect.value = 'business';
+                    businessTab.style.display = 'block';
+                    // Click on the business tab to make it active
+                    document.getElementById('business-tab').click();
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

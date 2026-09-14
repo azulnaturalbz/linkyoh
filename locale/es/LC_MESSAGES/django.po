@@ -1,0 +1,487 @@
+# Spanish discovery and provider UI. Original provider facts are not translated.
+msgid ""
+msgstr ""
+"Project-Id-Version: Linkyoh Lab UI\n"
+"Language: es\n"
+"PO-Revision-Date: 2026-09-14 00:00+0000\n"
+"Last-Translator: Silvatech\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Skip to content"
+msgstr "Ir al contenido"
+
+msgid "Find services"
+msgstr "Buscar servicios"
+
+msgid "Linkyoh for Pros"
+msgstr "Linkyoh para profesionales"
+
+msgid "Menu"
+msgstr "Menú"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "LOCAL SERVICES, BELIZE"
+msgstr "SERVICIOS LOCALES, BELICE"
+
+msgid "What do you need done?"
+msgstr "¿Qué necesitas resolver?"
+
+msgid "Find the right people. Know what’s checked. Get in touch."
+msgstr "Encuentra a la persona indicada. Revisa sus verificaciones. Contáctala."
+
+msgid "A plumber in Cayo, a carpenter in Belmopan…"
+msgstr "Un plomero en Cayo, un carpintero en Belmopán…"
+
+msgid "Find a pro"
+msgstr "Buscar"
+
+msgid "Try a need"
+msgstr "Busca lo que necesitas"
+
+msgid "Plumber in Cayo"
+msgstr "Plomero en Cayo"
+
+msgid "Carpenter in Belmopan"
+msgstr "Carpintero en Belmopán"
+
+msgid "Browse by category or area"
+msgstr "Explorar por categoría o zona"
+
+msgid "Service"
+msgstr "Servicio"
+
+msgid "District"
+msgstr "Distrito"
+
+msgid "Town or village"
+msgstr "Ciudad o pueblo"
+
+msgid "All services"
+msgstr "Todos los servicios"
+
+msgid "All districts"
+msgstr "Todos los distritos"
+
+msgid "All towns"
+msgstr "Todas las localidades"
+
+msgid "Apply filters"
+msgstr "Aplicar filtros"
+
+msgid "Clear filters"
+msgstr "Quitar filtros"
+
+msgid "People for your next project"
+msgstr "Personas para tu próximo proyecto"
+
+msgid "Explore all services"
+msgstr "Explorar todos los servicios"
+
+msgid "From everyday fixes to something made just for you."
+msgstr "Desde reparaciones cotidianas hasta algo hecho para ti."
+
+msgid "Checked"
+msgstr "Comprobado"
+
+msgid "Owner claimed"
+msgstr "Titularidad confirmada"
+
+msgid "Not yet verified"
+msgstr "Aún sin verificar"
+
+msgid "Check date unknown"
+msgstr "Fecha de revisión desconocida"
+
+msgid "Verification scope unknown"
+msgstr "Alcance de verificación desconocido"
+
+msgid "See what’s checked"
+msgstr "Ver las comprobaciones"
+
+msgid "View provider"
+msgstr "Ver proveedor"
+
+msgid "Service areas"
+msgstr "Zonas de servicio"
+
+msgid "Availability not confirmed"
+msgstr "Disponibilidad sin confirmar"
+
+msgid "providers"
+msgstr "proveedores"
+
+msgid "Your search"
+msgstr "Tu búsqueda"
+
+msgid "No matching providers yet"
+msgstr "Aún no hay proveedores que coincidan"
+
+msgid "Need someone tonight? Confirm availability directly with the provider."
+msgstr "¿Lo necesitas esta noche? Confirma la disponibilidad con el proveedor."
+
+msgid "About this provider"
+msgstr "Sobre este proveedor"
+
+msgid "What we do"
+msgstr "Lo que hacemos"
+
+msgid "What we don’t do"
+msgstr "Lo que no hacemos"
+
+msgid "Service exclusions have not been supplied. Ask the provider."
+msgstr "No se han indicado exclusiones del servicio. Consulta al proveedor."
+
+msgid "Let’s talk about your project"
+msgstr "Hablemos de tu proyecto"
+
+msgid "Contact on WhatsApp"
+msgstr "Contactar por WhatsApp"
+
+msgid "Request a quote"
+msgstr "Solicitar cotización"
+
+msgid "Suggest a correction"
+msgstr "Sugerir una corrección"
+
+msgid "Is this your business?"
+msgstr "¿Es tu negocio?"
+
+msgid "Claim this profile"
+msgstr "Reclamar este perfil"
+
+msgid "Manage this profile"
+msgstr "Gestionar este perfil"
+
+msgid "Sell what you make."
+msgstr "Vende lo que creas."
+
+msgid "Open your own store on MarketDay"
+msgstr "Abre tu propia tienda en MarketDay"
+
+msgid "Local expertise. Connected by Silvatech."
+msgstr "Experiencia local. Conectada por Silvatech."
+
+msgid "Photo"
+msgstr "Foto"
+
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+msgid "Your work. Your profile."
+msgstr "Tu trabajo. Tu perfil."
+
+msgid "Free verified provider profile. Verification is subject to review."
+msgstr "Perfil verificado gratuito. La verificación está sujeta a revisión."
+
+msgid "Claim"
+msgstr "Reclamar"
+
+msgid "Manage"
+msgstr "Gestionar"
+
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "A check is limited to the scope and date shown. It is not proof of licensing, insurance or workmanship."
+msgstr "La comprobación se limita al alcance y la fecha indicados. No acredita licencias, seguros ni calidad del trabajo."
+
+msgid "Call for pricing"
+msgstr "Consulta el precio"
+
+msgid "Photos"
+msgstr "Fotos"
+
+msgid "Curated listing. Ownership has not been confirmed."
+msgstr "Publicación recopilada. La titularidad no está confirmada."
+
+msgid "Area coverage does not guarantee availability."
+msgstr "La cobertura de una zona no garantiza disponibilidad."
+
+msgid "Contact numbers"
+msgstr "Números de contacto"
+
+msgid "Reviews"
+msgstr "Reseñas"
+
+msgid "No reviews yet."
+msgstr "Aún no hay reseñas."
+
+msgid "Write a review"
+msgstr "Escribir una reseña"
+
+msgid "Post review"
+msgstr "Publicar reseña"
+
+msgid "Sign in to write a review"
+msgstr "Inicia sesión para escribir una reseña"
+
+msgid "Manage this listing"
+msgstr "Gestionar esta publicación"
+
+msgid "Claim this listing to manage its details. Ownership is subject to review."
+msgstr "Reclama esta publicación para gestionar sus datos. La titularidad está sujeta a revisión."
+
+msgid "Your claim is awaiting review."
+msgstr "Tu reclamación está pendiente de revisión."
+
+msgid "Share"
+msgstr "Compartir"
+
+msgid "Send message"
+msgstr "Enviar mensaje"
+
+msgid "QR code"
+msgstr "Código QR"
+
+msgid "Related services"
+msgstr "Servicios relacionados"
+
+msgid "No published services yet."
+msgstr "Aún no hay servicios publicados."
+
+msgid "Find your listing to claim it, or manage the services you already own."
+msgstr "Encuentra tu publicación para reclamarla o gestiona los servicios que ya te pertenecen."
+
+msgid "Manage my services"
+msgstr "Gestionar mis servicios"
+
+msgid "Find my business"
+msgstr "Encontrar mi negocio"
+
+msgid "My services"
+msgstr "Mis servicios"
+
+msgid "Sign in"
+msgstr "Iniciar sesión"
+
+msgid "Messages"
+msgstr "Mensajes"
+
+msgid "Create an account"
+msgstr "Crear una cuenta"
+
+msgid "Powered by Silvatech"
+msgstr "Tecnología de Silvatech"
+
+msgid "Help and policies"
+msgstr "Ayuda y políticas"
+
+msgid "Help"
+msgstr "Ayuda"
+
+msgid "Contact"
+msgstr "Contacto"
+
+msgid "Terms"
+msgstr "Términos"
+
+msgid "Privacy"
+msgstr "Privacidad"
+
+msgid "Profile reviewed"
+msgstr "Perfil revisado"
+
+msgid "Profile review"
+msgstr "Revisión del perfil"
+
+msgid "Phone confirmation unknown"
+msgstr "Confirmación de teléfono desconocida"
+
+msgid "Ownership not confirmed"
+msgstr "Titularidad sin confirmar"
+
+msgid "Claim date unknown"
+msgstr "Fecha de reclamación desconocida"
+
+msgid "Hello, I would like a quote for your services."
+msgstr "Hola, quisiera una cotización de sus servicios."
+
+msgid "Opens WhatsApp. Nothing is sent automatically."
+msgstr "Abre WhatsApp. No se envía nada automáticamente."
+
+msgid "Call provider"
+msgstr "Llamar al proveedor"
+
+msgid "No public contact number supplied."
+msgstr "No se ha indicado un número de contacto público."
+
+msgid "Ask Linkyoh"
+msgstr "Pregúntale a Linkyoh"
+
+msgid "Search the directory"
+msgstr "Buscar en el directorio"
+
+msgid "Use directory search below. Conversation requires JavaScript."
+msgstr "Usa la búsqueda del directorio. La conversación requiere JavaScript."
+
+msgid "Unlike"
+msgstr "Quitar Me gusta"
+
+msgid "Like"
+msgstr "Me gusta"
+
+msgid "Results pages"
+msgstr "Páginas de resultados"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Page %(number)s of %(total)s"
+msgstr "Página %(number)s de %(total)s"
+
+msgid "Find your match"
+msgstr "Encuentra a tu profesional"
+
+msgid "Featured first, then newest"
+msgstr "Destacados primero, luego los más recientes"
+
+msgid "Try another service or a wider area. We will not invent results."
+msgstr "Prueba otro servicio o una zona más amplia. No inventaremos resultados."
+
+msgid "Category"
+msgstr "Categoría"
+
+msgid "All categories"
+msgstr "Todas las categorías"
+
+msgid "Price range"
+msgstr "Rango de precios"
+
+msgid "Minimum BZD"
+msgstr "Mínimo BZD"
+
+msgid "Maximum BZD"
+msgstr "Máximo BZD"
+
+msgid "No description supplied."
+msgstr "No se ha indicado una descripción."
+
+msgid "Services"
+msgstr "Servicios"
+
+msgid "Sign in to see all services"
+msgstr "Inicia sesión para ver todos los servicios"
+
+msgid "Please keep your search under 200 characters."
+msgstr "La búsqueda debe tener menos de 200 caracteres."
+
+msgid "A selected filter is not available. Please choose again."
+msgstr "Un filtro seleccionado no está disponible. Vuelve a elegir."
+
+msgid "Please choose one service and one area using the filters."
+msgstr "Selecciona un servicio y una zona con los filtros."
+
+msgid "This place or service is ambiguous. Please choose it using the filters."
+msgstr "El lugar o servicio es ambiguo. Selecciónalo con los filtros."
+
+msgid "The requested town does not match the selected district."
+msgstr "La localidad no corresponde al distrito seleccionado."
+
+msgid "The service does not belong to the selected category."
+msgstr "El servicio no pertenece a la categoría seleccionada."
+
+msgid "Add a service or place to your search."
+msgstr "Añade un servicio o lugar a tu búsqueda."
+
+msgid "Enter a valid price."
+msgstr "Introduce un precio válido."
+
+msgid "Minimum price must not exceed maximum price."
+msgstr "El precio mínimo no puede superar el máximo."
+
+msgid "%(count)s service"
+msgid_plural "%(count)s services"
+msgstr[0] "%(count)s servicio"
+msgstr[1] "%(count)s servicios"
+
+msgid "%(count)s like"
+msgid_plural "%(count)s likes"
+msgstr[0] "%(count)s Me gusta"
+msgstr[1] "%(count)s Me gusta"
+
+msgid "Local people, with the details that matter."
+msgstr "Personas de tu zona, con los detalles que importan."
+
+msgid "Filters"
+msgstr "Filtros"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Categories"
+msgstr "Categorías"
+
+msgid "Quick navigation"
+msgstr "Navegación rápida"
+
+msgid "Home"
+msgstr "Inicio"
+
+msgid "My profile"
+msgstr "Mi perfil"
+
+msgid "For Pros"
+msgstr "Para negocios"
+
+msgid "Location"
+msgstr "Ubicación"
+
+msgid "Availability"
+msgstr "Disponibilidad"
+
+msgid "Not confirmed"
+msgstr "Sin confirmar"
+
+msgid "Website"
+msgstr "Sitio web"
+
+msgid "Describe what you need and agree the details directly."
+msgstr "Describe lo que necesitas y acuerda los detalles directamente."
+
+msgid "Housing & Construction"
+msgstr "Vivienda y construcción"
+
+msgid "Home Services"
+msgstr "Servicios para el hogar"
+
+msgid "Housing"
+msgstr "Vivienda"
+
+msgid "Plumbing"
+msgstr "Plomería"
+
+msgid "Carpentry"
+msgstr "Carpintería"
+
+msgid "Electrical"
+msgstr "Electricidad"
+
+msgid "Painting"
+msgstr "Pintura"
+
+msgid "Health"
+msgstr "Salud"
+
+msgid "Pet Services"
+msgstr "Servicios para mascotas"
+
+msgid "Pets"
+msgstr "Mascotas"
+
+msgid "Auto"
+msgstr "Automóviles"
+
+msgid "Banking"
+msgstr "Banca"
+
+msgid "Real Estate"
+msgstr "Bienes raíces"

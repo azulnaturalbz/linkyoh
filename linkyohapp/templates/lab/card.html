@@ -1,0 +1,10 @@
+{% load i18n discovery_tags %}
+<article class="provider-card">
+<a class="card-image" href="{{ gig.get_absolute_url }}?lang={{ discovery_language }}" aria-label="{{ gig.title }}"><img src="{{ gig.get_photo_url }}" alt="{{ gig.title }}" width="600" height="400" loading="lazy"><span class="photo-label">{{ gig.sub_category|taxonomy_label }}</span></a>
+<div class="card-body"><div class="card-location"><i data-lucide="map-pin" aria-hidden="true"></i>{{ gig.location }}, {{ gig.district }}</div>
+<h3><a href="{{ gig.get_absolute_url }}?lang={{ discovery_language }}">{{ gig.title }}</a></h3>
+{% if not gig.user.is_staff %}<a class="provider-byline" href="{{ gig.user.profile.get_absolute_url }}?lang={{ discovery_language }}">{{ gig.lab.name }}</a>{% endif %}
+{% include 'lab/checked.html' with checks=gig.lab.checked %}
+<p class="card-services">{{ gig.description|truncatechars:110 }}</p>
+<div class="card-taxonomy"><a href="{{ gig.category.get_absolute_url }}?lang={{ discovery_language }}">{{ gig.category|taxonomy_label }}</a><a href="{{ gig.sub_category.get_absolute_url }}?lang={{ discovery_language }}">{{ gig.sub_category|taxonomy_label }}</a></div>
+<div class="card-bottom"><span>{% if gig.call_for_pricing or gig.price == -1 %}{% translate "Call for pricing" %}{% else %}BZ&#36;{{ gig.price }}{% endif %}</span><a class="card-link" href="{{ gig.get_absolute_url }}?lang={{ discovery_language }}">{% translate "View provider" %}<i data-lucide="arrow-right" aria-hidden="true"></i></a></div></div></article>

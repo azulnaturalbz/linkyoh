@@ -74,6 +74,7 @@ if credentials.USE_S3_MEDIA:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'linkyohapp.locale_middleware.DiscoveryLocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'linkyohapp.directory_limits.DirectoryRateLimitMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -103,6 +104,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'linkyohapp.context_processors.seo',
+                'linkyohapp.context_processors.discovery',
             ],
         },
     },
@@ -151,6 +153,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = [('en', 'English'), ('es', 'Espa\u00f1ol')]
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+# Enable only after WOP publishes reviewed Linkyoh origins/binding/smoke evidence.
+LINKYOH_WOP_REVIEWED = os.environ.get('LYWOP_REVIEWED', 'False') == 'True'
+LINKYOH_WOP_WEBSITE_KEY = os.environ.get('LYWOP_WEBSITE_KEY', '')
 
 TIME_ZONE = 'America/Belize'
 

@@ -1,0 +1,11 @@
+{% load i18n %}
+<div data-finder-mode="{{ finder_mode }}">
+{% if finder_mode == 'conversation' %}
+<section aria-label="{% translate 'Ask Linkyoh' %}">
+<div id="silvatech-agent-door" class="agent-door"></div>
+</section>
+<script async src="https://wop.silvatech.bz/api/website-chat/assets/loader.v2.js" data-wop-key="linkyoh" data-wop-target="silvatech-agent-door" data-wop-title="AI assistant by Silvatech"></script>
+<details class="manual-search"><summary>{% translate "Search the directory" %}</summary>{% include 'lab/search_form.html' %}</details>
+<noscript><p>{% translate "Use directory search below. Conversation requires JavaScript." %}</p></noscript>
+{% else %}{% include 'lab/search_form.html' %}{% endif %}
+</div>

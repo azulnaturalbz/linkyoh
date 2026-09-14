@@ -1,6 +1,7 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="en">
+{% get_current_language as current_language %}
+<html lang="{{ current_language }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,6 +31,7 @@
         <script type="application/ld+json">{{ seo_json_ld|safe }}</script>
     {% endif %}
     <title>{% block title %}{{ seo_title }}{% endblock %}</title>
+    {% block presentation_assets %}
     <!-- Bootstrap 5 for modern styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Font Awesome for icons -->
@@ -433,10 +435,12 @@
             }
         }
     </style>
+    {% endblock presentation_assets %}
     {% block head %}{% endblock %}
     <link rel="shortcut icon" href="{% static  'img/favicon_ly.ico' %}">
 </head>
 <body>
+{% block site_navigation %}
 <header class="site-header sticky-top">
     <!-- Main navigation -->
     <nav class="navbar navbar-expand-xxl navbar-light bg-white site-navbar">
@@ -634,12 +638,14 @@
         </div>
     </nav>
 </header>
+{% endblock site_navigation %}
 <main id="body">
-    <div class="container">
+    <div class="{% block main_container_class %}container{% endblock %}">
         {% block page %}
         {% endblock %}
     </div>
 </main>
+{% block site_footer %}
 <footer class="bg-dark text-light py-4 mt-5">
     <div class="container">
         <div class="row">
@@ -701,7 +707,9 @@
     {% include 'includes/ecosystem_strip.html' %}
     <p class="container small text-muted mt-3 mb-0">&copy; 2026 Silvatech&trade;. Silvatech, WOP, MarketDay, Linkyoh, Chillbout, Visit Belize and Belize Logistics are trademarks of Silvatech, Belize City, Belize.</p>
 </footer>
+{% endblock site_footer %}
 
+{% block presentation_scripts %}
 <!-- Bootstrap 5 Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
@@ -755,6 +763,7 @@
 <!-- The like functionality is now handled by htmx and Alpine.js -->
 <!-- Stats tracking for analytics -->
 <script src="{% static 'js/stats_tracking.js' %}"></script>
+{% endblock presentation_scripts %}
 <script src="{% static 'js/ecosystem-tracking.js' %}" defer></script>
 {% block scripts %}{% endblock %}
 </body>

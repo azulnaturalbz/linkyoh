@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="checked {% if not checks.known %}checked--unknown{% endif %}" data-checked>
+<div class="checked-title"><i data-lucide="{% if checks.known %}badge-check{% else %}badge-help{% endif %}" aria-hidden="true"></i><strong>{% translate "Checked" %}</strong>
+<span>{% if checks.reviewed %}{% translate "Profile reviewed" %}{% else %}{% translate "Not yet verified" %}{% endif %}</span></div>
+<div class="check-scopes">
+{% if checks.reviewed %}<span>{% translate "Profile review" %}{% if checks.date %}<time datetime="{{ checks.date|date:'Y-m-d' }}">{{ checks.date|date:"Y-m-d" }}</time>{% else %}<span>{% translate "Check date unknown" %}</span>{% endif %}</span>{% else %}<span>{% translate "Verification scope unknown" %}</span><span>{% translate "Check date unknown" %}</span>{% endif %}
+<span>{% translate "Phone confirmation unknown" %}</span>
+<span>{% if checks.claimed %}{% translate "Owner claimed" %}<span>{% translate "Claim date unknown" %}</span>{% else %}{% translate "Ownership not confirmed" %}{% endif %}</span>
+</div></div>

@@ -1,0 +1,7 @@
+{% load i18n %}
+<section class="contact-panel"><h2>{% translate "Let’s talk about your project" %}</h2><p>{% translate "Describe what you need and agree the details directly." %}</p>
+{% if whatsapp_phone %}<a class="svt-whatsapp" href="https://wa.me/{{ whatsapp_phone }}" rel="noreferrer"><i data-lucide="message-circle" aria-hidden="true"></i>{% translate "Contact on WhatsApp" %}</a>
+{% translate "Hello, I would like a quote for your services." as quote_message %}<a class="btn secondary" href="https://wa.me/{{ whatsapp_phone }}?text={{ quote_message|urlencode }}" rel="noreferrer"><i data-lucide="file-text" aria-hidden="true"></i>{% translate "Request a quote" %}</a><p class="small">{% translate "Opens WhatsApp. Nothing is sent automatically." %}</p>
+{% elif public_phone %}<a class="btn btn-primary" href="tel:+{{ public_phone }}"><i data-lucide="phone" aria-hidden="true"></i>{% translate "Call provider" %}</a>{% else %}<p>{% translate "No public contact number supplied." %}</p>{% endif %}
+{% if public_phone %}<a class="text-link" href="tel:+{{ public_phone }}"><i data-lucide="phone" aria-hidden="true"></i>+{{ public_phone }}</a>{% endif %}
+<div class="availability"><i data-lucide="clock-3" aria-hidden="true"></i>{% translate "Availability not confirmed" %}</div></section>

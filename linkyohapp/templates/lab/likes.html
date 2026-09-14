@@ -1,0 +1,2 @@
+{% load i18n %}
+<div class="like-control"><span>{% blocktranslate count count=total_likes %}{{ count }} like{% plural %}{{ count }} likes{% endblocktranslate %}</span>{% if request.user.is_authenticated %}<form method="post" action="{% url 'like_gig' %}" hx-post="{% url 'like_gig' %}" hx-target="#like-section" hx-swap="innerHTML">{% csrf_token %}<input type="hidden" name="id" value="{{ gig.id }}"><button class="btn secondary" type="submit">{% if is_liked %}{% translate "Unlike" %}{% else %}{% translate "Like" %}{% endif %}</button></form>{% endif %}</div>

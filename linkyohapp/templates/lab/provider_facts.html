@@ -1,0 +1,6 @@
+{% load i18n discovery_tags %}
+<dl class="provider-facts">
+<div><dt><i data-lucide="map-pin" aria-hidden="true"></i>{% translate "Location" %}</dt><dd>{% if gig %}{{ gig.location }}, {{ gig.district }}{% else %}{{ profile.location|default:"" }}{% if profile.location and profile.district %}, {% endif %}{{ profile.district|default:"Belize" }}{% endif %}</dd></div>
+{% if gig %}<div><dt><i data-lucide="layout-grid" aria-hidden="true"></i>{% translate "Category" %}</dt><dd><a href="{{ gig.category.get_absolute_url }}?lang={{ discovery_language }}">{{ gig.category|taxonomy_label }}</a></dd></div>{% endif %}
+<div><dt><i data-lucide="clock-3" aria-hidden="true"></i>{% translate "Availability" %}</dt><dd>{% translate "Not confirmed" %}</dd></div>
+</dl>

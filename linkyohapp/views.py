@@ -23,6 +23,7 @@ import credentials
 import json
 import re
 
+from .discovery import SmartSearch, checked_record, contact_context, decorate, public_gigs
 from .auth_views import CustomPasswordResetConfirmView, CustomPasswordResetCompleteView
 from .seo import (
     category_seo_context,
@@ -259,78 +260,18 @@ class CategoryListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        # Get search parameters
-        search_query = self.request.GET.get('param', '')
-        subcategory_id = self.request.GET.get('subcategory', '')
-        district_id = self.request.GET.get('district', '')
-        location_id = self.request.GET.get('location', '')
-
-        # Start with base query - always show active gigs in this category
-        base_query = Q(status=True, category_id=self.kwargs['id'])
-
-        # Add text search if provided
-        if search_query:
-            base_query &= (
-                Q(title__icontains=search_query) |
-                Q(description__icontains=search_query) |
-                Q(sub_category__subcategory__icontains=search_query) |
-                Q(district__district_name__icontains=search_query) |
-                Q(location__local__local_name__icontains=search_query) |
-                Q(service_areas__district__district_name__icontains=search_query) |
-                Q(service_areas__location__local__local_name__icontains=search_query)
-            )
-
-        # Apply subcategory filter if provided
-        if subcategory_id:
-            base_query &= Q(sub_category_id=subcategory_id)
-
-        # Apply district filter if provided
-        if district_id:
-            base_query &= (Q(district_id=district_id) | Q(service_areas__district_id=district_id))
-
-        # Apply location filter if provided
-        if location_id:
-            base_query &= (Q(location_id=location_id) | Q(service_areas__location_id=location_id))
-
-        # Optimize query by prefetching related objects
-        return Gig.objects.filter(base_query).select_related(
-            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-        ).prefetch_related('service_areas').distinct().order_by(
-            "-featured", "-featured_in_category", "-create_time"
-        )
+        self.taxonomy = get_object_or_404(Category, pk=self.kwargs['id'])
+        self.discovery_search = SmartSearch(self.request.GET, category=self.taxonomy)
+        return self.discovery_search.queryset().order_by('-featured', '-featured_in_category', '-create_time', '-pk')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Cache the category to avoid additional query
-        if not hasattr(self, '_category'):
-            self._category = Category.objects.get(pk=self.kwargs['id'])
-        context['category'] = self._category
-
-        # Track the category view
-        self._track_category_view(self._category)
-
-        # Add search parameters to context
-        context['search_query'] = self.request.GET.get('param', '')
-        context['selected_subcategory'] = self.request.GET.get('subcategory', '')
-        context['selected_district'] = self.request.GET.get('district', '')
-        context['selected_location'] = self.request.GET.get('location', '')
-
-        # Check if any filters are applied
-        context['has_filters'] = bool(
-            context['selected_subcategory'] or 
-            context['selected_district'] or 
-            context['selected_location']
-        )
-        context['has_search'] = bool(context['search_query'])
-
-        # Get total count of results
-        context['total_count'] = self.get_queryset().count()
-
-        # Add flag to show featured badges
-        context['show_featured'] = True
-        context.update(category_seo_context(self._category))
-
+        self._track_category_view(self.taxonomy)
+        context['category'] = self.taxonomy
+        context['gigs'] = decorate(context['gigs'])
+        context['total_count'] = context['paginator'].count
+        context.update(self.discovery_search.context())
+        context.update(category_seo_context(self.taxonomy))
         return context
 
     def _track_category_view(self, category):
@@ -369,70 +310,18 @@ class SubCategoryListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        # Get search parameters
-        search_query = self.request.GET.get('param', '')
-        district_id = self.request.GET.get('district', '')
-        location_id = self.request.GET.get('location', '')
-
-        # Start with base query - always show active gigs in this subcategory
-        base_query = Q(status=True, sub_category_id=self.kwargs['id'])
-
-        # Add text search if provided
-        if search_query:
-            base_query &= (
-                Q(title__icontains=search_query) |
-                Q(description__icontains=search_query) |
-                Q(district__district_name__icontains=search_query) |
-                Q(location__local__local_name__icontains=search_query) |
-                Q(service_areas__district__district_name__icontains=search_query) |
-                Q(service_areas__location__local__local_name__icontains=search_query)
-            )
-
-        # Apply district filter if provided
-        if district_id:
-            base_query &= (Q(district_id=district_id) | Q(service_areas__district_id=district_id))
-
-        # Apply location filter if provided
-        if location_id:
-            base_query &= (Q(location_id=location_id) | Q(service_areas__location_id=location_id))
-
-        # Optimize query by prefetching related objects
-        return Gig.objects.filter(base_query).select_related(
-            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-        ).prefetch_related('service_areas').distinct().order_by(
-            "-featured", "-featured_in_subcategory", "-create_time"
-        )
+        self.taxonomy = get_object_or_404(SubCategory, pk=self.kwargs['id'])
+        self.discovery_search = SmartSearch(self.request.GET, subcategory=self.taxonomy)
+        return self.discovery_search.queryset().order_by('-featured', '-featured_in_subcategory', '-create_time', '-pk')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Cache the subcategory to avoid additional query
-        if not hasattr(self, '_sub_category'):
-            self._sub_category = SubCategory.objects.select_related('category').get(pk=self.kwargs['id'])
-        context['sub_category'] = self._sub_category
-
-        # Track the subcategory view
-        self._track_subcategory_view(self._sub_category)
-
-        # Add search parameters to context
-        context['search_query'] = self.request.GET.get('param', '')
-        context['selected_district'] = self.request.GET.get('district', '')
-        context['selected_location'] = self.request.GET.get('location', '')
-
-        # Check if any filters are applied
-        context['has_filters'] = bool(
-            context['selected_district'] or 
-            context['selected_location']
-        )
-        context['has_search'] = bool(context['search_query'])
-
-        # Get total count of results
-        context['total_count'] = self.get_queryset().count()
-
-        # Add flag to show featured badges
-        context['show_featured'] = True
-        context.update(subcategory_seo_context(self._sub_category))
-
+        self._track_subcategory_view(self.taxonomy)
+        context['sub_category'] = self.taxonomy
+        context['gigs'] = decorate(context['gigs'])
+        context['total_count'] = context['paginator'].count
+        context.update(self.discovery_search.context())
+        context.update(subcategory_seo_context(self.taxonomy))
         return context
 
     def _track_subcategory_view(self, subcategory):
@@ -471,37 +360,13 @@ class HomeView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
-        # Optimize query by prefetching related objects
-        return Gig.objects.filter(status=True).select_related(
-            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-        ).order_by("-featured", "-create_time")
+        return public_gigs().order_by("-featured", "-create_time", "-pk")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Add popular categories (those with the most gigs)
-        categories_with_count = Category.objects.annotate(
-            gig_count=Count('gig')
-        ).order_by('-gig_count')
-        context['popular_categories'] = categories_with_count[:6]
-
-        # Add featured gigs (using the featured flag)
-        featured_gigs = Gig.objects.filter(status=True, featured=True).select_related(
-            'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-        ).order_by('-create_time')[:3]
-        context['featured_gigs'] = featured_gigs
-
-        # Add recent reviews
-        recent_reviews = Review.objects.select_related(
-            'user', 'gig', 'gig__category', 'gig__sub_category', 'gig__district',
-            'gig__location', 'rating', 'user__profile'
-        ).order_by('-create_time')[:3]
-        context['recent_reviews'] = recent_reviews
-
-        # Add flag to show featured badges
-        context['show_featured'] = True
+        context['gigs'] = decorate(context['gigs'])
+        context.update(SmartSearch({}).context())
         context.update(home_seo_context(self.request))
-
         return context
 
 # Keep the function-based view as a wrapper for backward compatibility
@@ -525,7 +390,7 @@ class GigDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        gig = self.get_object()
+        gig = context['gig']
 
         # Track the gig view
         self._track_gig_view(gig)
@@ -582,6 +447,10 @@ class GigDetailView(DetailView):
 
         context['can_claim'] = can_claim
         context['has_pending_claim'] = has_pending_claim
+        decorate([gig])
+        context['provider_checks'] = gig.lab['checked']
+        context.update(contact_context(gig=gig))
+        context['related_gigs'] = decorate(list(public_gigs().filter(category=gig.category).exclude(pk=gig.pk).order_by('-create_time')[:3]))
         context.update(gig_seo_context(gig))
 
         return context
@@ -634,6 +503,8 @@ def gig_detail(request, id, **kwargs):
     return view(request, id=id)
 
 
+@login_required
+@require_POST
 def like_gig(request):
     """Handle like/unlike actions for gigs with htmx support"""
     # Get the gig ID from the request (either POST data or JSON)
@@ -659,7 +530,9 @@ def like_gig(request):
     }
 
     # Return the updated like section HTML for htmx to swap in
-    return render(request, 'like_section.html', context)
+    if request.headers.get('HX-Request') == 'true':
+        return render(request, 'lab/likes.html', context)
+    return redirect(gig.get_absolute_url())
 
 
 class CreateGigView(LoginRequiredMixin, CreateView):
@@ -971,16 +844,12 @@ def profile(request, pid, profile_slug=None):
 
     if is_authenticated:
         # Show all gigs to authenticated users
-        gigs = Gig.objects.filter(user=profile.user, status=True).select_related(
-            'category', 'sub_category', 'user__profile'
-        )
+        gigs = public_gigs().filter(user=profile.user)
         has_more_gigs = False
     else:
         # Show only a limited number of gigs to unauthenticated users
         limit = 3  # Limit to 3 gigs for unauthenticated users
-        gigs = Gig.objects.filter(user=profile.user, status=True).select_related(
-            'category', 'sub_category', 'user__profile'
-        )[:limit]
+        gigs = public_gigs().filter(user=profile.user)[:limit]
         has_more_gigs = all_gigs_count > limit
 
     # Get districts for the district dropdown
@@ -997,9 +866,22 @@ def profile(request, pid, profile_slug=None):
         "all_gigs_count": all_gigs_count,
         "canonical_profile_url": to_absolute_url(profile.get_absolute_url()),
     }
+    context['gigs'] = decorate(list(gigs))
+    context['provider_checks'] = checked_record(profile)
+    context['profile_services'] = list({g.sub_category_id: g.sub_category for g in context['gigs']}.values())
+    areas = {}
+    if not profile.user.is_staff:
+        for item in context['gigs']:
+            for area in item.get_all_service_areas():
+                district = area['district'] if isinstance(area, dict) else area.district
+                location = area['location'] if isinstance(area, dict) else area.location
+                areas[(district.pk, location.pk)] = {'district': district, 'location': location}
+    context['profile_areas'] = list(areas.values())
+    context.update(contact_context(profile=profile))
     context.update(profile_seo_context(profile, gigs=gigs))
 
-    return render(request, 'profile.html', context)
+    template = 'profile_manage.html' if is_own_profile and (request.GET.get('edit') == '1' or request.method == 'POST') else 'profile.html'
+    return render(request, template, context)
 
 
 def contact(request):
@@ -1256,124 +1138,18 @@ def claim_gig(request, gig_id):
 
 
 def search(request):
-    """
-    Advanced search view that can be visited with or without parameters.
-    Provides extensive filtering options and intuitive UI.
-    """
-    # Get search parameters
-    search_query = request.GET.get('param', '')
-    category_id = request.GET.get('category', '')
-    subcategory_id = request.GET.get('subcategory', '')
-    district_id = request.GET.get('district', '')
-    location_id = request.GET.get('location', '')
-    min_price = request.GET.get('min_price', '')
-    max_price = request.GET.get('max_price', '')
-
-    # Track the search event
-    _track_search_event(request, search_query, {
-        'category_id': category_id,
-        'subcategory_id': subcategory_id,
-        'district_id': district_id,
-        'location_id': location_id,
-        'min_price': min_price,
-        'max_price': max_price
+    discovery = SmartSearch(request.GET)
+    context = discovery.context()
+    paginator = Paginator(discovery.queryset(), 9)
+    page = paginator.get_page(request.GET.get('page'))
+    decorate(page.object_list)
+    context.update({'gigs': page, 'page_obj': page, 'paginator': paginator,
+                    'total_count': paginator.count, 'is_paginated': paginator.num_pages > 1})
+    _track_search_event(request, discovery.query, {
+        key + '_id': value.pk if value else ''
+        for key, value in discovery.selected.items()
     })
-
-    # Start with base query - always show active gigs
-    base_query = Q(status=True)
-
-    # Add text search if provided
-    if search_query:
-        base_query &= (
-            Q(title__icontains=search_query) |
-            Q(description__icontains=search_query) |
-            Q(category__category__icontains=search_query) |
-            Q(sub_category__subcategory__icontains=search_query) |
-            Q(district__district_name__icontains=search_query) |
-            Q(location__local__local_name__icontains=search_query) |
-            Q(service_areas__district__district_name__icontains=search_query) |
-            Q(service_areas__location__local__local_name__icontains=search_query)
-        )
-
-    # Apply category filter if provided
-    if category_id:
-        base_query &= Q(category_id=category_id)
-
-    # Apply subcategory filter if provided
-    if subcategory_id:
-        base_query &= Q(sub_category_id=subcategory_id)
-
-    # Apply district filter if provided
-    if district_id:
-        base_query &= (Q(district_id=district_id) | Q(service_areas__district_id=district_id))
-
-    # Apply location filter if provided
-    if location_id:
-        base_query &= (Q(location_id=location_id) | Q(service_areas__location_id=location_id))
-
-    # Apply price range filters if provided, but always include "Call for pricing" gigs (price=-1)
-    if min_price:
-        try:
-            min_price_value = int(min_price)
-            # Include gigs with price >= min_price OR price = -1 (call for pricing)
-            base_query &= (Q(price__gte=min_price_value) | Q(price=-1))
-        except ValueError:
-            # Invalid min_price, ignore this filter
-            min_price = ''
-
-    if max_price:
-        try:
-            max_price_value = int(max_price)
-            # Include gigs with price <= max_price OR price = -1 (call for pricing)
-            base_query &= (Q(price__lte=max_price_value) | Q(price=-1))
-        except ValueError:
-            # Invalid max_price, ignore this filter
-            max_price = ''
-
-    # Execute the query
-    gigs = Gig.objects.filter(base_query).select_related(
-        'user', 'category', 'sub_category', 'district', 'location', 'user__profile'
-    ).prefetch_related('service_areas').distinct().order_by(
-        "-featured", "-create_time"
-    )
-
-    # Get total count before pagination
-    total_count = gigs.count()
-
-    # Paginate results
-    paginator = Paginator(gigs, 9)  # Show 9 gigs per page
-    page = request.GET.get('page')
-    try:
-        gigs = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page
-        gigs = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range, deliver last page of results
-        gigs = paginator.page(paginator.num_pages)
-
-    # Check if any filters are applied
-    has_filters = bool(category_id or subcategory_id or district_id or location_id or min_price or max_price)
-    has_search = bool(search_query)
-
-    # Prepare context
-    context = {
-        "gigs": gigs,
-        "search_query": search_query,
-        "selected_category": category_id,
-        "selected_subcategory": subcategory_id,
-        "selected_district": district_id,
-        "selected_location": location_id,
-        "min_price": min_price,
-        "max_price": max_price,
-        "has_filters": has_filters,
-        "has_search": has_search,
-        "total_count": total_count,
-        "show_featured": True
-    }
-
     return render(request, 'search_results.html', context)
-
 
 @login_required(login_url='/login/')
 @require_POST

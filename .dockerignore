@@ -15,3 +15,5 @@ nginx/certbot/conf
 nginx/certbot/www
 media
 static_cdn
+specs/revamp-prototype
+specs/005-lab-discovery

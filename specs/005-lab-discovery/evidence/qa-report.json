@@ -1,0 +1,2991 @@
+{
+  "generatedAt": "2026-09-14T01:16:09.132Z",
+  "base": "http://127.0.0.1:8097",
+  "fixturesOnly": true,
+  "views": [
+    {
+      "label": "home-en-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 104,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-en-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 92,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-en-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-en-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-en-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 95,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-en-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 81,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-en-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 104,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-en-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 92,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-en-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-en-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-en-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 95,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-en-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 81,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-en-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 105,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-en-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 93,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-en-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-en-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-en-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 96,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-en-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 82,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-en-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 105,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-en-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 93,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-en-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-en-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-en-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 96,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-en-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 82,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-en-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 100,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-en-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 88,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-en-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 82,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-en-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 107,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-en-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 91,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-en-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 77,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-es-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 104,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-es-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 92,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-es-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-es-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-es-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 95,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-es-320",
+      "width": 320,
+      "documentWidth": 320,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 81,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-es-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 104,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-es-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 92,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-es-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-es-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-es-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 95,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-es-390",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 81,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-es-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 105,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-es-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 93,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-es-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-es-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-es-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 96,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-es-768",
+      "width": 768,
+      "documentWidth": 768,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 82,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-es-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 105,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-es-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 93,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-es-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 87,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-es-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 112,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-es-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 96,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-es-944",
+      "width": 944,
+      "documentWidth": 944,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 82,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "home-es-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 3,
+      "contrastPairs": 100,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "results-es-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 88,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "provider-es-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 30,
+      "checks": 2,
+      "contrastPairs": 82,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "gig-es-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 34,
+      "checks": 3,
+      "contrastPairs": 107,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "category-es-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 22,
+      "checks": 3,
+      "contrastPairs": 91,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "subcategory-es-1440",
+      "width": 1440,
+      "documentWidth": 1440,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 19,
+      "checks": 2,
+      "contrastPairs": 77,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "js-en",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 17,
+      "checks": 1,
+      "contrastPairs": 69,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "nojs-en",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 0,
+      "checks": 1,
+      "contrastPairs": 71,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "empty-en",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 14,
+      "checks": 0,
+      "contrastPairs": 55,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "js-es",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 17,
+      "checks": 1,
+      "contrastPairs": 69,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "nojs-es",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 0,
+      "checks": 1,
+      "contrastPairs": 71,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    },
+    {
+      "label": "empty-es",
+      "width": 390,
+      "documentWidth": 390,
+      "overflow": [],
+      "brokenImages": [],
+      "bodyFont": "Inter, sans-serif",
+      "headingFont": "Sora, sans-serif",
+      "icons": 14,
+      "checks": 0,
+      "contrastPairs": 55,
+      "minimumTextContrast": 3.62,
+      "contrastFailures": [],
+      "ecosystem": [
+        {
+          "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout"
+        },
+        {
+          "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout"
+        },
+        {
+          "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout"
+        },
+        {
+          "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout"
+        },
+        {
+          "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout"
+        },
+        {
+          "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout"
+        },
+        {
+          "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout"
+        }
+      ],
+      "inactive": 2
+    }
+  ],
+  "journeys": [
+    "js-en: real GET parsing -> one result -> detail -> locale",
+    "nojs-en: real GET parsing -> one result -> detail -> locale",
+    "en: keyboard skip/menu open/Escape focus/filters toggle",
+    "en: keyboard category shortcut -> canonical list -> mobile dock search",
+    "js-es: real GET parsing -> one result -> detail -> locale",
+    "nojs-es: real GET parsing -> one result -> detail -> locale",
+    "es: keyboard skip/menu open/Escape focus/filters toggle",
+    "es: keyboard category shortcut -> canonical list -> mobile dock search"
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "contrastFailures": [],
+  "status": "passed"
+}
