@@ -1,0 +1,15 @@
+{
+  "captured_at": "2026-09-14T01:39:03.406280+00:00",
+  "counts": {
+    "linkyohapp.country": 1,
+    "linkyohapp.district": 6,
+    "linkyohapp.localtype": 3,
+    "linkyohapp.local": 244,
+    "linkyohapp.location": 244,
+    "linkyohapp.category": 5,
+    "linkyohapp.subcategory": 439
+  },
+  "relationships": "valid",
+  "field_parity": "exact",
+  "reference_sha256": "2cd92674fbeb8e3920a02081745efa30d00bff651f58082ffa3131827bcf2b32"
+}

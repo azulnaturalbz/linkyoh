@@ -29,6 +29,11 @@ ALIASES = {
     "banking": ("bank", "banks", "banco", "bancos"),
     "real estate": ("bienes raices", "inmobiliaria"),
     "housing & construction": ("construccion",),
+    "plumber": ("plumbing", "plumbers", "plomero", "plomeros", "plomeria"),
+    "cabinet making": ("cabinet maker", "fabricacion de gabinetes"),
+    "woodworking": ("carpenter", "carpentry", "carpintero", "carpinteria"),
+    "belmopan city": ("belmopan",),
+    "san ignacio and santa elena town": ("san ignacio", "santa elena"),
 }
 STOP_WORDS = set(
     "i need a an the in near for please find me someone service services un una el la en de necesito busco por favor cerca alguien servicio servicios".split()
@@ -200,7 +205,11 @@ class SmartSearch:
                 label = normalized(record)
                 if key == "category" and label in ("services", "service", "servicios"):
                     continue
-                for alias in (label,) + ALIASES.get(label, ()):
+                aliases = (label,) + ALIASES.get(label, ())
+                if key == "location":
+                    short = re.sub(r" (city|town|village)$", "", label)
+                    aliases = tuple(dict.fromkeys(aliases + (short,)))
+                for alias in aliases:
                     candidates.append((alias, key, record))
         phrases = sorted({p for p, _, _ in candidates}, key=lambda p: (-len(p), p))
         for phrase in phrases:

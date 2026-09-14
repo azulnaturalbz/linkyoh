@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}Messages | Linkyoh{% endblock %}
@@ -7,7 +8,7 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-4">Messages</h1>
+            <h1 class="mb-4">{% translate "Messages" %}</h1>
 
             {% if conversations %}
                 <div class="card shadow-sm">
@@ -41,7 +42,7 @@
                                             </p>
                                             {% if item.conversation.gig %}
                                                 <small class="text-muted">
-                                                    <i class="fas fa-tag me-1"></i> {{ item.conversation.gig.title }}
+                                                    <i  data-lucide="tag" class="me-1" aria-hidden="true"></i> {{ item.conversation.gig.title }}
                                                 </small>
                                             {% endif %}
                                         </div>
@@ -57,13 +58,13 @@
             {% else %}
                 <div class="card shadow-sm">
                     <div class="card-body text-center py-5">
-                        <i class="fas fa-comments fa-4x mb-3 text-muted"></i>
+                        <i  data-lucide="messages-square" class="mb-3 text-muted" aria-hidden="true"></i>
                         <h3>No messages yet</h3>
                         <p class="text-muted">
                             When you start conversations with other users, they'll appear here.
                         </p>
                         <a href="{% url 'home' %}" class="btn btn-primary">
-                            <i class="fas fa-search me-2"></i> Find Gigs
+                            <i  data-lucide="search" class="me-2" aria-hidden="true"></i> Find Gigs
                         </a>
                     </div>
                 </div>

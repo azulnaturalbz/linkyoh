@@ -1,0 +1,74 @@
+[
+  {
+    "language": "en",
+    "javascript": true,
+    "page": "conversation",
+    "nativePOST": "pass",
+    "draftRecovery": "pass",
+    "productionWrites": false,
+    "messageWrites": false
+  },
+  {
+    "language": "en",
+    "javascript": true,
+    "page": "conversation-detail",
+    "nativePOST": "pass",
+    "draftRecovery": "pass",
+    "productionWrites": false,
+    "messageWrites": false
+  },
+  {
+    "language": "en",
+    "javascript": false,
+    "page": "conversation",
+    "nativePOST": "pass",
+    "draftRecovery": "not applicable",
+    "productionWrites": false,
+    "messageWrites": false
+  },
+  {
+    "language": "en",
+    "javascript": false,
+    "page": "conversation-detail",
+    "nativePOST": "pass",
+    "draftRecovery": "not applicable",
+    "productionWrites": false,
+    "messageWrites": false
+  },
+  {
+    "language": "es",
+    "javascript": true,
+    "page": "conversation",
+    "nativePOST": "pass",
+    "draftRecovery": "pass",
+    "productionWrites": false,
+    "messageWrites": false
+  },
+  {
+    "language": "es",
+    "javascript": true,
+    "page": "conversation-detail",
+    "nativePOST": "pass",
+    "draftRecovery": "pass",
+    "productionWrites": false,
+    "messageWrites": false
+  },
+  {
+    "language": "es",
+    "javascript": false,
+    "page": "conversation",
+    "nativePOST": "pass",
+    "draftRecovery": "not applicable",
+    "productionWrites": false,
+    "messageWrites": false
+  },
+  {
+    "language": "es",
+    "javascript": false,
+    "page": "conversation-detail",
+    "nativePOST": "pass",
+    "draftRecovery": "not applicable",
+    "productionWrites": false,
+    "messageWrites": false
+  }
+]

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block head %}
@@ -197,8 +198,8 @@
             <div class="col-lg-10">
                 <div class="gig-form-card card">
                     <div class="card-header text-white d-flex align-items-center" style="background-color: var(--primary-green);">
-                        <i class="fas fa-plus-circle me-2 fa-lg"></i>
-                        <h4 class="mb-0">Create a Business Listing</h4>
+                        <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>
+                        <h4 class="mb-0">{% translate "Create a Business Listing" %}</h4>
                     </div>
                     <div class="card-body">
                         <form action="" class="form" id="gigForm" method="post" enctype="multipart/form-data" x-data="{ 
@@ -220,45 +221,46 @@
                             }
                         }">
                             {% csrf_token %}
+{% if form.errors %}<div class="alert alert-danger" role="alert">{{ form.errors }}</div>{% endif %}
 
                             <!-- Progress Indicator -->
                             <div class="form-progress">
                                 <div class="progress-step" :class="{ 'active': currentTab === 'basic', 'completed': currentTabIndex > 0 }">
                                     <div class="step-number">
                                         <template x-if="currentTabIndex > 0">
-                                            <i class="fas fa-check"></i>
+                                            <i  data-lucide="check" class="" aria-hidden="true"></i>
                                         </template>
                                         <template x-if="currentTabIndex <= 0">
                                             <span>1</span>
                                         </template>
                                     </div>
-                                    <div class="step-title">Basic Info</div>
+                                    <div class="step-title">{% translate "Basic Info" %}</div>
                                 </div>
                                 <div class="progress-step" :class="{ 'active': currentTab === 'images', 'completed': currentTabIndex > 1 }">
                                     <div class="step-number">
                                         <template x-if="currentTabIndex > 1">
-                                            <i class="fas fa-check"></i>
+                                            <i  data-lucide="check" class="" aria-hidden="true"></i>
                                         </template>
                                         <template x-if="currentTabIndex <= 1">
                                             <span>2</span>
                                         </template>
                                     </div>
-                                    <div class="step-title">Images</div>
+                                    <div class="step-title">{% translate "Images" %}</div>
                                 </div>
                                 <div class="progress-step" :class="{ 'active': currentTab === 'contacts', 'completed': currentTabIndex > 2 }">
                                     <div class="step-number">
                                         <template x-if="currentTabIndex > 2">
-                                            <i class="fas fa-check"></i>
+                                            <i  data-lucide="check" class="" aria-hidden="true"></i>
                                         </template>
                                         <template x-if="currentTabIndex <= 2">
                                             <span>3</span>
                                         </template>
                                     </div>
-                                    <div class="step-title">Contact Info</div>
+                                    <div class="step-title">{% translate "Contact Info" %}</div>
                                 </div>
                                 <div class="progress-step" :class="{ 'active': currentTab === 'locations' }">
                                     <div class="step-number">4</div>
-                                    <div class="step-title">Service Areas</div>
+                                    <div class="step-title">{% translate "Service Areas" %}</div>
                                 </div>
                             </div>
 
@@ -268,14 +270,14 @@
                                     <button class="nav-link" :class="{ 'active': currentTab === 'basic' }" id="basic-tab"
                                             @click.prevent="currentTab = 'basic'" type="button" role="tab" aria-controls="basic"
                                             :aria-selected="currentTab === 'basic'">
-                                            <i class="fas fa-info-circle me-1"></i> Basic Info
+                                            <i  data-lucide="info" class="me-1" aria-hidden="true"></i> {% translate "Basic Info" %}
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" :class="{ 'active': currentTab === 'images' }" id="images-tab"
                                             @click.prevent="currentTab = 'images'" type="button" role="tab" aria-controls="images"
                                             :aria-selected="currentTab === 'images'">
-                                            <i class="fas fa-images me-1"></i> Images
+                                            <i  data-lucide="images" class="me-1" aria-hidden="true"></i> {% translate "Images" %}
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -283,7 +285,7 @@
                                             @click.prevent="currentTab = 'contacts'" type="button" role="tab"
                                             aria-controls="contacts"
                                             :aria-selected="currentTab === 'contacts'">
-                                            <i class="fas fa-address-book me-1"></i> Contact Info
+                                            <i  data-lucide="contact" class="me-1" aria-hidden="true"></i> {% translate "Contact Info" %}
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -291,7 +293,7 @@
                                             @click.prevent="currentTab = 'locations'" type="button" role="tab"
                                             aria-controls="locations"
                                             :aria-selected="currentTab === 'locations'">
-                                            <i class="fas fa-map-marker-alt me-1"></i> Service Areas
+                                            <i  data-lucide="map-pin" class="me-1" aria-hidden="true"></i> {% translate "Service Areas" %}
                                     </button>
                                 </li>
                             </ul>
@@ -304,57 +306,50 @@
 
                         <!-- Basic Information Section -->
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-info-circle me-2"></i>Basic Information</h5>
+                            <h5 class="form-section-title"><i  data-lucide="info" class="me-2" aria-hidden="true"></i>{% translate "Basic Information" %}</h5>
 
                             <div class="row mb-3">
                                 <label for="title" class="col-sm-3 col-form-label">
-                                    <i class="fas fa-heading me-2 text-primary"></i>Listing Title
+                                    <i  data-lucide="heading" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Listing Title" %}
                                 </label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" placeholder="Enter your listing title"
-                                           id="title" name="title" required>
+                                           id="title" name="title" value="{{ form.title.value|default_if_none:'' }}" required>
                                     <small class="form-text text-muted">Enter a clear business or service title (max 500 characters)</small>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-folder me-2 text-primary"></i>Category
+                                <label class="col-sm-3 col-form-label" for="id_category">
+                                    <i  data-lucide="folder" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Category" %}
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="category" class="form-select" id="id_category" required
-                                            hx-get="{% url 'ajax_load_category' %}"
-                                            hx-trigger="load"
-                                            hx-target="#id_category"
-                                            hx-swap="innerHTML">
-                                    </select>
+                                    <select name="category" id="id_category" class="form-select" required>
+{% include 'lab/reference_options.html' with kind='category' value=form.category.value %}
+</select>
                                     <small class="form-text text-muted">Select the main category for your service</small>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-tag me-2 text-primary"></i>Sub Category
+                                <label class="col-sm-3 col-form-label" for="id_subcategory">
+                                    <i  data-lucide="tag" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Sub Category" %}
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="sub_category" class="form-select select2" id="id_subcategory" required
-                                            hx-get="{% url 'ajax_load_sub_category' %}"
-                                            hx-trigger="load, change from:#id_category"
-                                            hx-target="#id_subcategory"
-                                            hx-include="#id_category"
-                                            hx-swap="innerHTML">
-                                    </select>
+                                    <select name="sub_category" id="id_subcategory" class="form-select select2" required hx-get="{% url 'ajax_load_sub_category' %}" hx-trigger="change from:#id_category" hx-target="#id_subcategory" hx-include="#id_category" hx-swap="innerHTML">
+{% include 'lab/reference_options.html' with kind='subcategory' value=form.sub_category.value %}
+</select>
                                     <small class="form-text text-muted">Select a specific subcategory to help customers find your service</small>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-align-left me-2 text-primary"></i>Description
+                                <label class="col-sm-3 col-form-label" for="id_description">
+                                    <i  data-lucide="align-left" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Description" %}
                                 </label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" rows="5" name="description"
-                                              placeholder="Enter your service/listing description" required></textarea>
+                                              placeholder="Enter your service/listing description" required id="id_description">{{ form.description.value|default_if_none:'' }}</textarea>
                                     <small class="form-text text-muted">Describe your service in detail (max 1000 characters)</small>
                                 </div>
                             </div>
@@ -362,24 +357,24 @@
 
                         <!-- Pricing Section -->
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-dollar-sign me-2"></i>Pricing Information</h5>
+                            <h5 class="form-section-title"><i  data-lucide="dollar-sign" class="me-2" aria-hidden="true"></i>{% translate "Pricing Information" %}</h5>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-tag me-2 text-primary"></i>Pricing Option
+                                <label class="col-sm-3 col-form-label" for="call_for_pricing">
+                                    <i  data-lucide="tag" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Pricing Option" %}
                                 </label>
                                 <div class="col-sm-9">
                                     <div class="form-check mb-3">
                                         <input class="form-check-input" type="checkbox" id="call_for_pricing" name="call_for_pricing" 
                                                x-on:change="priceFieldVisible = !$event.target.checked">
                                         <label class="form-check-label" for="call_for_pricing">
-                                            <i class="fas fa-phone-alt me-1 text-info"></i> Call for pricing details
+                                            <i  data-lucide="phone" class="me-1 text-info" aria-hidden="true"></i> {% translate "Call for pricing details" %}
                                         </label>
                                         <small class="form-text text-muted d-block">Check this if you prefer customers to call for pricing details instead of displaying a fixed price</small>
                                     </div>
                                     <div x-show="priceFieldVisible" class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                        <input type="number" class="form-control" value="0" name="price" :required="priceFieldVisible">
+                                        <span class="input-group-text"><i  data-lucide="dollar-sign" class="" aria-hidden="true"></i></span>
+                                        <input type="number" class="form-control" value="{{ form.price.value|default_if_none:0 }}" name="price" :required="priceFieldVisible">
                                         <small class="form-text text-muted w-100">Enter your price in dollars</small>
                                     </div>
                                 </div>
@@ -388,17 +383,17 @@
 
                         <!-- Contact Information Section -->
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-phone-alt me-2"></i>Contact Information</h5>
+                            <h5 class="form-section-title"><i  data-lucide="phone" class="me-2" aria-hidden="true"></i>{% translate "Contact Information" %}</h5>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-phone me-2 text-primary"></i>Main Phone
+                                <label class="col-sm-3 col-form-label" for="phone_number">
+                                    <i  data-lucide="phone" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Main Phone" %}
                                 </label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        <span class="input-group-text"><i  data-lucide="phone" class="" aria-hidden="true"></i></span>
                                         <input class="form-control" type="tel" placeholder="+5016550000" id="phone_number"
-                                               name="phone_number" required>
+                                               name="phone_number" value="{{ form.phone_number.value|default_if_none:'' }}" required>
                                     </div>
                                     <small class="form-text text-muted">Enter your primary phone number in international format</small>
                                 </div>
@@ -407,54 +402,47 @@
 
                         <!-- Location Section -->
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-map-marker-alt me-2"></i>Location Information</h5>
+                            <h5 class="form-section-title"><i  data-lucide="map-pin" class="me-2" aria-hidden="true"></i>{% translate "Location Information" %}</h5>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-map me-2 text-primary"></i>District
+                                <label class="col-sm-3 col-form-label" for="id_district">
+                                    <i  data-lucide="map" class="me-2 text-primary" aria-hidden="true"></i>District
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="district" class="form-select" id="id_district" required
-                                            hx-get="{% url 'ajax_load_states' %}"
-                                            hx-trigger="load"
-                                            hx-target="#id_district"
-                                            hx-swap="innerHTML">
-                                    </select>
+                                    <select name="district" id="id_district" class="form-select" required>
+{% include 'lab/reference_options.html' with kind='district' value=form.district.value %}
+</select>
                                     <small class="form-text text-muted">Select the district where your service is primarily offered</small>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-map-pin me-2 text-primary"></i>Location
+                                <label class="col-sm-3 col-form-label" for="id_location">
+                                    <i  data-lucide="map-pin" class="me-2 text-primary" aria-hidden="true"></i>Location
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="location" class="form-select select2" id="id_location" required
-                                            hx-get="{% url 'ajax_load_locations' %}"
-                                            hx-trigger="load, change from:#id_district"
-                                            hx-target="#id_location"
-                                            hx-include="#id_district"
-                                            hx-swap="innerHTML">
-                                    </select>
+                                    <select name="location" id="id_location" class="form-select select2" required hx-get="{% url 'ajax_load_locations' %}" hx-trigger="change from:#id_district" hx-target="#id_location" hx-include="#id_district" hx-swap="innerHTML">
+{% include 'lab/reference_options.html' with kind='location' value=form.location.value %}
+</select>
                                     <small class="form-text text-muted">Select the specific location within the district</small>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-home me-2 text-primary"></i>Address 1
+                                <label class="col-sm-3 col-form-label" for="address_1">
+                                    <i  data-lucide="house" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Address 1" %}
                                 </label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text"
                                            placeholder="Enter your street address, house number, etc" id="address_1"
-                                           name="address_1" required>
+                                           name="address_1" value="{{ form.address_1.value|default_if_none:'' }}" required>
                                     <small class="form-text text-muted">Enter your primary address</small>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-building me-2 text-primary"></i>Address 2
+                                <label class="col-sm-3 col-form-label" for="address_2">
+                                    <i  data-lucide="building" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Address 2" %}
                                 </label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text"
@@ -467,16 +455,16 @@
 
                         <!-- Media Section -->
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-image me-2"></i>Media</h5>
+                            <h5 class="form-section-title"><i  data-lucide="image" class="me-2" aria-hidden="true"></i>{% translate "Media" %}</h5>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-camera me-2 text-primary"></i>Main Photo
+                                <label class="col-sm-3 col-form-label" for="id_photo">
+                                    <i  data-lucide="camera" class="me-2 text-primary" aria-hidden="true"></i>Main Photo
                                 </label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-upload"></i></span>
-                                        <input type="file" class="form-control" name="photo" accept="image/*">
+                                        <span class="input-group-text"><i  data-lucide="upload" class="" aria-hidden="true"></i></span>
+                                        <input type="file" class="form-control" name="photo" accept="image/*" id="id_photo">
                                     </div>
                                     <small class="form-text text-muted">Upload a main image for your listing (jpg, jpeg, png, gif only)</small>
                                 </div>
@@ -485,15 +473,15 @@
 
                         <!-- Status Section -->
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-toggle-on me-2"></i>Status</h5>
+                            <h5 class="form-section-title"><i  data-lucide="toggle-right" class="me-2" aria-hidden="true"></i>{% translate "Status" %}</h5>
 
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">
-                                    <i class="fas fa-check-circle me-2 text-primary"></i>Listing Status
+                                <label class="col-sm-3 col-form-label" for="id_status">
+                                    <i  data-lucide="circle-check" class="me-2 text-primary" aria-hidden="true"></i>Listing Status
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="status" class="form-select" required>
-                                        <option value="1">Active</option>
+                                    <select name="status" class="form-select" required id="id_status">
+                                        <option value="1">{% translate "Active" %}</option>
                                         <option value="0">Disabled</option>
                                     </select>
                                     <small class="form-text text-muted">Set your listing as active to make it visible to customers, or disabled to hide it temporarily</small>
@@ -507,7 +495,7 @@
                          role="tabpanel" aria-labelledby="images-tab">
 
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-images me-2"></i>Additional Images</h5>
+                            <h5 class="form-section-title"><i  data-lucide="images" class="me-2" aria-hidden="true"></i>Additional Images</h5>
                             <p class="text-muted mb-4">Add up to 10 additional images to showcase your service from different angles or highlight specific features.</p>
 
                             {{ image_formset.management_form }}
@@ -515,12 +503,12 @@
                                 {% for form in image_formset %}
                                     <div class="form-item image-form images-form mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h6 class="mb-0"><i class="fas fa-image me-2 text-primary"></i>Image #{{ forloop.counter }}</h6>
+                                            <h6 class="mb-0"><i  data-lucide="image" class="me-2 text-primary" aria-hidden="true"></i>Image #{{ forloop.counter }}</h6>
                                             {% if form.instance.pk %}
                                                 <div class="form-check">
                                                     {{ form.DELETE }}
                                                     <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
-                                                        <i class="fas fa-trash-alt me-1"></i> Delete this image
+                                                        <i  data-lucide="trash-2" class="me-1" aria-hidden="true"></i> Delete this image
                                                     </label>
                                                 </div>
                                             {% endif %}
@@ -529,10 +517,10 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-file-image me-2 text-primary"></i>Image File
+                                                    <i  data-lucide="file-image" class="me-2 text-primary" aria-hidden="true"></i>Image File
                                                 </label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text"><i class="fas fa-upload"></i></span>
+                                                    <span class="input-group-text"><i  data-lucide="upload" class="" aria-hidden="true"></i></span>
                                                     {{ form.image }}
                                                 </div>
                                                 <small class="form-text text-muted">{{ form.image.help_text|default:"Upload an image file (jpg, jpeg, png, gif)" }}</small>
@@ -540,7 +528,7 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-comment-alt me-2 text-primary"></i>Caption
+                                                    <i  data-lucide="message-square" class="me-2 text-primary" aria-hidden="true"></i>Caption
                                                 </label>
                                                 {{ form.caption }}
                                                 <small class="form-text text-muted">{{ form.caption.help_text|default:"Add a descriptive caption for this image" }}</small>
@@ -553,14 +541,14 @@
                                                 <div class="form-check">
                                                     {{ form.is_primary }}
                                                     <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
-                                                        <i class="fas fa-star me-1 text-warning"></i> Set as primary image
+                                                        <i  data-lucide="star" class="me-1 text-warning" aria-hidden="true"></i> Set as primary image
                                                     </label>
                                                     <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check this to make this image the main image for your listing" }}</small>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-sort-numeric-down me-2 text-primary"></i>Display Order
+                                                    <i  data-lucide="list-ordered" class="me-2 text-primary" aria-hidden="true"></i>Display Order
                                                 </label>
                                                 {{ form.order }}
                                                 <small class="form-text text-muted">{{ form.order.help_text|default:"Set the display order (lower numbers appear first)" }}</small>
@@ -573,7 +561,7 @@
 
                             <div class="text-center mt-4">
                                 <button type="button" class="btn btn-primary" id="add-image">
-                                    <i class="fas fa-plus-circle me-2"></i>Add Another Image
+                                    <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>Add Another Image
                                 </button>
                             </div>
                         </div>
@@ -584,7 +572,7 @@
                          role="tabpanel" aria-labelledby="contacts-tab">
 
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-address-book me-2"></i>Additional Contact Numbers</h5>
+                            <h5 class="form-section-title"><i  data-lucide="contact" class="me-2" aria-hidden="true"></i>Additional Contact Numbers</h5>
                             <p class="text-muted mb-4">Add up to 5 additional contact numbers to make it easier for customers to reach you through different channels.</p>
 
                             {{ contact_formset.management_form }}
@@ -592,12 +580,12 @@
                                 {% for form in contact_formset %}
                                     <div class="form-item contact-form contacts-form mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h6 class="mb-0"><i class="fas fa-phone-alt me-2 text-primary"></i>Contact #{{ forloop.counter }}</h6>
+                                            <h6 class="mb-0"><i  data-lucide="phone" class="me-2 text-primary" aria-hidden="true"></i>Contact #{{ forloop.counter }}</h6>
                                             {% if form.instance.pk %}
                                                 <div class="form-check">
                                                     {{ form.DELETE }}
                                                     <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
-                                                        <i class="fas fa-trash-alt me-1"></i> Delete this contact
+                                                        <i  data-lucide="trash-2" class="me-1" aria-hidden="true"></i> Delete this contact
                                                     </label>
                                                 </div>
                                             {% endif %}
@@ -606,10 +594,10 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-phone me-2 text-primary"></i>Phone Number
+                                                    <i  data-lucide="phone" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Phone Number" %}
                                                 </label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                    <span class="input-group-text"><i  data-lucide="phone" class="" aria-hidden="true"></i></span>
                                                     {{ form.phone_number }}
                                                 </div>
                                                 <small class="form-text text-muted">{{ form.phone_number.help_text|default:"Enter phone number in international format (e.g., +5016550000)" }}</small>
@@ -617,10 +605,10 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-info-circle me-2 text-primary"></i>Description
+                                                    <i  data-lucide="info" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Description" %}
                                                 </label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                                                    <span class="input-group-text"><i  data-lucide="message-circle" class="" aria-hidden="true"></i></span>
                                                     {{ form.description }}
                                                 </div>
                                                 <small class="form-text text-muted">{{ form.description.help_text|default:"Describe this contact (e.g., Business, Personal, Office)" }}</small>
@@ -633,7 +621,7 @@
                                                 <div class="form-check">
                                                     {{ form.is_whatsapp }}
                                                     <label class="form-check-label" for="{{ form.is_whatsapp.id_for_label }}">
-                                                        <i class="fab fa-whatsapp me-1 text-success"></i> Available on WhatsApp
+                                                        <i  data-lucide="message-circle" class="me-1 text-success" aria-hidden="true"></i> Available on WhatsApp
                                                     </label>
                                                     <small class="form-text text-muted d-block">{{ form.is_whatsapp.help_text|default:"Check if this number can be contacted via WhatsApp" }}</small>
                                                 </div>
@@ -642,14 +630,14 @@
                                                 <div class="form-check">
                                                     {{ form.is_primary }}
                                                     <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
-                                                        <i class="fas fa-star me-1 text-warning"></i> Set as primary contact
+                                                        <i  data-lucide="star" class="me-1 text-warning" aria-hidden="true"></i> Set as primary contact
                                                     </label>
                                                     <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check to make this the primary contact number" }}</small>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-sort-numeric-down me-2 text-primary"></i>Display Order
+                                                    <i  data-lucide="list-ordered" class="me-2 text-primary" aria-hidden="true"></i>Display Order
                                                 </label>
                                                 {{ form.order }}
                                                 <small class="form-text text-muted">{{ form.order.help_text|default:"Set the display order (lower numbers appear first)" }}</small>
@@ -662,7 +650,7 @@
 
                             <div class="text-center mt-4">
                                 <button type="button" class="btn btn-primary" id="add-contact">
-                                    <i class="fas fa-plus-circle me-2"></i>Add Another Contact
+                                    <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>Add Another Contact
                                 </button>
                             </div>
                         </div>
@@ -673,7 +661,7 @@
                          role="tabpanel" aria-labelledby="locations-tab">
 
                         <div class="form-section">
-                            <h5 class="form-section-title"><i class="fas fa-map-marked-alt me-2"></i>Additional Service Areas</h5>
+                            <h5 class="form-section-title"><i  data-lucide="map-pinned" class="me-2" aria-hidden="true"></i>Additional Service Areas</h5>
                             <p class="text-muted mb-4">Add up to 5 additional areas where you offer your services to reach more customers in different locations.</p>
 
                             {{ service_area_formset.management_form }}
@@ -681,12 +669,12 @@
                                 {% for form in service_area_formset %}
                                     <div class="form-item service-areas-form mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h6 class="mb-0"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Service Area #{{ forloop.counter }}</h6>
+                                            <h6 class="mb-0"><i  data-lucide="map-pin" class="me-2 text-primary" aria-hidden="true"></i>Service Area #{{ forloop.counter }}</h6>
                                             {% if form.instance.pk %}
                                                 <div class="form-check">
                                                     {{ form.DELETE }}
                                                     <label class="form-check-label text-danger" for="{{ form.DELETE.id_for_label }}">
-                                                        <i class="fas fa-trash-alt me-1"></i> Delete this service area
+                                                        <i  data-lucide="trash-2" class="me-1" aria-hidden="true"></i> Delete this service area
                                                     </label>
                                                 </div>
                                             {% endif %}
@@ -695,7 +683,7 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-map me-2 text-primary"></i>District
+                                                    <i  data-lucide="map" class="me-2 text-primary" aria-hidden="true"></i>District
                                                 </label>
                                                 <select name="{{ form.district.html_name }}" class="form-select"
                                                         id="{{ form.district.auto_id }}"
@@ -713,7 +701,7 @@
                                             </div>
                                             <div class="col-md-6 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-map-pin me-2 text-primary"></i>Location
+                                                    <i  data-lucide="map-pin" class="me-2 text-primary" aria-hidden="true"></i>Location
                                                 </label>
                                                 <select name="{{ form.location.html_name }}" class="form-select"
                                                         id="{{ form.location.auto_id }}"
@@ -735,10 +723,10 @@
                                         <div class="row">
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-info-circle me-2 text-primary"></i>Description
+                                                    <i  data-lucide="info" class="me-2 text-primary" aria-hidden="true"></i>{% translate "Description" %}
                                                 </label>
                                                 <div class="input-group">
-                                                    <span class="input-group-text"><i class="fas fa-comment"></i></span>
+                                                    <span class="input-group-text"><i  data-lucide="message-circle" class="" aria-hidden="true"></i></span>
                                                     {{ form.description }}
                                                 </div>
                                                 <small class="form-text text-muted">{{ form.description.help_text|default:"Add details about this service area (e.g., 'Weekends only', 'Extra fee applies')" }}</small>
@@ -748,14 +736,14 @@
                                                 <div class="form-check">
                                                     {{ form.is_primary }}
                                                     <label class="form-check-label" for="{{ form.is_primary.id_for_label }}">
-                                                        <i class="fas fa-star me-1 text-warning"></i> Set as primary area
+                                                        <i  data-lucide="star" class="me-1 text-warning" aria-hidden="true"></i> Set as primary area
                                                     </label>
                                                     <small class="form-text text-muted d-block">{{ form.is_primary.help_text|default:"Check to make this your primary service area" }}</small>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <label class="form-label">
-                                                    <i class="fas fa-sort-numeric-down me-2 text-primary"></i>Display Order
+                                                    <i  data-lucide="list-ordered" class="me-2 text-primary" aria-hidden="true"></i>Display Order
                                                 </label>
                                                 {{ form.order }}
                                                 <small class="form-text text-muted">{{ form.order.help_text|default:"Set the display order (lower numbers appear first)" }}</small>
@@ -768,7 +756,7 @@
 
                             <div class="text-center mt-4">
                                 <button type="button" class="btn btn-primary" id="add-service-area">
-                                    <i class="fas fa-plus-circle me-2"></i>Add Another Service Area
+                                    <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>Add Another Service Area
                                 </button>
                             </div>
                         </div>
@@ -779,18 +767,18 @@
                     <div class="d-flex justify-content-between align-items-center gap-3">
                         <button type="button" class="btn btn-nav btn-lg btn-outline-secondary" id="prev-tab" @click="prevTab()"
                                 x-show="!isFirstTab">
-                            <i class="fas fa-arrow-left me-2"></i>Previous
+                            <i  data-lucide="arrow-left" class="me-2" aria-hidden="true"></i>{% translate "Previous" %}
                         </button>
                         <div x-show="isLastTab" class="d-flex gap-2">
                             <button type="button" class="btn btn-nav btn-lg btn-outline-secondary" id="prev-tab-final" @click="prevTab()">
-                                <i class="fas fa-arrow-left me-2"></i>Previous
+                                <i  data-lucide="arrow-left" class="me-2" aria-hidden="true"></i>{% translate "Previous" %}
                             </button>
                             <button type="submit" class="btn btn-nav btn-lg btn-success" id="submit-btn">
-                                <i class="fas fa-check-circle me-2"></i>Publish Listing
+                                <i  data-lucide="circle-check" class="me-2" aria-hidden="true"></i>{% translate "Publish Listing" %}
                             </button>
                         </div>
                         <button type="button" class="btn btn-nav btn-lg btn-primary" id="next-tab" @click="nextTab()" x-show="!isLastTab">
-                            Next<i class="fas fa-arrow-right ms-2"></i>
+                            {% translate "Next" %}<i  data-lucide="arrow-right" class="ms-2" aria-hidden="true"></i>
                         </button>
                     </div>
 
@@ -903,7 +891,7 @@
                             const removeBtn = document.createElement('button');
                             removeBtn.type = 'button';
                             removeBtn.className = 'btn btn-link text-danger remove-form';
-                            removeBtn.innerHTML = '<i class="fas fa-trash-alt me-1"></i> Remove';
+                            removeBtn.innerHTML = '<i  data-lucide="trash-2" class="me-1" aria-hidden="true"></i> Remove';
                             removeBtn.addEventListener('click', () => {
                                 newForm.remove();
                                 totalForms.value = formset.querySelectorAll(`.${prefix.replace('_', '-')}-form`).length;

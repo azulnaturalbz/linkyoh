@@ -1,3 +1,4 @@
+{% load i18n discovery_tags %}
 {% load static %}
 <style>
     .provider-name {
@@ -21,7 +22,7 @@
         <img src="{{ gig.get_photo_url }}" class="card-img-top" alt="{{ gig.title }}">
     </a>
     {% if show_featured and gig.featured %}
-    <span class="featured-badge"><i class="fas fa-star me-1"></i> Featured</span>
+    <span class="featured-badge"><i  data-lucide="star" class="me-1" aria-hidden="true"></i> Featured</span>
     {% endif %}
     <div class="card-body">
         <a href="{{ gig.get_absolute_url }}" class="text-decoration-none text-dark">
@@ -32,34 +33,30 @@
                  alt="Provider">
             <a href="{{ gig.user.profile.get_absolute_url }}" class="text-decoration-none text-muted">
                 {{ gig.user.profile.get_display_name }}
-                {% if gig.user.profile.is_verified %}
-                <span class="verified-badge" style="font-size: 0.7rem; padding: 0.15rem 0.5rem;">
-                    <i class="fas fa-check-circle me-1"></i> Verified
-                </span>
-                {% endif %}
             </a>
         </div>
+        {% listing_checks gig as checks %}{% include 'lab/checked.html' %}
         <p class="card-text">{{ gig.description | truncatechars:60 }}</p>
         <div class="gig-meta-row mt-3">
             {% if gig.call_for_pricing or gig.price == -1 %}
-            <span class="badge bg-info gig-price-badge"><i class="fas fa-phone-alt me-1"></i> Call for pricing</span>
+            <span class="badge bg-info gig-price-badge"><i  data-lucide="phone" class="me-1" aria-hidden="true"></i> Call for pricing</span>
             {% else %}
             <span class="badge bg-success gig-price-badge">${{ gig.price }}</span>
             {% endif %}
             <div class="gig-taxonomy-badges">
                 <a href="{{ gig.category.get_absolute_url }}" class="badge bg-light text-dark text-decoration-none">
-                    <i class="fas fa-folder me-1"></i>{{ gig.category }}
+                    <i  data-lucide="folder" class="me-1" aria-hidden="true"></i>{{ gig.category }}
                 </a>
                 {% if gig.sub_category %}
                 <a href="{{ gig.sub_category.get_absolute_url }}" class="badge bg-light text-dark text-decoration-none">
-                    <i class="fas fa-tag me-1"></i>{{ gig.sub_category }}
+                    <i  data-lucide="tag" class="me-1" aria-hidden="true"></i>{{ gig.sub_category }}
                 </a>
                 {% endif %}
             </div>
         </div>
     </div>
     <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-        <small class="text-muted"><i class="far fa-clock me-1"></i> {{ gig.create_time|date:"M d, Y" }}</small>
-        <a href="{{ gig.get_absolute_url }}" class="btn btn-sm btn-outline-primary">View Details</a>
+        <small class="text-muted"><i  data-lucide="clock" class="me-1" aria-hidden="true"></i> {{ gig.create_time|date:"M d, Y" }}</small>
+        <a href="{{ gig.get_absolute_url }}" class="btn btn-sm btn-outline-primary">{% translate "View Details" %}</a>
     </div>
 </div>

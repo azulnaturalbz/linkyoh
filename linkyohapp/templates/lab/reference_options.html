@@ -1,0 +1,13 @@
+{% load i18n discovery_tags %}
+<option value="">---------</option>
+{% if kind == 'category' %}
+{% for item in reference_categories %}<option value="{{ item.pk }}" {% if value|stringformat:'s' == item.pk|stringformat:'s' %}selected{% endif %}>{{ item|taxonomy_label }}</option>{% endfor %}
+{% elif kind == 'subcategory' %}
+{% regroup reference_subcategories by category as groups %}
+{% for group in groups %}<optgroup label="{{ group.grouper|taxonomy_label }}">{% for item in group.list %}<option value="{{ item.pk }}" {% if value|stringformat:'s' == item.pk|stringformat:'s' %}selected{% endif %}>{{ item|taxonomy_label }}</option>{% endfor %}</optgroup>{% endfor %}
+{% elif kind == 'district' %}
+{% for item in reference_districts %}<option value="{{ item.pk }}" {% if value|stringformat:'s' == item.pk|stringformat:'s' %}selected{% endif %}>{{ item }}</option>{% endfor %}
+{% elif kind == 'location' %}
+{% regroup reference_locations by local.local_district as groups %}
+{% for group in groups %}<optgroup label="{{ group.grouper }}">{% for item in group.list %}<option value="{{ item.pk }}" {% if value|stringformat:'s' == item.pk|stringformat:'s' %}selected{% endif %}>{{ item }}</option>{% endfor %}</optgroup>{% endfor %}
+{% endif %}

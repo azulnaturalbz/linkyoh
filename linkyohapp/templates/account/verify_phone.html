@@ -20,7 +20,7 @@
     }
 
     .verification-header {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "lab/assets/linkyoh-belize-banner.png" %}');
         background-size: cover;
         background-position: center;
         padding: 2rem;
@@ -177,7 +177,7 @@
             
             {% if error %}
             <div class="alert alert-danger" role="alert">
-                <i class="fas fa-exclamation-circle me-2"></i>
+                <i  data-lucide="circle-alert" class="me-2" aria-hidden="true"></i>
                 {{ error }}
             </div>
             {% endif %}
@@ -202,7 +202,7 @@
                 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="fas fa-check-circle me-2"></i>Verify Phone Number
+                        <i  data-lucide="circle-check" class="me-2" aria-hidden="true"></i>Verify Phone Number
                     </button>
                 </div>
             </form>
@@ -217,7 +217,7 @@
                             hx-target="#resend-response"
                             hx-swap="innerHTML"
                             x-on:click="method = 'sms'">
-                        <i class="fas fa-sms me-2"></i>SMS
+                        <i  data-lucide="message-square" class="me-2" aria-hidden="true"></i>SMS
                     </button>
                     <button class="btn btn-outline-secondary verification-method-btn" 
                             :class="{'active': method === 'whatsapp'}"
@@ -226,7 +226,7 @@
                             hx-target="#resend-response"
                             hx-swap="innerHTML"
                             x-on:click="method = 'whatsapp'">
-                        <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                        <i  data-lucide="message-circle" class="me-2" aria-hidden="true"></i>WhatsApp
                     </button>
                 </div>
             </div>

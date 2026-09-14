@@ -1,35 +1,36 @@
+{% load i18n %}
 {% if notifications %}
     <div class="card shadow-sm">
         <div class="list-group list-group-flush">
             {% for notification in notifications %}
                 <div class="list-group-item list-group-item-action {% if not notification.is_read %}bg-light{% endif %}"
                      x-show="!showUnreadOnly || {% if not notification.is_read %}true{% else %}false{% endif %}">
-                    <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div class="notification-entry">
                         <div>
                             <div class="d-flex align-items-center">
                                 {% if notification.notification_type == 'message' %}
                                     <div class="notification-icon bg-primary text-white me-3">
-                                        <i class="fas fa-envelope"></i>
+                                        <i  data-lucide="mail" class="" aria-hidden="true"></i>
                                     </div>
                                 {% elif notification.notification_type == 'claim_request' %}
                                     <div class="notification-icon bg-info text-white me-3">
-                                        <i class="fas fa-hand-paper"></i>
+                                        <i  data-lucide="hand" class="" aria-hidden="true"></i>
                                     </div>
                                 {% elif notification.notification_type == 'claim_approved' %}
                                     <div class="notification-icon bg-success text-white me-3">
-                                        <i class="fas fa-check-circle"></i>
+                                        <i  data-lucide="circle-check" class="" aria-hidden="true"></i>
                                     </div>
                                 {% elif notification.notification_type == 'claim_rejected' %}
                                     <div class="notification-icon bg-danger text-white me-3">
-                                        <i class="fas fa-times-circle"></i>
+                                        <i  data-lucide="circle-x" class="" aria-hidden="true"></i>
                                     </div>
                                 {% elif notification.notification_type == 'mention' %}
                                     <div class="notification-icon bg-warning text-white me-3">
-                                        <i class="fas fa-at"></i>
+                                        <i  data-lucide="at-sign" class="" aria-hidden="true"></i>
                                     </div>
                                 {% else %}
                                     <div class="notification-icon bg-secondary text-white me-3">
-                                        <i class="fas fa-bell"></i>
+                                        <i  data-lucide="bell" class="" aria-hidden="true"></i>
                                     </div>
                                 {% endif %}
                                 
@@ -41,18 +42,12 @@
                             </div>
                         </div>
                         
-                        <div class="d-flex">
+                        <div class="notification-actions">
                             {% if not notification.is_read %}
-                                <a href="{% url 'mark_notification_as_read' notification.id %}" 
-                                   class="btn btn-sm btn-outline-secondary me-2"
-                                   hx-post="{% url 'mark_notification_as_read' notification.id %}"
-                                   hx-target="closest .list-group-item"
-                                   hx-swap="outerHTML">
-                                    <i class="fas fa-check"></i>
-                                </a>
+                                <form method="post" action="{% url 'mark_notification_as_read' notification.id %}">{% csrf_token %}<button type="submit" class="btn btn-sm btn-outline-secondary" title="{% translate 'Mark as read' %}" aria-label="{% translate 'Mark as read' %}"><i data-lucide="check" aria-hidden="true"></i><noscript>{% translate "Mark as read" %}</noscript></button></form>
                             {% endif %}
                             <a href="{{ notification.get_absolute_url }}" class="btn btn-sm btn-primary">
-                                <i class="fas fa-eye me-1"></i> View
+                                <i data-lucide="eye" aria-hidden="true"></i>{% translate "View" %}
                             </a>
                         </div>
                     </div>
@@ -63,34 +58,34 @@
 {% else %}
     <div class="card shadow-sm">
         <div class="card-body text-center py-5">
-            <i class="fas fa-bell fa-3x text-muted mb-3"></i>
-            <h5>No notifications yet</h5>
-            <p class="text-muted">You don't have any notifications at the moment.</p>
+            <i  data-lucide="bell" class="text-muted mb-3" aria-hidden="true"></i>
+            <h5>{% translate "No notifications yet" %}</h5>
+            <p class="text-muted">{% translate "You don't have any notifications at the moment." %}</p>
             <div class="mt-4">
-                <p class="text-muted">You'll receive notifications for:</p>
+                <p class="text-muted">{% translate "You'll receive notifications for:" %}</p>
                 <div class="row justify-content-center mt-3">
                     <div class="col-md-8">
                         <div class="d-flex align-items-center mb-2">
                             <div class="notification-icon bg-primary text-white me-3" style="width: 32px; height: 32px;">
-                                <i class="fas fa-envelope"></i>
+                                <i  data-lucide="mail" class="" aria-hidden="true"></i>
                             </div>
                             <span>New messages</span>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <div class="notification-icon bg-info text-white me-3" style="width: 32px; height: 32px;">
-                                <i class="fas fa-hand-paper"></i>
+                                <i  data-lucide="hand" class="" aria-hidden="true"></i>
                             </div>
                             <span>Gig claim requests</span>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <div class="notification-icon bg-success text-white me-3" style="width: 32px; height: 32px;">
-                                <i class="fas fa-check-circle"></i>
+                                <i  data-lucide="circle-check" class="" aria-hidden="true"></i>
                             </div>
                             <span>Approved claims</span>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <div class="notification-icon bg-warning text-white me-3" style="width: 32px; height: 32px;">
-                                <i class="fas fa-at"></i>
+                                <i  data-lucide="at-sign" class="" aria-hidden="true"></i>
                             </div>
                             <span>Gig mentions</span>
                         </div>

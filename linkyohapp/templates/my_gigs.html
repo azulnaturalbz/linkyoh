@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% load custom_filters %}
 
@@ -7,7 +8,7 @@
 {% block head %}
 <style>
     .dashboard-header {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "lab/assets/linkyoh-belize-banner.png" %}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -178,11 +179,11 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h1 class="display-5 mb-2">My Gigs</h1>
+                    <h1 class="display-5 mb-2">{% translate "My Gigs" %}</h1>
                     <p class="lead mb-0">Manage your services and track their performance</p>
                 </div>
                 <a href="{% url 'create_gig' %}" class="btn btn-success btn-lg">
-                    <i class="fas fa-plus-circle me-2"></i>Create New Gig
+                    <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>{% translate "Create New Gig" %}
                 </a>
             </div>
         </div>
@@ -195,7 +196,7 @@
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-icon">
-                            <i class="fas fa-list"></i>
+                            <i  data-lucide="list" class="" aria-hidden="true"></i>
                         </div>
                         <div class="stat-value">{{ gigs|length }}</div>
                         <div class="stat-label">Total Gigs</div>
@@ -204,7 +205,7 @@
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
+                            <i  data-lucide="circle-check" class="" aria-hidden="true"></i>
                         </div>
                         <div class="stat-value">{{ active_gigs_count }}</div>
                         <div class="stat-label">Active Gigs</div>
@@ -213,7 +214,7 @@
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-icon">
-                            <i class="fas fa-eye"></i>
+                            <i  data-lucide="eye" class="" aria-hidden="true"></i>
                         </div>
                         <div class="stat-value">{{ total_views }}</div>
                         <div class="stat-label">Total Views</div>
@@ -222,7 +223,7 @@
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-icon">
-                            <i class="fas fa-heart"></i>
+                            <i  data-lucide="heart" class="" aria-hidden="true"></i>
                         </div>
                         <div class="stat-value">{{ total_likes }}</div>
                         <div class="stat-label">Total Likes</div>
@@ -236,7 +237,7 @@
         <div class="alert alert-info mb-4">
             <div class="d-flex align-items-center">
                 <div class="me-3">
-                    <i class="fas fa-chart-line fa-2x"></i>
+                    <i  data-lucide="chart-no-axes-combined" class="" aria-hidden="true"></i>
                 </div>
                 <div>
                     <h5 class="mb-1">Platform Statistics</h5>
@@ -258,13 +259,13 @@
                                     <h5 class="gig-card-title">{{ gig.title }}</h5>
                                     <div class="gig-card-category">
                                         <span class="badge bg-light text-dark">
-                                            <i class="fas fa-tag me-1"></i>{{ gig.category }}
+                                            <i  data-lucide="tag" class="me-1" aria-hidden="true"></i>{{ gig.category }}
                                         </span>
                                         <span class="badge bg-light text-dark ms-1">
-                                            <i class="fas fa-sitemap me-1"></i>{{ gig.sub_category }}
+                                            <i  data-lucide="network" class="me-1" aria-hidden="true"></i>{{ gig.sub_category }}
                                         </span>
                                         <span class="badge bg-light text-dark ms-1">
-                                            <i class="fas fa-map-marker-alt me-1"></i>{{ gig.district }}
+                                            <i  data-lucide="map-pin" class="me-1" aria-hidden="true"></i>{{ gig.district }}
                                         </span>
                                     </div>
                                 </div>
@@ -274,7 +275,7 @@
                                 <div class="gig-card-stats">
                                     <div class="gig-stat">
                                         <div class="gig-stat-value">${{ gig.price }}</div>
-                                        <div class="gig-stat-label">Price</div>
+                                        <div class="gig-stat-label">{% translate "Price" %}</div>
                                     </div>
                                     <div class="gig-stat">
                                         <div class="gig-stat-value">{{ gig.total_likes }}</div>
@@ -290,25 +291,25 @@
                                     </div>
                                 </div>
                                 <p class="text-muted mb-0 small">
-                                    <i class="far fa-clock me-1"></i>Created: {{ gig.create_time|date:"M d, Y" }}
+                                    <i  data-lucide="clock" class="me-1" aria-hidden="true"></i>Created: {{ gig.create_time|date:"M d, Y" }}
                                 </p>
                             </div>
                             <div class="gig-card-footer">
                                 <div>
                                     <span class="status-badge {% if gig.status %}status-active{% else %}status-disabled{% endif %}">
                                         {% if gig.status %}
-                                            <i class="fas fa-check-circle me-1"></i>Active
+                                            <i  data-lucide="circle-check" class="me-1" aria-hidden="true"></i>Active
                                         {% else %}
-                                            <i class="fas fa-times-circle me-1"></i>Disabled
+                                            <i  data-lucide="circle-x" class="me-1" aria-hidden="true"></i>Disabled
                                         {% endif %}
                                     </span>
                                 </div>
                                 <div class="action-buttons d-flex gap-2">
                                     <a href="{{ gig.get_absolute_url }}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-eye me-1"></i>View
+                                        <i  data-lucide="eye" class="me-1" aria-hidden="true"></i>View
                                     </a>
                                     <a href="{% url 'edit_gig' gig.id %}" class="btn btn-sm btn-outline-secondary">
-                                        <i class="fas fa-edit me-1"></i>Edit
+                                        <i  data-lucide="edit" class="me-1" aria-hidden="true"></i>{% translate "Edit" %}
                                     </a>
                                 </div>
                             </div>
@@ -319,12 +320,12 @@
         {% else %}
             <div class="empty-state">
                 <div class="empty-icon">
-                    <i class="fas fa-clipboard-list"></i>
+                    <i  data-lucide="clipboard-list" class="" aria-hidden="true"></i>
                 </div>
                 <h3 class="mb-3">No Gigs Yet</h3>
                 <p class="text-muted mb-4">You haven't created any gigs yet. Start showcasing your services to potential customers!</p>
                 <a href="{% url 'create_gig' %}" class="btn btn-primary btn-lg">
-                    <i class="fas fa-plus-circle me-2"></i>Create Your First Gig
+                    <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>Create Your First Gig
                 </a>
             </div>
         {% endif %}

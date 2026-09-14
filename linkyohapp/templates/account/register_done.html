@@ -64,7 +64,7 @@
 <div class="success-container">
     <div class="success-card">
         <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
+            <i  data-lucide="circle-check" class="" aria-hidden="true"></i>
         </div>
 
         <h1 class="display-5 mb-3">Welcome to Linkyoh, {{ new_user.first_name|default:new_user.username }}!</h1>
@@ -72,15 +72,15 @@
 
         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mb-4">
             <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 gap-3">
-                <i class="fas fa-sign-in-alt me-2"></i>Log In Now
+                <i  data-lucide="log-in" class="me-2" aria-hidden="true"></i>Log In Now
             </a>
             <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg px-4">
-                <i class="fas fa-home me-2"></i>Explore Linkyoh
+                <i  data-lucide="house" class="me-2" aria-hidden="true"></i>Explore Linkyoh
             </a>
         </div>
 
         <div class="alert alert-info d-flex align-items-center" role="alert">
-            <i class="fas fa-info-circle me-3 fs-4"></i>
+            <i  data-lucide="info" class="me-3 fs-4" aria-hidden="true"></i>
             <div>
                 A confirmation email has been sent to your email address. Please check your inbox to verify your account.
             </div>

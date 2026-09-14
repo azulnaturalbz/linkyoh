@@ -4,6 +4,13 @@ from django.utils.translation import gettext
 register = template.Library()
 
 
+@register.simple_tag
+def listing_checks(gig):
+    from linkyohapp.discovery import checked_record
+
+    return checked_record(getattr(gig.user, "profile", None), gig)
+
+
 @register.filter
 def taxonomy_label(value):
     """Translate reviewed taxonomy labels, never provider-authored facts."""

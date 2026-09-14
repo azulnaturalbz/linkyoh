@@ -400,6 +400,12 @@ endpoint can be embedded. Phase A and every later deployment keep separate gates
 
 ## References
 
+Sitewide slice-3 extension authorized 2026-09-13: apply the approved Lab treatment
+to remaining application pages, inspect the owner's Stitch logo/banner choices,
+and use a read-only production taxonomy/geography copy for local parity. Scope,
+implementation and evidence are in [007-sitewide-lab](007-sitewide-lab/README.md).
+This does not change the existing claim, WOP, modernization or deployment gates.
+
 - [Django upgrade guide](https://docs.djangoproject.com/en/5.2/howto/upgrade-version/)
 - [Django 5.2 release notes](https://docs.djangoproject.com/en/5.2/releases/5.2/)
 - [Supported Python versions](https://docs.djangoproject.com/en/5.2/faq/install/)

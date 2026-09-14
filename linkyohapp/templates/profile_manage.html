@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
 
@@ -460,16 +461,12 @@
                                 {% if profile.slogan %}
                                 <p class="lead mb-0">{{ profile.slogan }}</p>
                                 {% endif %}
-                                {% if profile.is_verified or profile.profile_type == 'business' %}
+                                {% include 'lab/checked.html' with checks=provider_checks %}
+                                {% if profile.profile_type == 'business' %}
                                 <div class="profile-header-badges">
-                                    {% if profile.is_verified %}
-                                    <span class="verified-badge">
-                                        <i class="fas fa-check-circle me-1"></i> Verified
-                                    </span>
-                                    {% endif %}
                                     {% if profile.profile_type == 'business' %}
                                     <span class="business-badge">
-                                        <i class="fas fa-building me-1"></i> Business
+                                        <i  data-lucide="building" class="me-1" aria-hidden="true"></i> {% translate "Business" %}
                                     </span>
                                     {% endif %}
                                 </div>
@@ -483,7 +480,7 @@
                             <div class="qr-code">
                                 <div id="profile-qr-code" data-profile-url="{{ canonical_profile_url }}"></div>
                                 <button class="btn btn-sm btn-outline-light qr-download-btn" @click="showQrCard = true">
-                                    <i class="fas fa-download me-1"></i> Download QR Card
+                                    <i  data-lucide="download" class="me-1" aria-hidden="true"></i> Download QR Card
                                 </button>
                             </div>
 
@@ -522,7 +519,7 @@
                                         <div class="modal-footer d-flex justify-content-between">
                                             <button type="button" class="btn btn-secondary" @click="showQrCard = false">Close</button>
                                             <button id="download-qr-card" class="btn btn-primary" @click="downloadQrCard">
-                                                <i class="fas fa-download me-2"></i> Download PNG
+                                                <i  data-lucide="download" class="me-2" aria-hidden="true"></i> Download PNG
                                             </button>
                                         </div>
                                     </div>
@@ -540,7 +537,7 @@
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-4" role="alert">
-                <i class="fas fa-check-circle me-2"></i>
+                <i  data-lucide="circle-check" class="me-2" aria-hidden="true"></i>
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -550,7 +547,7 @@
     <!-- Viewing Banner (only when viewing someone else's profile) -->
     {% if not is_own_profile and is_authenticated %}
     <div class="viewing-banner d-flex align-items-center">
-        <i class="fas fa-info-circle me-3 fs-4 text-primary"></i>
+        <i  data-lucide="info" class="me-3 fs-4 text-primary" aria-hidden="true"></i>
         <div>
             <p class="mb-0">You are viewing <strong>{{ profile.get_display_name }}</strong>'s profile and listings.</p>
         </div>
@@ -560,16 +557,16 @@
     <!-- Call-to-action for unauthenticated users -->
     {% if not is_authenticated %}
     <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
-        <i class="fas fa-user-lock me-3 fs-4"></i>
+        <i  data-lucide="user-lock" class="me-3 fs-4" aria-hidden="true"></i>
         <div>
             <h5 class="alert-heading mb-1">Limited Preview</h5>
             <p class="mb-2">You're viewing a limited preview of {{ profile.get_display_name }}'s profile.</p>
             <div class="d-flex gap-2 flex-wrap">
                 <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-sign-in-alt me-1"></i> Sign In
+                    <i  data-lucide="log-in" class="me-1" aria-hidden="true"></i> Sign In
                 </a>
                 <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">
-                    <i class="fas fa-user-plus me-1"></i> Create Account
+                    <i  data-lucide="user-plus" class="me-1" aria-hidden="true"></i> Create Account
                 </a>
                 <span class="ms-2 text-muted align-self-center">to see more services and information.</span>
             </div>
@@ -584,37 +581,37 @@
             {% if is_own_profile %}
                 <!-- Edit Profile Form -->
                 <div class="profile-info">
-                    <h3 class="mb-4">Edit Profile</h3>
+                    <h3 class="mb-4">{% translate "Edit Profile" %}</h3>
 
                     <!-- Profile Type Toggle -->
                     <div class="profile-type-toggle btn-group w-100 mb-4" role="group" aria-label="Profile Type">
                         <input type="radio" class="btn-check" name="profile_type_view" id="individual_view" autocomplete="off" {% if profile.profile_type == 'individual' %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="individual_view">Individual</label>
+                        <label class="btn btn-outline-primary" for="individual_view">{% translate "Individual" %}</label>
 
                         <input type="radio" class="btn-check" name="profile_type_view" id="business_view" autocomplete="off" {% if profile.profile_type == 'business' %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="business_view">Business</label>
+                        <label class="btn btn-outline-primary" for="business_view">{% translate "Business" %}</label>
                     </div>
 
                     <!-- Tabs for different sections -->
                     <ul class="nav nav-tabs mb-3" id="profileTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab" aria-controls="basic" aria-selected="true">
-                                <i class="fas fa-user me-1"></i> Basic
+                                <i  data-lucide="user-round" class="me-1" aria-hidden="true"></i> {% translate "Basic" %}
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
-                                <i class="fas fa-address-card me-1"></i> Contact
+                                <i  data-lucide="contact-round" class="me-1" aria-hidden="true"></i> Contact
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="social-tab" data-bs-toggle="tab" data-bs-target="#social" type="button" role="tab" aria-controls="social" aria-selected="false">
-                                <i class="fas fa-share-alt me-1"></i> Social
+                                <i  data-lucide="share-2" class="me-1" aria-hidden="true"></i> {% translate "Social" %}
                             </button>
                         </li>
                         <li class="nav-item business-tab" role="presentation" {% if profile.profile_type != 'business' %}style="display: none;"{% endif %}>
                             <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business" type="button" role="tab" aria-controls="business" aria-selected="false">
-                                <i class="fas fa-building me-1"></i> Business
+                                <i  data-lucide="building" class="me-1" aria-hidden="true"></i> {% translate "Business" %}
                             </button>
                         </li>
                     </ul>
@@ -627,7 +624,7 @@
                             <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
                                 <div class="mb-3">
                                     <label for="{{ form.profile_type.id_for_label }}" class="form-label">
-                                        <i class="fas fa-id-card me-2"></i>{{ form.profile_type.label }}
+                                        <i  data-lucide="contact" class="me-2" aria-hidden="true"></i>{{ form.profile_type.label }}
                                     </label>
                                     {% render_field form.profile_type class="form-select" %}
                                     <div class="form-text">{{ form.profile_type.help_text }}</div>
@@ -635,7 +632,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.avatar.id_for_label }}" class="form-label">
-                                        <i class="fas fa-image me-2"></i>{{ form.avatar.label }}
+                                        <i  data-lucide="image" class="me-2" aria-hidden="true"></i>{{ form.avatar.label }}
                                     </label>
                                     {% render_field form.avatar class="form-control" %}
                                     <div class="form-text">{{ form.avatar.help_text }}</div>
@@ -649,7 +646,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.cover_image.id_for_label }}" class="form-label">
-                                        <i class="fas fa-image me-2"></i>{{ form.cover_image.label }}
+                                        <i  data-lucide="image" class="me-2" aria-hidden="true"></i>{{ form.cover_image.label }}
                                     </label>
                                     {% render_field form.cover_image class="form-control" %}
                                     <div class="form-text">{{ form.cover_image.help_text }}</div>
@@ -663,7 +660,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.gender.id_for_label }}" class="form-label">
-                                        <i class="fas fa-venus-mars me-2"></i>{{ form.gender.label }}
+                                        <i  data-lucide="users" class="me-2" aria-hidden="true"></i>{{ form.gender.label }}
                                     </label>
                                     {% render_field form.gender %}
                                     <div class="form-text">{{ form.gender.help_text }}</div>
@@ -671,7 +668,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.slogan.id_for_label }}" class="form-label">
-                                        <i class="fas fa-quote-left me-2"></i>{{ form.slogan.label }}
+                                        <i  data-lucide="quote" class="me-2" aria-hidden="true"></i>{{ form.slogan.label }}
                                     </label>
                                     {% render_field form.slogan %}
                                     <div class="form-text">{{ form.slogan.help_text }}</div>
@@ -679,7 +676,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.about.id_for_label }}" class="form-label">
-                                        <i class="fas fa-user me-2"></i>{{ form.about.label }}
+                                        <i  data-lucide="user-round" class="me-2" aria-hidden="true"></i>{{ form.about.label }}
                                     </label>
                                     {% render_field form.about %}
                                     <div class="form-text">{{ form.about.help_text }}</div>
@@ -689,7 +686,7 @@
                                     {% url "toggle_qr_code" as toggle_qr_code_url %}
                                     {% render_field form.show_qr_code class="form-check-input" hx-post=toggle_qr_code_url hx-trigger="change" hx-swap="none" %}
                                     <label for="{{ form.show_qr_code.id_for_label }}" class="form-check-label">
-                                        <i class="fas fa-qrcode me-2"></i>{{ form.show_qr_code.label }}
+                                        <i  data-lucide="qr-code" class="me-2" aria-hidden="true"></i>{{ form.show_qr_code.label }}
                                     </label>
                                     <div class="form-text">{{ form.show_qr_code.help_text }}</div>
                                     <div id="qr-toggle-status" class="mt-2 small text-success" style="display: none;"></div>
@@ -700,7 +697,7 @@
                             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                 <div class="mb-3">
                                     <label for="{{ form.phone_number.id_for_label }}" class="form-label">
-                                        <i class="fas fa-phone me-2"></i>{{ form.phone_number.label }}
+                                        <i  data-lucide="phone" class="me-2" aria-hidden="true"></i>{{ form.phone_number.label }}
                                     </label>
                                     {% render_field form.phone_number %}
                                     <div class="form-text">{{ form.phone_number.help_text }}</div>
@@ -716,7 +713,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.address.id_for_label }}" class="form-label">
-                                        <i class="fas fa-map-marker-alt me-2"></i>{{ form.address.label }}
+                                        <i  data-lucide="map-pin" class="me-2" aria-hidden="true"></i>{{ form.address.label }}
                                     </label>
                                     {% render_field form.address %}
                                     <div class="form-text">{{ form.address.help_text }}</div>
@@ -724,7 +721,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.district.id_for_label }}" class="form-label">
-                                        <i class="fas fa-map me-2"></i>{{ form.district.label }}
+                                        <i  data-lucide="map" class="me-2" aria-hidden="true"></i>{{ form.district.label }}
                                     </label>
                                     <select name="{{ form.district.html_name }}" id="{{ form.district.auto_id }}" class="form-select"
                                             hx-get="{% url 'ajax_load_locations' %}"
@@ -740,12 +737,10 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.location.id_for_label }}" class="form-label">
-                                        <i class="fas fa-map-pin me-2"></i>{{ form.location.label }}
+                                        <i  data-lucide="map-pin" class="me-2" aria-hidden="true"></i>{{ form.location.label }}
                                     </label>
                                     <select name="{{ form.location.html_name }}" id="id_location" class="form-select">
-                                        {% if form.instance.location %}
-                                            <option value="{{ form.instance.location.pk }}" selected>{{ form.instance.location.local }}</option>
-                                        {% endif %}
+                                        {% include 'lab/reference_options.html' with kind='location' value=form.location.value %}
                                     </select>
                                     <div class="form-text">{{ form.location.help_text }}</div>
                                 </div>
@@ -755,7 +750,7 @@
                             <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
                                 <div class="mb-3">
                                     <label for="{{ form.website.id_for_label }}" class="form-label">
-                                        <i class="fas fa-globe me-2"></i>{{ form.website.label }}
+                                        <i  data-lucide="globe" class="me-2" aria-hidden="true"></i>{{ form.website.label }}
                                     </label>
                                     {% render_field form.website %}
                                     <div class="form-text">{{ form.website.help_text }}</div>
@@ -763,7 +758,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.facebook.id_for_label }}" class="form-label">
-                                        <i class="fab fa-facebook me-2"></i>{{ form.facebook.label }}
+                                        <i  data-lucide="external-link" class="me-2" aria-hidden="true"></i>{{ form.facebook.label }}
                                     </label>
                                     {% render_field form.facebook %}
                                     <div class="form-text">{{ form.facebook.help_text }}</div>
@@ -771,7 +766,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.twitter.id_for_label }}" class="form-label">
-                                        <i class="fab fa-twitter me-2"></i>{{ form.twitter.label }}
+                                        <i  data-lucide="external-link" class="me-2" aria-hidden="true"></i>{{ form.twitter.label }}
                                     </label>
                                     {% render_field form.twitter %}
                                     <div class="form-text">{{ form.twitter.help_text }}</div>
@@ -779,7 +774,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.instagram.id_for_label }}" class="form-label">
-                                        <i class="fab fa-instagram me-2"></i>{{ form.instagram.label }}
+                                        <i  data-lucide="external-link" class="me-2" aria-hidden="true"></i>{{ form.instagram.label }}
                                     </label>
                                     {% render_field form.instagram %}
                                     <div class="form-text">{{ form.instagram.help_text }}</div>
@@ -787,7 +782,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.linkedin.id_for_label }}" class="form-label">
-                                        <i class="fab fa-linkedin me-2"></i>{{ form.linkedin.label }}
+                                        <i  data-lucide="external-link" class="me-2" aria-hidden="true"></i>{{ form.linkedin.label }}
                                     </label>
                                     {% render_field form.linkedin %}
                                     <div class="form-text">{{ form.linkedin.help_text }}</div>
@@ -798,7 +793,7 @@
                             <div class="tab-pane fade" id="business" role="tabpanel" aria-labelledby="business-tab">
                                 <div class="mb-3">
                                     <label for="{{ form.company_name.id_for_label }}" class="form-label">
-                                        <i class="fas fa-building me-2"></i>{{ form.company_name.label }}
+                                        <i  data-lucide="building" class="me-2" aria-hidden="true"></i>{{ form.company_name.label }}
                                     </label>
                                     {% render_field form.company_name %}
                                     <div class="form-text">{{ form.company_name.help_text }}</div>
@@ -806,7 +801,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.business_type.id_for_label }}" class="form-label">
-                                        <i class="fas fa-briefcase me-2"></i>{{ form.business_type.label }}
+                                        <i  data-lucide="briefcase-business" class="me-2" aria-hidden="true"></i>{{ form.business_type.label }}
                                     </label>
                                     {% render_field form.business_type %}
                                     <div class="form-text">{{ form.business_type.help_text }}</div>
@@ -814,7 +809,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.year_established.id_for_label }}" class="form-label">
-                                        <i class="fas fa-calendar-alt me-2"></i>{{ form.year_established.label }}
+                                        <i  data-lucide="calendar" class="me-2" aria-hidden="true"></i>{{ form.year_established.label }}
                                     </label>
                                     {% render_field form.year_established %}
                                     <div class="form-text">{{ form.year_established.help_text }}</div>
@@ -822,7 +817,7 @@
 
                                 <div class="mb-3">
                                     <label for="{{ form.business_description.id_for_label }}" class="form-label">
-                                        <i class="fas fa-info-circle me-2"></i>{{ form.business_description.label }}
+                                        <i  data-lucide="info" class="me-2" aria-hidden="true"></i>{{ form.business_description.label }}
                                     </label>
                                     {% render_field form.business_description %}
                                     <div class="form-text">{{ form.business_description.help_text }}</div>
@@ -832,7 +827,7 @@
 
                         <div class="d-grid mt-4">
                             <button class="btn btn-primary btn-lg" type="submit">
-                                <i class="fas fa-save me-2"></i>Save Profile
+                                <i  data-lucide="save" class="me-2" aria-hidden="true"></i>{% translate "Save Profile" %}
                             </button>
                         </div>
                     </form>
@@ -841,11 +836,11 @@
                 <!-- View Profile -->
                 <div class="profile-about">
                     <h3 class="mb-4">
-                        <i class="fas fa-user me-2"></i>
+                        <i  data-lucide="user-round" class="me-2" aria-hidden="true"></i>
                         About {{ profile.get_display_name }}
                         {% if profile.is_verified %}
                         <span class="verified-badge">
-                            <i class="fas fa-check-circle me-1"></i> Verified
+                            <i  data-lucide="circle-check" class="me-1" aria-hidden="true"></i> Verified
                         </span>
                         {% endif %}
                     </h3>
@@ -858,12 +853,12 @@
 
                     <!-- Contact Information -->
                     <div class="mt-4">
-                        <h5 class="mb-3"><i class="fas fa-address-card me-2"></i>Contact Information</h5>
+                        <h5 class="mb-3"><i  data-lucide="contact-round" class="me-2" aria-hidden="true"></i>{% translate "Contact Information" %}</h5>
 
                         {% if profile.phone_number %}
                         <div class="contact-info-item">
                             <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
+                                <i  data-lucide="phone" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <a href="tel:{{ profile.phone_number }}" class="text-decoration-none">{{ profile.phone_number }}</a>
@@ -874,7 +869,7 @@
                         {% if profile.email_public %}
                         <div class="contact-info-item">
                             <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
+                                <i  data-lucide="mail" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <a href="mailto:{{ profile.user.email }}" class="text-decoration-none">{{ profile.user.email }}</a>
@@ -885,7 +880,7 @@
                         {% if profile.website %}
                         <div class="contact-info-item">
                             <div class="contact-icon">
-                                <i class="fas fa-globe"></i>
+                                <i  data-lucide="globe" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <a href="{{ profile.website }}" target="_blank" class="text-decoration-none">{{ profile.website }}</a>
@@ -896,7 +891,7 @@
                         {% if profile.address or profile.location %}
                         <div class="contact-info-item">
                             <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <i  data-lucide="map-pin" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 {% if profile.address %}
@@ -914,12 +909,12 @@
                     <!-- Social Media Links -->
                     {% if profile.facebook or profile.twitter or profile.instagram or profile.linkedin %}
                     <div class="mt-4">
-                        <h5 class="mb-3"><i class="fas fa-share-alt me-2"></i>Social Media</h5>
+                        <h5 class="mb-3"><i  data-lucide="share-2" class="me-2" aria-hidden="true"></i>Social Media</h5>
 
                         {% if profile.facebook %}
                         <div class="social-link">
                             <div class="social-icon">
-                                <i class="fab fa-facebook-f"></i>
+                                <i  data-lucide="external-link" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <a href="{{ profile.facebook }}" target="_blank" class="text-decoration-none">Facebook</a>
@@ -930,7 +925,7 @@
                         {% if profile.twitter %}
                         <div class="social-link">
                             <div class="social-icon">
-                                <i class="fab fa-twitter"></i>
+                                <i  data-lucide="external-link" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <a href="{{ profile.twitter }}" target="_blank" class="text-decoration-none">Twitter</a>
@@ -941,7 +936,7 @@
                         {% if profile.instagram %}
                         <div class="social-link">
                             <div class="social-icon">
-                                <i class="fab fa-instagram"></i>
+                                <i  data-lucide="external-link" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <a href="{{ profile.instagram }}" target="_blank" class="text-decoration-none">Instagram</a>
@@ -952,7 +947,7 @@
                         {% if profile.linkedin %}
                         <div class="social-link">
                             <div class="social-icon">
-                                <i class="fab fa-linkedin-in"></i>
+                                <i  data-lucide="external-link" class="" aria-hidden="true"></i>
                             </div>
                             <div>
                                 <a href="{{ profile.linkedin }}" target="_blank" class="text-decoration-none">LinkedIn</a>
@@ -965,7 +960,7 @@
                     <!-- Business Information (if business profile) -->
                     {% if profile.profile_type == 'business' and profile.company_name %}
                     <div class="mt-4">
-                        <h5 class="mb-3"><i class="fas fa-building me-2"></i>Business Information</h5>
+                        <h5 class="mb-3"><i  data-lucide="building" class="me-2" aria-hidden="true"></i>Business Information</h5>
 
                         <p><strong>Company Name:</strong> {{ profile.company_name }}</p>
 
@@ -986,11 +981,11 @@
                     <div class="mt-4 d-grid">
                         {% if is_authenticated %}
                             <a href="{% url 'messaging_unified' %}?recipient_id={{ profile.user.id }}" class="btn btn-outline-primary">
-                                <i class="fas fa-paper-plane me-2"></i>Send Message to {{ profile.get_display_name }}
+                                <i  data-lucide="send" class="me-2" aria-hidden="true"></i>Send Message to {{ profile.get_display_name }}
                             </a>
                         {% else %}
                             <a href="{% url 'login' %}?next={% url 'messaging_unified' %}%3Frecipient_id={{ profile.user.id }}" class="btn btn-outline-primary">
-                                <i class="fas fa-paper-plane me-2"></i>Sign in to Message {{ profile.get_display_name }}
+                                <i  data-lucide="send" class="me-2" aria-hidden="true"></i>Sign in to Message {{ profile.get_display_name }}
                             </a>
                         {% endif %}
                     </div>
@@ -1020,13 +1015,13 @@
                 <!-- Message for unauthenticated users when there are more gigs -->
                 {% if not is_authenticated and has_more_gigs %}
                     <div class="alert alert-light border text-center mt-3">
-                        <p class="mb-2"><i class="fas fa-info-circle me-2"></i>Showing {{ gigs|length }} of {{ all_gigs_count }} services</p>
+                        <p class="mb-2"><i  data-lucide="info" class="me-2" aria-hidden="true"></i>Showing {{ gigs|length }} of {{ all_gigs_count }} services</p>
                         <div class="d-flex justify-content-center gap-2">
                             <a href="{% url 'login' %}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-sign-in-alt me-1"></i> Sign In
+                                <i  data-lucide="log-in" class="me-1" aria-hidden="true"></i> Sign In
                             </a>
                             <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-user-plus me-1"></i> Create Account
+                                <i  data-lucide="user-plus" class="me-1" aria-hidden="true"></i> Create Account
                             </a>
                             <span class="ms-2 text-muted align-self-center">to see all services.</span>
                         </div>
@@ -1049,7 +1044,7 @@
 <!-- QR Code, HTML-to-Image, and Alpine.js libraries -->
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1155,7 +1150,7 @@
 
             // Disable button during processing
             downloadBtn.disabled = true;
-            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+            downloadBtn.innerHTML = '<i  data-lucide="loader-circle" class="me-2" aria-hidden="true"></i> Processing...';
 
             // Ensure all images are loaded before capturing
             const images = qrCard.querySelectorAll('img');
@@ -1257,21 +1252,21 @@
                             } finally {
                                 // Re-enable button
                                 downloadBtn.disabled = false;
-                                downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                                downloadBtn.innerHTML = '<i  data-lucide="download" class="me-2" aria-hidden="true"></i> Download PNG';
                             }
                         }).catch(function(error) {
                             console.error('Error generating card:', error);
                             // Restore original style
                             qrCard.style.cssText = originalStyle;
                             downloadBtn.disabled = false;
-                            downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                            downloadBtn.innerHTML = '<i  data-lucide="download" class="me-2" aria-hidden="true"></i> Download PNG';
                             alert('Error generating card. Please try again.');
                         });
                     }, 1000); // Increased delay to ensure everything is rendered
                 } catch (e) {
                     console.error('Exception in download process:', e);
                     downloadBtn.disabled = false;
-                    downloadBtn.innerHTML = '<i class="fas fa-download me-2"></i> Download PNG';
+                    downloadBtn.innerHTML = '<i  data-lucide="download" class="me-2" aria-hidden="true"></i> Download PNG';
                     alert('An error occurred. Please try again.');
                 }
             }

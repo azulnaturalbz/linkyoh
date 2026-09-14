@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}How to Search | Linkyoh Help{% endblock %}
@@ -6,7 +7,7 @@
 {% block head %}
 <style>
     .help-header {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "lab/assets/linkyoh-belize-banner.png" %}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -126,7 +127,7 @@
             </div>
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                 <a href="{% url 'search' %}" class="btn btn-success btn-lg">
-                    <i class="fas fa-search me-2"></i>Search Now
+                    <i  data-lucide="search" class="me-2" aria-hidden="true"></i>Search Now
                 </a>
             </div>
         </div>
@@ -139,7 +140,7 @@
         <div class="col-lg-3 mb-4">
             <div class="card sticky-top" style="top: 6rem; z-index: 999;">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                    <h5 class="mb-0"><i  data-lucide="list" class="me-2" aria-hidden="true"></i>{% translate "Contents" %}</h5>
                 </div>
                 <div class="card-body p-0">
                     <nav class="nav flex-column nav-pills p-3 help-sidebar-nav">
@@ -160,12 +161,12 @@
         <div class="col-lg-9">
             <div class="help-card">
                 <div class="card-header">
-                    <h4 class="mb-0"><i class="fas fa-search me-2"></i>Search Guide</h4>
+                    <h4 class="mb-0"><i  data-lucide="search" class="me-2" aria-hidden="true"></i>Search Guide</h4>
                 </div>
                 <div class="card-body">
                     <!-- Introduction Section -->
                     <div class="help-section" id="introduction">
-                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <h2 class="help-section-title"><i  data-lucide="info" class="me-2" aria-hidden="true"></i>Introduction</h2>
                         <p>Welcome to the Linkyoh search guide! Finding the right service provider is easy with our powerful search tools. Whether you're looking for a specific service or just browsing what's available in your area, this guide will help you navigate our search features effectively.</p>
                         <p>Linkyoh offers multiple ways to find services:</p>
                         <ul>
@@ -179,11 +180,11 @@
 
                     <!-- Quick Search Guide Section -->
                     <div class="help-section" id="quick-search">
-                        <h2 class="help-section-title"><i class="fas fa-bolt me-2"></i>Quick Search Guide</h2>
+                        <h2 class="help-section-title"><i  data-lucide="zap" class="me-2" aria-hidden="true"></i>Quick Search Guide</h2>
                         <p>If you're looking to find services quickly, here's how to get started:</p>
                         
                         <div class="quick-start-card">
-                            <h5><i class="fas fa-rocket me-2"></i>Find Services in 3 Simple Steps</h5>
+                            <h5><i  data-lucide="rocket" class="me-2" aria-hidden="true"></i>Find Services in 3 Simple Steps</h5>
                             <ol class="mb-0">
                                 <li class="mb-2"><strong>Use the search bar</strong> at the top of any page</li>
                                 <li class="mb-2"><strong>Enter keywords</strong> related to the service you need (e.g., "plumber", "electrician", "tutor")</li>
@@ -196,7 +197,7 @@
 
                     <!-- Using the Search Bar Section -->
                     <div class="help-section" id="search-bar">
-                        <h2 class="help-section-title"><i class="fas fa-search me-2"></i>Using the Search Bar</h2>
+                        <h2 class="help-section-title"><i  data-lucide="search" class="me-2" aria-hidden="true"></i>Using the Search Bar</h2>
                         <p>The search bar is available at the top of every page on Linkyoh, making it easy to search from anywhere on the site.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Effective Search Terms</h5>
@@ -238,14 +239,14 @@
                         </div>
                         
                         <div class="tip-card mt-4">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">Use specific terms for better results. For example, instead of searching for "home repair," try "kitchen cabinet installation" or "bathroom tile repair" to find more specialized service providers.</p>
                         </div>
                     </div>
 
                     <!-- Advanced Search Section -->
                     <div class="help-section" id="advanced-search">
-                        <h2 class="help-section-title"><i class="fas fa-sliders-h me-2"></i>Advanced Search</h2>
+                        <h2 class="help-section-title"><i  data-lucide="sliders-horizontal" class="me-2" aria-hidden="true"></i>Advanced Search</h2>
                         <p>For more precise results, use our advanced search page which offers additional filtering options.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Accessing Advanced Search</h5>
@@ -263,7 +264,7 @@
                                 <div class="card h-100">
                                     <div class="card-body text-center">
                                         <div class="feature-icon">
-                                            <i class="fas fa-filter"></i>
+                                            <i  data-lucide="filter" class="" aria-hidden="true"></i>
                                         </div>
                                         <h5>Multiple Filters</h5>
                                         <p>Combine different filters to narrow down results exactly as needed</p>
@@ -274,7 +275,7 @@
                                 <div class="card h-100">
                                     <div class="card-body text-center">
                                         <div class="feature-icon">
-                                            <i class="fas fa-map-marker-alt"></i>
+                                            <i  data-lucide="map-pin" class="" aria-hidden="true"></i>
                                         </div>
                                         <h5>Location-Based Search</h5>
                                         <p>Find services available in specific districts or locations</p>
@@ -285,7 +286,7 @@
                                 <div class="card h-100">
                                     <div class="card-body text-center">
                                         <div class="feature-icon">
-                                            <i class="fas fa-th-list"></i>
+                                            <i  data-lucide="list" class="" aria-hidden="true"></i>
                                         </div>
                                         <h5>Category Filtering</h5>
                                         <p>Browse services by main categories and subcategories</p>
@@ -296,7 +297,7 @@
                                 <div class="card h-100">
                                     <div class="card-body text-center">
                                         <div class="feature-icon">
-                                            <i class="fas fa-dollar-sign"></i>
+                                            <i  data-lucide="dollar-sign" class="" aria-hidden="true"></i>
                                         </div>
                                         <h5>Price Range</h5>
                                         <p>Set minimum and maximum price ranges for services</p>
@@ -308,7 +309,7 @@
 
                     <!-- Using Filters Section -->
                     <div class="help-section" id="filters">
-                        <h2 class="help-section-title"><i class="fas fa-filter me-2"></i>Using Filters</h2>
+                        <h2 class="help-section-title"><i  data-lucide="filter" class="me-2" aria-hidden="true"></i>Using Filters</h2>
                         <p>Filters help you narrow down search results to find exactly what you're looking for. Here's how to use them effectively:</p>
                         
                         <div class="table-responsive mt-3">
@@ -316,18 +317,18 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Filter</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>How to Use</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Category</td>
+                                        <td>{% translate "Category" %}</td>
                                         <td>Filter by main service category</td>
                                         <td>Select from the dropdown menu to see services in that category only</td>
                                     </tr>
                                     <tr>
-                                        <td>Subcategory</td>
+                                        <td>{% translate "Subcategory" %}</td>
                                         <td>Filter by more specific service type</td>
                                         <td>First select a category, then choose from available subcategories</td>
                                     </tr>
@@ -351,7 +352,7 @@
                         </div>
                         
                         <div class="tip-card mt-4">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">You can combine multiple filters for more precise results. For example, you can search for "plumbers" in "Belize City" with prices between "$50" and "$100".</p>
                         </div>
                         
@@ -366,7 +367,7 @@
 
                     <!-- Browsing Categories Section -->
                     <div class="help-section" id="categories">
-                        <h2 class="help-section-title"><i class="fas fa-th-list me-2"></i>Browsing Categories</h2>
+                        <h2 class="help-section-title"><i  data-lucide="list" class="me-2" aria-hidden="true"></i>Browsing Categories</h2>
                         <p>If you're not sure exactly what you're looking for, browsing by category can help you discover available services.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Using the Category Navigation</h5>
@@ -385,21 +386,21 @@
                         </ol>
                         
                         <div class="tip-card">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">Browsing categories is a great way to discover services you might not have thought to search for directly. Take some time to explore different categories to see what's available in your area.</p>
                         </div>
                     </div>
 
                     <!-- Search Tips Section -->
                     <div class="help-section" id="tips">
-                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Search Tips</h2>
+                        <h2 class="help-section-title"><i  data-lucide="star" class="me-2" aria-hidden="true"></i>Search Tips</h2>
                         <p>Here are some tips to help you get the most out of Linkyoh's search features:</p>
                         
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-keyboard me-2 text-primary"></i>Use Specific Keywords</h5>
+                                        <h5 class="card-title"><i  data-lucide="keyboard" class="me-2 text-primary" aria-hidden="true"></i>Use Specific Keywords</h5>
                                         <p class="card-text">The more specific your search terms, the more relevant your results will be. For example, "kitchen plumber" instead of just "plumber".</p>
                                     </div>
                                 </div>
@@ -407,7 +408,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-map-marked-alt me-2 text-primary"></i>Start with Location</h5>
+                                        <h5 class="card-title"><i  data-lucide="map-pinned" class="me-2 text-primary" aria-hidden="true"></i>Start with Location</h5>
                                         <p class="card-text">If proximity is important, start by filtering for your district or location before applying other filters.</p>
                                     </div>
                                 </div>
@@ -415,7 +416,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-sort-amount-down me-2 text-primary"></i>Use Sorting Options</h5>
+                                        <h5 class="card-title"><i  data-lucide="arrow-down-wide-narrow" class="me-2 text-primary" aria-hidden="true"></i>Use Sorting Options</h5>
                                         <p class="card-text">After searching, use the sort options to arrange results by newest, price, or other criteria that matter most to you.</p>
                                     </div>
                                 </div>
@@ -423,7 +424,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-expand-alt me-2 text-primary"></i>Broaden Your Search</h5>
+                                        <h5 class="card-title"><i  data-lucide="expand" class="me-2 text-primary" aria-hidden="true"></i>Broaden Your Search</h5>
                                         <p class="card-text">If you're not finding what you need, try using more general terms or fewer filters to see more options.</p>
                                     </div>
                                 </div>
@@ -431,7 +432,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-heart me-2 text-primary"></i>Save Favorites</h5>
+                                        <h5 class="card-title"><i  data-lucide="heart" class="me-2 text-primary" aria-hidden="true"></i>Save Favorites</h5>
                                         <p class="card-text">When you find services you like, click the heart icon to save them to your favorites for easy access later.</p>
                                     </div>
                                 </div>
@@ -439,7 +440,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-history me-2 text-primary"></i>Check Recently Viewed</h5>
+                                        <h5 class="card-title"><i  data-lucide="history" class="me-2 text-primary" aria-hidden="true"></i>Check Recently Viewed</h5>
                                         <p class="card-text">Your recently viewed services are saved automatically, making it easy to return to listings you've already seen.</p>
                                     </div>
                                 </div>
@@ -449,7 +450,7 @@
 
                     <!-- FAQ Section -->
                     <div class="help-section" id="faq">
-                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        <h2 class="help-section-title"><i  data-lucide="circle-help" class="me-2" aria-hidden="true"></i>{% translate "Frequently Asked Questions" %}</h2>
                         
                         <div class="accordion" id="faqAccordion">
                             <div class="accordion-item">
@@ -525,7 +526,7 @@
                     <div class="text-center mt-5">
                         <h4 class="mb-4">Ready to find the perfect service?</h4>
                         <a href="{% url 'search' %}" class="btn btn-success btn-lg">
-                            <i class="fas fa-search me-2"></i>Start Searching
+                            <i  data-lucide="search" class="me-2" aria-hidden="true"></i>Start Searching
                         </a>
                     </div>
                 </div>

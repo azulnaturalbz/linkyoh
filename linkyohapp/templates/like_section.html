@@ -9,7 +9,7 @@
             hx-target="#like-section"
             x-bind:class="liked ? 'btn btn-danger' : 'btn btn-primary'"
             class="btn">
-            <i x-bind:class="liked ? 'fas fa-thumbs-up' : 'far fa-thumbs-up'"></i>
+            <i data-lucide="thumbs-up" aria-hidden="true"></i>
             <span x-text="liked ? 'Unlike' : 'Like'"></span>
         </button>
     {% endif %}

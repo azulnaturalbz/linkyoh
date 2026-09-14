@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}How to Add a Gig | Linkyoh Help{% endblock %}
@@ -6,7 +7,7 @@
 {% block head %}
 <style>
     .help-header {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "lab/assets/linkyoh-belize-banner.png" %}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -140,12 +141,12 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h1 class="display-4 mb-3">How to Add a Gig</h1>
+                <h1 class="display-4 mb-3">{% translate "How to Add a Gig" %}</h1>
                 <p class="lead mb-0">A step-by-step guide to creating your service listing on Linkyoh</p>
             </div>
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                 <a href="{% url 'create_gig' %}" class="btn btn-success btn-lg">
-                    <i class="fas fa-plus-circle me-2"></i>Create a Gig Now
+                    <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>Create a Gig Now
                 </a>
             </div>
         </div>
@@ -158,16 +159,16 @@
         <div class="col-lg-3 mb-4">
             <div class="card sticky-top" style="top: 6rem; z-index: 999;">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                    <h5 class="mb-0"><i  data-lucide="list" class="me-2" aria-hidden="true"></i>{% translate "Contents" %}</h5>
                 </div>
                 <div class="card-body p-0">
                     <nav class="nav flex-column nav-pills p-3 help-sidebar-nav">
                         <a class="nav-link" href="#introduction">Introduction</a>
                         <a class="nav-link" href="#quick-start">Quick Start Guide</a>
-                        <a class="nav-link" href="#basic-info">Basic Information</a>
-                        <a class="nav-link" href="#images">Images</a>
-                        <a class="nav-link" href="#contacts">Contact Information</a>
-                        <a class="nav-link" href="#service-areas">Service Areas</a>
+                        <a class="nav-link" href="#basic-info">{% translate "Basic Information" %}</a>
+                        <a class="nav-link" href="#images">{% translate "Images" %}</a>
+                        <a class="nav-link" href="#contacts">{% translate "Contact Information" %}</a>
+                        <a class="nav-link" href="#service-areas">{% translate "Service Areas" %}</a>
                         <a class="nav-link" href="#tips">Tips for Success</a>
                         <a class="nav-link" href="#faq">FAQ</a>
                     </nav>
@@ -179,30 +180,30 @@
         <div class="col-lg-9">
             <div class="help-card">
                 <div class="card-header">
-                    <h4 class="mb-0"><i class="fas fa-book me-2"></i>Gig Creation Guide</h4>
+                    <h4 class="mb-0"><i  data-lucide="book" class="me-2" aria-hidden="true"></i>Gig Creation Guide</h4>
                 </div>
                 <div class="card-body">
                     <!-- Introduction Section -->
                     <div class="help-section" id="introduction">
-                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <h2 class="help-section-title"><i  data-lucide="info" class="me-2" aria-hidden="true"></i>Introduction</h2>
                         <p>Welcome to the Linkyoh gig creation guide! A "gig" is a service listing that showcases what you offer to potential customers. Creating a well-crafted gig is essential to attract customers and grow your business on our platform.</p>
                         <p>This guide will walk you through the entire process of creating a gig, explaining each field and section of the form. Whether you're looking to create a simple listing quickly or a detailed service offering with multiple images and contact options, we've got you covered.</p>
                     </div>
 
                     <!-- Quick Start Guide Section -->
                     <div class="help-section" id="quick-start">
-                        <h2 class="help-section-title"><i class="fas fa-bolt me-2"></i>Quick Start Guide</h2>
+                        <h2 class="help-section-title"><i  data-lucide="zap" class="me-2" aria-hidden="true"></i>Quick Start Guide</h2>
                         <p>If you're in a hurry and want to create a simple gig quickly, follow these steps:</p>
                         
                         <div class="quick-start-card">
-                            <h5><i class="fas fa-rocket me-2"></i>Create a Simple Gig in 5 Minutes</h5>
+                            <h5><i  data-lucide="rocket" class="me-2" aria-hidden="true"></i>Create a Simple Gig in 5 Minutes</h5>
                             <ol class="mb-0">
                                 <li class="mb-2"><strong>Go to the <a href="{% url 'create_gig' %}">Create Gig</a> page</strong></li>
                                 <li class="mb-2"><strong>Fill in the required fields in the Basic Info tab:</strong>
                                     <ul>
-                                        <li>Gig Title</li>
+                                        <li>{% translate "Gig Title" %}</li>
                                         <li>Category & Subcategory</li>
-                                        <li>Description</li>
+                                        <li>{% translate "Description" %}</li>
                                         <li>Price (or check "Call for pricing")</li>
                                         <li>Main Phone Number</li>
                                         <li>District & Location</li>
@@ -221,7 +222,7 @@
 
                     <!-- Basic Information Section -->
                     <div class="help-section" id="basic-info">
-                        <h2 class="help-section-title"><i class="fas fa-clipboard-list me-2"></i>Basic Information</h2>
+                        <h2 class="help-section-title"><i  data-lucide="clipboard-list" class="me-2" aria-hidden="true"></i>{% translate "Basic Information" %}</h2>
                         <p>The Basic Information tab contains the essential details about your service. All fields in this section are required unless noted as optional.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Basic Information Fields</h5>
@@ -230,28 +231,28 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">Gig Title</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">{% translate "Gig Title" %}</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>The name of your service (max 500 characters)</td>
                                         <td>Be clear and specific. Include keywords that potential customers might search for.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Category</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">{% translate "Category" %}</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>The main category your service belongs to</td>
                                         <td>Choose the most relevant category for your service to help customers find you.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Subcategory</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">{% translate "Subcategory" %}</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>A more specific classification within the main category</td>
                                         <td>The subcategory options will change based on the category you select.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Description</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">{% translate "Description" %}</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>Detailed information about your service (max 1000 characters)</td>
                                         <td>Include what you offer, your experience, and why customers should choose you.</td>
                                     </tr>
@@ -259,24 +260,24 @@
                             </table>
                         </div>
                         
-                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>Pricing Information</h5>
+                        <h5 class="mt-4 mb-3"><span class="step-number">2</span>{% translate "Pricing Information" %}</h5>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">Call for pricing</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Call for pricing</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Check this if you prefer customers to call you for pricing details</td>
                                         <td>Useful for services where pricing varies based on customer needs.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Price</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">{% translate "Price" %}</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>The cost of your service in dollars</td>
                                         <td>If you checked "Call for pricing," this field will be hidden and set to a special value.</td>
                                     </tr>
@@ -284,19 +285,19 @@
                             </table>
                         </div>
                         
-                        <h5 class="mt-4 mb-3"><span class="step-number">3</span>Contact Information</h5>
+                        <h5 class="mt-4 mb-3"><span class="step-number">3</span>{% translate "Contact Information" %}</h5>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">Main Phone</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">{% translate "Main Phone" %}</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>Your primary contact number in international format</td>
                                         <td>Use the format +5016550000 for Belize numbers.</td>
                                     </tr>
@@ -304,34 +305,34 @@
                             </table>
                         </div>
                         
-                        <h5 class="mt-4 mb-3"><span class="step-number">4</span>Location Information</h5>
+                        <h5 class="mt-4 mb-3"><span class="step-number">4</span>{% translate "Location Information" %}</h5>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">District</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">District</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>The district where your service is primarily offered</td>
                                         <td>Select the district where you're based or primarily operate.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Location</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">Location</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>The specific location within the district</td>
                                         <td>The location options will change based on the district you select.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Address 1</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">{% translate "Address 1" %}</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>Your primary address</td>
                                         <td>Enter your street address, house number, etc.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Address 2</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">{% translate "Address 2" %}</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Additional address information</td>
                                         <td>Use this for apartment numbers, building names, etc.</td>
                                     </tr>
@@ -339,19 +340,19 @@
                             </table>
                         </div>
                         
-                        <h5 class="mt-4 mb-3"><span class="step-number">5</span>Media</h5>
+                        <h5 class="mt-4 mb-3"><span class="step-number">5</span>{% translate "Media" %}</h5>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">Main Photo</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">Main Photo</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>The primary image for your gig</td>
                                         <td>Use a high-quality image that clearly represents your service. Supported formats: jpg, jpeg, png, gif.</td>
                                     </tr>
@@ -359,19 +360,19 @@
                             </table>
                         </div>
                         
-                        <h5 class="mt-4 mb-3"><span class="step-number">6</span>Status</h5>
+                        <h5 class="mt-4 mb-3"><span class="step-number">6</span>{% translate "Status" %}</h5>
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">Gig Status</span> <span class="required-badge">Required</span></td>
+                                        <td><span class="field-name">Gig Status</span> <span class="required-badge">{% translate "Required" %}</span></td>
                                         <td>Whether your gig is active (visible) or disabled (hidden)</td>
                                         <td>Set to "Active" to make your gig visible to customers immediately. Set to "Disabled" if you're not ready to publish yet.</td>
                                     </tr>
@@ -380,14 +381,14 @@
                         </div>
                         
                         <div class="tip-card mt-4">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">For a simple gig, you only need to fill out the Basic Info tab. The other tabs (Images, Contact Info, Service Areas) are optional and can be added later to enhance your listing.</p>
                         </div>
                     </div>
 
                     <!-- Images Section -->
                     <div class="help-section" id="images">
-                        <h2 class="help-section-title"><i class="fas fa-images me-2"></i>Images (Optional)</h2>
+                        <h2 class="help-section-title"><i  data-lucide="images" class="me-2" aria-hidden="true"></i>Images (Optional)</h2>
                         <p>The Images tab allows you to add up to 10 additional images to showcase your service from different angles or highlight specific features.</p>
                         
                         <div class="table-responsive">
@@ -395,28 +396,28 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">Image File</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Image File</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Additional image for your gig</td>
                                         <td>Use high-quality images that showcase different aspects of your service.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Caption</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Caption</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>A description for the image</td>
                                         <td>Use captions to explain what the image shows or highlight specific features.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Set as primary image</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Set as primary image</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Makes this image the main image for your gig</td>
                                         <td>Check this to replace the main photo with this image.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>The order in which images appear</td>
                                         <td>Lower numbers appear first. Leave blank to use the default order.</td>
                                     </tr>
@@ -425,14 +426,14 @@
                         </div>
                         
                         <div class="tip-card">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">High-quality images can significantly increase customer interest. Include images that show your work process, before/after results, or your team in action.</p>
                         </div>
                     </div>
 
                     <!-- Contact Information Section -->
                     <div class="help-section" id="contacts">
-                        <h2 class="help-section-title"><i class="fas fa-address-book me-2"></i>Contact Information (Optional)</h2>
+                        <h2 class="help-section-title"><i  data-lucide="contact" class="me-2" aria-hidden="true"></i>Contact Information (Optional)</h2>
                         <p>The Contact Info tab allows you to add up to 5 additional contact numbers to make it easier for customers to reach you through different channels.</p>
                         
                         <div class="table-responsive">
@@ -440,33 +441,33 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">Phone Number</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">{% translate "Phone Number" %}</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Additional contact number in international format</td>
                                         <td>Use the format +5016550000 for Belize numbers.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Description</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">{% translate "Description" %}</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>A label for this contact number</td>
                                         <td>Examples: "Business", "Mobile", "Office", "WhatsApp only"</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Available on WhatsApp</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Available on WhatsApp</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Indicates if this number can be contacted via WhatsApp</td>
                                         <td>Check this if customers can reach you on WhatsApp using this number.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Set as primary contact</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Set as primary contact</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Makes this the primary contact number for your gig</td>
                                         <td>Check this to replace the main phone number with this one.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>The order in which contact numbers appear</td>
                                         <td>Lower numbers appear first. Leave blank to use the default order.</td>
                                     </tr>
@@ -475,14 +476,14 @@
                         </div>
                         
                         <div class="tip-card">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">Providing multiple contact options increases the chances of customers reaching you. Consider adding a dedicated business line and a WhatsApp number for messaging.</p>
                         </div>
                     </div>
 
                     <!-- Service Areas Section -->
                     <div class="help-section" id="service-areas">
-                        <h2 class="help-section-title"><i class="fas fa-map-marked-alt me-2"></i>Service Areas (Optional)</h2>
+                        <h2 class="help-section-title"><i  data-lucide="map-pinned" class="me-2" aria-hidden="true"></i>Service Areas (Optional)</h2>
                         <p>The Service Areas tab allows you to add up to 5 additional areas where you offer your services to reach more customers in different locations.</p>
                         
                         <div class="table-responsive">
@@ -490,33 +491,33 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="field-name">District</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">District</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Additional district where you offer your service</td>
                                         <td>Select districts where you're willing to travel or provide services.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Location</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Location</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Specific location within the additional district</td>
                                         <td>The location options will change based on the district you select.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Description</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">{% translate "Description" %}</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Additional information about this service area</td>
                                         <td>Examples: "Weekends only", "Extra fee applies", "By appointment only"</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Set as primary area</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Set as primary area</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>Makes this the primary service area for your gig</td>
                                         <td>Check this to replace the main location with this one.</td>
                                     </tr>
                                     <tr>
-                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">Optional</span></td>
+                                        <td><span class="field-name">Display Order</span> <span class="optional-badge">{% translate "Optional" %}</span></td>
                                         <td>The order in which service areas appear</td>
                                         <td>Lower numbers appear first. Leave blank to use the default order.</td>
                                     </tr>
@@ -525,21 +526,21 @@
                         </div>
                         
                         <div class="tip-card">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">Adding multiple service areas can significantly increase your visibility in search results. If you're willing to travel to provide your service, be sure to add those areas here.</p>
                         </div>
                     </div>
 
                     <!-- Tips for Success Section -->
                     <div class="help-section" id="tips">
-                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Tips for Success</h2>
+                        <h2 class="help-section-title"><i  data-lucide="star" class="me-2" aria-hidden="true"></i>Tips for Success</h2>
                         <p>Here are some tips to help your gig stand out and attract more customers:</p>
                         
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-heading me-2 text-primary"></i>Write a Clear Title</h5>
+                                        <h5 class="card-title"><i  data-lucide="heading" class="me-2 text-primary" aria-hidden="true"></i>Write a Clear Title</h5>
                                         <p class="card-text">Use specific keywords that potential customers might search for. Be clear about what you offer.</p>
                                     </div>
                                 </div>
@@ -547,7 +548,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-image me-2 text-primary"></i>Use High-Quality Images</h5>
+                                        <h5 class="card-title"><i  data-lucide="image" class="me-2 text-primary" aria-hidden="true"></i>Use High-Quality Images</h5>
                                         <p class="card-text">Clear, well-lit photos of your work will attract more customers. Show before/after results if applicable.</p>
                                     </div>
                                 </div>
@@ -555,7 +556,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-align-left me-2 text-primary"></i>Detailed Description</h5>
+                                        <h5 class="card-title"><i  data-lucide="align-left" class="me-2 text-primary" aria-hidden="true"></i>Detailed Description</h5>
                                         <p class="card-text">Explain what sets your service apart, your experience, and why customers should choose you.</p>
                                     </div>
                                 </div>
@@ -563,7 +564,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-phone me-2 text-primary"></i>Multiple Contact Options</h5>
+                                        <h5 class="card-title"><i  data-lucide="phone" class="me-2 text-primary" aria-hidden="true"></i>Multiple Contact Options</h5>
                                         <p class="card-text">Make it easy for customers to reach you by providing multiple contact methods.</p>
                                     </div>
                                 </div>
@@ -571,7 +572,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Add Multiple Service Areas</h5>
+                                        <h5 class="card-title"><i  data-lucide="map-pin" class="me-2 text-primary" aria-hidden="true"></i>Add Multiple Service Areas</h5>
                                         <p class="card-text">Increase your visibility by adding all the areas where you're willing to provide your service.</p>
                                     </div>
                                 </div>
@@ -579,7 +580,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-dollar-sign me-2 text-primary"></i>Clear Pricing</h5>
+                                        <h5 class="card-title"><i  data-lucide="dollar-sign" class="me-2 text-primary" aria-hidden="true"></i>Clear Pricing</h5>
                                         <p class="card-text">Be transparent about your pricing or check "Call for pricing" if your rates vary based on the job.</p>
                                     </div>
                                 </div>
@@ -589,7 +590,7 @@
 
                     <!-- FAQ Section -->
                     <div class="help-section" id="faq">
-                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        <h2 class="help-section-title"><i  data-lucide="circle-help" class="me-2" aria-hidden="true"></i>{% translate "Frequently Asked Questions" %}</h2>
                         
                         <div class="accordion" id="faqAccordion">
                             <div class="accordion-item">
@@ -659,7 +660,7 @@
                     <div class="text-center mt-5">
                         <h4 class="mb-4">Ready to create your gig?</h4>
                         <a href="{% url 'create_gig' %}" class="btn btn-success btn-lg">
-                            <i class="fas fa-plus-circle me-2"></i>Create a Gig Now
+                            <i  data-lucide="circle-plus" class="me-2" aria-hidden="true"></i>Create a Gig Now
                         </a>
                     </div>
                 </div>

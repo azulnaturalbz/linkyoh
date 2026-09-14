@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% load widget_tweaks %}
 
@@ -6,7 +7,7 @@
 <style>
     /* Contact page specific styles */
     .hero-contact {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "lab/assets/linkyoh-belize-banner.png" %}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -135,7 +136,7 @@
                     <div class="contact-info-card">
                         <div class="card-body text-center">
                             <div class="contact-info-icon">
-                                <i class="fas fa-map-marker-alt"></i>
+                                <i  data-lucide="map-pin" class="" aria-hidden="true"></i>
                             </div>
                             <h4>Our Location</h4>
                             <p class="mb-0">Belize City, Belize</p>
@@ -148,7 +149,7 @@
                     <div class="contact-info-card">
                         <div class="card-body text-center">
                             <div class="contact-info-icon">
-                                <i class="fas fa-envelope"></i>
+                                <i  data-lucide="mail" class="" aria-hidden="true"></i>
                             </div>
                             <h4>Email Us</h4>
                             <p class="mb-0">
@@ -162,7 +163,7 @@
                     <div class="contact-info-card">
                         <div class="card-body text-center">
                             <div class="contact-info-icon">
-                                <i class="fas fa-phone-alt"></i>
+                                <i  data-lucide="phone" class="" aria-hidden="true"></i>
                             </div>
                             <h4>Call Us</h4>
                             <p class="mb-0">
@@ -176,14 +177,14 @@
                     <div class="contact-info-card">
                         <div class="card-body text-center">
                             <div class="contact-info-icon">
-                                <i class="fas fa-share-alt"></i>
+                                <i  data-lucide="share-2" class="" aria-hidden="true"></i>
                             </div>
                             <h4>Follow Us</h4>
                             <div class="social-links justify-content-center">
-                                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" target="_blank"><i  data-lucide="external-link" class="" aria-hidden="true"></i></a>
+                                <a href="#" target="_blank"><i  data-lucide="external-link" class="" aria-hidden="true"></i></a>
+                                <a href="#" target="_blank"><i  data-lucide="external-link" class="" aria-hidden="true"></i></a>
+                                <a href="#" target="_blank"><i  data-lucide="external-link" class="" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
@@ -283,7 +284,7 @@
                         
                         <!-- Message Field -->
                         <div class="mb-4">
-                            <label for="id_body" class="form-label">Message</label>
+                            <label for="id_body" class="form-label">{% translate "Message" %}</label>
                             {{ form.body|add_class:"form-control"|attr:"placeholder:Please provide details about your inquiry..."|attr:"rows:5" }}
                             {% if form.body.errors %}
                                 <div class="invalid-feedback">
@@ -297,7 +298,7 @@
                         
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                                <i  data-lucide="send" class="me-2" aria-hidden="true"></i>{% translate "Send Message" %}
                             </button>
                         </div>
                     </form>
@@ -319,7 +320,7 @@
     <!-- FAQ Section -->
     <div class="row mt-5">
         <div class="col-12">
-            <h3 class="mb-4">Frequently Asked Questions</h3>
+            <h3 class="mb-4">{% translate "Frequently Asked Questions" %}</h3>
             <div class="accordion" id="contactFAQ">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">

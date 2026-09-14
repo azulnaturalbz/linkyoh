@@ -1,0 +1,42 @@
+[
+  {
+    "language": "en",
+    "javascript": true,
+    "keyboard": "pass",
+    "smartGET": "pass",
+    "referenceDropdowns": "pass",
+    "listingForm": "pass",
+    "profileEditor": "pass",
+    "helpNavigation": "pass"
+  },
+  {
+    "language": "en",
+    "javascript": false,
+    "keyboard": "pass",
+    "smartGET": "pass",
+    "referenceDropdowns": "pass",
+    "listingForm": "pass",
+    "profileEditor": "pass",
+    "helpNavigation": "pass"
+  },
+  {
+    "language": "es",
+    "javascript": true,
+    "keyboard": "pass",
+    "smartGET": "pass",
+    "referenceDropdowns": "pass",
+    "listingForm": "pass",
+    "profileEditor": "pass",
+    "helpNavigation": "pass"
+  },
+  {
+    "language": "es",
+    "javascript": false,
+    "keyboard": "pass",
+    "smartGET": "pass",
+    "referenceDropdowns": "pass",
+    "listingForm": "pass",
+    "profileEditor": "pass",
+    "helpNavigation": "pass"
+  }
+]

@@ -1772,6 +1772,9 @@ def send_message(request, conversation_id):
             'files', 'mentioned_gigs'
         ).get(pk=message.pk)
 
+        if not request.headers.get('HX-Request'):
+            return redirect('messaging_unified_with_conversation', conversation_id=conversation.pk)
+
         # Return the new message HTML
         return render(request, 'messaging/partials/message.html', {
             'message': message,
@@ -1902,6 +1905,9 @@ def send_first_message(request):
             user=request.user,
             ip_address=_get_client_ip(request)
         )
+
+    if not request.headers.get('HX-Request'):
+        return redirect('messaging_unified_with_conversation', conversation_id=conversation.pk)
 
     response = HttpResponse(status=204)
     response['HX-Redirect'] = reverse('messaging_unified_with_conversation', kwargs={'conversation_id': conversation.pk})

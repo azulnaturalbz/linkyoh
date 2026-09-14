@@ -485,3 +485,348 @@ msgstr "Banca"
 
 msgid "Real Estate"
 msgstr "Bienes raíces"
+
+msgid "Welcome back"
+msgstr "Bienvenido de nuevo"
+
+msgid "Manage your profile, services and conversations."
+msgstr "Administra tu perfil, servicios y conversaciones."
+
+msgid "Your username and password did not match. Please try again."
+msgstr "El usuario y la contraseña no coinciden. Inténtalo de nuevo."
+
+msgid "Username"
+msgstr "Nombre de usuario"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Repeat password"
+msgstr "Repite la contraseña"
+
+msgid "Phone number"
+msgstr "Número de teléfono"
+
+msgid "Forgot your password?"
+msgstr "¿Olvidaste tu contraseña?"
+
+msgid "New to Linkyoh?"
+msgstr "¿Primera vez en Linkyoh?"
+
+msgid "Claim your business, keep your details current and connect with customers in Belize."
+msgstr "Reclama tu negocio, mantén tus datos actualizados y conecta con clientes en Belice."
+
+msgid "Please correct the errors below."
+msgstr "Corrige los errores indicados."
+
+msgid "Verification method"
+msgstr "Método de verificación"
+
+msgid "We will send a verification code to your phone."
+msgstr "Enviaremos un código de verificación a tu teléfono."
+
+msgid "By creating an account, you agree to our"
+msgstr "Al crear una cuenta, aceptas nuestros"
+
+msgid "and"
+msgstr "y"
+
+msgid "Create my account"
+msgstr "Crear mi cuenta"
+
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
+
+msgid "Reset your password"
+msgstr "Restablece tu contraseña"
+
+msgid "Enter your account email. We will send a password reset link if an account matches."
+msgstr "Introduce el correo de tu cuenta. Si coincide con una cuenta, enviaremos un enlace para restablecer la contraseña."
+
+msgid "Send reset link"
+msgstr "Enviar enlace"
+
+msgid "Back to sign in"
+msgstr "Volver a iniciar sesión"
+
+msgid "Change your password"
+msgstr "Cambia tu contraseña"
+
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+msgid "This reset link is invalid or has expired."
+msgstr "Este enlace no es válido o ha caducado."
+
+msgid "Request a new link"
+msgstr "Solicitar otro enlace"
+
+msgid "My account"
+msgstr "Mi cuenta"
+
+msgid "Add a service"
+msgstr "Añadir un servicio"
+
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+msgid "Notifications"
+msgstr "Notificaciones"
+
+msgid "Sign out"
+msgstr "Cerrar sesión"
+
+msgid "Linkyoh Help Center"
+msgstr "Centro de ayuda de Linkyoh"
+
+msgid "How can we help you today?"
+msgstr "¿Cómo podemos ayudarte?"
+
+msgid "Getting Started"
+msgstr "Primeros pasos"
+
+msgid "Finding Services"
+msgstr "Encontrar servicios"
+
+msgid "Your Profile"
+msgstr "Tu perfil"
+
+msgid "Your Dashboard"
+msgstr "Tu panel"
+
+msgid "Metrics & Analytics"
+msgstr "Métricas y análisis"
+
+msgid "Frequently Asked Questions"
+msgstr "Preguntas frecuentes"
+
+msgid "Need More Help?"
+msgstr "¿Necesitas más ayuda?"
+
+msgid "Contact Support"
+msgstr "Contactar con soporte"
+
+msgid "View FAQ"
+msgstr "Ver preguntas frecuentes"
+
+msgid "Profile Guide"
+msgstr "Guía del perfil"
+
+msgid "Dashboard Guide"
+msgstr "Guía del panel"
+
+msgid "Metrics Guide"
+msgstr "Guía de métricas"
+
+msgid "Search & Filter Guide"
+msgstr "Guía de búsqueda y filtros"
+
+msgid "How to Add a Gig"
+msgstr "Cómo añadir un servicio"
+
+msgid "Contents"
+msgstr "Contenido"
+
+msgid "Create a Business Listing"
+msgstr "Crear un anuncio de negocio"
+
+msgid "Edit Business Listing"
+msgstr "Editar anuncio de negocio"
+
+msgid "Basic Info"
+msgstr "Datos básicos"
+
+msgid "Basic Information"
+msgstr "Información básica"
+
+msgid "Images"
+msgstr "Imágenes"
+
+msgid "Contact Info"
+msgstr "Contacto"
+
+msgid "Contact Information"
+msgstr "Información de contacto"
+
+msgid "Service Areas"
+msgstr "Zonas de servicio"
+
+msgid "Listing Title"
+msgstr "Título del anuncio"
+
+msgid "Subcategory"
+msgstr "Subcategoría"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Pricing Information"
+msgstr "Información de precios"
+
+msgid "Price"
+msgstr "Precio"
+
+msgid "Phone Number"
+msgstr "Número de teléfono"
+
+msgid "Location Information"
+msgstr "Ubicación"
+
+msgid "Primary Address"
+msgstr "Dirección principal"
+
+msgid "Address Line 2"
+msgstr "Segunda línea de dirección"
+
+msgid "Media"
+msgstr "Multimedia"
+
+msgid "Main Image"
+msgstr "Imagen principal"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+msgid "Save Profile"
+msgstr "Guardar perfil"
+
+msgid "Edit Profile"
+msgstr "Editar perfil"
+
+msgid "Basic"
+msgstr "Básico"
+
+msgid "Social"
+msgstr "Redes"
+
+msgid "Individual"
+msgstr "Individual"
+
+msgid "Business"
+msgstr "Negocio"
+
+msgid "My Gigs"
+msgstr "Mis servicios"
+
+msgid "Create New Gig"
+msgstr "Crear servicio"
+
+msgid "Active"
+msgstr "Activo"
+
+msgid "Inactive"
+msgstr "Inactivo"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "View Details"
+msgstr "Ver detalles"
+
+msgid "Claim This Listing"
+msgstr "Reclamar este anuncio"
+
+msgid "Claim Listing"
+msgstr "Reclamar anuncio"
+
+msgid "About Claiming a Listing"
+msgstr "Acerca de las reclamaciones"
+
+msgid "Submit Claim"
+msgstr "Enviar reclamación"
+
+msgid "Unread only"
+msgstr "Solo sin leer"
+
+msgid "Mark all as read"
+msgstr "Marcar todo como leído"
+
+msgid "No notifications yet"
+msgstr "Aún no hay notificaciones"
+
+msgid "You don't have any notifications at the moment."
+msgstr "No tienes notificaciones por el momento."
+
+msgid "You'll receive notifications for:"
+msgstr "Recibirás notificaciones sobre:"
+
+msgid "No conversations yet"
+msgstr "Aún no hay conversaciones"
+
+msgid "Select a conversation"
+msgstr "Selecciona una conversación"
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Send Message"
+msgstr "Enviar mensaje"
+
+msgid "Required"
+msgstr "Obligatorio"
+
+msgid "Optional"
+msgstr "Opcional"
+
+msgid "Plumber"
+msgstr "Plomero"
+
+msgid "Cabinet Making"
+msgstr "Fabricación de gabinetes"
+
+msgid "Woodworking"
+msgstr "Carpintería"
+
+msgid "Publish Listing"
+msgstr "Publicar anuncio"
+
+msgid "Sub Category"
+msgstr "Subcategoría"
+
+msgid "Pricing Option"
+msgstr "Opción de precio"
+
+msgid "Call for pricing details"
+msgstr "Consultar precio por teléfono"
+
+msgid "Main Phone"
+msgstr "Teléfono principal"
+
+msgid "Address 1"
+msgstr "Dirección principal"
+
+msgid "Address 2"
+msgstr "Segunda línea de dirección"
+
+msgid "Gig Title"
+msgstr "Título del servicio"
+
+msgid "Edit a Business Listing"
+msgstr "Editar un anuncio de negocio"
+
+msgid "Message"
+msgstr "Mensaje"
+
+msgid "Attach a file"
+msgstr "Adjuntar archivo"
+
+msgid "Mention a service"
+msgstr "Mencionar un servicio"
+
+msgid "Mark as read"
+msgstr "Marcar como leído"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Message not sent. Your draft is saved here; please try again."
+msgstr "Mensaje no enviado. Tu borrador sigue aquí; inténtalo de nuevo."

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}Frequently Asked Questions | Linkyoh Help{% endblock %}
@@ -6,7 +7,7 @@
 {% block head %}
 <style>
     .help-header {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "lab/assets/linkyoh-belize-banner.png" %}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -110,12 +111,12 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h1 class="display-4 mb-3">Frequently Asked Questions</h1>
+                <h1 class="display-4 mb-3">{% translate "Frequently Asked Questions" %}</h1>
                 <p class="lead mb-0">Find answers to common questions about using Linkyoh</p>
             </div>
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                 <a href="{% url 'help_center' %}" class="btn btn-success btn-lg">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Help Center
+                    <i  data-lucide="arrow-left" class="me-2" aria-hidden="true"></i>Back to Help Center
                 </a>
             </div>
         </div>
@@ -129,7 +130,7 @@
             <div class="search-box">
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0">
-                        <i class="fas fa-search text-primary"></i>
+                        <i  data-lucide="search" class="text-primary" aria-hidden="true"></i>
                     </span>
                     <input type="text" class="form-control border-start-0" id="faqSearch" placeholder="Search for questions...">
                 </div>
@@ -142,7 +143,7 @@
         <div class="col-lg-3 mb-4">
             <div class="card sticky-top" style="top: 6rem; z-index: 999;">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Categories</h5>
+                    <h5 class="mb-0"><i  data-lucide="list" class="me-2" aria-hidden="true"></i>Categories</h5>
                 </div>
                 <div class="card-body p-0">
                     <nav class="nav flex-column nav-pills p-3 help-sidebar-nav">
@@ -161,12 +162,12 @@
         <div class="col-lg-9">
             <div class="help-card">
                 <div class="card-header">
-                    <h4 class="mb-0"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h4>
+                    <h4 class="mb-0"><i  data-lucide="circle-help" class="me-2" aria-hidden="true"></i>{% translate "Frequently Asked Questions" %}</h4>
                 </div>
                 <div class="card-body">
                     <!-- Account & Profile Section -->
                     <div class="help-section" id="account">
-                        <h2 class="help-section-title"><i class="fas fa-user-circle me-2"></i>Account & Profile</h2>
+                        <h2 class="help-section-title"><i  data-lucide="circle-user-round" class="me-2" aria-hidden="true"></i>Account & Profile</h2>
                         
                         <div class="accordion" id="accountAccordion">
                             <div class="accordion-item">
@@ -273,7 +274,7 @@
 
                     <!-- Creating & Managing Gigs Section -->
                     <div class="help-section" id="gigs">
-                        <h2 class="help-section-title"><i class="fas fa-clipboard-list me-2"></i>Creating & Managing Gigs</h2>
+                        <h2 class="help-section-title"><i  data-lucide="clipboard-list" class="me-2" aria-hidden="true"></i>Creating & Managing Gigs</h2>
                         
                         <div class="accordion" id="gigsAccordion">
                             <div class="accordion-item">
@@ -292,7 +293,7 @@
                                             <li>Add images, contact information, and service areas (optional)</li>
                                             <li>Click "Publish Gig" to make your gig live</li>
                                         </ol>
-                                        <p>For detailed guidance on creating gigs, check out our <a href="{% url 'help_add_gig' %}">How to Add a Gig</a> guide.</p>
+                                        <p>For detailed guidance on creating gigs, check out our <a href="{% url 'help_add_gig' %}">{% translate "How to Add a Gig" %}</a> guide.</p>
                                     </div>
                                 </div>
                             </div>
@@ -372,7 +373,7 @@
                                             <li>Share your gig links on social media or with your network</li>
                                             <li>Respond promptly to inquiries to build a good reputation</li>
                                         </ul>
-                                        <p>For more detailed strategies, check out our <a href="{% url 'help_metrics' %}">Metrics Guide</a>.</p>
+                                        <p>For more detailed strategies, check out our <a href="{% url 'help_metrics' %}">{% translate "Metrics Guide" %}</a>.</p>
                                     </div>
                                 </div>
                             </div>
@@ -381,7 +382,7 @@
 
                     <!-- Searching & Browsing Section -->
                     <div class="help-section" id="search">
-                        <h2 class="help-section-title"><i class="fas fa-search me-2"></i>Searching & Browsing</h2>
+                        <h2 class="help-section-title"><i  data-lucide="search" class="me-2" aria-hidden="true"></i>Searching & Browsing</h2>
                         
                         <div class="accordion" id="searchAccordion">
                             <div class="accordion-item">
@@ -486,7 +487,7 @@
 
                     <!-- Payments & Pricing Section -->
                     <div class="help-section" id="payments">
-                        <h2 class="help-section-title"><i class="fas fa-dollar-sign me-2"></i>Payments & Pricing</h2>
+                        <h2 class="help-section-title"><i  data-lucide="dollar-sign" class="me-2" aria-hidden="true"></i>Payments & Pricing</h2>
                         
                         <div class="accordion" id="paymentsAccordion">
                             <div class="accordion-item">
@@ -575,7 +576,7 @@
 
                     <!-- Technical Issues Section -->
                     <div class="help-section" id="technical">
-                        <h2 class="help-section-title"><i class="fas fa-wrench me-2"></i>Technical Issues</h2>
+                        <h2 class="help-section-title"><i  data-lucide="wrench" class="me-2" aria-hidden="true"></i>Technical Issues</h2>
                         
                         <div class="accordion" id="technicalAccordion">
                             <div class="accordion-item">
@@ -663,7 +664,7 @@
 
                     <!-- Policies & Guidelines Section -->
                     <div class="help-section" id="policies">
-                        <h2 class="help-section-title"><i class="fas fa-shield-alt me-2"></i>Policies & Guidelines</h2>
+                        <h2 class="help-section-title"><i  data-lucide="shield-check" class="me-2" aria-hidden="true"></i>Policies & Guidelines</h2>
                         
                         <div class="accordion" id="policiesAccordion">
                             <div class="accordion-item">
@@ -764,7 +765,7 @@
                         <h4 class="mb-4">Still have questions?</h4>
                         <p class="mb-4">If you couldn't find the answer you were looking for, our support team is here to help.</p>
                         <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">
-                            <i class="fas fa-envelope me-2"></i>Contact Support
+                            <i  data-lucide="mail" class="me-2" aria-hidden="true"></i>{% translate "Contact Support" %}
                         </a>
                     </div>
                 </div>

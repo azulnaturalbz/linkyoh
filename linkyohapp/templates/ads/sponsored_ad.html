@@ -1,7 +1,8 @@
+{% load i18n %}
 {% load static %}
 <div class="card gig-card sponsored-ad h-100" data-ad-id="{{ ad.id }}" data-impression-id="{{ impression_id }}">
     <div class="sponsored-badge">
-        <i class="fas fa-star me-1"></i> Sponsored
+        <i  data-lucide="star" class="me-1" aria-hidden="true"></i> Sponsored
     </div>
     
     {% if ad.image %}
@@ -32,8 +33,8 @@
     </div>
     
     <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-        <small class="text-muted"><i class="far fa-clock me-1"></i> Limited Time</small>
-        <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="btn btn-sm btn-outline-primary">View Details</a>
+        <small class="text-muted"><i  data-lucide="clock" class="me-1" aria-hidden="true"></i> Limited Time</small>
+        <a href="{% url 'ad_click' ad.slug %}" target="_blank" class="btn btn-sm btn-outline-primary">{% translate "View Details" %}</a>
     </div>
 </div>
 

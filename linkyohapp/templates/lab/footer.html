@@ -1,0 +1,12 @@
+{% load i18n static %}
+<footer><div class="wrap footer-intro">{% include 'lab/brand.html' %}<span>{% translate "Local expertise. Connected by Silvatech." %}</span></div>
+{% include 'includes/ecosystem_strip.html' %}
+<div class="legal wrap"><a href="https://silvatech.bz/?utm_source=linkyoh&amp;utm_medium=ecosystem&amp;utm_campaign=powered_by" data-track="hub_clickout" rel="noreferrer">{% translate "Powered by Silvatech" %}&trade;<i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+<nav class="footer-links" aria-label="{% translate 'Help and policies' %}"><a href="{% url 'help_center' %}">{% translate "Help" %}</a><a href="{% url 'contact' %}">{% translate "Contact" %}</a><a href="{% url 'terms' %}">{% translate "Terms" %}</a><a href="{% url 'privacy' %}">{% translate "Privacy" %}</a></nav>
+<p>&copy; 2026 Silvatech&trade;. Silvatech, WOP, MarketDay, Linkyoh, Chillbout, Visit Belize and Belize Logistics are trademarks of Silvatech, Belize City, Belize.</p></div></footer>
+<nav class="mobile-dock" aria-label="{% translate 'Quick navigation' %}">
+<a href="{% url 'home' %}?lang={{ discovery_language }}" {% if request.resolver_match.url_name == 'home' %}aria-current="page"{% endif %}><i data-lucide="house" aria-hidden="true"></i><span>{% translate "Home" %}</span></a>
+<a href="{% url 'search' %}?lang={{ discovery_language }}" {% if request.resolver_match.url_name == 'search' %}aria-current="page"{% endif %}><i data-lucide="search" aria-hidden="true"></i><span>{% translate "Search" %}</span></a>
+<a href="{% url 'home' %}?lang={{ discovery_language }}#categories"><i data-lucide="layout-grid" aria-hidden="true"></i><span>{% translate "Categories" %}</span></a>
+{% if request.user.is_authenticated %}<a href="{{ request.user.profile.get_absolute_url }}?lang={{ discovery_language }}"><i data-lucide="user-round" aria-hidden="true"></i><span>{% translate "My profile" %}</span></a>{% else %}<a href="{% url 'home' %}?lang={{ discovery_language }}#pros"><i data-lucide="briefcase-business" aria-hidden="true"></i><span>{% translate "For Pros" %}</span></a>{% endif %}
+</nav>

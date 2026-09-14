@@ -1,27 +1,22 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}Notifications{% endblock %}
 
-{% block content %}
+{% block page %}
 <div class="container py-4" x-data="{ showUnreadOnly: false }">
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="h3">Notifications</h1>
-                <div class="d-flex align-items-center">
-                    <div class="form-check form-switch me-3">
+            <div class="notification-toolbar mb-4">
+                <h1 class="h3">{% translate "Notifications" %}</h1>
+                <div class="notification-tools">
+                    <div class="form-check form-switch me-3 js-only">
                         <input class="form-check-input" type="checkbox" id="unreadOnlySwitch" x-model="showUnreadOnly">
-                        <label class="form-check-label" for="unreadOnlySwitch">Unread only</label>
+                        <label class="form-check-label" for="unreadOnlySwitch">{% translate "Unread only" %}</label>
                     </div>
                     {% if notifications %}
-                    <a href="{% url 'mark_all_notifications_as_read' %}" 
-                       class="btn btn-outline-primary btn-sm"
-                       hx-post="{% url 'mark_all_notifications_as_read' %}"
-                       hx-target="#notification-list"
-                       hx-swap="outerHTML">
-                        <i class="fas fa-check-double me-1"></i> Mark all as read
-                    </a>
+                    <form method="post" action="{% url 'mark_all_notifications_as_read' %}">{% csrf_token %}<button type="submit" class="btn btn-outline-primary btn-sm"><i data-lucide="check-check" aria-hidden="true"></i> {% translate "Mark all as read" %}</button></form>
                     {% endif %}
                 </div>
             </div>
@@ -31,7 +26,7 @@
                  hx-trigger="every 60s"
                  hx-swap="innerHTML"
                  hx-indicator="#notification-loading">
-                <div id="notification-loading" class="htmx-indicator text-center py-4">
+                <div id="notification-loading" class="htmx-indicator text-center py-4" role="status">
                     <div class="spinner-border text-primary" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
@@ -45,7 +40,7 @@
 </div>
 {% endblock %}
 
-{% block extra_css %}
+{% block head %}
 <style>
     .notification-icon {
         width: 40px;

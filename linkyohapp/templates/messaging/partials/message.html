@@ -8,19 +8,19 @@
             <div class="message-file">
                 <div class="message-file-icon">
                     {% if file.file_type == 'application/pdf' %}
-                        <i class="far fa-file-pdf"></i>
+                        <i  data-lucide="file-text" class="" aria-hidden="true"></i>
                     {% elif file.file_type == 'application/msword' or file.file_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %}
-                        <i class="far fa-file-word"></i>
+                        <i  data-lucide="file-text" class="" aria-hidden="true"></i>
                     {% elif file.file_type == 'image/jpeg' or file.file_type == 'image/png' or file.file_type == 'image/gif' %}
-                        <i class="far fa-file-image"></i>
+                        <i  data-lucide="file-image" class="" aria-hidden="true"></i>
                     {% elif file.file_type == 'audio/mpeg' %}
-                        <i class="far fa-file-audio"></i>
+                        <i  data-lucide="file-audio" class="" aria-hidden="true"></i>
                     {% elif file.file_type == 'video/mp4' %}
-                        <i class="far fa-file-video"></i>
+                        <i  data-lucide="file-video" class="" aria-hidden="true"></i>
                     {% elif file.file_type == 'application/zip' %}
-                        <i class="far fa-file-archive"></i>
+                        <i  data-lucide="file-archive" class="" aria-hidden="true"></i>
                     {% else %}
-                        <i class="far fa-file"></i>
+                        <i  data-lucide="file" class="" aria-hidden="true"></i>
                     {% endif %}
                 </div>
                 <div class="message-file-info">
@@ -36,7 +36,7 @@
                     </p>
                 </div>
                 <a href="{{ file.get_file_url }}" class="btn btn-sm btn-outline-primary" target="_blank">
-                    <i class="fas fa-download"></i>
+                    <i  data-lucide="download" class="" aria-hidden="true"></i>
                 </a>
             </div>
         {% endfor %}
@@ -50,7 +50,7 @@
                 </div>
                 <div class="gig-mention-category">
                     <small class="text-muted">
-                        <i class="fas fa-tag me-1"></i> {{ gig.category.category }} > {{ gig.sub_category.subcategory }}
+                        <i  data-lucide="tag" class="me-1" aria-hidden="true"></i> {{ gig.category.category }} > {{ gig.sub_category.subcategory }}
                     </small>
                 </div>
             </div>
@@ -60,9 +60,9 @@
     <div class="message-time">
         {{ message.created_at|date:"M d, Y g:i A" }}
         {% if message.sender == user and message.is_read %}
-            <i class="fas fa-check-double text-primary ms-1" title="Read"></i>
+            <i  data-lucide="check-check" class="text-primary ms-1" aria-hidden="true" title="Read"></i>
         {% elif message.sender == user %}
-            <i class="fas fa-check text-muted ms-1" title="Sent"></i>
+            <i  data-lucide="check" class="text-muted ms-1" aria-hidden="true" title="Sent"></i>
         {% endif %}
     </div>
 </div>

@@ -1,0 +1,16 @@
+{% load i18n static %}
+<a class="skip-link" href="#body">{% translate "Skip to content" %}</a>
+<header class="site-header"><div class="wrap nav-inner">
+{% include 'lab/brand.html' %}
+<nav class="desktop-nav" aria-label="{% translate 'Menu' %}">
+<a href="{% url 'search' %}?lang={{ discovery_language }}">{% translate "Find services" %}</a>
+<a class="text-link" href="{% url 'home' %}?lang={{ discovery_language }}#pros">Linkyoh for Pros<i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+{% if request.user.is_authenticated %}<details class="account-navigation"><summary>{% translate "My account" %}<i data-lucide="chevron-down" aria-hidden="true"></i></summary><nav aria-label="{% translate 'My account' %}">{% include 'lab/account_links.html' %}</nav></details>{% else %}<a href="{% url 'login' %}">{% translate "Sign in" %}</a>{% endif %}
+</nav>
+<div class="nav-tools"><nav class="language-switch" aria-label="{% translate 'Language' %}">
+<a href="{{ language_en_url }}" lang="en" {% if discovery_language == 'en' %}aria-current="true"{% endif %}>EN</a>
+<a href="{{ language_es_url }}" lang="es" {% if discovery_language == 'es' %}aria-current="true"{% endif %}>ES</a>
+</nav><details class="mobile-navigation"><summary class="icon-button" aria-label="{% translate 'Menu' %}" title="{% translate 'Menu' %}"><i data-lucide="menu" aria-hidden="true"></i><noscript>{% translate "Menu" %}</noscript></summary>
+<nav aria-label="{% translate 'Menu' %}"><a href="{% url 'search' %}?lang={{ discovery_language }}">{% translate "Find services" %}</a><a href="{% url 'home' %}?lang={{ discovery_language }}#pros">Linkyoh for Pros</a>
+{% if request.user.is_authenticated %}{% include 'lab/account_links.html' %}{% else %}<a href="{% url 'login' %}">{% translate "Sign in" %}</a><a href="{% url 'register' %}">{% translate "Create an account" %}</a>{% endif %}</nav></details></div>
+</div></header>

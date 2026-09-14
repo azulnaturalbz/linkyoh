@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}Managing Your Profile | Linkyoh Help{% endblock %}
@@ -6,7 +7,7 @@
 {% block head %}
 <style>
     .help-header {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "img/linkyoh_banner_web.png" %}');
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('{% static "lab/assets/linkyoh-belize-banner.png" %}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -135,11 +136,11 @@
             <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                 {% if user.is_authenticated %}
                 <a href="{{ user.profile.get_absolute_url }}" class="btn btn-success btn-lg">
-                    <i class="fas fa-user-circle me-2"></i>View My Profile
+                    <i  data-lucide="circle-user-round" class="me-2" aria-hidden="true"></i>View My Profile
                 </a>
                 {% else %}
                 <a href="{% url 'login' %}" class="btn btn-success btn-lg">
-                    <i class="fas fa-sign-in-alt me-2"></i>Login to Manage Profile
+                    <i  data-lucide="log-in" class="me-2" aria-hidden="true"></i>Login to Manage Profile
                 </a>
                 {% endif %}
             </div>
@@ -153,7 +154,7 @@
         <div class="col-lg-3 mb-4">
             <div class="card sticky-top" style="top: 6rem; z-index: 999;">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Contents</h5>
+                    <h5 class="mb-0"><i  data-lucide="list" class="me-2" aria-hidden="true"></i>{% translate "Contents" %}</h5>
                 </div>
                 <div class="card-body p-0">
                     <nav class="nav flex-column nav-pills p-3 help-sidebar-nav">
@@ -161,7 +162,7 @@
                         <a class="nav-link" href="#accessing-profile">Accessing Your Profile</a>
                         <a class="nav-link" href="#profile-photo">Profile Photo</a>
                         <a class="nav-link" href="#personal-info">Personal Information</a>
-                        <a class="nav-link" href="#contact-info">Contact Information</a>
+                        <a class="nav-link" href="#contact-info">{% translate "Contact Information" %}</a>
                         <a class="nav-link" href="#privacy">Privacy Settings</a>
                         <a class="nav-link" href="#tips">Profile Tips</a>
                         <a class="nav-link" href="#faq">FAQ</a>
@@ -174,12 +175,12 @@
         <div class="col-lg-9">
             <div class="help-card">
                 <div class="card-header">
-                    <h4 class="mb-0"><i class="fas fa-user-circle me-2"></i>Profile Management Guide</h4>
+                    <h4 class="mb-0"><i  data-lucide="circle-user-round" class="me-2" aria-hidden="true"></i>Profile Management Guide</h4>
                 </div>
                 <div class="card-body">
                     <!-- Introduction Section -->
                     <div class="help-section" id="introduction">
-                        <h2 class="help-section-title"><i class="fas fa-info-circle me-2"></i>Introduction</h2>
+                        <h2 class="help-section-title"><i  data-lucide="info" class="me-2" aria-hidden="true"></i>Introduction</h2>
                         <p>Your Linkyoh profile is your digital identity on our platform. A complete, professional profile helps build trust with potential customers and increases the visibility of your services. This guide will help you create and maintain an effective profile that showcases your expertise and reliability.</p>
                         <p>Your profile includes:</p>
                         <ul>
@@ -193,7 +194,7 @@
 
                     <!-- Accessing Your Profile Section -->
                     <div class="help-section" id="accessing-profile">
-                        <h2 class="help-section-title"><i class="fas fa-sign-in-alt me-2"></i>Accessing Your Profile</h2>
+                        <h2 class="help-section-title"><i  data-lucide="log-in" class="me-2" aria-hidden="true"></i>Accessing Your Profile</h2>
                         <p>There are several ways to access your profile on Linkyoh:</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>From the Navigation Menu</h5>
@@ -208,14 +209,14 @@
                         <code>https://linkyoh.com/belize/providers/[your-profile-name]-[your-user-id]/</code>
                         
                         <div class="tip-card mt-4">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">Bookmark your profile page for quick access. This is especially useful if you frequently update your information or check your gig statistics.</p>
                         </div>
                     </div>
 
                     <!-- Profile Photo Section -->
                     <div class="help-section" id="profile-photo">
-                        <h2 class="help-section-title"><i class="fas fa-camera me-2"></i>Profile Photo</h2>
+                        <h2 class="help-section-title"><i  data-lucide="camera" class="me-2" aria-hidden="true"></i>Profile Photo</h2>
                         <p>Your profile photo is often the first impression potential customers have of you. A professional, clear photo can significantly increase trust and engagement.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Adding or Changing Your Profile Photo</h5>
@@ -232,7 +233,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title text-success"><i class="fas fa-check-circle me-2"></i>Do</h5>
+                                        <h5 class="card-title text-success"><i  data-lucide="circle-check" class="me-2" aria-hidden="true"></i>Do</h5>
                                         <ul class="mb-0">
                                             <li>Use a clear, well-lit photo</li>
                                             <li>Show your face clearly (headshot or head-and-shoulders)</li>
@@ -246,7 +247,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title text-danger"><i class="fas fa-times-circle me-2"></i>Don't</h5>
+                                        <h5 class="card-title text-danger"><i  data-lucide="circle-x" class="me-2" aria-hidden="true"></i>Don't</h5>
                                         <ul class="mb-0">
                                             <li>Use blurry or low-quality images</li>
                                             <li>Use group photos where you're not clearly identifiable</li>
@@ -260,14 +261,14 @@
                         </div>
                         
                         <div class="tip-card">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">For service providers, consider using a photo that relates to your profession. For example, if you're a chef, a photo of you in your chef's uniform can help establish credibility.</p>
                         </div>
                     </div>
 
                     <!-- Personal Information Section -->
                     <div class="help-section" id="personal-info">
-                        <h2 class="help-section-title"><i class="fas fa-id-card me-2"></i>Personal Information</h2>
+                        <h2 class="help-section-title"><i  data-lucide="contact" class="me-2" aria-hidden="true"></i>Personal Information</h2>
                         <p>Your personal information helps customers learn more about you and your expertise. Providing complete and accurate information builds trust and credibility.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Updating Your Personal Information</h5>
@@ -284,7 +285,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Tips</th>
                                     </tr>
                                 </thead>
@@ -325,7 +326,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-check-circle me-2 text-success"></i>Include</h5>
+                                        <h5 class="card-title"><i  data-lucide="circle-check" class="me-2 text-success" aria-hidden="true"></i>Include</h5>
                                         <ul class="mb-0">
                                             <li>Your professional experience</li>
                                             <li>Relevant qualifications or certifications</li>
@@ -339,7 +340,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-times-circle me-2 text-danger"></i>Avoid</h5>
+                                        <h5 class="card-title"><i  data-lucide="circle-x" class="me-2 text-danger" aria-hidden="true"></i>Avoid</h5>
                                         <ul class="mb-0">
                                             <li>Spelling and grammar errors</li>
                                             <li>Exaggerating your qualifications</li>
@@ -355,7 +356,7 @@
 
                     <!-- Contact Information Section -->
                     <div class="help-section" id="contact-info">
-                        <h2 class="help-section-title"><i class="fas fa-address-book me-2"></i>Contact Information</h2>
+                        <h2 class="help-section-title"><i  data-lucide="contact" class="me-2" aria-hidden="true"></i>{% translate "Contact Information" %}</h2>
                         <p>Providing accurate contact information makes it easy for potential customers to reach you. You can control which contact details are visible to others.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Managing Contact Information</h5>
@@ -373,7 +374,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Field</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Privacy Options</th>
                                     </tr>
                                 </thead>
@@ -384,7 +385,7 @@
                                         <td>Public, Registered Users Only, or Private</td>
                                     </tr>
                                     <tr>
-                                        <td>Phone Number</td>
+                                        <td>{% translate "Phone Number" %}</td>
                                         <td>Your primary contact number</td>
                                         <td>Public, Registered Users Only, or Private</td>
                                     </tr>
@@ -403,14 +404,14 @@
                         </div>
                         
                         <div class="warning-card">
-                            <h5><i class="fas fa-exclamation-triangle me-2"></i>Important</h5>
+                            <h5><i  data-lucide="triangle-alert" class="me-2" aria-hidden="true"></i>Important</h5>
                             <p class="mb-0">While you can control the visibility of your contact information on your profile, remember that any contact information you include in your gig listings will be visible to anyone viewing those listings.</p>
                         </div>
                     </div>
 
                     <!-- Privacy Settings Section -->
                     <div class="help-section" id="privacy">
-                        <h2 class="help-section-title"><i class="fas fa-shield-alt me-2"></i>Privacy Settings</h2>
+                        <h2 class="help-section-title"><i  data-lucide="shield-check" class="me-2" aria-hidden="true"></i>Privacy Settings</h2>
                         <p>Linkyoh gives you control over who can see your information. Understanding and using these settings helps you balance visibility with privacy.</p>
                         
                         <h5 class="mt-4 mb-3"><span class="step-number">1</span>Understanding Privacy Options</h5>
@@ -419,7 +420,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th>Privacy Level</th>
-                                        <th>Description</th>
+                                        <th>{% translate "Description" %}</th>
                                         <th>Recommended For</th>
                                     </tr>
                                 </thead>
@@ -453,21 +454,21 @@
                         </ol>
                         
                         <div class="tip-card">
-                            <h5><i class="fas fa-lightbulb me-2"></i>Pro Tip</h5>
+                            <h5><i  data-lucide="lightbulb" class="me-2" aria-hidden="true"></i>Pro Tip</h5>
                             <p class="mb-0">If you're using Linkyoh primarily for business purposes, setting most of your professional information to "Public" can help potential customers find and contact you more easily. For personal information, you may want to use more restrictive settings.</p>
                         </div>
                     </div>
 
                     <!-- Profile Tips Section -->
                     <div class="help-section" id="tips">
-                        <h2 class="help-section-title"><i class="fas fa-star me-2"></i>Profile Tips</h2>
+                        <h2 class="help-section-title"><i  data-lucide="star" class="me-2" aria-hidden="true"></i>Profile Tips</h2>
                         <p>Here are some tips to help you create a profile that stands out and builds trust with potential customers:</p>
                         
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-image me-2 text-primary"></i>Use a Professional Photo</h5>
+                                        <h5 class="card-title"><i  data-lucide="image" class="me-2 text-primary" aria-hidden="true"></i>Use a Professional Photo</h5>
                                         <p class="card-text">A clear, professional photo helps build trust. Avoid using logos unless you're representing a company.</p>
                                     </div>
                                 </div>
@@ -475,7 +476,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-user-check me-2 text-primary"></i>Complete All Fields</h5>
+                                        <h5 class="card-title"><i  data-lucide="user-check" class="me-2 text-primary" aria-hidden="true"></i>Complete All Fields</h5>
                                         <p class="card-text">Profiles with complete information appear more trustworthy and professional. Don't leave important fields empty.</p>
                                     </div>
                                 </div>
@@ -483,7 +484,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-certificate me-2 text-primary"></i>Highlight Credentials</h5>
+                                        <h5 class="card-title"><i  data-lucide="badge-check" class="me-2 text-primary" aria-hidden="true"></i>Highlight Credentials</h5>
                                         <p class="card-text">Mention relevant certifications, qualifications, or years of experience to establish credibility.</p>
                                     </div>
                                 </div>
@@ -491,7 +492,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-spell-check me-2 text-primary"></i>Check Spelling and Grammar</h5>
+                                        <h5 class="card-title"><i  data-lucide="spell-check" class="me-2 text-primary" aria-hidden="true"></i>Check Spelling and Grammar</h5>
                                         <p class="card-text">Errors can make your profile look unprofessional. Proofread everything before saving.</p>
                                     </div>
                                 </div>
@@ -499,7 +500,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-sync-alt me-2 text-primary"></i>Keep Information Updated</h5>
+                                        <h5 class="card-title"><i  data-lucide="refresh-cw" class="me-2 text-primary" aria-hidden="true"></i>Keep Information Updated</h5>
                                         <p class="card-text">Regularly review and update your profile to ensure all information is current and accurate.</p>
                                     </div>
                                 </div>
@@ -507,7 +508,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-phone-alt me-2 text-primary"></i>Provide Multiple Contact Options</h5>
+                                        <h5 class="card-title"><i  data-lucide="phone" class="me-2 text-primary" aria-hidden="true"></i>Provide Multiple Contact Options</h5>
                                         <p class="card-text">Give customers different ways to reach you, such as phone, email, and WhatsApp.</p>
                                     </div>
                                 </div>
@@ -517,7 +518,7 @@
 
                     <!-- FAQ Section -->
                     <div class="help-section" id="faq">
-                        <h2 class="help-section-title"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                        <h2 class="help-section-title"><i  data-lucide="circle-help" class="me-2" aria-hidden="true"></i>{% translate "Frequently Asked Questions" %}</h2>
                         
                         <div class="accordion" id="faqAccordion">
                             <div class="accordion-item">
@@ -601,11 +602,11 @@
                         <h4 class="mb-4">Ready to update your profile?</h4>
                         {% if user.is_authenticated %}
                         <a href="{{ user.profile.get_absolute_url }}" class="btn btn-success btn-lg">
-                            <i class="fas fa-user-edit me-2"></i>Edit My Profile
+                            <i  data-lucide="user-pen" class="me-2" aria-hidden="true"></i>Edit My Profile
                         </a>
                         {% else %}
                         <a href="{% url 'login' %}" class="btn btn-success btn-lg">
-                            <i class="fas fa-sign-in-alt me-2"></i>Login to Manage Profile
+                            <i  data-lucide="log-in" class="me-2" aria-hidden="true"></i>Login to Manage Profile
                         </a>
                         {% endif %}
                     </div>
