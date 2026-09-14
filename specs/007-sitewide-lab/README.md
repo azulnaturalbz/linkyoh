@@ -1,7 +1,8 @@
 # Sitewide Lab review
 
 Owner request: 2026-09-13 Belize time. Verified locally 2026-09-14 UTC on
-`codex/005-linkyoh-revamp-ui`. **HOLD for visual review and separate deployment go.**
+`codex/005-linkyoh-revamp-ui`. **Approved for app-only deployment on 2026-09-13
+Belize time; release verification is recorded separately in `release/README.md`.**
 This extends approved slice 3; it does not start claim slice 4 or modernization.
 
 ## Review
@@ -93,5 +94,8 @@ the preview to answer HTTP 200 before running them. Do not run QA against a publ
 host. PostgreSQL test reproduction uses the disposable network described in
 `../005-lab-discovery/README.md` and `postgres_check.py`, never a production DSN.
 
-No push, shared-host release, production mutation, claim transition, new Python
-dependency, WOP embedding or campaign activation is part of this delivery.
+The original local-review evidence above predates deployment authorization.
+Cristian subsequently approved the current styling/wordmark and app-only release.
+He named the generated plumbing character Kev for future Linkyoh marketing;
+see `docs/brand/KEV.md`. Claim transitions, new Python dependencies, WOP embedding
+and campaign activation remain outside this release.
