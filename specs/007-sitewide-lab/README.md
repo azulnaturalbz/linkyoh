@@ -62,8 +62,8 @@ screen readers, all WCAG criteria or every form submission combination.
 
 [Asset provenance](brand-review/README.md). The preview uses the actual black
 linked-chain wordmark from Stitch `Title-2.png`, at a bounded responsive size;
-the alternative blue mark is retained for review. This is a review choice, not a
-recorded final selection between the two logos. The new banner is illustrative
+the alternative blue mark is retained as design provenance. Cristian accepted
+the current preview for this release on 2026-09-13 Belize time. The new banner is illustrative
 brand artwork, not a photo proving anything about a real provider. User-uploaded
 provider media is untouched. The favicon and existing OG/social-image contract
 are deliberately unchanged pending the final brand/release review.

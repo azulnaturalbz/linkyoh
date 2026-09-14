@@ -1,0 +1,11 @@
+{
+  "state": "ROLLBACK_INDEPENDENTLY_VERIFIED",
+  "previous_image": "sha256:e252a3ce5593b3f43da9f84b445e43afbcd1b589fa225272ca839d8f7995d9c0",
+  "unchanged_neighbors": 24,
+  "stable_aliases": [
+    "linkyoh-web",
+    "linkyoh-web-1",
+    "web"
+  ],
+  "cause": "Guard incorrectly compared Docker ephemeral short container ID alias. Corrected to exclude only the exact current container ID and retain an exact stable alias allowlist."
+}

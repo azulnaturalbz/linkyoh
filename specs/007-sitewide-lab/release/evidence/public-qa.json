@@ -1,0 +1,4798 @@
+{
+  "utc": "2026-09-14T04:03:34.507Z",
+  "base": "https://linkyoh.com",
+  "views": [
+    {
+      "label": "home-en-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-en-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-en-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-en-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "category-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 134,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/belize/services/services-5/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/category_img/Services/category_ly_5.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "CollectionPage",
+              "@id": "https://linkyoh.com/belize/services/services-5/#collection",
+              "name": "Services Services in Belize | Linkyoh",
+              "description": "Browse Services services and local providers across Belize on Linkyoh, a Silvatech product.",
+              "url": "https://linkyoh.com/belize/services/services-5/",
+              "isPartOf": {
+                "@id": "https://linkyoh.com#website"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "subcategory-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 77,
+      "contrastFailures": [],
+      "checked": 2,
+      "canonical": "https://linkyoh.com/belize/services/services/wholesale-importer-476/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/category_img/Services/category_ly_5.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "CollectionPage",
+              "@id": "https://linkyoh.com/belize/services/services/wholesale-importer-476/#collection",
+              "name": "Wholesale Importer Services in Belize | Linkyoh",
+              "description": "Importer of wholesale goods and services.",
+              "url": "https://linkyoh.com/belize/services/services/wholesale-importer-476/",
+              "isPartOf": {
+                "@id": "https://linkyoh.com#website"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "login-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 38,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/login/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "register-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 57,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/register/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "help-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 167,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/help/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "about-en-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 72,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/about-us/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-en-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-en-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-en-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-en-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-en-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-en-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-en-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-en-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-en-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 141,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-en-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 48,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-en-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 100,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-en-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "en",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 123,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-es-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-es-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-es-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-es-320",
+      "status": 200,
+      "width": 320,
+      "documentWidth": 320,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "category-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 134,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/belize/services/services-5/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/category_img/Services/category_ly_5.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "CollectionPage",
+              "@id": "https://linkyoh.com/belize/services/services-5/#collection",
+              "name": "Services Services in Belize | Linkyoh",
+              "description": "Browse Services services and local providers across Belize on Linkyoh, a Silvatech product.",
+              "url": "https://linkyoh.com/belize/services/services-5/",
+              "isPartOf": {
+                "@id": "https://linkyoh.com#website"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "subcategory-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 77,
+      "contrastFailures": [],
+      "checked": 2,
+      "canonical": "https://linkyoh.com/belize/services/services/wholesale-importer-476/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/category_img/Services/category_ly_5.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "CollectionPage",
+              "@id": "https://linkyoh.com/belize/services/services/wholesale-importer-476/#collection",
+              "name": "Wholesale Importer Services in Belize | Linkyoh",
+              "description": "Importer of wholesale goods and services.",
+              "url": "https://linkyoh.com/belize/services/services/wholesale-importer-476/",
+              "isPartOf": {
+                "@id": "https://linkyoh.com#website"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "login-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 38,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/login/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "register-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 57,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/register/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "help-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 167,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/help/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "about-es-390",
+      "status": 200,
+      "width": 390,
+      "documentWidth": 390,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 72,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/about-us/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-es-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-es-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-es-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-es-768",
+      "status": 200,
+      "width": 768,
+      "documentWidth": 768,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-es-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 146,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-es-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 53,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-es-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 105,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-es-944",
+      "status": 200,
+      "width": 944,
+      "documentWidth": 944,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 128,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "home-es-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 141,
+      "contrastFailures": [],
+      "checked": 6,
+      "canonical": "https://linkyoh.com/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [
+        "search"
+      ],
+      "wordmark": true
+    },
+    {
+      "label": "results-es-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 48,
+      "contrastFailures": [],
+      "checked": 0,
+      "canonical": "https://linkyoh.com/search/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "provider-es-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 100,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+      "ogImage": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile",
+              "name": "Linkyoh AI Admin",
+              "description": "AI-assisted business listing curator for Belize",
+              "url": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/",
+              "image": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+              "knowsAbout": "Local service provider"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/#service",
+              "name": "Digi Belize - Mobile, Internet and TV Services",
+              "description": "National telecom provider offering mobile, home internet, DigiTV, home phone, business connectivity, online payments, and customer support across Belize.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/digi-belize-mobile-internet-and-tv-services-18/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/f49ebc2eeb2d46f2a756f6fdc7101ae4.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/#service",
+              "name": "Smart Belize - Mobile, Broadband and Fiber Services",
+              "description": "Telecommunications provider operated by Speednet, offering mobile plans, broadband, fiber-to-the-home, roaming, corporate services, device support, and nationwide customer care.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/smart-belize-mobile-broadband-and-fiber-services-19/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/a2a38fe089634917bcb3889dda1dce4a.jpg",
+              "serviceType": "Telecommunications",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/#service",
+              "name": "Belize Electricity Limited - Electricity Utility Services",
+              "description": "Electric utility provider for electricity service, customer care, bill payment support, outage information, e-service access, and corporate support for Belize customers.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/belize-electricity-limited-electricity-utility-services-20/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/bfa4945b87f4472eb3774af72af528c1.jpg",
+              "serviceType": "Utilities",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/#profile"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Linkyoh AI Admin",
+                  "item": "https://linkyoh.com/belize/providers/linkyoh-ai-admin-218/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    },
+    {
+      "label": "gig-es-1440",
+      "status": 200,
+      "width": 1440,
+      "documentWidth": 1440,
+      "lang": "es",
+      "overflow": [],
+      "brokenImages": [],
+      "textSamples": 123,
+      "contrastFailures": [],
+      "checked": 4,
+      "canonical": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+      "ogImage": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "schema": [
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://silvatech.bz#organization",
+              "name": "Silvatech",
+              "url": "https://silvatech.bz",
+              "sameAs": [
+                "https://silvatech.bz",
+                "https://visitbelize.silvatech.bz",
+                "https://chillbout.com",
+                "https://linkyoh.com",
+                "https://marketday.silvatech.bz",
+                "https://wop.silvatech.bz",
+                "https://payments.silvatech.bz",
+                "https://consulta.silvatech.bz",
+                "https://belizelogistics.com"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://linkyoh.com#website",
+              "name": "Linkyoh",
+              "url": "https://linkyoh.com",
+              "description": "Find local services and businesses across Belize. Browse categories, compare listings, contact providers, and claim your business on Linkyoh, a Silvatech product.",
+              "publisher": {
+                "@id": "https://silvatech.bz#organization"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://linkyoh.com/search/?param={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "LocalBusiness",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "knowsAbout": "Services",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2 1/2 Miles Philip Goldson Highway P.O. Box 557, Belize City, Belize",
+                "addressLocality": "Belize City",
+                "addressRegion": "Belize",
+                "addressCountry": "BZ"
+              },
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "telephone": "+5012230572",
+              "priceRange": "Call for pricing"
+            },
+            {
+              "@type": "Service",
+              "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#service",
+              "name": "GraceKennedy (Belize) Ltd.",
+              "description": "GraceKennedy (Belize) Ltd. is a Belize City food and beverage distribution company offering countrywide distribution of food and general grocery items.",
+              "url": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/",
+              "image": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+              "serviceType": "Wholesale Importer",
+              "areaServed": [
+                {
+                  "@type": "Place",
+                  "name": "Belize City, Belize"
+                }
+              ],
+              "provider": {
+                "@id": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/#business"
+              }
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://linkyoh.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://linkyoh.com/belize/services/services-5/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Wholesale Importer",
+                  "item": "https://linkyoh.com/belize/services/services/wholesale-importer-476/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "GraceKennedy (Belize) Ltd.",
+                  "item": "https://linkyoh.com/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "finderModes": [],
+      "wordmark": true
+    }
+  ],
+  "errors": [],
+  "journeys": [
+    {
+      "lang": "en",
+      "nojs": true,
+      "skip": true,
+      "menu": true,
+      "smartGet": true,
+      "district": "Cayo",
+      "empty": true
+    },
+    {
+      "lang": "en",
+      "nojs": false,
+      "skip": true,
+      "menu": true,
+      "smartGet": true,
+      "district": "Cayo",
+      "empty": true
+    },
+    {
+      "lang": "es",
+      "nojs": true,
+      "skip": true,
+      "menu": true,
+      "smartGet": true,
+      "district": "Cayo",
+      "empty": true
+    },
+    {
+      "lang": "es",
+      "nojs": false,
+      "skip": true,
+      "menu": true,
+      "smartGet": true,
+      "district": "Cayo",
+      "empty": true
+    }
+  ],
+  "https": [
+    {
+      "url": "https://linkyoh.com/",
+      "status": 200,
+      "finalUrl": "https://linkyoh.com/"
+    },
+    {
+      "url": "https://www.linkyoh.com/",
+      "status": 200,
+      "finalUrl": "https://www.linkyoh.com/"
+    },
+    {
+      "url": "https://wop.silvatech.bz/health/",
+      "status": 200,
+      "finalUrl": "https://wop.silvatech.bz/health/"
+    },
+    {
+      "url": "https://n8n.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://n8n.silvatech.bz/"
+    },
+    {
+      "url": "https://payments.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://payments.silvatech.bz/"
+    },
+    {
+      "url": "https://nationalperspectivebz.com/",
+      "status": 200,
+      "finalUrl": "https://nationalperspectivebz.com/"
+    },
+    {
+      "url": "https://analytics.silvatech.bz/api/health",
+      "status": 200,
+      "finalUrl": "https://analytics.silvatech.bz/api/health"
+    },
+    {
+      "url": "https://marketday.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://marketday.silvatech.bz/"
+    },
+    {
+      "url": "https://yardsale.marketday.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://yardsale.marketday.silvatech.bz/"
+    },
+    {
+      "url": "https://chillbout.com/",
+      "status": 200,
+      "finalUrl": "https://chillbout.com/"
+    },
+    {
+      "url": "https://linkyoh.com/robots.txt",
+      "status": 200,
+      "bytes": 1539
+    },
+    {
+      "url": "https://linkyoh.com/llms.txt",
+      "status": 200,
+      "bytes": 3301
+    },
+    {
+      "url": "https://linkyoh.com/sitemap.xml",
+      "status": 200,
+      "bytes": 99123
+    }
+  ],
+  "assets": [
+    {
+      "asset": "static/lab/sitewide.css",
+      "status": 200,
+      "match": true,
+      "sha256": "ef194483bfbb11e400c8ae8e0e58c186f26aaa74f59a224a0b618d705711914d"
+    },
+    {
+      "asset": "static/lab/discovery.css",
+      "status": 200,
+      "match": true,
+      "sha256": "356b478ea598111a42413870f3a003ba1438325d3ff10ff968f16317d831fb6d"
+    },
+    {
+      "asset": "static/lab/assets/linkyoh-stitch-wordmark.png",
+      "status": 200,
+      "match": true,
+      "sha256": "083ed1434a6e619483d39fb1e6d33ec03e6a60d1073210c7a04316067803d174"
+    },
+    {
+      "asset": "static/lab/assets/linkyoh-belize-banner.png",
+      "status": 200,
+      "match": true,
+      "sha256": "5e034f9c083520e8367c5da8af778046763f9b6a8137578f62fb199f58e72b00"
+    },
+    {
+      "asset": "static/brand/kev/kev-plumbing-master.png",
+      "status": 200,
+      "match": true,
+      "sha256": "da04102607603cad7c2112001348910b24ff6148f43a93abdccda3b359ad2331"
+    },
+    {
+      "asset": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "status": 200,
+      "bytes": 47514
+    },
+    {
+      "asset": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "status": 200,
+      "bytes": 304096
+    },
+    {
+      "asset": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/category_img/Services/category_ly_5.png",
+      "status": 200,
+      "bytes": 46133
+    }
+  ],
+  "legacy": [
+    {
+      "route": "/gigs/110/",
+      "status": 301,
+      "location": "/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+    },
+    {
+      "route": "/profile/218/",
+      "status": 301,
+      "location": "/belize/providers/linkyoh-ai-admin-218/"
+    },
+    {
+      "route": "/category/5/",
+      "status": 301,
+      "location": "/belize/services/services-5/"
+    }
+  ],
+  "blocked": [],
+  "passed": true
+}

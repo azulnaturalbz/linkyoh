@@ -1,0 +1,21 @@
+{
+  "utc": "2026-09-14T04:07:16.883197+00:00",
+  "unchanged_neighbors": 24,
+  "files": 356,
+  "runtime": {
+    "python": "3.9.25",
+    "django": "3.2.20",
+    "redis": "4.5.5",
+    "psycopg2": "2.8.5 (dt dec pq3 ext lo64)"
+  },
+  "trust": "172.20.0.2/32",
+  "limiter_private": true,
+  "redis_health": "healthy",
+  "memory": {
+    "MemAvailable": 2854334464,
+    "SwapFree": 1787817984
+  },
+  "disk_free_bytes": 11192475648,
+  "web_restart_count": 0,
+  "web_oom": false
+}

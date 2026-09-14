@@ -1,0 +1,265 @@
+{
+  "utc": "2026-09-14T04:02:24.448827+00:00",
+  "containers": {
+    "linkyoh-web-1": {
+      "id": "2620492888aa1b9722d6f1f69c4b266a67405837d329ed89b1d1d12704531481",
+      "image": "sha256:ff3ce873f0c0546f0b3dee0d1338fd682c909e914020689eff90fb06eefdf66c",
+      "started": "2026-09-14T04:02:03.498281377Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "marketday-web-1": {
+      "id": "02a18456e0724733a8e2552d474786ad2bde71fd0b78ff616ebd8c83486d1207",
+      "image": "sha256:558b0cb647a34bd7c10d3f22eb2742b5d9ceef0a1c84124a1d6b7cab4d03efbe",
+      "started": "2026-09-14T03:05:43.583586944Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "marketday-maintenance-1": {
+      "id": "9ffc4c2b66602198751aa1d74620b9bb257dac64b89d3d67af5db52ff7d01d8d",
+      "image": "sha256:558b0cb647a34bd7c10d3f22eb2742b5d9ceef0a1c84124a1d6b7cab4d03efbe",
+      "started": "2026-09-14T03:05:43.475569396Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "chillbout-web-1": {
+      "id": "41bd2a49fb9db0559b0976ed706c8cbf58c772de8523f859b3877245577147de",
+      "image": "sha256:5c5fb9e106316dc3abe706a3b45778e79705a18e8a65caeb227d4b82bab7c8d6",
+      "started": "2026-09-14T01:09:56.736876275Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "wop-celery-beat-1": {
+      "id": "850a3b3c2b5fe9b9df5a4bdb11fdb4214627cb79b5074e22a248bd2188dbfc5e",
+      "image": "sha256:4c4e83ce1d5b9caee61dcc321db6ef1962c9378a0aa35122749c67542f4fc5fa",
+      "started": "2026-09-13T22:24:02.074204507Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "wop-celery-1": {
+      "id": "d6099e5ccf84c1be085638a336f747aa992c59162a0729e316bcc63cfa3400e1",
+      "image": "sha256:4c4e83ce1d5b9caee61dcc321db6ef1962c9378a0aa35122749c67542f4fc5fa",
+      "started": "2026-09-13T22:24:31.202739029Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "wop-agent-runtime-worker-1": {
+      "id": "9333a1db9ac18d80ebf97ac978cfb94845ad36d6a2d17ed839799dc1fffa3fd5",
+      "image": "sha256:4c4e83ce1d5b9caee61dcc321db6ef1962c9378a0aa35122749c67542f4fc5fa",
+      "started": "2026-09-13T22:24:01.885772099Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "wop-api-1": {
+      "id": "b65a401b78133acb1270675ddb54566958dfa93a89b401c480d1866f35fb7bd5",
+      "image": "sha256:4c4e83ce1d5b9caee61dcc321db6ef1962c9378a0aa35122749c67542f4fc5fa",
+      "started": "2026-09-13T22:23:59.962262156Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "n8n-n8n-1": {
+      "id": "11886ad3737889a39a6406bf6508141c88e97650b2f6fe4993d90b707c38c662",
+      "image": "sha256:738daec855e02c6aa502cd4ab99c8f00b6402200d58c9e63b01be8fea438248e",
+      "started": "2026-09-13T22:23:52.703560914Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "wop-frontend-1": {
+      "id": "d5beda26ca349a3154f4d4c80b7b833474b427ae46bf4ed0173f15c99e07fbbf",
+      "image": "sha256:3219af4ba3a27d9c407c54e5cc36cf2ae56e21e727dc71b434e34a2a195a47a9",
+      "started": "2026-09-13T20:33:19.150374597Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "linkyoh-directory_limits-1": {
+      "id": "cdb3a0b653a8e92d898641428c1e24c6ad2cc226083170fd2649f674fe04e8db",
+      "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+      "started": "2026-09-13T20:04:07.550386388Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "ecommerce-tenant-celery-beat-1": {
+      "id": "7286bb262221a01998867cb66a4f51de5f57f18aa517cf5de28b47c93a4223ab",
+      "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+      "started": "2026-09-13T20:02:21.396382855Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "ecommerce-tenant-web-1": {
+      "id": "8f9e953d50479b21065aaedd1b41a2cbca70f9b79c6014c96c2b444204bd2ab2",
+      "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+      "started": "2026-09-13T20:01:18.414548905Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "ecommerce-tenant-celery-1": {
+      "id": "c56870d34d62e3fe7beadaa5b58c758db55f7234cae6a5ae6ac3df0e25ee55a7",
+      "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+      "started": "2026-09-13T20:00:25.870595724Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "rybbit-client": {
+      "id": "d35d96726b167e717cf433cddf64c8388be84db856a422654df08250f8583f54",
+      "image": "sha256:4b32b15ef214d95392df3f13ebd8feaa97b1a17d6f21a51e9d2aa6db6aa52d72",
+      "started": "2026-08-25T19:41:11.665423382Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "rybbit-backend": {
+      "id": "d92befa474cebed63ab69663bff2a696b2560e0189a33266bbaecc05eae52761",
+      "image": "sha256:5548325c5673f5f605c9d9a786911af426cd0ce5561c16ba4c784ef0301cc675",
+      "started": "2026-08-25T19:41:10.963950102Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "rybbit-clickhouse": {
+      "id": "fc53e9829f8b982f64bdcea5e84a9d5f6ca0963e7e39cbfa8c3a03838272d5ec",
+      "image": "sha256:400ba3e942e8175ea44a41f0b745239ffbf424b8af5b343c6cf9dcf0be7141c6",
+      "started": "2026-08-25T19:41:06.844791046Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "rybbit-postgres": {
+      "id": "3e521734cfa75078f4634bfb37e1d5ee0582cd5e0266989fb7454078a2d548a6",
+      "image": "sha256:45a04d02adcf690e908ccaa1bfeceddbd1a7156107f2fca0534ad5c473b7ec59",
+      "started": "2026-08-25T19:41:06.659681438Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "nationalperspective-web-1": {
+      "id": "50f114d68a9d84a083baab8c93e385a4effa4ba92a3ab6cd77ba6709308036a2",
+      "image": "sha256:f5b9914852ab20789a14bb76256317e66dfa4f6b4c567bb5680824dd138e2b11",
+      "started": "2026-08-25T14:05:53.120979716Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "ecommerce-tenant-redis-1": {
+      "id": "9e8f32999aef2e16f961676354fb2c1afdf2266d71abba7a3b1cf44ec54ecb7b",
+      "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+      "started": "2026-08-25T04:08:16.122844844Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "edge-caddy-1": {
+      "id": "d5ce06c2d910335e3b2317fe41c430c801e50d19a8a228be3d283343c930aa69",
+      "image": "sha256:5190456911cee510988a5fb9996188ef866fbcca3235cad19bf05f5f8f33386f",
+      "started": "2026-08-25T19:43:45.525261655Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    },
+    "linkyoh-celery_worker-1": {
+      "id": "e0d93a398eb2f9d8f206c8d15374c61bd3a6e051687fdb0b7db88c9c99f12fd5",
+      "image": "sha256:a9d65fd626e91d88abe340820ac9a0fe1ad81565f1dac86ada934d0470dddd0a",
+      "started": "2026-08-25T02:29:55.620409991Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "linkyoh-celery_beat-1": {
+      "id": "8fd405670459e4c6fa09c78826a0626947aa4a441ffb68553887042ef8899bd6",
+      "image": "sha256:1a0b52b67af705bcdc37294fb81311bc7a3500d26e94382553904ecf8ebd5c24",
+      "started": "2026-08-25T02:29:57.382447879Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "linkyoh-rabbitmq-1": {
+      "id": "1baabce8dad023379fe29f51aa34146b3db7d711f033abdb4c8a8c11d9746e98",
+      "image": "sha256:5f3394787e6c8e30dbe74334e06fca9426943d21dbf1e5abd38b234c5ec1a5cd",
+      "started": "2026-08-25T02:29:56.682096289Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": null
+    },
+    "wop-redis-1": {
+      "id": "109757699aa70269b2be2994eff2ffabc2f6ccbd1f742404fd699b8513cbbde5",
+      "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+      "started": "2026-08-25T02:29:56.818064289Z",
+      "restarts": 0,
+      "status": "running",
+      "oom": false,
+      "health": "healthy"
+    }
+  },
+  "protected": {
+    "/opt/edge/Caddyfile": "41e08c1b1f36621515787cdd8a9b9ef4b57b7113f71b1b23e5189970c97afe7f",
+    "/opt/linkyoh/.env": "9dee222a24397746f0082ce1651235be07fc29079f3b71d0ad97e425bd97e66e",
+    "/opt/linkyoh/docker-compose.aws.yml": "4c548bdd0dd61d70cff3afb200fd0d23e6935dbb796ad4cf72579d61c943bd6a"
+  },
+  "timers": {
+    "chillbout-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+    "ecommerce-tenant-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+    "fstrim.timer": "ActiveState=active\nUnitFileState=enabled",
+    "logrotate.timer": "ActiveState=active\nUnitFileState=enabled",
+    "marketday-credential-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+    "marketday-observer.timer": "ActiveState=active\nUnitFileState=enabled",
+    "n8n-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+    "nationalperspective-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+    "refresh-policy-routes@ens5.timer": "ActiveState=active\nUnitFileState=static",
+    "sysstat-collect.timer": "ActiveState=active\nUnitFileState=enabled",
+    "sysstat-summary.timer": "ActiveState=active\nUnitFileState=enabled",
+    "systemd-tmpfiles-clean.timer": "ActiveState=active\nUnitFileState=static",
+    "update-motd.timer": "ActiveState=active\nUnitFileState=enabled",
+    "wop-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled"
+  },
+  "timer_unitfiles": "chillbout-secret-refresh.timer               enabled  disabled\nchrony-config.timer                          disabled enabled\ndnf-makecache.timer                          disabled disabled\necommerce-tenant-rds-secret-refresh.timer    enabled  disabled\nfstrim.timer                                 enabled  enabled\nlogrotate.timer                              enabled  enabled\nmarketday-credential-refresh.timer           enabled  disabled\nmarketday-observer.timer                     enabled  disabled\nn8n-rds-secret-refresh.timer                 enabled  disabled\nnationalperspective-rds-secret-refresh.timer enabled  disabled\nrefresh-policy-routes@.timer                 static   -\nsysstat-collect.timer                        enabled  enabled\nsysstat-summary.timer                        enabled  enabled\nsystemd-sysupdate-reboot.timer               disabled disabled\nsystemd-sysupdate.timer                      disabled disabled\nsystemd-tmpfiles-clean.timer                 static   -\nupdate-motd.timer                            enabled  enabled\nwop-rds-secret-refresh.timer                 enabled  disabled",
+  "firewall": "-N DOCKER-USER\n-A DOCKER-USER -m comment --comment marketday-imds-v1 -j MD-IMDS-V1\n-A DOCKER-USER -s 172.20.0.12/32 -d 169.254.169.254/32 -m comment --comment chillbout-imds -j DROP\n-A DOCKER-USER -j RETURN",
+  "marketday_firewall": "-N MD-IMDS-V1\n-A MD-IMDS-V1 -d 169.254.169.254/32 -i br-2b09a92f153e -m mac --mac-source 02:4d:44:00:00:01 -j DROP\n-A MD-IMDS-V1 -d 169.254.169.254/32 -i md-app0 -j DROP\n-A MD-IMDS-V1 -j RETURN",
+  "caddy_peer": "172.20.0.2",
+  "web_aliases": [
+    "linkyoh-web",
+    "linkyoh-web-1",
+    "web"
+  ],
+  "memory": {
+    "MemAvailable": 2858434560,
+    "SwapFree": 1787817984
+  },
+  "disk_free_bytes": 11200798720
+}
