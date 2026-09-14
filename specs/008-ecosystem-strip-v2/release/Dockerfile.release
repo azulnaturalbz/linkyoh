@@ -1,0 +1,3 @@
+FROM linkyoh-web:ui-34196aa
+COPY source/ /linkyoh/
+LABEL org.opencontainers.image.revision="60d5af730c9844261b2a661dadb9ee42d98ee7c9"
