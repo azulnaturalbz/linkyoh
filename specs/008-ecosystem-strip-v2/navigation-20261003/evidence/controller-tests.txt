@@ -11,9 +11,10 @@ test_v2_readiness_requires_locale_routes_version_and_games_link (test_controller
 test_exact_owned_window_accepted (test_ops.WindowTests.test_exact_owned_window_accepted) ... ok
 test_foreign_window_rejected (test_ops.WindowTests.test_foreign_window_rejected) ... ok
 test_missing_explicit_window_rejected (test_ops.WindowTests.test_missing_explicit_window_rejected) ... ok
+test_remote_operations_hold_all_three_nonblocking_locks (test_ops.WindowTests.test_remote_operations_hold_all_three_nonblocking_locks) ... ok
 test_wrong_or_unclaimed_candidate_rejected (test_ops.WindowTests.test_wrong_or_unclaimed_candidate_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 0.019s
+Ran 15 tests in 0.014s
 
 OK

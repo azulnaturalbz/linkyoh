@@ -39,7 +39,15 @@ def call(command, data=None):
 
 
 def remote(code):
-    return call('sudo python3 -', code.encode())
+    guard = '''import fcntl,os
+os.umask(0o077)
+release_locks=[]
+for lock_path in ('/run/marketday-checkout-feedback-release.lock', '/opt/wop-releases/.agent-runtime-dark-deploy.lock', '/opt/linkyoh/releases/.release.lock'):
+    lock_fd=os.open(lock_path,os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
+    fcntl.flock(lock_fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
+    release_locks.append(lock_fd)
+'''
+    return call('sudo python3 -', (guard + code).encode())
 
 
 def stage():
