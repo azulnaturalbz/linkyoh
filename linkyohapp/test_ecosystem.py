@@ -9,6 +9,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from unittest import skipUnless
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 from urllib.robotparser import RobotFileParser
 
 import redis
@@ -17,11 +18,13 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.test import RequestFactory, SimpleTestCase, TestCase, override_settings
 from django.urls import resolve
+from django.utils.translation import override
 
 from .directory_limits import DirectoryRateLimitMiddleware, client_address
 from .ecosystem import PUBLIC_CRAWL_AGENTS, SISTER_URLS
 from .models import Category, Country, District, Gig, GigServiceArea, Local, LocalType, Location, Profile, SubCategory
 from .seo import gig_seo_context, profile_seo_context
+from .templatetags.ecosystem_tags import ecosystem_url
 
 
 class LinkParser(HTMLParser):
@@ -55,13 +58,19 @@ class EcosystemStripContractTests(SimpleTestCase):
         reference.feed((self.root / 'linkyohapp/test_fixtures/ecosystem-strip-v2.html').read_text())
         expected = []
         for link in reference.strip_links:
+            url = urlsplit(link['href'])
+            query = {'utm_source': 'linkyoh', 'utm_medium': 'ecosystem', 'utm_campaign': 'strip'}
+            if url.hostname in ('visitbelize.silvatech.bz', 'linkyoh.com', 'wop.silvatech.bz',
+                                'consulta.silvatech.bz', 'belizelogistics.com'):
+                query = {'lang': 'en', **query}
             expected.append({
                 **link,
-                'href': link['href'].replace('utm_source=hub&', 'utm_source=linkyoh&'),
+                'href': urlunsplit((url.scheme, url.netloc, url.path, urlencode(query), url.fragment)),
                 'rel': 'noreferrer',
             })
         actual = LinkParser()
-        html = render_to_string('includes/ecosystem_strip.html')
+        with override('en'):
+            html = render_to_string('includes/ecosystem_strip.html')
         actual.feed(html)
         self.assertEqual(actual.strip_attrs, reference.strip_attrs)
         self.assertEqual(actual.strip_attrs['data-strip-version'], 'v2')
@@ -69,6 +78,51 @@ class EcosystemStripContractTests(SimpleTestCase):
         self.assertEqual(actual.strip_links, expected)
         self.assertEqual(actual.strip_links[-1]['data-track'], 'games_clickout')
         self.assertNotIn('svt-ecosystem-strip__inactive', html)
+
+    def test_supported_spanish_destinations_and_powered_by(self):
+        with override('es'):
+            parser = LinkParser()
+            parser.feed(render_to_string('lab/footer.html'))
+        self.assertEqual(len(parser.strip_links), 10)
+        for link in parser.links:
+            if 'data-track' not in link:
+                continue
+            url = urlsplit(link['href'])
+            query = parse_qs(url.query)
+            self.assertEqual(query['utm_source'], ['linkyoh'])
+            self.assertEqual(query['utm_medium'], ['ecosystem'])
+            self.assertEqual(link['rel'], 'noreferrer')
+            if url.hostname == 'silvatech.bz':
+                self.assertEqual(url.path, '/es/')
+                self.assertNotIn('lang', query)
+            elif url.hostname in ('visitbelize.silvatech.bz', 'linkyoh.com', 'wop.silvatech.bz',
+                                  'consulta.silvatech.bz', 'belizelogistics.com'):
+                self.assertEqual(query['lang'], ['es'])
+            else:
+                self.assertNotIn('lang', query)
+        powered = next(link for link in parser.links if 'powered_by' in link.get('href', ''))
+        self.assertEqual(powered['data-track'], 'hub_clickout')
+
+    def test_navigation_merges_queries_without_duplicate_attribution(self):
+        with override('es-bz'), patch.dict(
+            'linkyohapp.templatetags.ecosystem_tags.DESTINATIONS',
+            {'linkyoh': 'https://linkyoh.com?existing=a%26b&lang=en&utm_source=old#section'},
+        ):
+            url = urlsplit(ecosystem_url('linkyoh'))
+        self.assertEqual(parse_qs(url.query), {
+            'existing': ['a&b'], 'lang': ['es'], 'utm_source': ['linkyoh'],
+            'utm_medium': ['ecosystem'], 'utm_campaign': ['strip'],
+        })
+        self.assertEqual(url.fragment, 'section')
+
+    def test_navigation_only_accepts_known_destinations_and_placements(self):
+        with self.assertRaises(KeyError):
+            ecosystem_url('https://untrusted.example')
+        with self.assertRaises(ValueError):
+            ecosystem_url('hub', 'private?contact=123')
+        with override('fr'):
+            self.assertEqual(parse_qs(urlsplit(ecosystem_url('linkyoh')).query)['lang'], ['en'])
+            self.assertEqual(urlsplit(ecosystem_url('hub')).path, '')
 
     def test_vendored_css_matches_published_source_checksums(self):
         # Published bytes independently checked in specs/008-ecosystem-strip-v2.

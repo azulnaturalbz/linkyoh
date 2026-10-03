@@ -1,0 +1,3108 @@
+{
+  "started": "2026-10-03T11:45:28.379Z",
+  "source": "candidate",
+  "repoHead": "916e49f52ae6537e9c32fc036aa7e943a9edd0c7",
+  "base": "http://127.0.0.1:8099",
+  "candidate": true,
+  "references": [
+    {
+      "url": "https://silvatech.bz/brand/ecosystem-strip.html",
+      "status": 200,
+      "sha256": "d8ee28f64288652a04cf06b245f69e7f2924a88bac842f78c3cc901e8dd8a22a",
+      "navMatches": true
+    },
+    {
+      "url": "https://silvatech.bz/brand/silvatech-ui.css",
+      "status": 200,
+      "sha256": "f9979278a41dfffb453987b5a5f4b1d5f4d5fe88d1256d79fe52ae0092202b1d",
+      "matches": true
+    },
+    {
+      "url": "http://127.0.0.1:8099/static/lab/assets/silvatech-ui.css",
+      "status": 200,
+      "sha256": "f9979278a41dfffb453987b5a5f4b1d5f4d5fe88d1256d79fe52ae0092202b1d",
+      "matches": true
+    },
+    {
+      "url": "http://127.0.0.1:8099/static/css/ecosystem-strip.css",
+      "status": 200,
+      "sha256": "600cb62d6959a353f35457d1374ce60d380d6752e569a6d5737ff561363c0e59",
+      "matches": true
+    },
+    {
+      "url": "http://127.0.0.1:8099/static/js/ecosystem-tracking.js",
+      "status": 200,
+      "sha256": "51f15c54adb1ebbcfb532416b5cfd3844ce4b5b82e476a9fcce0cbd1f9d1c142",
+      "matches": true
+    }
+  ],
+  "destinations": [
+    {
+      "url": "https://silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://silvatech.bz/"
+    },
+    {
+      "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://visitbelize.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://visitbelize.silvatech.bz/"
+    },
+    {
+      "url": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://visitbelize.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://chillbout.com/",
+      "status": 200,
+      "finalUrl": "https://chillbout.com/"
+    },
+    {
+      "url": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://linkyoh.com/",
+      "status": 200,
+      "finalUrl": "https://linkyoh.com/"
+    },
+    {
+      "url": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://linkyoh.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://marketday.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://marketday.silvatech.bz/"
+    },
+    {
+      "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://wop.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://wop.silvatech.bz/"
+    },
+    {
+      "url": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://wop.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://payments.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://payments.silvatech.bz/"
+    },
+    {
+      "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://consulta.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://consulta.silvatech.bz/"
+    },
+    {
+      "url": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://consulta.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://belizelogistics.com/",
+      "status": 200,
+      "finalUrl": "https://belizelogistics.com/"
+    },
+    {
+      "url": "https://belizelogistics.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://belizelogistics.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    },
+    {
+      "url": "https://games.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://games.silvatech.bz/"
+    },
+    {
+      "url": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "finalUrl": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip"
+    }
+  ],
+  "views": [
+    {
+      "label": "home-en-320",
+      "status": 200,
+      "lang": "en",
+      "width": 320,
+      "documentWidth": 320,
+      "version": "v2",
+      "stripWidth": 320,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-en-320",
+      "status": 200,
+      "lang": "en",
+      "width": 320,
+      "documentWidth": 320,
+      "version": "v2",
+      "stripWidth": 320,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-en-390",
+      "status": 200,
+      "lang": "en",
+      "width": 390,
+      "documentWidth": 390,
+      "version": "v2",
+      "stripWidth": 390,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-en-390",
+      "status": 200,
+      "lang": "en",
+      "width": 390,
+      "documentWidth": 390,
+      "version": "v2",
+      "stripWidth": 390,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-en-768",
+      "status": 200,
+      "lang": "en",
+      "width": 768,
+      "documentWidth": 768,
+      "version": "v2",
+      "stripWidth": 768,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-en-768",
+      "status": 200,
+      "lang": "en",
+      "width": 768,
+      "documentWidth": 768,
+      "version": "v2",
+      "stripWidth": 768,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-en-944",
+      "status": 200,
+      "lang": "en",
+      "width": 944,
+      "documentWidth": 944,
+      "version": "v2",
+      "stripWidth": 944,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-en-944",
+      "status": 200,
+      "lang": "en",
+      "width": 944,
+      "documentWidth": 944,
+      "version": "v2",
+      "stripWidth": 944,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-en-1440",
+      "status": 200,
+      "lang": "en",
+      "width": 1440,
+      "documentWidth": 1440,
+      "version": "v2",
+      "stripWidth": 1440,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-en-1440",
+      "status": 200,
+      "lang": "en",
+      "width": 1440,
+      "documentWidth": 1440,
+      "version": "v2",
+      "stripWidth": 1440,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Sell what you make. Open your own store on MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-es-320",
+      "status": 200,
+      "lang": "es",
+      "width": 320,
+      "documentWidth": 320,
+      "version": "v2",
+      "stripWidth": 320,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-es-320",
+      "status": 200,
+      "lang": "es",
+      "width": 320,
+      "documentWidth": 320,
+      "version": "v2",
+      "stripWidth": 320,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-es-390",
+      "status": 200,
+      "lang": "es",
+      "width": 390,
+      "documentWidth": 390,
+      "version": "v2",
+      "stripWidth": 390,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-es-390",
+      "status": 200,
+      "lang": "es",
+      "width": 390,
+      "documentWidth": 390,
+      "version": "v2",
+      "stripWidth": 390,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-es-768",
+      "status": 200,
+      "lang": "es",
+      "width": 768,
+      "documentWidth": 768,
+      "version": "v2",
+      "stripWidth": 768,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-es-768",
+      "status": 200,
+      "lang": "es",
+      "width": 768,
+      "documentWidth": 768,
+      "version": "v2",
+      "stripWidth": 768,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-es-944",
+      "status": 200,
+      "lang": "es",
+      "width": 944,
+      "documentWidth": 944,
+      "version": "v2",
+      "stripWidth": 944,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-es-944",
+      "status": 200,
+      "lang": "es",
+      "width": 944,
+      "documentWidth": 944,
+      "version": "v2",
+      "stripWidth": 944,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    },
+    {
+      "label": "home-es-1440",
+      "status": 200,
+      "lang": "es",
+      "width": 1440,
+      "documentWidth": 1440,
+      "version": "v2",
+      "stripWidth": 1440,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/"
+    },
+    {
+      "label": "provider-es-1440",
+      "status": 200,
+      "lang": "es",
+      "width": 1440,
+      "documentWidth": 1440,
+      "version": "v2",
+      "stripWidth": 1440,
+      "links": [
+        {
+          "name": "Silvatech",
+          "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "hub_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Visit Belize",
+          "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "visitbelize_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Chillbout",
+          "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "chillbout_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Linkyoh",
+          "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "linkyoh_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "MarketDay",
+          "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "marketday_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "WOP",
+          "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "wop_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Payments",
+          "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "payments_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Consulta",
+          "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "consulta_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Belize Logistics",
+          "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "logistics_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        },
+        {
+          "name": "Games",
+          "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+          "track": "games_clickout",
+          "rel": "noreferrer",
+          "height": 44
+        }
+      ],
+      "forward": {
+        "text": "Vende lo que creas. Abre tu propia tienda en MarketDay",
+        "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "track": "marketday_clickout",
+        "rel": "noreferrer"
+      },
+      "canonical": "https://linkyoh.com/belize/providers/example-plumbing-1/"
+    }
+  ],
+  "keyboard": [
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=0",
+      "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "hub_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=1",
+      "href": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "visitbelize_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=2",
+      "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "chillbout_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=3",
+      "href": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "linkyoh_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=4",
+      "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "marketday_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=5",
+      "href": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "wop_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=6",
+      "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "payments_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=7",
+      "href": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "consulta_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=8",
+      "href": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "logistics_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=9",
+      "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "games_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".forward a",
+      "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "marketday_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "forward"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "home",
+      "selector": ".legal a[data-track=\"hub_clickout\"]",
+      "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "hub_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "powered_by"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "provider",
+      "selector": ".forward a",
+      "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "marketday_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "forward"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "page": "provider",
+      "selector": ".legal a[data-track=\"hub_clickout\"]",
+      "href": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "hub_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "powered_by"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=0",
+      "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "hub_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=1",
+      "href": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "visitbelize_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=2",
+      "href": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "chillbout_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=3",
+      "href": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "linkyoh_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=4",
+      "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "marketday_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=5",
+      "href": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "wop_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=6",
+      "href": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "payments_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=7",
+      "href": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "consulta_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=8",
+      "href": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "logistics_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".svt-ecosystem-strip a >> nth=9",
+      "href": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "focus": {
+        "focused": true,
+        "outline": "2px"
+      },
+      "navigation": {
+        "url": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "games_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "strip"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".forward a",
+      "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "marketday_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "forward"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "home",
+      "selector": ".legal a[data-track=\"hub_clickout\"]",
+      "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "hub_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "powered_by"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "provider",
+      "selector": ".forward a",
+      "href": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=forward",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "marketday_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "forward"
+          }
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "page": "provider",
+      "selector": ".legal a[data-track=\"hub_clickout\"]",
+      "href": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+      "focus": {
+        "focused": true,
+        "outline": "3px"
+      },
+      "navigation": {
+        "url": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by",
+        "method": "GET",
+        "referer": null
+      },
+      "events": [
+        {
+          "event": "hub_clickout",
+          "properties": {
+            "source": "linkyoh",
+            "placement": "powered_by"
+          }
+        }
+      ]
+    }
+  ],
+  "nojs": [
+    {
+      "lang": "en",
+      "links": 10,
+      "menu": "opens and closes",
+      "nativeNavigation": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "finalLang": "en"
+    },
+    {
+      "lang": "es",
+      "links": 10,
+      "menu": "opens and closes",
+      "nativeNavigation": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "finalLang": "es"
+    }
+  ],
+  "localeRouting": [],
+  "errors": [],
+  "blockedWrites": [],
+  "realAnalyticsSent": false,
+  "productionMutation": false,
+  "actualDestinations": [
+    {
+      "requested": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Silvatech — Agentic AI engineering lab in Belize",
+      "headings": [
+        "An AI engineering lab.\nProduction software underneath."
+      ],
+      "visibleTextLength": 14927,
+      "hubLinks": [
+        "https://silvatech.bz/",
+        "https://silvatech.bz/services/",
+        "https://silvatech.bz/whatsapp/",
+        "https://silvatech.bz/products/",
+        "https://silvatech.bz/tools/",
+        "https://silvatech.bz/case-studies/",
+        "https://silvatech.bz/blog/",
+        "https://silvatech.bz/about/",
+        "https://silvatech.bz/contact/",
+        "https://silvatech.bz/audit/",
+        "https://silvatech.bz/es/",
+        "https://silvatech.bz/services/",
+        "https://silvatech.bz/whatsapp/",
+        "https://silvatech.bz/products/",
+        "https://silvatech.bz/tools/",
+        "https://silvatech.bz/case-studies/",
+        "https://silvatech.bz/blog/",
+        "https://silvatech.bz/about/",
+        "https://silvatech.bz/contact/",
+        "https://silvatech.bz/audit/",
+        "https://silvatech.bz/pricing/",
+        "https://silvatech.bz/es/",
+        "https://silvatech.bz/audit/",
+        "https://silvatech.bz/services/agent-products/",
+        "https://silvatech.bz/whatsapp/",
+        "https://silvatech.bz/services/agent-products/",
+        "https://silvatech.bz/tools/whatsapp-qr-poster-maker/",
+        "https://silvatech.bz/tools/markup-margin-calculator/",
+        "https://silvatech.bz/tools/belize-small-business-cost-calculator/",
+        "https://silvatech.bz/tools/",
+        "https://silvatech.bz/lab/",
+        "https://silvatech.bz/audit/",
+        "https://silvatech.bz/workshop/",
+        "https://silvatech.bz/services/whatsapp-ai/",
+        "https://silvatech.bz/services/ai-existing/",
+        "https://silvatech.bz/services/agent-products/",
+        "https://silvatech.bz/services/agent-tool-connections/",
+        "https://silvatech.bz/audit/",
+        "https://silvatech.bz/contact/",
+        "https://silvatech.bz/products/cesium-election-management/",
+        "https://silvatech.bz/products/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/case-studies/",
+        "https://silvatech.bz/lab/",
+        "https://silvatech.bz/lab/",
+        "https://silvatech.bz/lab/",
+        "https://silvatech.bz/contact/?topic=robotics",
+        "https://silvatech.bz/contact/?topic=edge-infrastructure",
+        "https://silvatech.bz/audit/",
+        "https://silvatech.bz/products/",
+        "https://silvatech.bz/products/cesium-election-management/",
+        "https://silvatech.bz/berth/",
+        "https://silvatech.bz/audit/",
+        "https://silvatech.bz/tools/",
+        "https://silvatech.bz/workshop/",
+        "https://silvatech.bz/certificates/",
+        "https://silvatech.bz/industries/",
+        "https://silvatech.bz/blog/",
+        "https://silvatech.bz/press/",
+        "https://silvatech.bz/lab/",
+        "https://silvatech.bz/horizon/",
+        "https://silvatech.bz/investors/",
+        "https://silvatech.bz/privacy/",
+        "https://silvatech.bz/terms/",
+        "https://silvatech.bz/data-deletion/",
+        "https://silvatech.bz/es/",
+        "https://silvatech.bz/?utm_source=hub&utm_medium=ecosystem&utm_campaign=strip"
+      ]
+    },
+    {
+      "requested": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://visitbelize.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Belize destinations, hotels, and stays · Visit Belize",
+      "headings": [
+        "Plan Belize around the places worth the trip."
+      ],
+      "visibleTextLength": 4819,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=visitbelize&utm_medium=ecosystem&utm_campaign=footer",
+        "https://silvatech.bz/?utm_source=visitbelize&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=visitbelize&utm_medium=ecosystem&utm_campaign=footer&utm_content=powered-by"
+      ]
+    },
+    {
+      "requested": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Chillbout is coming back · Belize",
+      "headings": [
+        "Chillbout is coming back."
+      ],
+      "visibleTextLength": 542,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=chillbout&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=chillbout&utm_medium=ecosystem&utm_campaign=strip"
+      ]
+    },
+    {
+      "requested": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://linkyoh.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Linkyoh | Find Services and Local Businesses in Belize",
+      "headings": [
+        "What do you need done?"
+      ],
+      "visibleTextLength": 3227,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by"
+      ]
+    },
+    {
+      "requested": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Market Day | Independent stores in Belize",
+      "headings": [
+        "Good things,\ncloser to home."
+      ],
+      "visibleTextLength": 1759,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=marketday&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=marketday&utm_medium=ecosystem&utm_campaign=powered_by"
+      ]
+    },
+    {
+      "requested": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://wop.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "WOP by Silvatech | WhatsApp front desk for Belize businesses",
+      "headings": [
+        "Turn WhatsApp into a front desk that replies fast, captures intent, and knows when to hand off."
+      ],
+      "visibleTextLength": 8653,
+      "hubLinks": [
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=powered_by",
+        "https://silvatech.bz/privacy/?utm_source=wop&utm_medium=ecosystem&utm_campaign=legal",
+        "https://silvatech.bz/terms/?utm_source=wop&utm_medium=ecosystem&utm_campaign=legal",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body"
+      ]
+    },
+    {
+      "requested": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Silvatech Payments | BZD checkout for Silvatech services",
+      "headings": [
+        "One payment layer for Silvatech services in Belize."
+      ],
+      "visibleTextLength": 5816,
+      "hubLinks": [
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact",
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact",
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact",
+        "https://silvatech.bz/?utm_source=payments&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=payments&utm_medium=ecosystem&utm_campaign=powered-by",
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact"
+      ]
+    },
+    {
+      "requested": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://consulta.silvatech.bz/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Book Cristian Silva | Consulta",
+      "headings": [
+        "Book time with Cristian Silva"
+      ],
+      "visibleTextLength": 4307,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=forward",
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=credentials",
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=powered-by"
+      ]
+    },
+    {
+      "requested": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://belizelogistics.com/?lang=en&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Belize Logistics · Transport planning & fuel prices",
+      "headings": [
+        "Move across Belize with the route in view."
+      ],
+      "visibleTextLength": 5590,
+      "hubLinks": [
+        "https://silvatech.bz/"
+      ]
+    },
+    {
+      "requested": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "en",
+      "lang": "en",
+      "title": "Silvatech Games — Free Belizean Browser Games | Belize Arcade",
+      "headings": [
+        "SILVATECH GAMES"
+      ],
+      "visibleTextLength": 4716,
+      "hubLinks": [
+        "https://silvatech.bz/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/"
+      ]
+    },
+    {
+      "requested": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://silvatech.bz/es/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "es",
+      "title": "Silvatech — Laboratorio de IA agéntica en Belize",
+      "headings": [
+        "Un laboratorio de IA.\nSoftware de producción debajo."
+      ],
+      "visibleTextLength": 12960,
+      "hubLinks": [
+        "https://silvatech.bz/es/",
+        "https://silvatech.bz/es/servicios/",
+        "https://silvatech.bz/es/whatsapp/",
+        "https://silvatech.bz/es/productos/",
+        "https://silvatech.bz/es/herramientas/",
+        "https://silvatech.bz/es/casos/",
+        "https://silvatech.bz/es/blog/",
+        "https://silvatech.bz/es/nosotros/",
+        "https://silvatech.bz/es/contacto/",
+        "https://silvatech.bz/es/audit/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/es/servicios/",
+        "https://silvatech.bz/es/whatsapp/",
+        "https://silvatech.bz/es/productos/",
+        "https://silvatech.bz/es/herramientas/",
+        "https://silvatech.bz/es/casos/",
+        "https://silvatech.bz/es/blog/",
+        "https://silvatech.bz/es/nosotros/",
+        "https://silvatech.bz/es/contacto/",
+        "https://silvatech.bz/es/audit/",
+        "https://silvatech.bz/es/precios/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/es/audit/",
+        "https://silvatech.bz/es/servicios/productos-agentes/",
+        "https://silvatech.bz/es/whatsapp/",
+        "https://silvatech.bz/es/servicios/productos-agentes/",
+        "https://silvatech.bz/es/herramientas/creador-cartel-qr-whatsapp/",
+        "https://silvatech.bz/es/herramientas/calculadora-margen-ganancia/",
+        "https://silvatech.bz/es/herramientas/calculadora-costos-negocio-belize/",
+        "https://silvatech.bz/es/herramientas/",
+        "https://silvatech.bz/es/lab/",
+        "https://silvatech.bz/es/audit/",
+        "https://silvatech.bz/es/taller/",
+        "https://silvatech.bz/es/servicios/whatsapp-ia/",
+        "https://silvatech.bz/es/servicios/ia-sistemas-existentes/",
+        "https://silvatech.bz/es/servicios/productos-agentes/",
+        "https://silvatech.bz/es/servicios/conexiones-agentes/",
+        "https://silvatech.bz/es/audit/",
+        "https://silvatech.bz/es/contacto/",
+        "https://silvatech.bz/es/productos/cesium-gestion-electoral/",
+        "https://silvatech.bz/es/productos/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/contacto/?topic=robotica",
+        "https://silvatech.bz/es/contacto/?topic=edge",
+        "https://silvatech.bz/es/audit/",
+        "https://silvatech.bz/es/productos/",
+        "https://silvatech.bz/es/productos/cesium-gestion-electoral/",
+        "https://silvatech.bz/es/berth/",
+        "https://silvatech.bz/es/audit/",
+        "https://silvatech.bz/es/herramientas/",
+        "https://silvatech.bz/es/taller/",
+        "https://silvatech.bz/es/certificados/",
+        "https://silvatech.bz/es/industrias/",
+        "https://silvatech.bz/es/blog/",
+        "https://silvatech.bz/es/prensa/",
+        "https://silvatech.bz/es/lab/",
+        "https://silvatech.bz/es/horizonte/",
+        "https://silvatech.bz/es/inversionistas/",
+        "https://silvatech.bz/es/privacidad/",
+        "https://silvatech.bz/es/terminos/",
+        "https://silvatech.bz/es/eliminacion-datos/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/?utm_source=hub&utm_medium=ecosystem&utm_campaign=strip"
+      ]
+    },
+    {
+      "requested": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://visitbelize.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "es",
+      "title": "Belize destinations, hotels, and stays · Visit Belize",
+      "headings": [
+        "Planifica Belice alrededor de los lugares que valen el viaje."
+      ],
+      "visibleTextLength": 5283,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=visitbelize&utm_medium=ecosystem&utm_campaign=footer&lang=es",
+        "https://silvatech.bz/?utm_source=visitbelize&utm_medium=ecosystem&utm_campaign=strip&lang=es",
+        "https://silvatech.bz/?utm_source=visitbelize&utm_medium=ecosystem&utm_campaign=footer&utm_content=powered-by&lang=es"
+      ]
+    },
+    {
+      "requested": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://chillbout.com/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "en",
+      "title": "Chillbout is coming back · Belize",
+      "headings": [
+        "Chillbout is coming back."
+      ],
+      "visibleTextLength": 542,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=chillbout&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=chillbout&utm_medium=ecosystem&utm_campaign=strip"
+      ]
+    },
+    {
+      "requested": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://linkyoh.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "es",
+      "title": "Linkyoh | Find Services and Local Businesses in Belize",
+      "headings": [
+        "¿Qué necesitas resolver?"
+      ],
+      "visibleTextLength": 3566,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=powered_by"
+      ]
+    },
+    {
+      "requested": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://marketday.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "en",
+      "title": "Market Day | Independent stores in Belize",
+      "headings": [
+        "Good things,\ncloser to home."
+      ],
+      "visibleTextLength": 1759,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=marketday&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=marketday&utm_medium=ecosystem&utm_campaign=powered_by"
+      ]
+    },
+    {
+      "requested": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://wop.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "en",
+      "title": "WOP by Silvatech | WhatsApp front desk for Belize businesses",
+      "headings": [
+        "Convierte WhatsApp en una recepcion que responde rapido, captura intencion y sabe cuando pasar a una persona."
+      ],
+      "visibleTextLength": 8706,
+      "hubLinks": [
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=wop&utm_medium=ecosystem&utm_campaign=powered_by",
+        "https://silvatech.bz/privacy/?utm_source=wop&utm_medium=ecosystem&utm_campaign=legal",
+        "https://silvatech.bz/terms/?utm_source=wop&utm_medium=ecosystem&utm_campaign=legal",
+        "https://silvatech.bz/contact?utm_source=wop&utm_medium=ecosystem&utm_campaign=body"
+      ]
+    },
+    {
+      "requested": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://payments.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "en",
+      "title": "Silvatech Payments | BZD checkout for Silvatech services",
+      "headings": [
+        "One payment layer for Silvatech services in Belize."
+      ],
+      "visibleTextLength": 5816,
+      "hubLinks": [
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact",
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact",
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact",
+        "https://silvatech.bz/?utm_source=payments&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=payments&utm_medium=ecosystem&utm_campaign=powered-by",
+        "https://silvatech.bz/contact?utm_source=payments&utm_medium=ecosystem&utm_campaign=contact"
+      ]
+    },
+    {
+      "requested": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://consulta.silvatech.bz/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "es",
+      "title": "Reservar con Cristian Silva | Consulta",
+      "headings": [
+        "Reserva tiempo con Cristian Silva"
+      ],
+      "visibleTextLength": 4474,
+      "hubLinks": [
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=forward",
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=credentials",
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=strip",
+        "https://silvatech.bz/?utm_source=consulta&utm_medium=ecosystem&utm_campaign=powered-by"
+      ]
+    },
+    {
+      "requested": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://belizelogistics.com/?lang=es&utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "es",
+      "title": "Belize Logistics · Transport planning & fuel prices",
+      "headings": [
+        "Muévete por Belice con la ruta a la vista."
+      ],
+      "visibleTextLength": 6348,
+      "hubLinks": [
+        "https://silvatech.bz/"
+      ]
+    },
+    {
+      "requested": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "final": "https://games.silvatech.bz/?utm_source=linkyoh&utm_medium=ecosystem&utm_campaign=strip",
+      "status": 200,
+      "sourceLang": "es",
+      "lang": "en",
+      "title": "Silvatech Games — Free Belizean Browser Games | Belize Arcade",
+      "headings": [
+        "SILVATECH GAMES"
+      ],
+      "visibleTextLength": 4716,
+      "hubLinks": [
+        "https://silvatech.bz/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/",
+        "https://silvatech.bz/"
+      ]
+    }
+  ],
+  "passed": true,
+  "finished": "2026-10-03T11:46:44.267Z"
+}

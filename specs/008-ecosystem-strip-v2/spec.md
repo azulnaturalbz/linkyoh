@@ -1,5 +1,32 @@
 # Ecosystem Strip v2
 
+## 2026-10-03 Navigation Amendment
+
+Cristian's direct approval is quoted in the canonical hub record/Handoff Log at
+2026-10-03T11:37:13Z. For this one strip/navigation batch, scoped fixes may
+ship after normal tests, safe source custody, serialized shared-host admission,
+backups and public verification; no repeat deployment approval is required.
+This supersedes the historical no-deploy clauses below for this batch only.
+
+Preserve the current language on destinations verified to support it:
+Silvatech uses `/es/` or its English root; Visit Belize, Linkyoh, WOP, Consulta
+and Belize Logistics use explicit `lang=en` / `lang=es`. MarketDay, Payments,
+Chillbout and Games keep their existing English roots. The MarketDay forward
+banner remains unchanged because its root does not currently translate.
+Use the same locale-aware hub URL for Powered by. Merge query parameters
+through urllib.parse; fixed keys and placements only, never user-supplied URLs.
+Keep ten-link order, `data-track`, v2 marker, noreferrer, CSS and the single
+dispatcher unchanged. Canonical schema/llms identities stay tracking-free
+where already canonical; no unrelated metadata or business logic changes.
+
+Evidence: `recheck-20261003/` is the pre-fix public baseline. New acceptance
+must cover both languages, every actual attributed destination (HTTP final URL,
+redirects, meaningful visible content), keyboard/no-JS navigation and one
+stubbed event per activation. WOP's Spanish heading currently renders despite
+its inherited `html lang=en`; report that owner limitation, do not edit WOP.
+No new Python dependency, schema, provider, claim, campaign or WOP binding.
+Rollback is the previous app image/source only, never a database restore.
+
 Date: 2026-09-14. Branch: `codex/005-linkyoh-revamp-ui`.
 Authority: canonical SILVATECH-ECOSYSTEM.md v1.1 sections 1.1, 1.2, 2.3a and 6;
 hub publication `e014da98b2d8938247988edd92e5dbdc51c99518`, Amplify job 52.

@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-10-03T11:42:35.635288+00:00",
+  "image": "linkyoh-web:strip-v2-60d5af7",
+  "image_id": "sha256:778630b95827f791a3bc0c69eaf3326a99b400d6187b4bad2d3c859d75ce50fa",
+  "source": "Read-only bind of current Linkyoh checkout",
+  "network": "none",
+  "production_access": false,
+  "exit_code": 0,
+  "passed": true,
+  "disposable_containers_removed": [
+    "linkyoh-navigation-20261003-qa-redis",
+    "linkyoh-navigation-20261003-qa-db"
+  ]
+}

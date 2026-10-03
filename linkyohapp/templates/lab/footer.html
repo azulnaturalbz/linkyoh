@@ -1,7 +1,7 @@
-{% load i18n static %}
+{% load i18n static ecosystem_tags %}
 <footer><div class="wrap footer-intro">{% include 'lab/brand.html' %}<span>{% translate "Local expertise. Connected by Silvatech." %}</span></div>
 {% include 'includes/ecosystem_strip.html' %}
-<div class="legal wrap"><a href="https://silvatech.bz/?utm_source=linkyoh&amp;utm_medium=ecosystem&amp;utm_campaign=powered_by" data-track="hub_clickout" rel="noreferrer">{% translate "Powered by Silvatech" %}&trade;<i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+<div class="legal wrap"><a href="{% ecosystem_url 'hub' 'powered_by' %}" data-track="hub_clickout" rel="noreferrer">{% translate "Powered by Silvatech" %}&trade;<i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
 <nav class="footer-links" aria-label="{% translate 'Help and policies' %}"><a href="{% url 'help_center' %}">{% translate "Help" %}</a><a href="{% url 'contact' %}">{% translate "Contact" %}</a><a href="{% url 'terms' %}">{% translate "Terms" %}</a><a href="{% url 'privacy' %}">{% translate "Privacy" %}</a></nav>
 <p>&copy; 2026 Silvatech&trade;. Silvatech, WOP, MarketDay, Linkyoh, Chillbout, Visit Belize and Belize Logistics are trademarks of Silvatech, Belize City, Belize.</p></div></footer>
 <nav class="mobile-dock" aria-label="{% translate 'Quick navigation' %}">
