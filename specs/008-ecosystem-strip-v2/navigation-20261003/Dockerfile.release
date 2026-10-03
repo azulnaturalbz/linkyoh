@@ -1,0 +1,3 @@
+FROM linkyoh-web:strip-v2-60d5af7
+COPY source/ /linkyoh/
+LABEL org.opencontainers.image.revision="b5d8d4a45f4db7727a6185fe970196bd8915f306"

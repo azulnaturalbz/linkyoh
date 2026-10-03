@@ -1,0 +1,139 @@
+{
+  "utc": "2026-10-03T11:53:54.397Z",
+  "phase": "before",
+  "https": [
+    {
+      "url": "https://linkyoh.com/",
+      "status": 200,
+      "finalUrl": "https://linkyoh.com/",
+      "bytes": 67002
+    },
+    {
+      "url": "https://www.linkyoh.com/",
+      "status": 200,
+      "finalUrl": "https://www.linkyoh.com/",
+      "bytes": 67002
+    },
+    {
+      "url": "https://wop.silvatech.bz/health/",
+      "status": 200,
+      "finalUrl": "https://wop.silvatech.bz/health/",
+      "bytes": 38
+    },
+    {
+      "url": "https://n8n.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://n8n.silvatech.bz/",
+      "bytes": 18285
+    },
+    {
+      "url": "https://payments.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://payments.silvatech.bz/",
+      "bytes": 25020
+    },
+    {
+      "url": "https://nationalperspectivebz.com/",
+      "status": 200,
+      "finalUrl": "https://nationalperspectivebz.com/",
+      "bytes": 355083
+    },
+    {
+      "url": "https://analytics.silvatech.bz/api/health",
+      "status": 200,
+      "finalUrl": "https://analytics.silvatech.bz/api/health",
+      "bytes": 2
+    },
+    {
+      "url": "https://marketday.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://marketday.silvatech.bz/",
+      "bytes": 10804
+    },
+    {
+      "url": "https://yardsale.marketday.silvatech.bz/",
+      "status": 200,
+      "finalUrl": "https://yardsale.marketday.silvatech.bz/",
+      "bytes": 14394
+    },
+    {
+      "url": "https://chillbout.com/",
+      "status": 200,
+      "finalUrl": "https://chillbout.com/",
+      "bytes": 5745
+    },
+    {
+      "url": "https://linkyoh.com/robots.txt",
+      "status": 200,
+      "finalUrl": "https://linkyoh.com/robots.txt",
+      "bytes": 1539
+    },
+    {
+      "url": "https://linkyoh.com/llms.txt",
+      "status": 200,
+      "finalUrl": "https://linkyoh.com/llms.txt",
+      "bytes": 3630
+    },
+    {
+      "url": "https://linkyoh.com/sitemap.xml",
+      "status": 200,
+      "finalUrl": "https://linkyoh.com/sitemap.xml",
+      "bytes": 99123
+    }
+  ],
+  "legacy": [
+    {
+      "route": "/gigs/110/",
+      "status": 301,
+      "location": "/belize/services/belize/belize-city/gracekennedy-belize-ltd-110/"
+    },
+    {
+      "route": "/profile/218/",
+      "status": 301,
+      "location": "/belize/providers/linkyoh-ai-admin-218/"
+    },
+    {
+      "route": "/category/5/",
+      "status": 301,
+      "location": "/belize/services/services-5/"
+    }
+  ],
+  "assets": [
+    {
+      "url": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/gigs_img/218/None/cover/01dac8dcdc8a47678aa8ce81ce7412de.jpg",
+      "status": 200,
+      "bytes": 304096
+    },
+    {
+      "url": "https://linkyoh.com/static/img/linkyoh_banner_web.png",
+      "status": 200,
+      "bytes": 47514
+    },
+    {
+      "url": "https://linkyoh-prd-assets-944327601374-us-east-1.s3.amazonaws.com/media/category_img/Services/category_ly_5.png",
+      "status": 200,
+      "bytes": 46133
+    },
+    {
+      "asset": "static/lab/assets/silvatech-ui.css",
+      "status": 200,
+      "match": true,
+      "sha256": "f9979278a41dfffb453987b5a5f4b1d5f4d5fe88d1256d79fe52ae0092202b1d"
+    },
+    {
+      "asset": "static/css/ecosystem-strip.css",
+      "status": 200,
+      "match": true,
+      "sha256": "600cb62d6959a353f35457d1374ce60d380d6752e569a6d5737ff561363c0e59"
+    },
+    {
+      "asset": "static/js/ecosystem-tracking.js",
+      "status": 200,
+      "match": true,
+      "sha256": "51f15c54adb1ebbcfb532416b5cfd3844ce4b5b82e476a9fcce0cbd1f9d1c142"
+    }
+  ],
+  "errors": [],
+  "writes": false,
+  "passed": true
+}

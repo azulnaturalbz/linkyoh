@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-10-03T11:51:20.466763+00:00",
+  "commit": "b5d8d4a45f4db7727a6185fe970196bd8915f306",
+  "image": "sha256:089c44e44f6d80c2f9a1857131394c2b7121fa04774d60a27fa69765167c2861",
+  "architecture": "amd64",
+  "parity": {
+    "files": 358,
+    "mismatches": [],
+    "python": "3.9.25",
+    "django": "3.2.20"
+  },
+  "production_access": false,
+  "application_source_mount": false,
+  "exit_code": 0,
+  "passed": true,
+  "disposable_containers_removed": [
+    "linkyoh-navigation-image-redis",
+    "linkyoh-navigation-image-db"
+  ]
+}

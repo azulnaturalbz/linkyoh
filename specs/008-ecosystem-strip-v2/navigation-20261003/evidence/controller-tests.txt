@@ -1,0 +1,19 @@
+test_all_protected_changes_rejected (test_controller.ControllerTests.test_all_protected_changes_rejected) ... ok
+test_broad_proxy_trust_rejected (test_controller.ControllerTests.test_broad_proxy_trust_rejected) ... ok
+test_compose_string_memory_allowed (test_controller.ControllerTests.test_compose_string_memory_allowed) ... ok
+test_exact_proxy_allowed (test_controller.ControllerTests.test_exact_proxy_allowed) ... ok
+test_neighbor_change_rejected (test_controller.ControllerTests.test_neighbor_change_rejected) ... ok
+test_only_current_container_id_alias_is_ignored (test_controller.ControllerTests.test_only_current_container_id_alias_is_ignored) ... ok
+test_only_web_may_change (test_controller.ControllerTests.test_only_web_may_change) ... ok
+test_public_redis_rejected (test_controller.ControllerTests.test_public_redis_rejected) ... ok
+test_rollback_preserves_current_secret_and_restores_owned_assets (test_controller.ControllerTests.test_rollback_preserves_current_secret_and_restores_owned_assets) ... ok
+test_v2_readiness_requires_locale_routes_version_and_games_link (test_controller.ControllerTests.test_v2_readiness_requires_locale_routes_version_and_games_link) ... ok
+test_exact_owned_window_accepted (test_ops.WindowTests.test_exact_owned_window_accepted) ... ok
+test_foreign_window_rejected (test_ops.WindowTests.test_foreign_window_rejected) ... ok
+test_missing_explicit_window_rejected (test_ops.WindowTests.test_missing_explicit_window_rejected) ... ok
+test_wrong_or_unclaimed_candidate_rejected (test_ops.WindowTests.test_wrong_or_unclaimed_candidate_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.019s
+
+OK

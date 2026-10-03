@@ -7,7 +7,7 @@
 - [x] Read hub's direct-human one-batch deployment authorization.
 - [x] Implement locale-aware fixed destination links and regression tests.
 - [x] Test isolated runtime and local EN/ES navigation; verify actual destinations.
-- [ ] Commit and build/test exact immutable candidate with unchanged dependencies.
+- [x] Commit and build/test exact immutable candidate with unchanged dependencies.
 - [ ] Coordinate fresh shared-host gates, backup and web-only release.
 - [ ] Verify public candidate/neighbors, push and record final owner handoff.
 

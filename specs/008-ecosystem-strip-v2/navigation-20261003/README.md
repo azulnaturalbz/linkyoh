@@ -29,7 +29,21 @@ schema identities, CSS, tracking events/dispatcher and forward banners are uncha
 
 ## Release Gate
 
-Local changes are ready; immutable packaging, image tests, fresh serialized
-shared-host admission, protected rollback custody, web-only release and live
-verification remain pending. Payments owns the first October 3 host window.
-No database migration, dependency installation or shared-edge change is needed.
+Source `b5d8d4a45f4db7727a6185fe970196bd8915f306` is pushed on
+`codex/005-linkyoh-revamp-ui` using the existing azulnaturalbz credential without
+changing the active global account. Image
+`sha256:089c44e44f6d80c2f9a1857131394c2b7121fa04774d60a27fa69765167c2861`
+passes all 70 tests without an application-source mount; 358 files match Git,
+Python remains 3.9.25 and Django 3.2.20. Fourteen release/rollback/window tests
+pass. Exactly four application files differ from the live60d5af7 package,
+including tests. The old immutable image remains available for rollback.
+
+Fresh serialized shared-host admission, protected rollback custody, web-only
+release and live verification remain pending. Payments owns the first October3
+host window; MarketDay is also queued. No database migration, dependency
+installation or shared-edge change is needed. The local GitHub/AWS executables
+were incompatible with this Mac's architecture; isolated current CLI binaries
+were used, without replacing global tools or adding application dependencies.
+GitHub's push reports 71 existing default-branch dependency advisories, including
+two critical; this is not a fresh candidate vulnerability audit. The separately
+gated dependency modernization remains necessary and is not bundled here.
