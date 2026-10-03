@@ -29,7 +29,7 @@ const expected = [
   ['Belize Logistics', 'belizelogistics.com', 'logistics_clickout'],
   ['Games', 'games.silvatech.bz', 'games_clickout'],
 ];
-const report = {started: new Date().toISOString(), source: candidate ? 'candidate' : '60d5af7', repoHead: execFileSync(process.env.GIT_BINARY || '/usr/bin/git', ['rev-parse', 'HEAD'], {cwd: repo}).toString().trim(), base, candidate,
+const report = {started: new Date().toISOString(), source: arg('--source', candidate ? 'candidate' : '60d5af7'), repoHead: execFileSync(process.env.GIT_BINARY || '/usr/bin/git', ['rev-parse', 'HEAD'], {cwd: repo}).toString().trim(), base, candidate,
   references: [], destinations: [], views: [], keyboard: [], nojs: [], localeRouting: [],
   errors: [], blockedWrites: [], realAnalyticsSent: false, productionMutation: false};
 const check = (condition, message) => {if (!condition) throw new Error(message);};
@@ -217,11 +217,18 @@ try {
         for (const [key, value] of requested.searchParams) check(final.searchParams.get(key) === value, 'Destination lost query: ' + key);
         check(metrics.visibleTextLength > 100 && metrics.headings.some(value => value.length > 3) && !/^(404|page not found|not found)/i.test(metrics.title), 'Soft 404/empty destination: ' + link.name);
         check(metrics.hubLinks.length > 0, 'Missing return-to-hub route: ' + link.name);
+        const returnHref = metrics.hubLinks.find(href => ['/', '/es/'].includes(new URL(href).pathname));
+        check(returnHref, 'Missing hub root return route: ' + link.name);
+        const back = await get(returnHref);
+        check(back.status === 200 && new URL(back.finalUrl).hostname === 'silvatech.bz', 'Return-to-hub destination failed: ' + link.name);
+        check(documentLang(back.body) === (new URL(returnHref).pathname === '/es/' ? 'es' : 'en'), 'Return-to-hub language failed: ' + link.name);
+        for (const [key, value] of new URL(returnHref).searchParams) check(new URL(back.finalUrl).searchParams.get(key) === value, 'Hub return lost attribution');
         if (lang === 'es' && (localeHosts.includes(final.hostname) || final.hostname === 'silvatech.bz')) {
           if (final.hostname === 'wop.silvatech.bz') check(metrics.headings.some(value => /Convierte WhatsApp/.test(value)), 'WOP Spanish content missing');
           else check(metrics.lang === 'es', 'Destination failed Spanish rendering: ' + link.name);
         }
-        report.actualDestinations.push({requested: requested.href, final: final.href, status: response.status(), sourceLang: lang, ...metrics});
+        report.actualDestinations.push({requested: requested.href, final: final.href, status: response.status(), sourceLang: lang,
+          returnHub: {requested: returnHref, final: back.finalUrl, status: back.status}, ...metrics});
       }
     }
     await ctx.close();
