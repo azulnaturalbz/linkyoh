@@ -1,0 +1,3200 @@
+{
+  "utc": "2026-10-03T14:13:51.004290+00:00",
+  "account": "944327601374",
+  "region": "us-east-1",
+  "instance": "i-0df5dfaabc889f576",
+  "type": "t3a.large",
+  "architecture": "x86_64",
+  "public_ip": "34.232.192.13",
+  "cloudwatch": {
+    "CPUUtilization": [
+      {
+        "Timestamp": 1791033180.0,
+        "Average": 31.2859125586525,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791033480.0,
+        "Average": 31.490907414441114,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791033780.0,
+        "Average": 29.780964683082647,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791034080.0,
+        "Average": 31.212742546453352,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791034380.0,
+        "Average": 29.94006518633754,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791034680.0,
+        "Average": 30.211038783692818,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791034980.0,
+        "Average": 30.993012745446567,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791035280.0,
+        "Average": 32.06066271881057,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791035580.0,
+        "Average": 29.90140451318616,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791035880.0,
+        "Average": 33.28279647788757,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791036180.0,
+        "Average": 31.508951757174952,
+        "Unit": "Percent"
+      },
+      {
+        "Timestamp": 1791036480.0,
+        "Average": 35.80280763501483,
+        "Unit": "Percent"
+      }
+    ],
+    "CPUCreditBalance": [
+      {
+        "Timestamp": 1791033180.0,
+        "Minimum": 665.40686745,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791033480.0,
+        "Minimum": 665.4281352166666,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791033780.0,
+        "Minimum": 665.3154057333334,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791034080.0,
+        "Minimum": 665.0389063666667,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791034380.0,
+        "Minimum": 665.1806517833334,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791034680.0,
+        "Minimum": 665.1742886666667,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791034980.0,
+        "Minimum": 664.9823412,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791035280.0,
+        "Minimum": 664.9664028666666,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791035580.0,
+        "Minimum": 664.8110449833333,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791035880.0,
+        "Minimum": 664.6647873833333,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791036180.0,
+        "Minimum": 664.4500821333334,
+        "Unit": "Count"
+      },
+      {
+        "Timestamp": 1791036480.0,
+        "Minimum": 664.3134116,
+        "Unit": "Count"
+      }
+    ]
+  },
+  "host": {
+    "before": {
+      "/marketday-web-1": {
+        "id": "babc4f83608e28c9829d031fdd7d694b1490672f9684946a1e6b0c292c7de0dd",
+        "image": "sha256:fddc42a2df1bdbb750bb1a021796aed155440a1a5fe8e3481afa5d9015301c30",
+        "start": "2026-10-03T12:16:20.013663292Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/marketday-maintenance-1": {
+        "id": "6fffcbc70f55f3007d7b25e4df1f93e3bf807065a4dce3e06704b6cdc8635743",
+        "image": "sha256:fddc42a2df1bdbb750bb1a021796aed155440a1a5fe8e3481afa5d9015301c30",
+        "start": "2026-10-03T12:16:20.103387775Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/ecommerce-tenant-web-1": {
+        "id": "c408a4fa0227b6af4770e738aecb37aa1166b0cf0553f5b7e09409bd94c71c39",
+        "image": "sha256:948e8725c37d7389d5966720eb322be9396dca50c1f0620df894c4bbfa054200",
+        "start": "2026-10-03T11:59:22.960702414Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/wop-celery-beat-1": {
+        "id": "00188ecc7595e2a29fb9edd9095ad6360a4eb08cbbd69891526b6dd534081cf2",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:27:36.635699522Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/wop-frontend-1": {
+        "id": "2af14160de3b4214d8d8c8385e949fa776389d848e6676e5bc1e3572feae426f",
+        "image": "sha256:e42ea84f71f9afdd4b6b6aa6dcfe05f52b0b5f435454cd5b6f64416d3f3dae22",
+        "start": "2026-09-27T05:27:29.115496693Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/wop-agent-runtime-worker-1": {
+        "id": "cbe82f8fdc115d21301da9203c998bcb2db5dfcceff4649c2fc3d533cc19e834",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:26:54.231635096Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/wop-celery-1": {
+        "id": "f31867f518d34d453f573403817bf4c7eefdc61d32ec0390db5db33c5ebf326d",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:26:31.087676203Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/wop-api-1": {
+        "id": "b5372dd95651d246ed18c5f3d7a8416674958db442ddb2a33917f2186932baac",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:25:59.341153193Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/n8n-n8n-1": {
+        "id": "993020d0f0f019fa0794add9a6ac3f64c58c8e8d08ba4ac5167e8918aa6c86da",
+        "image": "sha256:738daec855e02c6aa502cd4ab99c8f00b6402200d58c9e63b01be8fea438248e",
+        "start": "2026-09-27T01:36:33.196130782Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/linkyoh-web-1": {
+        "id": "7d714a5412baa3750b5e9531f360c038a8bbb18ceecc15953ca985b4fd7a8614",
+        "image": "sha256:778630b95827f791a3bc0c69eaf3326a99b400d6187b4bad2d3c859d75ce50fa",
+        "start": "2026-09-14T18:28:00.895932337Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/chillbout-web-1": {
+        "id": "d256f7cb3c78776de8ba0ad16f2658a63e787f86812915a0625865101cbd9774",
+        "image": "sha256:4f191a3037fd10992e9cea505c6bf0b415ef280d8f08c60fa879e9439d4984b5",
+        "start": "2026-09-14T18:11:29.839451338Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/linkyoh-directory_limits-1": {
+        "id": "cdb3a0b653a8e92d898641428c1e24c6ad2cc226083170fd2649f674fe04e8db",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "start": "2026-09-13T20:04:07.550386388Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/ecommerce-tenant-celery-beat-1": {
+        "id": "7286bb262221a01998867cb66a4f51de5f57f18aa517cf5de28b47c93a4223ab",
+        "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+        "start": "2026-09-13T20:02:21.396382855Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/ecommerce-tenant-celery-1": {
+        "id": "c56870d34d62e3fe7beadaa5b58c758db55f7234cae6a5ae6ac3df0e25ee55a7",
+        "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+        "start": "2026-09-13T20:00:25.870595724Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/rybbit-client": {
+        "id": "d35d96726b167e717cf433cddf64c8388be84db856a422654df08250f8583f54",
+        "image": "sha256:4b32b15ef214d95392df3f13ebd8feaa97b1a17d6f21a51e9d2aa6db6aa52d72",
+        "start": "2026-08-25T19:41:11.665423382Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/rybbit-backend": {
+        "id": "d92befa474cebed63ab69663bff2a696b2560e0189a33266bbaecc05eae52761",
+        "image": "sha256:5548325c5673f5f605c9d9a786911af426cd0ce5561c16ba4c784ef0301cc675",
+        "start": "2026-08-25T19:41:10.963950102Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/rybbit-clickhouse": {
+        "id": "fc53e9829f8b982f64bdcea5e84a9d5f6ca0963e7e39cbfa8c3a03838272d5ec",
+        "image": "sha256:400ba3e942e8175ea44a41f0b745239ffbf424b8af5b343c6cf9dcf0be7141c6",
+        "start": "2026-08-25T19:41:06.844791046Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/rybbit-postgres": {
+        "id": "3e521734cfa75078f4634bfb37e1d5ee0582cd5e0266989fb7454078a2d548a6",
+        "image": "sha256:45a04d02adcf690e908ccaa1bfeceddbd1a7156107f2fca0534ad5c473b7ec59",
+        "start": "2026-08-25T19:41:06.659681438Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/nationalperspective-web-1": {
+        "id": "50f114d68a9d84a083baab8c93e385a4effa4ba92a3ab6cd77ba6709308036a2",
+        "image": "sha256:f5b9914852ab20789a14bb76256317e66dfa4f6b4c567bb5680824dd138e2b11",
+        "start": "2026-08-25T14:05:53.120979716Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/ecommerce-tenant-redis-1": {
+        "id": "9e8f32999aef2e16f961676354fb2c1afdf2266d71abba7a3b1cf44ec54ecb7b",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "start": "2026-08-25T04:08:16.122844844Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/edge-caddy-1": {
+        "id": "d5ce06c2d910335e3b2317fe41c430c801e50d19a8a228be3d283343c930aa69",
+        "image": "sha256:5190456911cee510988a5fb9996188ef866fbcca3235cad19bf05f5f8f33386f",
+        "start": "2026-08-25T19:43:45.525261655Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/linkyoh-celery_worker-1": {
+        "id": "e0d93a398eb2f9d8f206c8d15374c61bd3a6e051687fdb0b7db88c9c99f12fd5",
+        "image": "sha256:a9d65fd626e91d88abe340820ac9a0fe1ad81565f1dac86ada934d0470dddd0a",
+        "start": "2026-08-25T02:29:55.620409991Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/linkyoh-celery_beat-1": {
+        "id": "8fd405670459e4c6fa09c78826a0626947aa4a441ffb68553887042ef8899bd6",
+        "image": "sha256:1a0b52b67af705bcdc37294fb81311bc7a3500d26e94382553904ecf8ebd5c24",
+        "start": "2026-08-25T02:29:57.382447879Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/linkyoh-rabbitmq-1": {
+        "id": "1baabce8dad023379fe29f51aa34146b3db7d711f033abdb4c8a8c11d9746e98",
+        "image": "sha256:5f3394787e6c8e30dbe74334e06fca9426943d21dbf1e5abd38b234c5ec1a5cd",
+        "start": "2026-08-25T02:29:56.682096289Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/wop-redis-1": {
+        "id": "109757699aa70269b2be2994eff2ffabc2f6ccbd1f742404fd699b8513cbbde5",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "start": "2026-08-25T02:29:56.818064289Z",
+        "restarts": 0,
+        "health": "healthy"
+      }
+    },
+    "after": {
+      "/marketday-web-1": {
+        "id": "babc4f83608e28c9829d031fdd7d694b1490672f9684946a1e6b0c292c7de0dd",
+        "image": "sha256:fddc42a2df1bdbb750bb1a021796aed155440a1a5fe8e3481afa5d9015301c30",
+        "start": "2026-10-03T12:16:20.013663292Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/marketday-maintenance-1": {
+        "id": "6fffcbc70f55f3007d7b25e4df1f93e3bf807065a4dce3e06704b6cdc8635743",
+        "image": "sha256:fddc42a2df1bdbb750bb1a021796aed155440a1a5fe8e3481afa5d9015301c30",
+        "start": "2026-10-03T12:16:20.103387775Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/ecommerce-tenant-web-1": {
+        "id": "c408a4fa0227b6af4770e738aecb37aa1166b0cf0553f5b7e09409bd94c71c39",
+        "image": "sha256:948e8725c37d7389d5966720eb322be9396dca50c1f0620df894c4bbfa054200",
+        "start": "2026-10-03T11:59:22.960702414Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/wop-celery-beat-1": {
+        "id": "00188ecc7595e2a29fb9edd9095ad6360a4eb08cbbd69891526b6dd534081cf2",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:27:36.635699522Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/wop-frontend-1": {
+        "id": "2af14160de3b4214d8d8c8385e949fa776389d848e6676e5bc1e3572feae426f",
+        "image": "sha256:e42ea84f71f9afdd4b6b6aa6dcfe05f52b0b5f435454cd5b6f64416d3f3dae22",
+        "start": "2026-09-27T05:27:29.115496693Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/wop-agent-runtime-worker-1": {
+        "id": "cbe82f8fdc115d21301da9203c998bcb2db5dfcceff4649c2fc3d533cc19e834",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:26:54.231635096Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/wop-celery-1": {
+        "id": "f31867f518d34d453f573403817bf4c7eefdc61d32ec0390db5db33c5ebf326d",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:26:31.087676203Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/wop-api-1": {
+        "id": "b5372dd95651d246ed18c5f3d7a8416674958db442ddb2a33917f2186932baac",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "start": "2026-09-27T05:25:59.341153193Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/n8n-n8n-1": {
+        "id": "993020d0f0f019fa0794add9a6ac3f64c58c8e8d08ba4ac5167e8918aa6c86da",
+        "image": "sha256:738daec855e02c6aa502cd4ab99c8f00b6402200d58c9e63b01be8fea438248e",
+        "start": "2026-09-27T01:36:33.196130782Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/linkyoh-web-1": {
+        "id": "7d714a5412baa3750b5e9531f360c038a8bbb18ceecc15953ca985b4fd7a8614",
+        "image": "sha256:778630b95827f791a3bc0c69eaf3326a99b400d6187b4bad2d3c859d75ce50fa",
+        "start": "2026-09-14T18:28:00.895932337Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/chillbout-web-1": {
+        "id": "d256f7cb3c78776de8ba0ad16f2658a63e787f86812915a0625865101cbd9774",
+        "image": "sha256:4f191a3037fd10992e9cea505c6bf0b415ef280d8f08c60fa879e9439d4984b5",
+        "start": "2026-09-14T18:11:29.839451338Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/linkyoh-directory_limits-1": {
+        "id": "cdb3a0b653a8e92d898641428c1e24c6ad2cc226083170fd2649f674fe04e8db",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "start": "2026-09-13T20:04:07.550386388Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/ecommerce-tenant-celery-beat-1": {
+        "id": "7286bb262221a01998867cb66a4f51de5f57f18aa517cf5de28b47c93a4223ab",
+        "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+        "start": "2026-09-13T20:02:21.396382855Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/ecommerce-tenant-celery-1": {
+        "id": "c56870d34d62e3fe7beadaa5b58c758db55f7234cae6a5ae6ac3df0e25ee55a7",
+        "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+        "start": "2026-09-13T20:00:25.870595724Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/rybbit-client": {
+        "id": "d35d96726b167e717cf433cddf64c8388be84db856a422654df08250f8583f54",
+        "image": "sha256:4b32b15ef214d95392df3f13ebd8feaa97b1a17d6f21a51e9d2aa6db6aa52d72",
+        "start": "2026-08-25T19:41:11.665423382Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/rybbit-backend": {
+        "id": "d92befa474cebed63ab69663bff2a696b2560e0189a33266bbaecc05eae52761",
+        "image": "sha256:5548325c5673f5f605c9d9a786911af426cd0ce5561c16ba4c784ef0301cc675",
+        "start": "2026-08-25T19:41:10.963950102Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/rybbit-clickhouse": {
+        "id": "fc53e9829f8b982f64bdcea5e84a9d5f6ca0963e7e39cbfa8c3a03838272d5ec",
+        "image": "sha256:400ba3e942e8175ea44a41f0b745239ffbf424b8af5b343c6cf9dcf0be7141c6",
+        "start": "2026-08-25T19:41:06.844791046Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/rybbit-postgres": {
+        "id": "3e521734cfa75078f4634bfb37e1d5ee0582cd5e0266989fb7454078a2d548a6",
+        "image": "sha256:45a04d02adcf690e908ccaa1bfeceddbd1a7156107f2fca0534ad5c473b7ec59",
+        "start": "2026-08-25T19:41:06.659681438Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/nationalperspective-web-1": {
+        "id": "50f114d68a9d84a083baab8c93e385a4effa4ba92a3ab6cd77ba6709308036a2",
+        "image": "sha256:f5b9914852ab20789a14bb76256317e66dfa4f6b4c567bb5680824dd138e2b11",
+        "start": "2026-08-25T14:05:53.120979716Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/ecommerce-tenant-redis-1": {
+        "id": "9e8f32999aef2e16f961676354fb2c1afdf2266d71abba7a3b1cf44ec54ecb7b",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "start": "2026-08-25T04:08:16.122844844Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/edge-caddy-1": {
+        "id": "d5ce06c2d910335e3b2317fe41c430c801e50d19a8a228be3d283343c930aa69",
+        "image": "sha256:5190456911cee510988a5fb9996188ef866fbcca3235cad19bf05f5f8f33386f",
+        "start": "2026-08-25T19:43:45.525261655Z",
+        "restarts": 0,
+        "health": "healthy"
+      },
+      "/linkyoh-celery_worker-1": {
+        "id": "e0d93a398eb2f9d8f206c8d15374c61bd3a6e051687fdb0b7db88c9c99f12fd5",
+        "image": "sha256:a9d65fd626e91d88abe340820ac9a0fe1ad81565f1dac86ada934d0470dddd0a",
+        "start": "2026-08-25T02:29:55.620409991Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/linkyoh-celery_beat-1": {
+        "id": "8fd405670459e4c6fa09c78826a0626947aa4a441ffb68553887042ef8899bd6",
+        "image": "sha256:1a0b52b67af705bcdc37294fb81311bc7a3500d26e94382553904ecf8ebd5c24",
+        "start": "2026-08-25T02:29:57.382447879Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/linkyoh-rabbitmq-1": {
+        "id": "1baabce8dad023379fe29f51aa34146b3db7d711f033abdb4c8a8c11d9746e98",
+        "image": "sha256:5f3394787e6c8e30dbe74334e06fca9426943d21dbf1e5abd38b234c5ec1a5cd",
+        "start": "2026-08-25T02:29:56.682096289Z",
+        "restarts": 0,
+        "health": null
+      },
+      "/wop-redis-1": {
+        "id": "109757699aa70269b2be2994eff2ffabc2f6ccbd1f742404fd699b8513cbbde5",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "start": "2026-08-25T02:29:56.818064289Z",
+        "restarts": 0,
+        "health": "healthy"
+      }
+    },
+    "samples": [
+      {
+        "utc": "2026-10-03T14:13:56.216916+00:00",
+        "memory": {
+          "MemAvailable": 2318753792,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112499696,
+          868,
+          42681408,
+          507380411,
+          336849,
+          0,
+          3737064,
+          6166343,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:13:59.219820+00:00",
+        "memory": {
+          "MemAvailable": 2317697024,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112499752,
+          868,
+          42681439,
+          507380897,
+          336849,
+          0,
+          3737066,
+          6166353,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:14:02.222253+00:00",
+        "memory": {
+          "MemAvailable": 2319757312,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112499798,
+          868,
+          42681466,
+          507381403,
+          336850,
+          0,
+          3737070,
+          6166368,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:14:05.225053+00:00",
+        "memory": {
+          "MemAvailable": 2297044992,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112499853,
+          868,
+          42681499,
+          507381896,
+          336857,
+          0,
+          3737071,
+          6166389,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:14:08.228442+00:00",
+        "memory": {
+          "MemAvailable": 2321752064,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112499899,
+          868,
+          42681531,
+          507382388,
+          336858,
+          0,
+          3737071,
+          6166410,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:14:11.232255+00:00",
+        "memory": {
+          "MemAvailable": 2310623232,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112499933,
+          868,
+          42681559,
+          507382903,
+          336858,
+          0,
+          3737071,
+          6166426,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:14:14.233215+00:00",
+        "memory": {
+          "MemAvailable": 2318643200,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112499981,
+          868,
+          42681585,
+          507383412,
+          336858,
+          0,
+          3737073,
+          6166439,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:14:17.237313+00:00",
+        "memory": {
+          "MemAvailable": 2318643200,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500055,
+          868,
+          42681610,
+          507383881,
+          336858,
+          0,
+          3737074,
+          6166459,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753994240
+      },
+      {
+        "utc": "2026-10-03T14:14:20.239854+00:00",
+        "memory": {
+          "MemAvailable": 2325581824,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500207,
+          868,
+          42681653,
+          507384263,
+          336859,
+          0,
+          3737074,
+          6166471,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7749771264
+      },
+      {
+        "utc": "2026-10-03T14:14:23.242247+00:00",
+        "memory": {
+          "MemAvailable": 2321727488,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500262,
+          868,
+          42681682,
+          507384764,
+          336859,
+          0,
+          3737077,
+          6166480,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7749808128
+      },
+      {
+        "utc": "2026-10-03T14:14:26.246107+00:00",
+        "memory": {
+          "MemAvailable": 2302480384,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500420,
+          868,
+          42681723,
+          507385144,
+          336862,
+          0,
+          3737078,
+          6166501,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7749808128
+      },
+      {
+        "utc": "2026-10-03T14:14:29.249787+00:00",
+        "memory": {
+          "MemAvailable": 2326638592,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500548,
+          868,
+          42681761,
+          507385554,
+          336862,
+          0,
+          3737082,
+          6166520,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7749808128
+      },
+      {
+        "utc": "2026-10-03T14:14:32.252651+00:00",
+        "memory": {
+          "MemAvailable": 2282094592,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500672,
+          868,
+          42681820,
+          507385950,
+          336862,
+          0,
+          3737085,
+          6166541,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754067968
+      },
+      {
+        "utc": "2026-10-03T14:14:35.253822+00:00",
+        "memory": {
+          "MemAvailable": 2319360000,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500739,
+          868,
+          42681861,
+          507386411,
+          336863,
+          0,
+          3737087,
+          6166568,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754047488
+      },
+      {
+        "utc": "2026-10-03T14:14:38.254774+00:00",
+        "memory": {
+          "MemAvailable": 2299670528,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112500843,
+          868,
+          42681912,
+          507386823,
+          336863,
+          0,
+          3737091,
+          6166597,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754067968
+      },
+      {
+        "utc": "2026-10-03T14:14:41.258571+00:00",
+        "memory": {
+          "MemAvailable": 2250657792,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501098,
+          868,
+          42681952,
+          507387089,
+          336868,
+          0,
+          3737092,
+          6166627,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754067968
+      },
+      {
+        "utc": "2026-10-03T14:14:44.262427+00:00",
+        "memory": {
+          "MemAvailable": 2288918528,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501291,
+          868,
+          42682029,
+          507387376,
+          336868,
+          0,
+          3737103,
+          6166660,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754067968
+      },
+      {
+        "utc": "2026-10-03T14:14:47.266219+00:00",
+        "memory": {
+          "MemAvailable": 2297176064,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501342,
+          868,
+          42682063,
+          507387862,
+          336868,
+          0,
+          3737110,
+          6166687,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754067968
+      },
+      {
+        "utc": "2026-10-03T14:14:50.267342+00:00",
+        "memory": {
+          "MemAvailable": 2306727936,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213617,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501560,
+          868,
+          42682141,
+          507388135,
+          336868,
+          0,
+          3737114,
+          6166711,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7749771264
+      },
+      {
+        "utc": "2026-10-03T14:14:53.268769+00:00",
+        "memory": {
+          "MemAvailable": 2327584768,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501628,
+          868,
+          42682167,
+          507388607,
+          336869,
+          0,
+          3737116,
+          6166739,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7749771264
+      },
+      {
+        "utc": "2026-10-03T14:14:56.272189+00:00",
+        "memory": {
+          "MemAvailable": 2321952768,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501668,
+          868,
+          42682192,
+          507389133,
+          336869,
+          0,
+          3737118,
+          6166749,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754252288
+      },
+      {
+        "utc": "2026-10-03T14:14:59.276029+00:00",
+        "memory": {
+          "MemAvailable": 2326085632,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501871,
+          868,
+          42682243,
+          507389453,
+          336869,
+          0,
+          3737119,
+          6166764,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7754252288
+      },
+      {
+        "utc": "2026-10-03T14:15:02.277999+00:00",
+        "memory": {
+          "MemAvailable": 2320732160,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501916,
+          868,
+          42682268,
+          507389959,
+          336875,
+          0,
+          3737119,
+          6166777,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752978432
+      },
+      {
+        "utc": "2026-10-03T14:15:05.283595+00:00",
+        "memory": {
+          "MemAvailable": 2320142336,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112501959,
+          868,
+          42682299,
+          507390459,
+          336876,
+          0,
+          3737121,
+          6166792,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752998912
+      },
+      {
+        "utc": "2026-10-03T14:15:08.288222+00:00",
+        "memory": {
+          "MemAvailable": 2328219648,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502003,
+          868,
+          42682322,
+          507390972,
+          336876,
+          0,
+          3737125,
+          6166804,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7753019392
+      },
+      {
+        "utc": "2026-10-03T14:15:11.292281+00:00",
+        "memory": {
+          "MemAvailable": 2340343808,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502055,
+          868,
+          42682367,
+          507391432,
+          336880,
+          0,
+          3737129,
+          6166820,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752732672
+      },
+      {
+        "utc": "2026-10-03T14:15:14.294356+00:00",
+        "memory": {
+          "MemAvailable": 2340311040,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502104,
+          868,
+          42682398,
+          507391928,
+          336881,
+          0,
+          3737134,
+          6166831,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752732672
+      },
+      {
+        "utc": "2026-10-03T14:15:17.296338+00:00",
+        "memory": {
+          "MemAvailable": 2343411712,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502138,
+          868,
+          42682426,
+          507392443,
+          336890,
+          0,
+          3737135,
+          6166844,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752957952
+      },
+      {
+        "utc": "2026-10-03T14:15:20.300209+00:00",
+        "memory": {
+          "MemAvailable": 2370703360,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502294,
+          868,
+          42682484,
+          507392797,
+          336890,
+          0,
+          3737142,
+          6166860,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752957952
+      },
+      {
+        "utc": "2026-10-03T14:15:23.302784+00:00",
+        "memory": {
+          "MemAvailable": 2357288960,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502402,
+          868,
+          42682517,
+          507393236,
+          336890,
+          0,
+          3737143,
+          6166870,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752957952
+      },
+      {
+        "utc": "2026-10-03T14:15:26.305090+00:00",
+        "memory": {
+          "MemAvailable": 2381459456,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502442,
+          868,
+          42682545,
+          507393739,
+          336891,
+          0,
+          3737147,
+          6166891,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752957952
+      },
+      {
+        "utc": "2026-10-03T14:15:29.308912+00:00",
+        "memory": {
+          "MemAvailable": 2360291328,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502513,
+          868,
+          42682598,
+          507394200,
+          336891,
+          0,
+          3737150,
+          6166911,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752957952
+      },
+      {
+        "utc": "2026-10-03T14:15:32.312250+00:00",
+        "memory": {
+          "MemAvailable": 2363310080,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502701,
+          868,
+          42682640,
+          507394540,
+          336892,
+          0,
+          3737159,
+          6166929,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752392704
+      },
+      {
+        "utc": "2026-10-03T14:15:35.313445+00:00",
+        "memory": {
+          "MemAvailable": 2375659520,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502787,
+          868,
+          42682676,
+          507394994,
+          336893,
+          0,
+          3737160,
+          6166947,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752392704
+      },
+      {
+        "utc": "2026-10-03T14:15:38.317275+00:00",
+        "memory": {
+          "MemAvailable": 2312507392,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112502978,
+          868,
+          42682737,
+          507395324,
+          336893,
+          0,
+          3737163,
+          6166961,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:15:41.321123+00:00",
+        "memory": {
+          "MemAvailable": 2320953344,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112503360,
+          868,
+          42682874,
+          507395389,
+          336894,
+          0,
+          3737165,
+          6166965,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752392704
+      },
+      {
+        "utc": "2026-10-03T14:15:44.322357+00:00",
+        "memory": {
+          "MemAvailable": 2268205056,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112503660,
+          868,
+          42682934,
+          507395609,
+          336895,
+          0,
+          3737169,
+          6166979,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752392704
+      },
+      {
+        "utc": "2026-10-03T14:15:47.326332+00:00",
+        "memory": {
+          "MemAvailable": 2328895488,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112503915,
+          868,
+          42682981,
+          507395880,
+          336896,
+          0,
+          3737177,
+          6166988,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:15:50.330213+00:00",
+        "memory": {
+          "MemAvailable": 2300854272,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504121,
+          868,
+          42683044,
+          507396183,
+          336897,
+          0,
+          3737180,
+          6167007,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:15:53.332330+00:00",
+        "memory": {
+          "MemAvailable": 2261508096,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504319,
+          868,
+          42683124,
+          507396445,
+          336924,
+          0,
+          3737182,
+          6167022,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:15:56.335968+00:00",
+        "memory": {
+          "MemAvailable": 2280394752,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504418,
+          868,
+          42683174,
+          507396872,
+          336934,
+          0,
+          3737184,
+          6167036,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:15:59.339260+00:00",
+        "memory": {
+          "MemAvailable": 2273456128,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504453,
+          868,
+          42683193,
+          507397399,
+          336934,
+          0,
+          3737184,
+          6167042,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:16:02.342895+00:00",
+        "memory": {
+          "MemAvailable": 2256953344,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504616,
+          868,
+          42683241,
+          507397765,
+          336935,
+          0,
+          3737185,
+          6167063,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:16:05.346545+00:00",
+        "memory": {
+          "MemAvailable": 2289844224,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504714,
+          868,
+          42683278,
+          507398213,
+          336935,
+          0,
+          3737186,
+          6167085,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:16:08.348417+00:00",
+        "memory": {
+          "MemAvailable": 2289844224,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504762,
+          868,
+          42683307,
+          507398714,
+          336935,
+          0,
+          3737187,
+          6167097,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:16:11.352125+00:00",
+        "memory": {
+          "MemAvailable": 2287570944,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504804,
+          868,
+          42683343,
+          507399213,
+          336935,
+          0,
+          3737189,
+          6167109,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:16:14.353979+00:00",
+        "memory": {
+          "MemAvailable": 2274549760,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504863,
+          868,
+          42683374,
+          507399705,
+          336935,
+          0,
+          3737192,
+          6167118,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752413184
+      },
+      {
+        "utc": "2026-10-03T14:16:17.356803+00:00",
+        "memory": {
+          "MemAvailable": 2287824896,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504900,
+          868,
+          42683395,
+          507400221,
+          336939,
+          0,
+          3737193,
+          6167130,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752388608
+      },
+      {
+        "utc": "2026-10-03T14:16:20.360509+00:00",
+        "memory": {
+          "MemAvailable": 2287562752,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112504968,
+          868,
+          42683437,
+          507400689,
+          336939,
+          0,
+          3737197,
+          6167144,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752388608
+      },
+      {
+        "utc": "2026-10-03T14:16:23.362172+00:00",
+        "memory": {
+          "MemAvailable": 2296070144,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505106,
+          868,
+          42683469,
+          507401098,
+          336939,
+          0,
+          3737201,
+          6167156,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752339456
+      },
+      {
+        "utc": "2026-10-03T14:16:26.363382+00:00",
+        "memory": {
+          "MemAvailable": 2282668032,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505174,
+          868,
+          42683507,
+          507401571,
+          336939,
+          0,
+          3737203,
+          6167171,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752359936
+      },
+      {
+        "utc": "2026-10-03T14:16:29.364890+00:00",
+        "memory": {
+          "MemAvailable": 2278797312,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505206,
+          868,
+          42683527,
+          507402098,
+          336939,
+          0,
+          3737203,
+          6167188,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752359936
+      },
+      {
+        "utc": "2026-10-03T14:16:32.366078+00:00",
+        "memory": {
+          "MemAvailable": 2278797312,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505242,
+          868,
+          42683555,
+          507402615,
+          336940,
+          0,
+          3737204,
+          6167208,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752359936
+      },
+      {
+        "utc": "2026-10-03T14:16:35.369931+00:00",
+        "memory": {
+          "MemAvailable": 2303672320,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505461,
+          868,
+          42683591,
+          507402930,
+          336940,
+          0,
+          3737207,
+          6167230,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752359936
+      },
+      {
+        "utc": "2026-10-03T14:16:38.372280+00:00",
+        "memory": {
+          "MemAvailable": 2279428096,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505520,
+          868,
+          42683626,
+          507403388,
+          336940,
+          0,
+          3737215,
+          6167270,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752359936
+      },
+      {
+        "utc": "2026-10-03T14:16:41.373490+00:00",
+        "memory": {
+          "MemAvailable": 2275495936,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505578,
+          868,
+          42683659,
+          507403879,
+          336940,
+          0,
+          3737221,
+          6167294,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752359936
+      },
+      {
+        "utc": "2026-10-03T14:16:44.377210+00:00",
+        "memory": {
+          "MemAvailable": 2275606528,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112505625,
+          868,
+          42683687,
+          507404378,
+          336940,
+          0,
+          3737222,
+          6167305,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7752359936
+      },
+      {
+        "utc": "2026-10-03T14:16:47.379772+00:00",
+        "memory": {
+          "MemAvailable": 2250911744,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112506115,
+          868,
+          42683796,
+          507404378,
+          336940,
+          0,
+          3737223,
+          6167305,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743442944
+      },
+      {
+        "utc": "2026-10-03T14:16:50.383379+00:00",
+        "memory": {
+          "MemAvailable": 2210848768,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112506515,
+          868,
+          42683875,
+          507404485,
+          336940,
+          0,
+          3737224,
+          6167313,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743442944
+      },
+      {
+        "utc": "2026-10-03T14:16:53.387143+00:00",
+        "memory": {
+          "MemAvailable": 2240004096,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112506809,
+          868,
+          42683931,
+          507404697,
+          336940,
+          0,
+          3737228,
+          6167324,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743492096
+      },
+      {
+        "utc": "2026-10-03T14:16:56.391438+00:00",
+        "memory": {
+          "MemAvailable": 2258329600,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112506986,
+          868,
+          42683970,
+          507405047,
+          336940,
+          0,
+          3737237,
+          6167339,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:16:59.392254+00:00",
+        "memory": {
+          "MemAvailable": 2284830720,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507075,
+          868,
+          42684029,
+          507405474,
+          336941,
+          0,
+          3737239,
+          6167351,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:02.394552+00:00",
+        "memory": {
+          "MemAvailable": 2296840192,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507151,
+          868,
+          42684054,
+          507405953,
+          336941,
+          0,
+          3737242,
+          6167361,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:05.397302+00:00",
+        "memory": {
+          "MemAvailable": 2277257216,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507225,
+          868,
+          42684097,
+          507406423,
+          336941,
+          0,
+          3737242,
+          6167374,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:08.399468+00:00",
+        "memory": {
+          "MemAvailable": 2301812736,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507406,
+          868,
+          42684141,
+          507406773,
+          336941,
+          0,
+          3737244,
+          6167391,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:11.402214+00:00",
+        "memory": {
+          "MemAvailable": 2297712640,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507437,
+          868,
+          42684172,
+          507407297,
+          336941,
+          0,
+          3737244,
+          6167398,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:14.405732+00:00",
+        "memory": {
+          "MemAvailable": 2288939008,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507484,
+          868,
+          42684203,
+          507407799,
+          336941,
+          0,
+          3737244,
+          6167417,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:17.408124+00:00",
+        "memory": {
+          "MemAvailable": 2305802240,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507507,
+          868,
+          42684232,
+          507408327,
+          336946,
+          0,
+          3737244,
+          6167428,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:20.410542+00:00",
+        "memory": {
+          "MemAvailable": 2282127360,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507559,
+          868,
+          42684265,
+          507408818,
+          336947,
+          0,
+          3737248,
+          6167447,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:23.412342+00:00",
+        "memory": {
+          "MemAvailable": 2291597312,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507649,
+          868,
+          42684298,
+          507409278,
+          336947,
+          0,
+          3737248,
+          6167459,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:26.416026+00:00",
+        "memory": {
+          "MemAvailable": 2289868800,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507745,
+          868,
+          42684336,
+          507409721,
+          336947,
+          0,
+          3737255,
+          6167472,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:29.419647+00:00",
+        "memory": {
+          "MemAvailable": 2314027008,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507805,
+          868,
+          42684372,
+          507410200,
+          336947,
+          0,
+          3737255,
+          6167488,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:32.422178+00:00",
+        "memory": {
+          "MemAvailable": 2302201856,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507838,
+          868,
+          42684398,
+          507410716,
+          336947,
+          0,
+          3737256,
+          6167504,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:35.423127+00:00",
+        "memory": {
+          "MemAvailable": 2300940288,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112507897,
+          868,
+          42684429,
+          507411206,
+          336947,
+          0,
+          3737258,
+          6167515,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:38.424495+00:00",
+        "memory": {
+          "MemAvailable": 2272055296,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112508077,
+          868,
+          42684481,
+          507411544,
+          336947,
+          0,
+          3737258,
+          6167533,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743512576
+      },
+      {
+        "utc": "2026-10-03T14:17:41.427536+00:00",
+        "memory": {
+          "MemAvailable": 2297626624,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112508226,
+          868,
+          42684531,
+          507411917,
+          336948,
+          0,
+          3737273,
+          6167546,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7745703936
+      },
+      {
+        "utc": "2026-10-03T14:17:44.431194+00:00",
+        "memory": {
+          "MemAvailable": 2288357376,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112508300,
+          868,
+          42684570,
+          507412385,
+          336948,
+          0,
+          3737283,
+          6167558,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7745703936
+      },
+      {
+        "utc": "2026-10-03T14:17:47.432229+00:00",
+        "memory": {
+          "MemAvailable": 2284548096,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112508408,
+          868,
+          42684614,
+          507412804,
+          336948,
+          0,
+          3737296,
+          6167573,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7745028096
+      },
+      {
+        "utc": "2026-10-03T14:17:50.433089+00:00",
+        "memory": {
+          "MemAvailable": 2216984576,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112508856,
+          868,
+          42684729,
+          507412821,
+          336948,
+          0,
+          3737304,
+          6167578,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7745032192
+      },
+      {
+        "utc": "2026-10-03T14:17:53.436032+00:00",
+        "memory": {
+          "MemAvailable": 2203746304,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112509279,
+          868,
+          42684839,
+          507412876,
+          336948,
+          0,
+          3737307,
+          6167582,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7740551168
+      },
+      {
+        "utc": "2026-10-03T14:17:56.438834+00:00",
+        "memory": {
+          "MemAvailable": 2247049216,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112509631,
+          868,
+          42684906,
+          507413028,
+          336948,
+          0,
+          3737314,
+          6167590,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7740608512
+      },
+      {
+        "utc": "2026-10-03T14:17:59.442202+00:00",
+        "memory": {
+          "MemAvailable": 2268176384,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112509723,
+          868,
+          42684941,
+          507413469,
+          336948,
+          0,
+          3737315,
+          6167622,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7740608512
+      },
+      {
+        "utc": "2026-10-03T14:18:02.443005+00:00",
+        "memory": {
+          "MemAvailable": 2267815936,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112509796,
+          868,
+          42684979,
+          507413936,
+          336949,
+          0,
+          3737317,
+          6167634,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:05.443812+00:00",
+        "memory": {
+          "MemAvailable": 2267656192,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112509910,
+          868,
+          42685031,
+          507414343,
+          336949,
+          0,
+          3737333,
+          6167647,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:08.446791+00:00",
+        "memory": {
+          "MemAvailable": 2262835200,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510033,
+          868,
+          42685086,
+          507414731,
+          336949,
+          0,
+          3737347,
+          6167670,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:11.450562+00:00",
+        "memory": {
+          "MemAvailable": 2274271232,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510227,
+          868,
+          42685126,
+          507415077,
+          336949,
+          0,
+          3737347,
+          6167683,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:14.452241+00:00",
+        "memory": {
+          "MemAvailable": 2280239104,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510299,
+          868,
+          42685174,
+          507415545,
+          336949,
+          0,
+          3737353,
+          6167693,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:17.456087+00:00",
+        "memory": {
+          "MemAvailable": 2276917248,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510350,
+          868,
+          42685201,
+          507416034,
+          336949,
+          0,
+          3737360,
+          6167704,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:20.457804+00:00",
+        "memory": {
+          "MemAvailable": 2266337280,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510389,
+          868,
+          42685232,
+          507416539,
+          336954,
+          0,
+          3737361,
+          6167712,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:23.461577+00:00",
+        "memory": {
+          "MemAvailable": 2266091520,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510422,
+          868,
+          42685254,
+          507417057,
+          336954,
+          0,
+          3737364,
+          6167722,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:26.463383+00:00",
+        "memory": {
+          "MemAvailable": 2269384704,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510531,
+          868,
+          42685299,
+          507417473,
+          336955,
+          0,
+          3737365,
+          6167745,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:29.465397+00:00",
+        "memory": {
+          "MemAvailable": 2260938752,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510641,
+          868,
+          42685341,
+          507417890,
+          336955,
+          0,
+          3737376,
+          6167764,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7744790528
+      },
+      {
+        "utc": "2026-10-03T14:18:32.466169+00:00",
+        "memory": {
+          "MemAvailable": 2290655232,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510759,
+          868,
+          42685377,
+          507418316,
+          336955,
+          0,
+          3737380,
+          6167774,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743782912
+      },
+      {
+        "utc": "2026-10-03T14:18:35.472018+00:00",
+        "memory": {
+          "MemAvailable": 2310238208,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510802,
+          868,
+          42685401,
+          507418831,
+          336955,
+          0,
+          3737384,
+          6167787,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743782912
+      },
+      {
+        "utc": "2026-10-03T14:18:38.475751+00:00",
+        "memory": {
+          "MemAvailable": 2304303104,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510847,
+          868,
+          42685432,
+          507419335,
+          336955,
+          0,
+          3737384,
+          6167797,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743803392
+      },
+      {
+        "utc": "2026-10-03T14:18:41.479531+00:00",
+        "memory": {
+          "MemAvailable": 2291142656,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112510923,
+          868,
+          42685469,
+          507419806,
+          336955,
+          0,
+          3737387,
+          6167808,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743803392
+      },
+      {
+        "utc": "2026-10-03T14:18:44.482248+00:00",
+        "memory": {
+          "MemAvailable": 2308526080,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112511119,
+          868,
+          42685533,
+          507420128,
+          336956,
+          0,
+          3737395,
+          6167822,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743803392
+      },
+      {
+        "utc": "2026-10-03T14:18:47.483210+00:00",
+        "memory": {
+          "MemAvailable": 2299494400,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112511151,
+          868,
+          42685568,
+          507420645,
+          336956,
+          0,
+          3737396,
+          6167835,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743803392
+      },
+      {
+        "utc": "2026-10-03T14:18:50.484217+00:00",
+        "memory": {
+          "MemAvailable": 2299502592,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112511192,
+          868,
+          42685597,
+          507421151,
+          336956,
+          0,
+          3737396,
+          6167847,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743803392
+      },
+      {
+        "utc": "2026-10-03T14:18:53.487319+00:00",
+        "memory": {
+          "MemAvailable": 2207105024,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112511389,
+          868,
+          42685675,
+          507421455,
+          336957,
+          0,
+          3737399,
+          6167857,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743803392
+      },
+      {
+        "utc": "2026-10-03T14:18:56.491260+00:00",
+        "memory": {
+          "MemAvailable": 2200977408,
+          "SwapFree": 1712058368
+        },
+        "paging": {
+          "pswpin": 213621,
+          "pswpout": 374464
+        },
+        "cpu": [
+          112511775,
+          868,
+          42685857,
+          507421461,
+          336970,
+          0,
+          3737404,
+          6167860,
+          0,
+          0
+        ],
+        "disk_free_bytes": 7743729664
+      }
+    ],
+    "container_stats": [
+      {
+        "BlockIO": "12.3MB / 0B",
+        "CPUPerc": "0.04%",
+        "Container": "babc4f83608e",
+        "ID": "babc4f83608e",
+        "MemPerc": "45.18%",
+        "MemUsage": "231.3MiB / 512MiB",
+        "Name": "marketday-web-1",
+        "NetIO": "2.38MB / 2.04MB",
+        "PIDs": "9"
+      },
+      {
+        "BlockIO": "1.03MB / 0B",
+        "CPUPerc": "0.00%",
+        "Container": "6fffcbc70f55",
+        "ID": "6fffcbc70f55",
+        "MemPerc": "39.84%",
+        "MemUsage": "76.49MiB / 192MiB",
+        "Name": "marketday-maintenance-1",
+        "NetIO": "824kB / 791kB",
+        "PIDs": "1"
+      },
+      {
+        "BlockIO": "19.1MB / 1.15MB",
+        "CPUPerc": "0.01%",
+        "Container": "c408a4fa0227",
+        "ID": "c408a4fa0227",
+        "MemPerc": "52.22%",
+        "MemUsage": "401MiB / 768MiB",
+        "Name": "ecommerce-tenant-web-1",
+        "NetIO": "190kB / 2.21MB",
+        "PIDs": "5"
+      },
+      {
+        "BlockIO": "5.22MB / 94MB",
+        "CPUPerc": "0.00%",
+        "Container": "00188ecc7595",
+        "ID": "00188ecc7595",
+        "MemPerc": "2.22%",
+        "MemUsage": "174.4MiB / 7.662GiB",
+        "Name": "wop-celery-beat-1",
+        "NetIO": "81.2MB / 627MB",
+        "PIDs": "1"
+      },
+      {
+        "BlockIO": "49.8MB / 930kB",
+        "CPUPerc": "0.00%",
+        "Container": "2af14160de3b",
+        "ID": "2af14160de3b",
+        "MemPerc": "1.47%",
+        "MemUsage": "115.1MiB / 7.662GiB",
+        "Name": "wop-frontend-1",
+        "NetIO": "12.4MB / 90.6MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "42MB / 190MB",
+        "CPUPerc": "21.10%",
+        "Container": "cbe82f8fdc11",
+        "ID": "cbe82f8fdc11",
+        "MemPerc": "44.39%",
+        "MemUsage": "227.3MiB / 512MiB",
+        "Name": "wop-agent-runtime-worker-1",
+        "NetIO": "2.33GB / 2.52GB",
+        "PIDs": "2"
+      },
+      {
+        "BlockIO": "3.55MB / 66.7MB",
+        "CPUPerc": "0.10%",
+        "Container": "f31867f518d3",
+        "ID": "f31867f518d3",
+        "MemPerc": "4.60%",
+        "MemUsage": "360.8MiB / 7.662GiB",
+        "Name": "wop-celery-1",
+        "NetIO": "1.07GB / 840MB",
+        "PIDs": "3"
+      },
+      {
+        "BlockIO": "112MB / 2.2MB",
+        "CPUPerc": "0.07%",
+        "Container": "b5372dd95651",
+        "ID": "b5372dd95651",
+        "MemPerc": "7.08%",
+        "MemUsage": "555.6MiB / 7.662GiB",
+        "Name": "wop-api-1",
+        "NetIO": "94.4MB / 76.1MB",
+        "PIDs": "17"
+      },
+      {
+        "BlockIO": "187MB / 147MB",
+        "CPUPerc": "0.36%",
+        "Container": "993020d0f0f0",
+        "ID": "993020d0f0f0",
+        "MemPerc": "5.16%",
+        "MemUsage": "404.8MiB / 7.662GiB",
+        "Name": "n8n-n8n-1",
+        "NetIO": "710MB / 3.4GB",
+        "PIDs": "20"
+      },
+      {
+        "BlockIO": "35.3MB / 1.62GB",
+        "CPUPerc": "0.02%",
+        "Container": "7d714a5412ba",
+        "ID": "7d714a5412ba",
+        "MemPerc": "2.63%",
+        "MemUsage": "206.3MiB / 7.662GiB",
+        "Name": "linkyoh-web-1",
+        "NetIO": "2.37GB / 1.72GB",
+        "PIDs": "3"
+      },
+      {
+        "BlockIO": "79MB / 201kB",
+        "CPUPerc": "0.01%",
+        "Container": "d256f7cb3c78",
+        "ID": "d256f7cb3c78",
+        "MemPerc": "28.22%",
+        "MemUsage": "144.5MiB / 512MiB",
+        "Name": "chillbout-web-1",
+        "NetIO": "338MB / 228MB",
+        "PIDs": "3"
+      },
+      {
+        "BlockIO": "3.28MB / 143kB",
+        "CPUPerc": "0.75%",
+        "Container": "cdb3a0b653a8",
+        "ID": "cdb3a0b653a8",
+        "MemPerc": "7.43%",
+        "MemUsage": "4.758MiB / 64MiB",
+        "Name": "linkyoh-directory_limits-1",
+        "NetIO": "16MB / 2.71MB",
+        "PIDs": "6"
+      },
+      {
+        "BlockIO": "942kB / 25.5MB",
+        "CPUPerc": "0.00%",
+        "Container": "7286bb262221",
+        "ID": "7286bb262221",
+        "MemPerc": "33.07%",
+        "MemUsage": "84.66MiB / 256MiB",
+        "Name": "ecommerce-tenant-celery-beat-1",
+        "NetIO": "2.26GB / 1.5GB",
+        "PIDs": "1"
+      },
+      {
+        "BlockIO": "32.2MB / 125MB",
+        "CPUPerc": "0.05%",
+        "Container": "c56870d34d62",
+        "ID": "c56870d34d62",
+        "MemPerc": "30.51%",
+        "MemUsage": "195.2MiB / 640MiB",
+        "Name": "ecommerce-tenant-celery-1",
+        "NetIO": "314MB / 345MB",
+        "PIDs": "5"
+      },
+      {
+        "BlockIO": "378MB / 14.2MB",
+        "CPUPerc": "0.00%",
+        "Container": "d35d96726b16",
+        "ID": "d35d96726b16",
+        "MemPerc": "27.41%",
+        "MemUsage": "105.3MiB / 384MiB",
+        "Name": "rybbit-client",
+        "NetIO": "64.4MB / 955MB",
+        "PIDs": "11"
+      },
+      {
+        "BlockIO": "51.1MB / 58.7MB",
+        "CPUPerc": "0.04%",
+        "Container": "d92befa474ce",
+        "ID": "d92befa474ce",
+        "MemPerc": "35.47%",
+        "MemUsage": "181.6MiB / 512MiB",
+        "Name": "rybbit-backend",
+        "NetIO": "332MB / 1GB",
+        "PIDs": "13"
+      },
+      {
+        "BlockIO": "433MB / 4.03GB",
+        "CPUPerc": "9.21%",
+        "Container": "fc53e9829f8b",
+        "ID": "fc53e9829f8b",
+        "MemPerc": "26.44%",
+        "MemUsage": "203MiB / 768MiB",
+        "Name": "rybbit-clickhouse",
+        "NetIO": "40.4MB / 27.8MB",
+        "PIDs": "704"
+      },
+      {
+        "BlockIO": "16.1MB / 1.06GB",
+        "CPUPerc": "0.08%",
+        "Container": "3e521734cfa7",
+        "ID": "3e521734cfa7",
+        "MemPerc": "16.33%",
+        "MemUsage": "41.82MiB / 256MiB",
+        "Name": "rybbit-postgres",
+        "NetIO": "82.7MB / 118MB",
+        "PIDs": "17"
+      },
+      {
+        "BlockIO": "6.38GB / 186MB",
+        "CPUPerc": "0.00%",
+        "Container": "50f114d68a9d",
+        "ID": "50f114d68a9d",
+        "MemPerc": "3.38%",
+        "MemUsage": "265MiB / 7.662GiB",
+        "Name": "nationalperspective-web-1",
+        "NetIO": "1.66TB / 264GB",
+        "PIDs": "11"
+      },
+      {
+        "BlockIO": "372MB / 2.27GB",
+        "CPUPerc": "0.74%",
+        "Container": "9e8f32999aef",
+        "ID": "9e8f32999aef",
+        "MemPerc": "3.62%",
+        "MemUsage": "4.637MiB / 128MiB",
+        "Name": "ecommerce-tenant-redis-1",
+        "NetIO": "635MB / 540MB",
+        "PIDs": "7"
+      },
+      {
+        "BlockIO": "154MB / 74.3MB",
+        "CPUPerc": "0.05%",
+        "Container": "d5ce06c2d910",
+        "ID": "d5ce06c2d910",
+        "MemPerc": "0.80%",
+        "MemUsage": "63.02MiB / 7.662GiB",
+        "Name": "edge-caddy-1",
+        "NetIO": "76.1GB / 78.8GB",
+        "PIDs": "14"
+      },
+      {
+        "BlockIO": "45.2MB / 75MB",
+        "CPUPerc": "0.13%",
+        "Container": "e0d93a398eb2",
+        "ID": "e0d93a398eb2",
+        "MemPerc": "0.76%",
+        "MemUsage": "59.45MiB / 7.662GiB",
+        "Name": "linkyoh-celery_worker-1",
+        "NetIO": "969MB / 945MB",
+        "PIDs": "3"
+      },
+      {
+        "BlockIO": "987kB / 219MB",
+        "CPUPerc": "0.00%",
+        "Container": "8fd405670459",
+        "ID": "8fd405670459",
+        "MemPerc": "0.39%",
+        "MemUsage": "30.21MiB / 7.662GiB",
+        "Name": "linkyoh-celery_beat-1",
+        "NetIO": "8.94MB / 9.46MB",
+        "PIDs": "1"
+      },
+      {
+        "BlockIO": "57.5MB / 79.6MB",
+        "CPUPerc": "0.28%",
+        "Container": "1baabce8dad0",
+        "ID": "1baabce8dad0",
+        "MemPerc": "1.02%",
+        "MemUsage": "79.91MiB / 7.662GiB",
+        "Name": "linkyoh-rabbitmq-1",
+        "NetIO": "943MB / 962MB",
+        "PIDs": "28"
+      },
+      {
+        "BlockIO": "5.03GB / 38.3GB",
+        "CPUPerc": "1.45%",
+        "Container": "109757699aa7",
+        "ID": "109757699aa7",
+        "MemPerc": "0.11%",
+        "MemUsage": "8.438MiB / 7.662GiB",
+        "Name": "wop-redis-1",
+        "NetIO": "17.5GB / 10.8GB",
+        "PIDs": "7"
+      }
+    ]
+  },
+  "passed": false,
+  "minimum_available_ram_bytes": 2200977408,
+  "minimum_disk_free_bytes": 7740551168,
+  "production_mutation": false,
+  "reserve_bytes": 2147483648,
+  "temporary_preflight_ceiling_bytes": 268435456
+}

@@ -1,0 +1,6 @@
+{
+  "containers_unchanged": 25,
+  "old_web_image": "sha256:778630b95827f791a3bc0c69eaf3326a99b400d6187b4bad2d3c859d75ce50fa",
+  "preflight_started": false,
+  "reason": "256 MiB one-off reserve refused"
+}

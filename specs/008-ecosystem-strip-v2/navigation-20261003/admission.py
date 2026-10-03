@@ -3,6 +3,7 @@
 import datetime
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import ops
@@ -74,7 +75,8 @@ print(json.dumps({'before':before,'after':after,'samples':samples,'container_sta
                'minimum_available_ram_bytes': minimum, 'minimum_disk_free_bytes': disk,
                'production_mutation': False, 'reserve_bytes': 2 * 1024**3,
                'temporary_preflight_ceiling_bytes': 256 * 1024**2}
-    path = OUT / 'admission.json'
+    filename = 'admission-post-stage.json' if '--post-stage' in sys.argv else 'admission.json'
+    path = OUT / filename
     with path.open('x') as stream:
         json.dump(receipt, stream, indent=2)
         stream.write('\n')

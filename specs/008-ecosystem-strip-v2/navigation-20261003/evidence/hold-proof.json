@@ -1,0 +1,272 @@
+{
+  "snapshot": {
+    "utc": "2026-10-03T14:18:53.976118+00:00",
+    "containers": {
+      "marketday-web-1": {
+        "id": "babc4f83608e28c9829d031fdd7d694b1490672f9684946a1e6b0c292c7de0dd",
+        "image": "sha256:fddc42a2df1bdbb750bb1a021796aed155440a1a5fe8e3481afa5d9015301c30",
+        "started": "2026-10-03T12:16:20.013663292Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "marketday-maintenance-1": {
+        "id": "6fffcbc70f55f3007d7b25e4df1f93e3bf807065a4dce3e06704b6cdc8635743",
+        "image": "sha256:fddc42a2df1bdbb750bb1a021796aed155440a1a5fe8e3481afa5d9015301c30",
+        "started": "2026-10-03T12:16:20.103387775Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "ecommerce-tenant-web-1": {
+        "id": "c408a4fa0227b6af4770e738aecb37aa1166b0cf0553f5b7e09409bd94c71c39",
+        "image": "sha256:948e8725c37d7389d5966720eb322be9396dca50c1f0620df894c4bbfa054200",
+        "started": "2026-10-03T11:59:22.960702414Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "wop-celery-beat-1": {
+        "id": "00188ecc7595e2a29fb9edd9095ad6360a4eb08cbbd69891526b6dd534081cf2",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "started": "2026-09-27T05:27:36.635699522Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "wop-frontend-1": {
+        "id": "2af14160de3b4214d8d8c8385e949fa776389d848e6676e5bc1e3572feae426f",
+        "image": "sha256:e42ea84f71f9afdd4b6b6aa6dcfe05f52b0b5f435454cd5b6f64416d3f3dae22",
+        "started": "2026-09-27T05:27:29.115496693Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "wop-agent-runtime-worker-1": {
+        "id": "cbe82f8fdc115d21301da9203c998bcb2db5dfcceff4649c2fc3d533cc19e834",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "started": "2026-09-27T05:26:54.231635096Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "wop-celery-1": {
+        "id": "f31867f518d34d453f573403817bf4c7eefdc61d32ec0390db5db33c5ebf326d",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "started": "2026-09-27T05:26:31.087676203Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "wop-api-1": {
+        "id": "b5372dd95651d246ed18c5f3d7a8416674958db442ddb2a33917f2186932baac",
+        "image": "sha256:fce6394824aaebf2e76bbba36d9f1ea138b36849bd7b7d7f2a680355237496fe",
+        "started": "2026-09-27T05:25:59.341153193Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "n8n-n8n-1": {
+        "id": "993020d0f0f019fa0794add9a6ac3f64c58c8e8d08ba4ac5167e8918aa6c86da",
+        "image": "sha256:738daec855e02c6aa502cd4ab99c8f00b6402200d58c9e63b01be8fea438248e",
+        "started": "2026-09-27T01:36:33.196130782Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "linkyoh-web-1": {
+        "id": "7d714a5412baa3750b5e9531f360c038a8bbb18ceecc15953ca985b4fd7a8614",
+        "image": "sha256:778630b95827f791a3bc0c69eaf3326a99b400d6187b4bad2d3c859d75ce50fa",
+        "started": "2026-09-14T18:28:00.895932337Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "chillbout-web-1": {
+        "id": "d256f7cb3c78776de8ba0ad16f2658a63e787f86812915a0625865101cbd9774",
+        "image": "sha256:4f191a3037fd10992e9cea505c6bf0b415ef280d8f08c60fa879e9439d4984b5",
+        "started": "2026-09-14T18:11:29.839451338Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "linkyoh-directory_limits-1": {
+        "id": "cdb3a0b653a8e92d898641428c1e24c6ad2cc226083170fd2649f674fe04e8db",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "started": "2026-09-13T20:04:07.550386388Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "ecommerce-tenant-celery-beat-1": {
+        "id": "7286bb262221a01998867cb66a4f51de5f57f18aa517cf5de28b47c93a4223ab",
+        "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+        "started": "2026-09-13T20:02:21.396382855Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "ecommerce-tenant-celery-1": {
+        "id": "c56870d34d62e3fe7beadaa5b58c758db55f7234cae6a5ae6ac3df0e25ee55a7",
+        "image": "sha256:b7e7d45b2cb39ae981dfec3118e960a13b6ea2c60bc8aeef7e0a3ea2cd034b17",
+        "started": "2026-09-13T20:00:25.870595724Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "rybbit-client": {
+        "id": "d35d96726b167e717cf433cddf64c8388be84db856a422654df08250f8583f54",
+        "image": "sha256:4b32b15ef214d95392df3f13ebd8feaa97b1a17d6f21a51e9d2aa6db6aa52d72",
+        "started": "2026-08-25T19:41:11.665423382Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "rybbit-backend": {
+        "id": "d92befa474cebed63ab69663bff2a696b2560e0189a33266bbaecc05eae52761",
+        "image": "sha256:5548325c5673f5f605c9d9a786911af426cd0ce5561c16ba4c784ef0301cc675",
+        "started": "2026-08-25T19:41:10.963950102Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "rybbit-clickhouse": {
+        "id": "fc53e9829f8b982f64bdcea5e84a9d5f6ca0963e7e39cbfa8c3a03838272d5ec",
+        "image": "sha256:400ba3e942e8175ea44a41f0b745239ffbf424b8af5b343c6cf9dcf0be7141c6",
+        "started": "2026-08-25T19:41:06.844791046Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "rybbit-postgres": {
+        "id": "3e521734cfa75078f4634bfb37e1d5ee0582cd5e0266989fb7454078a2d548a6",
+        "image": "sha256:45a04d02adcf690e908ccaa1bfeceddbd1a7156107f2fca0534ad5c473b7ec59",
+        "started": "2026-08-25T19:41:06.659681438Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "nationalperspective-web-1": {
+        "id": "50f114d68a9d84a083baab8c93e385a4effa4ba92a3ab6cd77ba6709308036a2",
+        "image": "sha256:f5b9914852ab20789a14bb76256317e66dfa4f6b4c567bb5680824dd138e2b11",
+        "started": "2026-08-25T14:05:53.120979716Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "ecommerce-tenant-redis-1": {
+        "id": "9e8f32999aef2e16f961676354fb2c1afdf2266d71abba7a3b1cf44ec54ecb7b",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "started": "2026-08-25T04:08:16.122844844Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "edge-caddy-1": {
+        "id": "d5ce06c2d910335e3b2317fe41c430c801e50d19a8a228be3d283343c930aa69",
+        "image": "sha256:5190456911cee510988a5fb9996188ef866fbcca3235cad19bf05f5f8f33386f",
+        "started": "2026-08-25T19:43:45.525261655Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      },
+      "linkyoh-celery_worker-1": {
+        "id": "e0d93a398eb2f9d8f206c8d15374c61bd3a6e051687fdb0b7db88c9c99f12fd5",
+        "image": "sha256:a9d65fd626e91d88abe340820ac9a0fe1ad81565f1dac86ada934d0470dddd0a",
+        "started": "2026-08-25T02:29:55.620409991Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "linkyoh-celery_beat-1": {
+        "id": "8fd405670459e4c6fa09c78826a0626947aa4a441ffb68553887042ef8899bd6",
+        "image": "sha256:1a0b52b67af705bcdc37294fb81311bc7a3500d26e94382553904ecf8ebd5c24",
+        "started": "2026-08-25T02:29:57.382447879Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "linkyoh-rabbitmq-1": {
+        "id": "1baabce8dad023379fe29f51aa34146b3db7d711f033abdb4c8a8c11d9746e98",
+        "image": "sha256:5f3394787e6c8e30dbe74334e06fca9426943d21dbf1e5abd38b234c5ec1a5cd",
+        "started": "2026-08-25T02:29:56.682096289Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": null
+      },
+      "wop-redis-1": {
+        "id": "109757699aa70269b2be2994eff2ffabc2f6ccbd1f742404fd699b8513cbbde5",
+        "image": "sha256:487efc0616382465781b8fdc3d6d1db449e6fd80ae23bf48432a2da6b6929908",
+        "started": "2026-08-25T02:29:56.818064289Z",
+        "restarts": 0,
+        "status": "running",
+        "oom": false,
+        "health": "healthy"
+      }
+    },
+    "protected": {
+      "/opt/edge/Caddyfile": "41e08c1b1f36621515787cdd8a9b9ef4b57b7113f71b1b23e5189970c97afe7f",
+      "/opt/linkyoh/.env": "9dee222a24397746f0082ce1651235be07fc29079f3b71d0ad97e425bd97e66e",
+      "/opt/linkyoh/docker-compose.aws.yml": "4c548bdd0dd61d70cff3afb200fd0d23e6935dbb796ad4cf72579d61c943bd6a"
+    },
+    "timers": {
+      "chillbout-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+      "ecommerce-tenant-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+      "fstrim.timer": "ActiveState=active\nUnitFileState=enabled",
+      "logrotate.timer": "ActiveState=active\nUnitFileState=enabled",
+      "marketday-credential-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+      "marketday-observer.timer": "ActiveState=active\nUnitFileState=enabled",
+      "n8n-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+      "nationalperspective-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled",
+      "refresh-policy-routes@ens5.timer": "ActiveState=active\nUnitFileState=static",
+      "sysstat-collect.timer": "ActiveState=active\nUnitFileState=enabled",
+      "sysstat-summary.timer": "ActiveState=active\nUnitFileState=enabled",
+      "systemd-tmpfiles-clean.timer": "ActiveState=active\nUnitFileState=static",
+      "update-motd.timer": "ActiveState=active\nUnitFileState=enabled",
+      "wop-rds-secret-refresh.timer": "ActiveState=active\nUnitFileState=enabled"
+    },
+    "timer_unitfiles": "chillbout-secret-refresh.timer               enabled  disabled\nchrony-config.timer                          disabled enabled\ndnf-makecache.timer                          disabled disabled\necommerce-tenant-rds-secret-refresh.timer    enabled  disabled\nfstrim.timer                                 enabled  enabled\nlogrotate.timer                              enabled  enabled\nmarketday-credential-refresh.timer           enabled  disabled\nmarketday-observer.timer                     enabled  disabled\nn8n-rds-secret-refresh.timer                 enabled  disabled\nnationalperspective-rds-secret-refresh.timer enabled  disabled\nrefresh-policy-routes@.timer                 static   -\nsysstat-collect.timer                        enabled  enabled\nsysstat-summary.timer                        enabled  enabled\nsystemd-sysupdate-reboot.timer               disabled disabled\nsystemd-sysupdate.timer                      disabled disabled\nsystemd-tmpfiles-clean.timer                 static   -\nupdate-motd.timer                            enabled  enabled\nwop-rds-secret-refresh.timer                 enabled  disabled",
+    "firewall": "-N DOCKER-USER\n-A DOCKER-USER -m comment --comment marketday-imds-v1 -j MD-IMDS-V1\n-A DOCKER-USER -s 172.20.0.12/32 -d 169.254.169.254/32 -m comment --comment chillbout-imds -j DROP\n-A DOCKER-USER -j RETURN",
+    "marketday_firewall": "-N MD-IMDS-V1\n-A MD-IMDS-V1 -d 169.254.169.254/32 -i br-2b09a92f153e -m mac --mac-source 02:4d:44:00:00:01 -j DROP\n-A MD-IMDS-V1 -d 169.254.169.254/32 -i md-app0 -j DROP\n-A MD-IMDS-V1 -j RETURN",
+    "caddy_peer": "172.20.0.2",
+    "web_aliases": [
+      "linkyoh-web",
+      "linkyoh-web-1",
+      "web"
+    ],
+    "memory": {
+      "MemAvailable": 2201825280,
+      "SwapFree": 1712058368
+    },
+    "disk_free_bytes": 7743803392
+  },
+  "live_source_files": 357,
+  "runtime_unchanged": true,
+  "cutover_started": false,
+  "new_backup_created": false,
+  "existing_containers_preserved": 25
+}

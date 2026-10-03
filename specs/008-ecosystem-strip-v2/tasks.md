@@ -8,8 +8,10 @@
 - [x] Implement locale-aware fixed destination links and regression tests.
 - [x] Test isolated runtime and local EN/ES navigation; verify actual destinations.
 - [x] Commit and build/test exact immutable candidate with unchanged dependencies.
-- [ ] Coordinate fresh shared-host gates, backup and web-only release.
-- [ ] Verify public candidate/neighbors, push and record final owner handoff.
+- [x] Coordinate fresh shared-host gates and stage the immutable candidate.
+- [ ] Complete backup/web-only release after capacity admission recovers (HOLD).
+- [x] Verify unchanged live source/neighbors, push and record capacity handoff.
+- [ ] Verify the public candidate after a successful future switch.
 
 - [x] Read the canonical ledger and published contract; claim Linkyoh only.
 - [x] Specify scope, backward compatibility and deployment boundaries.

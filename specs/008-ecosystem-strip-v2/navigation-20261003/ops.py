@@ -181,8 +181,36 @@ print(json.dumps(after))
                       'disk_free_bytes': data['disk_free_bytes']}))
 
 
+def hold_verify():
+    window()
+    code = '''import json,pathlib,runpy
+r=pathlib.Path(RELEASE)
+controller=runpy.run_path(str(r/'controller.py'))
+after=controller['snapshot']('hold-after.json')
+controller['configuration'](after)
+manifest=json.loads((r/'manifest.json').read_text())
+assert after['containers']['linkyoh-web-1']['image']==manifest['base_image']
+assert all(controller['digest'](pathlib.Path('/opt/linkyoh')/p)==h for p,h in manifest['base'].items())
+assert not (r/'cutover-started.json').exists() and not (r/'backup.tar.gz').exists()
+print(json.dumps({'snapshot':after,'live_source_files':len(manifest['base']),
+  'runtime_unchanged':True,'cutover_started':False,'new_backup_created':False}))
+'''
+    result = remote('RELEASE=' + repr(REMOTE) + '\n' + code)
+    data = json.loads(result)
+    initial = json.loads((EVIDENCE / 'admission.json').read_text())['host']['after']
+    current = data['snapshot']['containers']
+    for name, before in initial.items():
+        after = current[name.lstrip('/')]
+        assert all(after[key] == value for key, value in before.items() if key != 'start')
+        assert after['started'] == before['start']
+    assert len(current) == len(initial)
+    data['existing_containers_preserved'] = len(current)
+    (EVIDENCE / 'hold-proof.json').write_text(json.dumps(data, indent=2) + '\n')
+    print(json.dumps({k: v for k, v in data.items() if k != 'snapshot'}))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=('stage', 'preflight', 'prepare', 'backups', 'deploy', 'archive', 'verify'))
+    parser.add_argument('action', choices=('stage', 'preflight', 'prepare', 'backups', 'deploy', 'archive', 'verify', 'hold_verify'))
     EVIDENCE.mkdir(exist_ok=True)
     globals()[parser.parse_args().action]()
